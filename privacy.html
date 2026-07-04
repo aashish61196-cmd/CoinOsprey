@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- ============ Meta / SEO ============ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — CoinOsprey</title>
+<meta name="description" content="How CoinOsprey collects, uses, and protects your information, including cookies, third-party data services, and your privacy rights and choices.">
+<meta name="keywords" content="coinosprey privacy policy, data collection, cookies policy, privacy rights">
+<meta name="author" content="CoinOsprey">
+<link rel="canonical" href="https://www.coinosprey.com/privacy.html">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacy Policy — CoinOsprey">
+<meta property="og:description" content="How CoinOsprey collects, uses and protects your information.">
+<meta property="og:url" content="https://www.coinosprey.com/privacy.html">
+<meta property="og:site_name" content="CoinOsprey">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Structured data: helps search engines understand the site -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Privacy Policy",
+  "url": "https://www.coinosprey.com/privacy.html",
+  "description": "CoinOsprey's privacy policy covering data collection, cookies, third-party services and user rights.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "CoinOsprey",
+    "url": "https://www.coinosprey.com/"
+  }
+}
+</script>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="%23E3A73B"/><path d="M16 7 L23 22 L16 18 L9 22 Z" fill="%230A0E13"/></svg>" type="image/svg+xml">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Site stylesheet -->
+<style>
+/* ==============================================================
+   CoinOsprey — Premium Glassmorphism Stylesheet
+   --------------------------------------------------------------
+   Concept: an osprey scans dark water at dusk — light from the
+   sky (amber) and the depths (teal/violet) glows up through the
+   surface. Every panel on this page is that "surface": a pane
+   of frosted glass that lets the colour underneath bleed through.
+   ============================================================== */
+
+/* ---------- 1. Design tokens ---------- */
+:root{
+  /* Base surface colours */
+  --bg-deep:      #06090D;   /* page background */
+  --bg-glow-1:    #E3A73B;   /* amber — "sky" light */
+  --bg-glow-2:    #2DD4BF;   /* teal — "water" light  */
+  --bg-glow-3:    #6C63FF;   /* violet — ambient depth */
+
+  /* Glass surface */
+  --glass-bg:     rgba(255,255,255,0.045);
+  --glass-bg-2:   rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-blur:   18px;
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.45);
+
+  /* Text */
+  --text-1: #F3F5F7;   /* headings / primary */
+  --text-2: #A7B0BC;   /* body / secondary */
+  --text-3: #6E7885;   /* captions / muted */
+
+  /* Semantic */
+  --rise: #34D399;
+  --fall: #FB5B5B;
+  --accent: #E3A73B;
+  --accent-2: #2DD4BF;
+
+  /* Radii + spacing rhythm */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --container: 1260px;
+
+  /* Type */
+  --font-display: "Space Grotesk", "Arial Narrow", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+/* ---------- 2. Reset ---------- */
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0;
+  background: var(--bg-deep);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+ul{ list-style: none; margin: 0; padding: 0; }
+button{ font-family: inherit; cursor: pointer; }
+input, select{ font-family: inherit; }
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- 3. Ambient background (the "light through water") ---------- */
+/* Fixed, blurred colour blobs sit behind every glass panel so the
+   blur/transparency actually has something to refract. */
+.bg-mesh{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--bg-deep);
+}
+.bg-mesh span{
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.35;
+  animation: drift 22s ease-in-out infinite;
+}
+.bg-mesh .blob-1{ width: 520px; height: 520px; background: var(--bg-glow-1); top: -120px; left: -80px; }
+.bg-mesh .blob-2{ width: 480px; height: 480px; background: var(--bg-glow-2); top: 30%; right: -140px; animation-delay: -6s; }
+.bg-mesh .blob-3{ width: 460px; height: 460px; background: var(--bg-glow-3); bottom: -160px; left: 22%; animation-delay: -12s; }
+@keyframes drift{
+  0%, 100%{ transform: translate(0,0) scale(1); }
+  50%{ transform: translate(40px,-30px) scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce){
+  .bg-mesh span{ animation: none; }
+}
+
+.container{ max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+.eyebrow{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+h1, h2, h3, h4{
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 .5em;
+  color: var(--text-1);
+}
+p{ color: var(--text-2); margin: 0 0 1em; }
+
+/* ---------- 4. Glass panel — the core reusable surface ---------- */
+.glass{
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  box-shadow: var(--glass-shadow);
+}
+.glass-hover{ transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+.glass-hover:hover{
+  transform: translateY(-4px);
+  border-color: rgba(227,167,59,0.35);
+  background: var(--glass-bg-2);
+}
+
+.section{ padding: 76px 0; }
+.section-head{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.section-head h2{ font-size: clamp(24px, 3vw, 34px); margin: 8px 0 0; }
+.section-head p{ margin: 0; max-width: 46ch; }
+.view-all{
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent-2);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.view-all i{ font-size: 11px; transition: transform .2s ease; }
+.view-all:hover i{ transform: translateX(3px); }
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid transparent;
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.btn-primary{
+  background: linear-gradient(135deg, var(--accent), #f2c168);
+  color: #181104;
+  box-shadow: 0 8px 24px rgba(227,167,59,0.25);
+}
+.btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 12px 30px rgba(227,167,59,0.35); }
+.btn-ghost{
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  color: var(--text-1);
+  backdrop-filter: blur(10px);
+}
+.btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+
+/* ---------- 5. Ticker strip ---------- */
+.ticker-wrap{
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(14px);
+}
+.ticker-wrap .container{
+  display: flex; align-items: center; height: 38px; overflow: hidden;
+}
+.ticker-track{
+  display: flex; gap: 40px; white-space: nowrap;
+  animation: scroll-ticker 34s linear infinite;
+  font-family: var(--font-mono); font-size: 12.5px;
+}
+.ticker-wrap:hover .ticker-track{ animation-play-state: paused; }
+.ticker-item{ display: flex; gap: 8px; align-items: center; color: var(--text-2); }
+.ticker-item .sym{ color: var(--text-1); font-weight: 600; }
+.ticker-item .up{ color: var(--rise); }
+.ticker-item .down{ color: var(--fall); }
+@keyframes scroll-ticker{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+
+/* ---------- 6. Navbar ---------- */
+.navbar{
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(6,9,13,0.55);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid var(--glass-border);
+}
+.navbar .container{
+  display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px;
+}
+.brand{
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 700; font-size: 21px;
+}
+.brand-mark{
+  width: 34px; height: 34px; border-radius: 10px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #06090D; font-size: 16px;
+}
+.nav-links{ display: flex; align-items: center; gap: 28px; font-size: 14.5px; color: var(--text-2); }
+.nav-links a{ display: inline-flex; align-items: center; gap: 6px; }
+.nav-links a i{ font-size: 12px; opacity: .7; }
+.nav-links a:hover{ color: var(--text-1); }
+.nav-actions{ display: flex; align-items: center; gap: 12px; }
+
+.icon-btn{
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  color: var(--text-2);
+  backdrop-filter: blur(10px);
+  transition: color .2s ease, border-color .2s ease;
+}
+.icon-btn:hover{ color: var(--accent); border-color: var(--accent); }
+.nav-toggle{ display: none; }
+
+.search-pop{
+  position: absolute; right: 24px; top: 72px;
+  width: min(420px, 90vw);
+  padding: 10px;
+  display: none;
+  z-index: 210;
+}
+.search-pop.open{ display: block; }
+.search-pop .search-inner{ display: flex; align-items: center; gap: 10px; padding: 8px 14px; }
+.search-pop input{
+  flex: 1; background: transparent; border: none; color: var(--text-1); font-size: 14px;
+}
+.search-pop input:focus{ outline: none; }
+.search-pop i{ color: var(--text-3); }
+
+/* ---------- 7. Hero ---------- */
+.hero{ padding: 92px 0 60px; position: relative; }
+.hero-grid{ display: grid; grid-template-columns: 1.15fr .85fr; gap: 52px; align-items: center; }
+.hero h1{ font-size: clamp(36px, 5vw, 60px); line-height: 1.04; }
+.hero h1 span.accent-text{
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero .lede{ font-size: 17px; max-width: 48ch; margin: 18px 0 30px; }
+.hero-cta{ display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-stats{ display: flex; gap: 28px; margin-top: 40px; flex-wrap: wrap; }
+.hero-stat b{ display: block; font-family: var(--font-display); font-size: 22px; color: var(--text-1); }
+.hero-stat span{ font-size: 12.5px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+
+.hero-card{ padding: 24px; }
+.hero-card .panel-title{
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 12px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--text-3); margin-bottom: 16px;
+}
+.pulse-dot{
+  width: 8px; height: 8px; border-radius: 50%; background: var(--rise);
+  display: inline-block; margin-right: 6px;
+  box-shadow: 0 0 0 0 rgba(52,211,153,.6);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow: 0 0 0 0 rgba(52,211,153,.5); }
+  70%{ box-shadow: 0 0 0 9px rgba(52,211,153,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+}
+.coin-row{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 0; border-top: 1px solid var(--glass-border);
+}
+.coin-row:first-of-type{ border-top: none; }
+.coin-id{ display: flex; align-items: center; gap: 10px; }
+.coin-ico{
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--glass-bg-2); border: 1px solid var(--glass-border);
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+}
+.coin-name{ font-size: 14px; font-weight: 600; color: var(--text-1); }
+.coin-sub{ font-size: 12px; color: var(--text-3); }
+.coin-figures{ text-align: right; }
+.coin-price{ font-family: var(--font-mono); font-size: 14px; color: var(--text-1); }
+.coin-change{ font-family: var(--font-mono); font-size: 12px; }
+.coin-change.up{ color: var(--rise); }
+.coin-change.down{ color: var(--fall); }
+
+/* ---------- 8. Grids & cards ---------- */
+.grid-4{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.grid-3{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+
+.coin-card{ padding: 20px; }
+.coin-card-top{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.coin-card .coin-price{ font-size: 20px; margin: 6px 0 2px; }
+.spark-canvas{ width: 100%; height: 46px; margin-top: 10px; }
+
+.badge{
+  font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 5px; text-transform: uppercase; letter-spacing: .04em;
+}
+.badge.up{ color: var(--rise); background: rgba(52,211,153,0.12); }
+.badge.down{ color: var(--fall); background: rgba(251,91,91,0.12); }
+.badge.neutral{ color: var(--accent-2); background: rgba(45,212,191,0.12); }
+
+/* ---------- 9. Article cards ---------- */
+.article-card{ overflow: hidden; }
+.article-thumb{
+  height: 160px; position: relative;
+  background: linear-gradient(135deg, rgba(227,167,59,0.25), rgba(45,212,191,0.15));
+}
+.article-thumb img{ width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+.article-thumb .tag{
+  position: absolute; left: 14px; top: 14px;
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: #06090D; background: var(--accent); padding: 5px 10px; border-radius: 999px; font-weight: 700;
+}
+.article-body{ padding: 20px; }
+.article-body h3{ font-size: 17px; margin-bottom: 8px; }
+.article-body p{ font-size: 14px; margin-bottom: 12px; }
+.article-meta{ font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); display: flex; gap: 10px; align-items: center; }
+
+/* Compact article row (Latest Articles) */
+.article-row{ display: flex; gap: 16px; padding: 16px; align-items: center; }
+.article-row .thumb-sm{
+  width: 78px; height: 78px; border-radius: var(--r-sm); flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(108,99,255,0.3), rgba(45,212,191,0.2));
+  display: grid; place-items: center; color: var(--accent-2); font-size: 20px;
+}
+.article-row h4{ font-size: 15px; margin: 0 0 6px; font-family: var(--font-body); font-weight: 600; }
+.article-row .article-meta{ margin: 0; }
+
+/* ---------- 10. Prediction cards ---------- */
+.predict-card{ padding: 22px; }
+.predict-head{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.predict-range{ display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px; color: var(--text-3); margin: 14px 0 6px; }
+.predict-bar{ height: 6px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; position: relative; }
+.predict-bar span{ position: absolute; inset: 0; border-radius: 999px; }
+.predict-bar.bull span{ background: linear-gradient(90deg, var(--rise), var(--accent-2)); width: 72%; }
+.predict-bar.bear span{ background: linear-gradient(90deg, var(--fall), var(--accent)); width: 38%; }
+.predict-bar.neutral span{ background: linear-gradient(90deg, var(--accent-2), var(--accent)); width: 54%; }
+
+/* ---------- 11. Market overview stats ---------- */
+.stat-card{ padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.stat-card i{ font-size: 20px; color: var(--accent); }
+.stat-card b{ font-family: var(--font-display); font-size: 26px; color: var(--text-1); }
+.stat-card span{ font-size: 12.5px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .05em; }
+.stat-card .stat-delta{ font-family: var(--font-mono); font-size: 12px; }
+
+/* ---------- 12. Fear & Greed gauge ---------- */
+.fg-wrap{ display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; padding: 32px; }
+.fg-gauge{ position: relative; width: 200px; height: 110px; }
+.fg-gauge svg{ width: 100%; height: 100%; overflow: visible; }
+.fg-needle{ transform-origin: 100px 100px; transition: transform 1s cubic-bezier(.4,1.4,.4,1); }
+.fg-value{ position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); text-align: center; }
+.fg-value b{ font-family: var(--font-display); font-size: 32px; display: block; }
+.fg-value span{ font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; }
+.fg-legend{ display: flex; flex-direction: column; gap: 10px; }
+.fg-legend .fg-row{ display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--text-2); }
+.fg-dot{ width: 10px; height: 10px; border-radius: 50%; }
+
+/* ---------- 13. Newsletter ---------- */
+.newsletter{
+  padding: 48px; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+  position: relative; overflow: hidden;
+}
+.newsletter h3{ font-size: 25px; margin-bottom: 6px; }
+.newsletter p{ max-width: 44ch; margin: 0; }
+.nl-form{ display: flex; gap: 10px; }
+.nl-form input{
+  background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-1);
+  padding: 14px 18px; border-radius: 999px; width: 270px;
+}
+.nl-form input:focus{ outline: none; border-color: var(--accent); }
+
+/* ---------- 14. Footer ---------- */
+footer{ border-top: 1px solid var(--glass-border); padding: 60px 0 26px; margin-top: 20px; }
+.footer-grid{ display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; padding-bottom: 36px; }
+.footer-grid h4{ font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-3); margin-bottom: 16px; }
+.footer-grid a{ display: block; color: var(--text-2); font-size: 14px; padding: 6px 0; }
+.footer-grid a:hover{ color: var(--accent); }
+.footer-about p{ font-size: 14px; max-width: 36ch; }
+.socials{ display: flex; gap: 12px; margin-top: 16px; }
+.footer-bottom{
+  border-top: 1px solid var(--glass-border); padding-top: 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: var(--text-3); flex-wrap: wrap; gap: 10px;
+}
+
+/* ---------- 15. Loading / status ---------- */
+.loading-row{ font-family: var(--font-mono); font-size: 12px; color: var(--text-3); padding: 18px; text-align: center; }
+.status-line{ display: flex; align-items: center; gap: 8px; }
+
+/* ---------- 16. Responsive ---------- */
+@media (max-width: 1080px){
+  .grid-4{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 980px){
+  .hero-grid{ grid-template-columns: 1fr; }
+  .grid-3{ grid-template-columns: repeat(2, 1fr); }
+  .grid-2{ grid-template-columns: 1fr; }
+  .footer-grid{ grid-template-columns: 1fr 1fr; }
+  .fg-wrap{ grid-template-columns: 1fr; justify-items: center; text-align: center; }
+}
+@media (max-width: 720px){
+  .nav-links{
+    position: fixed; inset: 72px 0 0 0; z-index: 190;
+    background: rgba(6,9,13,0.92); backdrop-filter: blur(20px);
+    flex-direction: column; align-items: flex-start; padding: 28px 24px;
+    display: none; gap: 4px; border-top: 1px solid var(--glass-border);
+  }
+  .nav-links.open{ display: flex; }
+  .nav-links a{ padding: 14px 0; font-size: 16px; width: 100%; border-bottom: 1px solid var(--glass-border); }
+  .nav-toggle{ display: grid; }
+  .grid-3, .grid-4{ grid-template-columns: 1fr; }
+  .footer-grid{ grid-template-columns: 1fr; }
+  .newsletter{ flex-direction: column; align-items: flex-start; }
+  .nl-form{ width: 100%; }
+  .nl-form input{ width: 100%; }
+  .section{ padding: 54px 0; }
+  .hero{ padding: 76px 0 44px; }
+}
+
+/* ---------- 17. Legal page additions (privacy / terms) ---------- */
+.legal-hero{ padding: 76px 0 10px; }
+.legal-hero h1{ font-size: clamp(30px, 4vw, 44px); }
+.legal-meta{ display: flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
+.legal-badge{
+  font-family: var(--font-mono); font-size: 12px; color: var(--text-2);
+  padding: 7px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px;
+}
+.legal-badge i{ color: var(--accent-2); }
+
+.legal-layout{ display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: start; }
+.legal-nav{ position: sticky; top: 92px; padding: 22px; }
+.legal-nav h4{ font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--text-3); margin-bottom: 14px; }
+.legal-nav a{ display: block; font-size: 13.5px; color: var(--text-2); padding: 7px 0; border-left: 2px solid transparent; padding-left: 12px; margin-left: -12px; }
+.legal-nav a:hover{ color: var(--text-1); border-left-color: var(--glass-border); }
+.legal-nav a.active{ color: var(--accent); border-left-color: var(--accent); }
+
+.legal-content{ padding: 36px 40px; }
+.legal-section{ padding-top: 30px; margin-top: 30px; border-top: 1px solid var(--glass-border); scroll-margin-top: 90px; }
+.legal-section:first-child{ padding-top: 0; margin-top: 0; border-top: none; }
+.legal-section h2{ font-size: 20px; display: flex; align-items: center; gap: 10px; }
+.legal-section h2 .sec-num{ font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+.legal-section h3{ font-size: 15.5px; margin-top: 20px; }
+.legal-section p{ font-size: 14.5px; }
+.legal-section ul{ margin: 0 0 16px; padding-left: 0; }
+.legal-section ul li{
+  font-size: 14.5px; color: var(--text-2); padding: 6px 0 6px 22px; position: relative;
+}
+.legal-section ul li::before{
+  content: "\\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+  position: absolute; left: 0; top: 8px; font-size: 10px; color: var(--accent-2);
+}
+.legal-section table{ width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 13.5px; }
+.legal-section table th, .legal-section table td{ text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--glass-border); color: var(--text-2); }
+.legal-section table th{ color: var(--text-3); font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; }
+.legal-note{
+  padding: 14px 18px; border-radius: var(--r-sm); background: rgba(227,167,59,0.08);
+  border: 1px solid rgba(227,167,59,0.22); font-size: 13.5px; color: var(--text-2); margin: 16px 0;
+  display: flex; gap: 10px;
+}
+.legal-note i{ color: var(--accent); margin-top: 2px; flex-shrink: 0; }
+
+@media (max-width: 980px){
+  .legal-layout{ grid-template-columns: 1fr; }
+  .legal-nav{ position: static; }
+}
+@media (max-width: 640px){
+  .legal-content{ padding: 26px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Fixed ambient background blobs that show through every glass panel -->
+<div class="bg-mesh" aria-hidden="true">
+  <span class="blob-1"></span>
+  <span class="blob-2"></span>
+  <span class="blob-3"></span>
+</div>
+
+<!-- ================= Live Crypto Ticker ================= -->
+<div class="ticker-wrap" role="marquee" aria-label="Live cryptocurrency price ticker">
+  <div class="container">
+    <div class="ticker-track" data-ticker-track>
+      <span class="ticker-item"><i class="fa-solid fa-spinner fa-spin"></i>&nbsp;Loading live prices…</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Sticky Navbar ================= -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="CoinOsprey home">
+      <span class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></span> CoinOsprey
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a>
+      <a href="prices.html"><i class="fa-solid fa-chart-line"></i> Prices</a>
+      <a href="price-prediction.html"><i class="fa-solid fa-crystal-ball"></i> Predictions</a>
+      <a href="whales.html"><i class="fa-solid fa-water"></i> Whale Tracker</a>
+      <a href="sentiment.html"><i class="fa-solid fa-gauge-high"></i> Fear &amp; Greed</a>
+      <a href="academy.html"><i class="fa-solid fa-graduation-cap"></i> Learn</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" data-search-toggle aria-label="Open search" aria-expanded="false">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="icon-btn nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Search popover -->
+    <div class="glass search-pop" role="search">
+      <div class="search-inner">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search coins, articles, tools…" aria-label="Search CoinOsprey">
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+
+  <!-- ================= Legal Hero ================= -->
+  <section class="hero legal-hero" aria-labelledby="privacy-heading">
+    <div class="container">
+      <p class="eyebrow"><i class="fa-solid fa-shield-halved"></i> LEGAL</p>
+      <h1 id="privacy-heading">Privacy Policy</h1>
+      <p class="lede">This explains what information CoinOsprey collects when you use the site, why we collect it, and the choices you have.</p>
+      <div class="legal-meta">
+        <span class="glass legal-badge"><i class="fa-regular fa-calendar"></i> Last updated: June 1, 2026</span>
+        <span class="glass legal-badge"><i class="fa-solid fa-globe"></i> Applies to coinosprey.com</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Legal layout: TOC + content ================= -->
+  <section class="section" style="padding-top:40px;">
+    <div class="container legal-layout">
+
+      <!-- Sticky table of contents -->
+      <nav class="glass legal-nav" aria-label="Privacy policy sections" id="legal-toc">
+        <h4>On this page</h4>
+        <a href="#overview">1. Overview</a>
+        <a href="#information-we-collect">2. Information we collect</a>
+        <a href="#how-we-use-it">3. How we use information</a>
+        <a href="#cookies">4. Cookies &amp; third parties</a>
+        <a href="#sharing">5. Sharing &amp; disclosure</a>
+        <a href="#retention">6. Data retention</a>
+        <a href="#your-rights">7. Your rights &amp; choices</a>
+        <a href="#children">8. Children's privacy</a>
+        <a href="#international">9. International transfers</a>
+        <a href="#security">10. Security</a>
+        <a href="#changes">11. Changes to this policy</a>
+        <a href="#contact">12. Contact us</a>
+      </nav>
+
+      <!-- Content -->
+      <article class="glass legal-content">
+
+        <div class="legal-section" id="overview">
+          <h2><span class="sec-num">01</span> Overview</h2>
+          <p>CoinOsprey ("we," "us," "our") publishes crypto news, market data and research at coinosprey.com. This policy describes how we handle information from visitors, newsletter subscribers, and anyone who contacts us. It applies to this website and does not cover third-party sites we link to.</p>
+          <div class="legal-note"><i class="fa-solid fa-circle-info"></i> This page is provided for general information about our practices and isn't a substitute for legal advice about your specific situation or jurisdiction.</div>
+        </div>
+
+        <div class="legal-section" id="information-we-collect">
+          <h2><span class="sec-num">02</span> Information we collect</h2>
+          <h3>Information you give us</h3>
+          <ul>
+            <li>Name and email address, if you subscribe to our newsletter or submit the contact form</li>
+            <li>The content of any message you send us, including tips, corrections, or support requests</li>
+            <li>Any information you choose to include in a partnership or press inquiry</li>
+          </ul>
+          <h3>Information collected automatically</h3>
+          <ul>
+            <li>Device and browser type, operating system, and general location inferred from IP address</li>
+            <li>Pages visited, referring pages, and time spent on the site</li>
+            <li>Approximate reading behavior used in aggregate to understand which coverage is most useful</li>
+          </ul>
+        </div>
+
+        <div class="legal-section" id="how-we-use-it">
+          <h2><span class="sec-num">03</span> How we use information</h2>
+          <ul>
+            <li>Operate, maintain and improve the site, including its live price feeds and dashboards</li>
+            <li>Send newsletter issues and respond to messages sent through the contact form</li>
+            <li>Understand aggregate readership trends so we can prioritize coverage</li>
+            <li>Detect, prevent and address technical issues, abuse, or security incidents</li>
+            <li>Comply with legal obligations where applicable</li>
+          </ul>
+          <p>We do not sell personal information to data brokers.</p>
+        </div>
+
+        <div class="legal-section" id="cookies">
+          <h2><span class="sec-num">04</span> Cookies &amp; third-party services</h2>
+          <p>CoinOsprey uses cookies and similar technologies for the purposes below. You can control cookies through your browser settings; disabling some cookies may affect site functionality.</p>
+          <table>
+            <thead><tr><th>Category</th><th>Purpose</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Essential</td><td>Core site functionality</td><td>Remembering menu/search state</td></tr>
+              <tr><td>Analytics</td><td>Understand aggregate traffic and readership</td><td>Page-view and session metrics</td></tr>
+              <tr><td>Market data</td><td>Load live prices and charts</td><td>Requests to public price APIs</td></tr>
+              <tr><td>Advertising</td><td>Measure and serve sponsored placements</td><td>Ad partner cookies, where present</td></tr>
+            </tbody>
+          </table>
+          <p>Live price, market-cap and sentiment data displayed on this site is retrieved from public third-party market-data providers. Those requests are subject to the respective provider's own privacy practices.</p>
+        </div>
+
+        <div class="legal-section" id="sharing">
+          <h2><span class="sec-num">05</span> Sharing &amp; disclosure</h2>
+          <p>We may share information with:</p>
+          <ul>
+            <li>Service providers who help operate the site (hosting, email delivery, analytics)</li>
+            <li>Advertising or sponsorship partners, limited to what's needed to measure a campaign</li>
+            <li>Authorities, where required to comply with a valid legal request</li>
+            <li>A successor entity, in the event of a merger, acquisition, or sale of assets</li>
+          </ul>
+        </div>
+
+        <div class="legal-section" id="retention">
+          <h2><span class="sec-num">06</span> Data retention</h2>
+          <p>We keep newsletter and contact-form information for as long as needed to respond to you and maintain our records, and delete or anonymize it when it's no longer needed for those purposes. Aggregate analytics data may be retained longer since it is not tied to an identifiable person.</p>
+        </div>
+
+        <div class="legal-section" id="your-rights">
+          <h2><span class="sec-num">07</span> Your rights &amp; choices</h2>
+          <p>Depending on where you live, you may have rights to access, correct, delete, or export your personal information, and to object to or restrict certain processing. To exercise any of these, email <span style="font-family:var(--font-mono); color:var(--accent-2);">privacy@coinosprey.com</span> and we'll respond within a reasonable time.</p>
+          <ul>
+            <li>Unsubscribe from the newsletter anytime using the link in any issue</li>
+            <li>Opt out of non-essential cookies through your browser or device settings</li>
+            <li>Ask what information we hold about you and request its deletion</li>
+          </ul>
+        </div>
+
+        <div class="legal-section" id="children">
+          <h2><span class="sec-num">08</span> Children's privacy</h2>
+          <p>CoinOsprey is intended for a general adult audience and is not directed at children. We do not knowingly collect personal information from children. If you believe a child has provided us information, contact us and we'll remove it.</p>
+        </div>
+
+        <div class="legal-section" id="international">
+          <h2><span class="sec-num">09</span> International data transfers</h2>
+          <p>We operate a global site, so information may be processed in countries other than your own, which may have different data protection laws. Where required, we use appropriate safeguards for such transfers.</p>
+        </div>
+
+        <div class="legal-section" id="security">
+          <h2><span class="sec-num">10</span> Security</h2>
+          <p>We use reasonable technical and organizational measures to protect information from unauthorized access, alteration, or loss. No method of transmission or storage is completely secure, and we can't guarantee absolute security.</p>
+        </div>
+
+        <div class="legal-section" id="changes">
+          <h2><span class="sec-num">11</span> Changes to this policy</h2>
+          <p>We may update this policy from time to time. Material changes will be reflected by updating the "Last updated" date at the top of this page. Continued use of the site after changes take effect means you accept the revised policy.</p>
+        </div>
+
+        <div class="legal-section" id="contact">
+          <h2><span class="sec-num">12</span> Contact us</h2>
+          <p>Questions about this policy or your information can be sent to <span style="font-family:var(--font-mono); color:var(--accent-2);">privacy@coinosprey.com</span>, or through our <a href="contact.html" style="color:var(--accent-2);">contact page</a>.</p>
+        </div>
+
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="glass newsletter">
+        <div>
+          <h3>Looking for our Terms &amp; Conditions?</h3>
+          <p>The rules for using the site, our content, and our data are covered separately.</p>
+        </div>
+        <a href="terms.html" class="btn btn-ghost"><i class="fa-solid fa-file-contract"></i> View Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<!-- ================= Footer ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></span> CoinOsprey</a>
+        <p>Independent crypto news and research, read by traders who'd rather watch closely than react late.</p>
+        <div class="socials">
+          <a href="#" class="icon-btn" aria-label="Follow on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="icon-btn" aria-label="Join Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="#" class="icon-btn" aria-label="Subscribe via RSS"><i class="fa-solid fa-rss"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Markets</h4>
+        <a href="news.html">News</a>
+        <a href="prices.html">Prices</a>
+        <a href="price-prediction.html">Predictions</a>
+      </div>
+      <div>
+        <h4>Research</h4>
+        <a href="whales.html">Whale Tracker</a>
+        <a href="sentiment.html">Fear &amp; Greed</a>
+        <a href="airdrops.html">Airdrops</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="academy.html">Crypto Academy</a>
+        <a href="tools.html">Tools &amp; Calculators</a>
+        <a href="events.html">Events Calendar</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CoinOsprey. All rights reserved.</span>
+      <span>Market data via CoinGecko &amp; Alternative.me. Not financial advice.</span>
+    </div>
+  </div>
+</footer>
+<!-- Scripts: api.js must load before app.js -->
+<script>
+/* ==============================================================
+   CoinOsprey — api.js
+   All external data access lives here. Two public, keyless APIs
+   are used:
+     - CoinGecko  → coin prices, market caps, global stats
+     - Alternative.me → Crypto Fear & Greed Index
+   Every function returns { data, live }. If a fetch fails for
+   any reason (offline, CORS, rate limit) we fall back to a
+   realistic static snapshot so the page never breaks or shows
+   an empty state.
+   ============================================================== */
+
+const CoinOspreyAPI = (() => {
+
+  const COINGECKO = "https://api.coingecko.com/api/v3";
+  const FNG_API   = "https://api.alternative.me/fng/?limit=1";
+
+  /* ---- Static fallback snapshot (used only if the live call fails) ---- */
+  const FALLBACK_MARKETS = [
+    { id:"bitcoin", symbol:"btc", name:"Bitcoin", current_price:107452, market_cap:2123000000000, total_volume:38200000000, price_change_percentage_24h:1.82, sparkline_in_7d:{price:[104000,105200,103800,106500,107900,106800,107452]} },
+    { id:"ethereum", symbol:"eth", name:"Ethereum", current_price:3894, market_cap:469000000000, total_volume:19800000000, price_change_percentage_24h:-0.74, sparkline_in_7d:{price:[3980,3950,3870,3910,3860,3900,3894]} },
+    { id:"solana", symbol:"sol", name:"Solana", current_price:198.3, market_cap:96000000000, total_volume:4200000000, price_change_percentage_24h:3.41, sparkline_in_7d:{price:[182,186,190,188,195,201,198.3]} },
+    { id:"ripple", symbol:"xrp", name:"XRP", current_price:2.41, market_cap:139000000000, total_volume:5100000000, price_change_percentage_24h:-1.15, sparkline_in_7d:{price:[2.5,2.47,2.44,2.39,2.42,2.45,2.41]} },
+    { id:"binancecoin", symbol:"bnb", name:"BNB", current_price:712.4, market_cap:103000000000, total_volume:1800000000, price_change_percentage_24h:0.52, sparkline_in_7d:{price:[698,702,705,709,715,710,712.4]} },
+    { id:"dogecoin", symbol:"doge", name:"Dogecoin", current_price:0.221, market_cap:32600000000, total_volume:1650000000, price_change_percentage_24h:5.67, sparkline_in_7d:{price:[0.198,0.203,0.21,0.215,0.219,0.225,0.221]} },
+    { id:"cardano", symbol:"ada", name:"Cardano", current_price:0.812, market_cap:29100000000, total_volume:820000000, price_change_percentage_24h:-2.31, sparkline_in_7d:{price:[0.86,0.85,0.83,0.82,0.80,0.815,0.812]} },
+    { id:"avalanche-2", symbol:"avax", name:"Avalanche", current_price:38.7, market_cap:16000000000, total_volume:610000000, price_change_percentage_24h:2.02, sparkline_in_7d:{price:[35,36,37,36.5,38,39,38.7]} },
+    { id:"tron", symbol:"trx", name:"TRON", current_price:0.298, market_cap:25700000000, total_volume:520000000, price_change_percentage_24h:-3.8, sparkline_in_7d:{price:[0.31,0.305,0.30,0.296,0.293,0.30,0.298]} },
+    { id:"chainlink", symbol:"link", name:"Chainlink", current_price:22.6, market_cap:14400000000, total_volume:410000000, price_change_percentage_24h:4.92, sparkline_in_7d:{price:[20.1,20.8,21.4,21.9,22.2,22.9,22.6]} },
+    { id:"polkadot", symbol:"dot", name:"Polkadot", current_price:6.14, market_cap:9200000000, total_volume:210000000, price_change_percentage_24h:-4.4, sparkline_in_7d:{price:[6.6,6.5,6.4,6.2,6.1,6.05,6.14]} },
+    { id:"shiba-inu", symbol:"shib", name:"Shiba Inu", current_price:0.0000164, market_cap:9600000000, total_volume:190000000, price_change_percentage_24h:6.31, sparkline_in_7d:{price:[0.0000148,0.0000151,0.0000155,0.0000158,0.0000160,0.0000162,0.0000164]} },
+  ];
+
+  const FALLBACK_GLOBAL = {
+    total_market_cap_usd: 3480000000000,
+    total_volume_usd: 142000000000,
+    btc_dominance: 54.2,
+    active_cryptocurrencies: 16842,
+    market_cap_change_24h: 1.4,
+  };
+
+  const FALLBACK_FNG = { value: 68, classification: "Greed" };
+
+  /* ---- Helper: fetch with a timeout so a stalled request never hangs the UI ---- */
+  async function withTimeout(fn, ms = 6000) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ms);
+    try { return await fn(ctrl.signal); }
+    finally { clearTimeout(timer); }
+  }
+
+  /* ---- Top N coins by market cap, with 7d sparkline data ---- */
+  async function getMarkets(limit = 10) {
+    try {
+      const res = await withTimeout((signal) =>
+        fetch(`${COINGECKO}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1&sparkline=true&price_change_percentage=24h`, { signal })
+      );
+      if (!res.ok) throw new Error("bad response");
+      const data = await res.json();
+      if (!Array.isArray(data) || !data.length) throw new Error("empty");
+      return { data, live: true };
+    } catch (err) {
+      return { data: FALLBACK_MARKETS.slice(0, limit), live: false };
+    }
+  }
+
+  /* ---- Global market stats: total cap, volume, BTC dominance ---- */
+  async function getGlobal() {
+    try {
+      const res = await withTimeout((signal) => fetch(`${COINGECKO}/global`, { signal }));
+      if (!res.ok) throw new Error("bad response");
+      const json = await res.json();
+      const d = json.data;
+      return {
+        data: {
+          total_market_cap_usd: d.total_market_cap.usd,
+          total_volume_usd: d.total_volume.usd,
+          btc_dominance: d.market_cap_percentage.btc,
+          active_cryptocurrencies: d.active_cryptocurrencies,
+          market_cap_change_24h: d.market_cap_change_percentage_24h_usd,
+        },
+        live: true,
+      };
+    } catch (err) {
+      return { data: FALLBACK_GLOBAL, live: false };
+    }
+  }
+
+  /* ---- Crypto Fear & Greed Index (alternative.me) ---- */
+  async function getFearGreed() {
+    try {
+      const res = await withTimeout((signal) => fetch(FNG_API, { signal }));
+      if (!res.ok) throw new Error("bad response");
+      const json = await res.json();
+      const item = json.data && json.data[0];
+      if (!item) throw new Error("empty");
+      return { data: { value: Number(item.value), classification: item.value_classification }, live: true };
+    } catch (err) {
+      return { data: FALLBACK_FNG, live: false };
+    }
+  }
+
+  /* ---- Formatting helpers ---- */
+  function formatUSD(n) {
+    if (n == null || isNaN(n)) return "—";
+    if (n >= 1) return "$" + n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    return "$" + n.toLocaleString(undefined, { maximumFractionDigits: 6 });
+  }
+  function formatCompact(n) {
+    if (n == null || isNaN(n)) return "—";
+    return "$" + Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 2 }).format(n);
+  }
+  function formatPct(n) {
+    if (n == null || isNaN(n)) return "—";
+    const sign = n >= 0 ? "+" : "";
+    return `${sign}${n.toFixed(2)}%`;
+  }
+  function formatInt(n) {
+    if (n == null || isNaN(n)) return "—";
+    return Intl.NumberFormat("en").format(n);
+  }
+
+  return {
+    getMarkets, getGlobal, getFearGreed,
+    formatUSD, formatCompact, formatPct, formatInt,
+    FALLBACK_MARKETS,
+  };
+})();
+
+</script>
+<script>
+/* ==============================================================
+   CoinOsprey — app.js
+   Vanilla JS only. Wires up navigation, then fetches live data
+   (via api.js) and renders it into each section of the page.
+   Every render function fails gracefully — api.js already
+   guarantees fallback data, so this file just displays whatever
+   it receives.
+   ============================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  initMobileNav();
+  initSearchPopover();
+  initLegalTOC();
+
+  loadTicker();
+  loadHeroWatchlist();
+  loadTrendingCoins();
+  loadGainersAndLosers();
+  loadMarketOverview();
+  loadFearAndGreed();
+});
+
+/* ---------------------------------------------------------------
+   Navigation
+--------------------------------------------------------------- */
+function initMobileNav() {
+  const toggle = document.querySelector(".nav-toggle");
+  const links = document.querySelector(".nav-links");
+  if (!toggle || !links) return;
+  toggle.addEventListener("click", () => {
+    const isOpen = links.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+}
+
+function initSearchPopover() {
+  const btn = document.querySelector("[data-search-toggle]");
+  const pop = document.querySelector(".search-pop");
+  if (!btn || !pop) return;
+  btn.addEventListener("click", () => pop.classList.toggle("open"));
+  document.addEventListener("click", (e) => {
+    if (!pop.contains(e.target) && !btn.contains(e.target)) {
+      pop.classList.remove("open");
+    }
+  });
+}
+
+/* ---------------------------------------------------------------
+   Legal page — table-of-contents scroll spy
+--------------------------------------------------------------- */
+function initLegalTOC() {
+  const toc = document.querySelector("#legal-toc");
+  if (!toc) return;
+  const links = Array.from(toc.querySelectorAll("a"));
+  const sections = links
+    .map((a) => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  const setActive = (id) => {
+    links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries.filter((e) => e.isIntersecting);
+      if (visible.length) setActive(visible[0].target.id);
+    },
+    { rootMargin: "-90px 0px -70% 0px" }
+  );
+  sections.forEach((sec) => observer.observe(sec));
+}
+
+/* ---------------------------------------------------------------
+   Live Crypto Ticker
+--------------------------------------------------------------- */
+async function loadTicker() {
+  const track = document.querySelector("[data-ticker-track]");
+  if (!track) return;
+  const { data } = await CoinOspreyAPI.getMarkets(10);
+  const html = data.map(renderTickerItem).join("");
+  // duplicate the list once so the CSS scroll loop is seamless
+  track.innerHTML = html + html;
+}
+
+function renderTickerItem(c) {
+  const dir = c.price_change_percentage_24h >= 0 ? "up" : "down";
+  const icon = dir === "up" ? "fa-caret-up" : "fa-caret-down";
+  return `<span class="ticker-item">
+    <span class="sym">${c.symbol.toUpperCase()}</span>
+    <span>${CoinOspreyAPI.formatUSD(c.current_price)}</span>
+    <span class="${dir}"><i class="fa-solid ${icon}"></i> ${CoinOspreyAPI.formatPct(c.price_change_percentage_24h)}</span>
+  </span>`;
+}
+
+/* ---------------------------------------------------------------
+   Hero watchlist (small panel inside the hero banner)
+--------------------------------------------------------------- */
+async function loadHeroWatchlist() {
+  const el = document.querySelector("[data-hero-watchlist]");
+  if (!el) return;
+  const { data } = await CoinOspreyAPI.getMarkets(4);
+  el.innerHTML = data.map(renderCoinRow).join("");
+}
+
+function renderCoinRow(c) {
+  const dir = c.price_change_percentage_24h >= 0 ? "up" : "down";
+  return `<div class="coin-row">
+    <div class="coin-id">
+      <div class="coin-ico">${c.symbol.slice(0, 2).toUpperCase()}</div>
+      <div>
+        <div class="coin-name">${c.name}</div>
+        <div class="coin-sub">${c.symbol.toUpperCase()}</div>
+      </div>
+    </div>
+    <div class="coin-figures">
+      <div class="coin-price">${CoinOspreyAPI.formatUSD(c.current_price)}</div>
+      <div class="coin-change ${dir}">${CoinOspreyAPI.formatPct(c.price_change_percentage_24h)}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------------------------------------------------------------
+   Trending Coins (glass cards + sparkline canvas)
+--------------------------------------------------------------- */
+async function loadTrendingCoins() {
+  const wrap = document.querySelector("[data-trending-grid]");
+  if (!wrap) return;
+  const { data, live } = await CoinOspreyAPI.getMarkets(8);
+  setStatus("[data-market-status]", live);
+
+  wrap.innerHTML = data.map(renderCoinCard).join("");
+  drawAllSparklines();
+}
+
+function renderCoinCard(c) {
+  const dir = c.price_change_percentage_24h >= 0 ? "up" : "down";
+  const points = c.sparkline_in_7d ? c.sparkline_in_7d.price.slice(-24) : [];
+  return `<div class="glass glass-hover coin-card">
+    <div class="coin-card-top">
+      <div class="coin-id">
+        <div class="coin-ico">${c.symbol.slice(0, 2).toUpperCase()}</div>
+        <div>
+          <div class="coin-name">${c.name}</div>
+          <div class="coin-sub">${c.symbol.toUpperCase()}</div>
+        </div>
+      </div>
+      <span class="badge ${dir}">
+        <i class="fa-solid ${dir === "up" ? "fa-arrow-trend-up" : "fa-arrow-trend-down"}"></i>
+        ${CoinOspreyAPI.formatPct(c.price_change_percentage_24h)}
+      </span>
+    </div>
+    <div class="coin-price">${CoinOspreyAPI.formatUSD(c.current_price)}</div>
+    <div class="coin-sub">Cap ${CoinOspreyAPI.formatCompact(c.market_cap)}</div>
+    <canvas class="spark-canvas" data-spark='${JSON.stringify(points)}'></canvas>
+  </div>`;
+}
+
+/* ---------------------------------------------------------------
+   Top Gainers / Top Losers
+   Pulled from the top-50-by-market-cap set, then re-sorted by
+   24h % change — this mirrors how most trackers define "movers"
+   (ignoring illiquid micro-caps).
+--------------------------------------------------------------- */
+async function loadGainersAndLosers() {
+  const gainersEl = document.querySelector("[data-gainers-grid]");
+  const losersEl = document.querySelector("[data-losers-grid]");
+  if (!gainersEl && !losersEl) return;
+
+  const { data } = await CoinOspreyAPI.getMarkets(50);
+  const sorted = [...data].sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h);
+
+  if (gainersEl) gainersEl.innerHTML = sorted.slice(0, 4).map(renderCoinCard).join("");
+  if (losersEl) losersEl.innerHTML = sorted.slice(-4).reverse().map(renderCoinCard).join("");
+
+  drawAllSparklines();
+}
+
+/* ---------------------------------------------------------------
+   Market Overview stat cards
+--------------------------------------------------------------- */
+async function loadMarketOverview() {
+  const wrap = document.querySelector("[data-market-overview]");
+  if (!wrap) return;
+  const { data, live } = await CoinOspreyAPI.getGlobal();
+  setStatus("[data-overview-status]", live);
+
+  const deltaUp = data.market_cap_change_24h >= 0;
+
+  wrap.innerHTML = `
+    <div class="glass stat-card">
+      <i class="fa-solid fa-globe"></i>
+      <b>${CoinOspreyAPI.formatCompact(data.total_market_cap_usd)}</b>
+      <span>Total Market Cap</span>
+      <span class="stat-delta ${deltaUp ? "up" : "down"}" style="color:${deltaUp ? "var(--rise)" : "var(--fall)"}">
+        ${CoinOspreyAPI.formatPct(data.market_cap_change_24h)} (24h)
+      </span>
+    </div>
+    <div class="glass stat-card">
+      <i class="fa-solid fa-chart-column"></i>
+      <b>${CoinOspreyAPI.formatCompact(data.total_volume_usd)}</b>
+      <span>24h Trading Volume</span>
+    </div>
+    <div class="glass stat-card">
+      <i class="fa-brands fa-bitcoin"></i>
+      <b>${data.btc_dominance.toFixed(1)}%</b>
+      <span>BTC Dominance</span>
+    </div>
+    <div class="glass stat-card">
+      <i class="fa-solid fa-coins"></i>
+      <b>${CoinOspreyAPI.formatInt(data.active_cryptocurrencies)}</b>
+      <span>Active Cryptocurrencies</span>
+    </div>
+  `;
+}
+
+/* ---------------------------------------------------------------
+   Fear & Greed gauge (SVG semi-circle + rotated needle)
+--------------------------------------------------------------- */
+async function loadFearAndGreed() {
+  const needle = document.querySelector("[data-fg-needle]");
+  const valueEl = document.querySelector("[data-fg-value]");
+  const labelEl = document.querySelector("[data-fg-label]");
+  if (!needle || !valueEl) return;
+
+  const { data, live } = await CoinOspreyAPI.getFearGreed();
+  setStatus("[data-fg-status]", live);
+
+  // 0 = "Extreme Fear" (needle far left, -90deg) → 100 = "Extreme Greed" (+90deg)
+  const angle = (data.value / 100) * 180 - 90;
+  needle.style.transform = `rotate(${angle}deg)`;
+  valueEl.textContent = data.value;
+  if (labelEl) labelEl.textContent = data.classification;
+}
+
+/* ---------------------------------------------------------------
+   Shared helpers
+--------------------------------------------------------------- */
+function setStatus(selector, live) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+  el.innerHTML = live
+    ? `<span class="pulse-dot"></span> Live data`
+    : `<span class="pulse-dot" style="background:var(--text-3)"></span> Recent snapshot — live feed unavailable`;
+}
+
+function drawAllSparklines() {
+  document.querySelectorAll(".spark-canvas").forEach((canvas) => {
+    if (canvas.dataset.drawn) return; // avoid redrawing already-rendered charts
+    const points = JSON.parse(canvas.dataset.spark || "[]");
+    if (!points.length) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth || 200;
+    const h = canvas.clientHeight || 46;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    const min = Math.min(...points);
+    const max = Math.max(...points);
+    const range = max - min || 1;
+    const rising = points[points.length - 1] >= points[0];
+
+    // filled area under the line, tinted to match direction
+    ctx.beginPath();
+    points.forEach((p, i) => {
+      const x = (i / (points.length - 1)) * w;
+      const y = h - ((p - min) / range) * (h - 6) - 3;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.lineTo(w, h);
+    ctx.lineTo(0, h);
+    ctx.closePath();
+    ctx.fillStyle = rising ? "rgba(52,211,153,0.12)" : "rgba(251,91,91,0.12)";
+    ctx.fill();
+
+    // the line itself
+    ctx.beginPath();
+    points.forEach((p, i) => {
+      const x = (i / (points.length - 1)) * w;
+      const y = h - ((p - min) / range) * (h - 6) - 3;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = rising ? "#34D399" : "#FB5B5B";
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+
+    canvas.dataset.drawn = "true";
+  });
+}
+
+</script>
+</body>
+</html>

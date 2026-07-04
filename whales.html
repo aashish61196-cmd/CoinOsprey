@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- ============ Meta / SEO ============ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Whale Tracker — Large Wallet &amp; Exchange Flows | CoinOsprey</title>
+<meta name="description" content="Track large crypto transfers across Bitcoin, Ethereum and top altcoins — exchange inflows, outflows and wallet-to-wallet moves, filterable by coin and transaction size.">
+<meta name="keywords" content="crypto whale tracker, whale alert, exchange inflow outflow, large bitcoin transactions, on-chain data">
+<meta name="author" content="CoinOsprey">
+<link rel="canonical" href="https://www.coinosprey.com/whales.html">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Crypto Whale Tracker — CoinOsprey">
+<meta property="og:description" content="Large wallet and exchange flows across the top cryptocurrencies, filterable by coin and transaction size.">
+<meta property="og:url" content="https://www.coinosprey.com/whales.html">
+<meta property="og:site_name" content="CoinOsprey">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a crypto whale?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A whale is a wallet or entity holding enough of a cryptocurrency that its trades can noticeably move the market, typically moving transactions worth $500,000 or more." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does exchange inflow or outflow matter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Coins moving onto an exchange often signal an intent to sell, while coins moving off an exchange into private custody often signal accumulation, so large flows are watched as a sentiment indicator." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this a real-time on-chain feed?",
+      "acceptedAnswer": { "@type": "Answer", "text": "This page displays a simulated illustrative feed for demonstration. Connecting a live on-chain data provider would replace it with real transfer data." }
+    }
+  ]
+}
+</script>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="%23E3A73B"/><path d="M16 7 L23 22 L16 18 L9 22 Z" fill="%230A0E13"/></svg>" type="image/svg+xml">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Site stylesheet -->
+<style>
+/* ==============================================================
+   CoinOsprey — Premium Glassmorphism Stylesheet
+   (identical design system to the homepage/predictions page)
+   ============================================================== */
+
+/* ---------- 1. Design tokens ---------- */
+:root{
+  --bg-deep:      #06090D;
+  --bg-glow-1:    #E3A73B;
+  --bg-glow-2:    #2DD4BF;
+  --bg-glow-3:    #6C63FF;
+
+  --glass-bg:     rgba(255,255,255,0.045);
+  --glass-bg-2:   rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-blur:   18px;
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.45);
+
+  --text-1: #F3F5F7;
+  --text-2: #A7B0BC;
+  --text-3: #6E7885;
+
+  --rise: #34D399;
+  --fall: #FB5B5B;
+  --accent: #E3A73B;
+  --accent-2: #2DD4BF;
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --container: 1260px;
+
+  --font-display: "Space Grotesk", "Arial Narrow", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+/* ---------- 2. Reset ---------- */
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0;
+  background: var(--bg-deep);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+ul{ list-style: none; margin: 0; padding: 0; }
+button{ font-family: inherit; cursor: pointer; }
+input, select{ font-family: inherit; }
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- 3. Ambient background ---------- */
+.bg-mesh{ position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-deep); }
+.bg-mesh span{ position: absolute; border-radius: 50%; filter: blur(110px); opacity: 0.35; animation: drift 22s ease-in-out infinite; }
+.bg-mesh .blob-1{ width: 520px; height: 520px; background: var(--bg-glow-1); top: -120px; left: -80px; }
+.bg-mesh .blob-2{ width: 480px; height: 480px; background: var(--bg-glow-2); top: 30%; right: -140px; animation-delay: -6s; }
+.bg-mesh .blob-3{ width: 460px; height: 460px; background: var(--bg-glow-3); bottom: -160px; left: 22%; animation-delay: -12s; }
+@keyframes drift{ 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(40px,-30px) scale(1.08); } }
+@media (prefers-reduced-motion: reduce){ .bg-mesh span{ animation: none; } }
+
+.container{ max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+.eyebrow{
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); display: inline-flex; align-items: center; gap: 8px;
+}
+h1, h2, h3, h4{ font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; margin: 0 0 .5em; color: var(--text-1); }
+p{ color: var(--text-2); margin: 0 0 1em; }
+
+/* ---------- 4. Glass panel ---------- */
+.glass{
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--r-md);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  box-shadow: var(--glass-shadow);
+}
+.glass-hover{ transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+.glass-hover:hover{ transform: translateY(-4px); border-color: rgba(227,167,59,0.35); background: var(--glass-bg-2); }
+
+.section{ padding: 76px 0; }
+.section-head{ display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.section-head h2{ font-size: clamp(24px, 3vw, 34px); margin: 8px 0 0; }
+.section-head p{ margin: 0; max-width: 46ch; }
+
+.btn{ display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px; border-radius: 999px; font-weight: 600; font-size: 14px; border: 1px solid transparent; transition: transform .15s ease, box-shadow .2s ease; }
+.btn-primary{ background: linear-gradient(135deg, var(--accent), #f2c168); color: #181104; box-shadow: 0 8px 24px rgba(227,167,59,0.25); }
+.btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 12px 30px rgba(227,167,59,0.35); }
+
+/* ---------- 5. Ticker strip ---------- */
+.ticker-wrap{ border-bottom: 1px solid var(--glass-border); background: rgba(255,255,255,0.02); backdrop-filter: blur(14px); }
+.ticker-wrap .container{ display: flex; align-items: center; height: 38px; overflow: hidden; }
+.ticker-track{ display: flex; gap: 40px; white-space: nowrap; animation: scroll-ticker 34s linear infinite; font-family: var(--font-mono); font-size: 12.5px; }
+.ticker-wrap:hover .ticker-track{ animation-play-state: paused; }
+.ticker-item{ display: flex; gap: 8px; align-items: center; color: var(--text-2); }
+.ticker-item .sym{ color: var(--text-1); font-weight: 600; }
+.ticker-item .up{ color: var(--rise); }
+.ticker-item .down{ color: var(--fall); }
+@keyframes scroll-ticker{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+
+/* ---------- 6. Navbar ---------- */
+.navbar{ position: sticky; top: 0; z-index: 200; background: rgba(6,9,13,0.55); backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%); border-bottom: 1px solid var(--glass-border); }
+.navbar .container{ display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.brand{ display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 21px; }
+.brand-mark{ width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06090D; font-size: 16px; }
+.nav-links{ display: flex; align-items: center; gap: 28px; font-size: 14.5px; color: var(--text-2); }
+.nav-links a{ display: inline-flex; align-items: center; gap: 6px; }
+.nav-links a i{ font-size: 12px; opacity: .7; }
+.nav-links a:hover{ color: var(--text-1); }
+.nav-links a.active{ color: var(--accent); }
+.nav-actions{ display: flex; align-items: center; gap: 12px; }
+
+.icon-btn{ width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-2); backdrop-filter: blur(10px); transition: color .2s ease, border-color .2s ease; }
+.icon-btn:hover{ color: var(--accent); border-color: var(--accent); }
+.nav-toggle{ display: none; }
+
+.search-pop{ position: absolute; right: 24px; top: 72px; width: min(420px, 90vw); padding: 10px; display: none; z-index: 210; }
+.search-pop.open{ display: block; }
+.search-pop .search-inner{ display: flex; align-items: center; gap: 10px; padding: 8px 14px; }
+.search-pop input{ flex: 1; background: transparent; border: none; color: var(--text-1); font-size: 14px; }
+.search-pop input:focus{ outline: none; }
+.search-pop i{ color: var(--text-3); }
+
+/* ---------- 7. Badges / grids (shared) ---------- */
+.badge{ font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; text-transform: uppercase; letter-spacing: .04em; }
+.badge.up{ color: var(--rise); background: rgba(52,211,153,0.12); }
+.badge.down{ color: var(--fall); background: rgba(251,91,91,0.12); }
+.badge.neutral{ color: var(--accent-2); background: rgba(45,212,191,0.12); }
+.grid-4{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.grid-3{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+/* ---------- 8. Stat cards ---------- */
+.stat-card{ padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.stat-card i{ font-size: 20px; color: var(--accent); }
+.stat-card b{ font-family: var(--font-display); font-size: 26px; color: var(--text-1); }
+.stat-card span{ font-size: 12.5px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .05em; }
+
+/* ---------- 9. Page hero ---------- */
+.page-hero{ padding: 60px 0 20px; }
+.page-hero h1{ font-size: clamp(32px, 4.4vw, 48px); max-width: 20ch; }
+.page-hero .lede{ font-size: 16.5px; max-width: 62ch; }
+.disclaimer-chip{
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 6px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--text-3);
+  border: 1px dashed var(--glass-border); border-radius: 999px; padding: 8px 16px;
+}
+.disclaimer-chip i{ color: var(--accent); }
+
+/* ---------- 10. Controls: coin chips + threshold ---------- */
+.whale-controls{ display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin: 34px 0 26px; }
+.coin-chips{ display: inline-flex; gap: 6px; padding: 6px; flex-wrap: wrap; }
+.coin-chip{
+  font-family: var(--font-mono); font-size: 12.5px; padding: 9px 16px; border-radius: 999px;
+  color: var(--text-2); background: transparent; border: none; transition: color .2s ease, background .2s ease;
+}
+.coin-chip:hover{ color: var(--text-1); }
+.coin-chip.active{ color: #181104; background: linear-gradient(135deg, var(--accent), #f2c168); font-weight: 600; }
+.threshold-select{
+  background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-1);
+  padding: 12px 16px; border-radius: 999px; font-size: 13.5px; font-family: var(--font-mono);
+}
+.threshold-select:focus{ outline: none; border-color: var(--accent); }
+
+/* ---------- 11. Whale feed ---------- */
+.whale-feed{ padding: 10px; }
+.whale-row{
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 14px; border-bottom: 1px solid var(--glass-border); flex-wrap: wrap;
+}
+.whale-row:last-child{ border-bottom: none; }
+.whale-left{ display: flex; align-items: center; gap: 14px; min-width: 0; }
+.whale-icon{
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center; font-size: 15px;
+  background: var(--glass-bg-2); border: 1px solid var(--glass-border);
+}
+.whale-icon.inflow{ color: var(--fall); }
+.whale-icon.outflow{ color: var(--rise); }
+.whale-icon.transfer{ color: var(--accent-2); }
+.whale-meta{ min-width: 0; }
+.whale-coin{ font-size: 14px; font-weight: 600; color: var(--text-1); }
+.wallet-flow{ font-family: var(--font-mono); font-size: 12px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.whale-right{ text-align: right; flex-shrink: 0; }
+.whale-amount{ font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--text-1); }
+.whale-coin-amt{ font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+.whale-time{ font-family: var(--font-mono); font-size: 11px; color: var(--text-3); margin-top: 4px; }
+.whale-row.whale-new{ animation: whaleFlash 1.6s ease; }
+@keyframes whaleFlash{
+  0%{ background: rgba(227,167,59,0.14); }
+  100%{ background: transparent; }
+}
+.no-results{ font-family: var(--font-mono); font-size: 13px; color: var(--text-3); padding: 30px; text-align: center; }
+.loading-row{ font-family: var(--font-mono); font-size: 12px; color: var(--text-3); padding: 18px; text-align: center; }
+.status-line{ display: flex; align-items: center; gap: 8px; }
+.pulse-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--rise); display: inline-block; margin-right: 6px; animation: pulse 2s infinite; }
+@keyframes pulse{ 0%{ box-shadow: 0 0 0 0 rgba(52,211,153,.5); } 70%{ box-shadow: 0 0 0 9px rgba(52,211,153,0); } 100%{ box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
+
+/* ---------- 12. Explainer cards ---------- */
+.method-card{ padding: 26px; }
+.method-card i{ font-size: 20px; margin-bottom: 10px; display: block; }
+.method-card.inflow i{ color: var(--fall); }
+.method-card.outflow i{ color: var(--rise); }
+.method-card.transfer i{ color: var(--accent-2); }
+.method-card h3{ font-size: 17px; }
+.method-card p{ font-size: 13.5px; margin-bottom: 0; }
+
+/* ---------- 13. FAQ accordion ---------- */
+.faq-item{ padding: 0; overflow: hidden; margin-bottom: 12px; }
+.faq-q{
+  width: 100%; text-align: left; background: none; border: none; color: var(--text-1);
+  padding: 20px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font-size: 15px; font-weight: 600; font-family: var(--font-body);
+}
+.faq-q i{ color: var(--accent); transition: transform .25s ease; flex-shrink: 0; }
+.faq-item.open .faq-q i{ transform: rotate(45deg); }
+.faq-a{ max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+.faq-a p{ padding: 0 22px 20px; font-size: 14px; margin: 0; }
+.faq-item.open .faq-a{ max-height: 220px; }
+
+/* ---------- 14. Newsletter ---------- */
+.newsletter{ padding: 48px; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; position: relative; overflow: hidden; }
+.newsletter h3{ font-size: 25px; margin-bottom: 6px; }
+.newsletter p{ max-width: 44ch; margin: 0; }
+.nl-form{ display: flex; gap: 10px; }
+.nl-form input{ background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-1); padding: 14px 18px; border-radius: 999px; width: 270px; }
+.nl-form input:focus{ outline: none; border-color: var(--accent); }
+
+/* ---------- 15. Footer ---------- */
+footer{ border-top: 1px solid var(--glass-border); padding: 60px 0 26px; margin-top: 20px; }
+.footer-grid{ display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; padding-bottom: 36px; }
+.footer-grid h4{ font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-3); margin-bottom: 16px; }
+.footer-grid a{ display: block; color: var(--text-2); font-size: 14px; padding: 6px 0; }
+.footer-grid a:hover{ color: var(--accent); }
+.footer-about p{ font-size: 14px; max-width: 36ch; }
+.socials{ display: flex; gap: 12px; margin-top: 16px; }
+.footer-bottom{ border-top: 1px solid var(--glass-border); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-3); flex-wrap: wrap; gap: 10px; }
+
+/* ---------- 16. Responsive ---------- */
+@media (max-width: 1080px){ .grid-4{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 980px){
+  .grid-3{ grid-template-columns: repeat(2, 1fr); }
+  .footer-grid{ grid-template-columns: 1fr 1fr; }
+  .whale-controls{ flex-direction: column; align-items: flex-start; }
+  .whale-right{ text-align: left; margin-left: 54px; }
+}
+@media (max-width: 720px){
+  .nav-links{ position: fixed; inset: 72px 0 0 0; z-index: 190; background: rgba(6,9,13,0.92); backdrop-filter: blur(20px); flex-direction: column; align-items: flex-start; padding: 28px 24px; display: none; gap: 4px; border-top: 1px solid var(--glass-border); }
+  .nav-links.open{ display: flex; }
+  .nav-links a{ padding: 14px 0; font-size: 16px; width: 100%; border-bottom: 1px solid var(--glass-border); }
+  .nav-toggle{ display: grid; }
+  .grid-3, .grid-4{ grid-template-columns: 1fr; }
+  .footer-grid{ grid-template-columns: 1fr; }
+  .newsletter{ flex-direction: column; align-items: flex-start; }
+  .nl-form{ width: 100%; }
+  .nl-form input{ width: 100%; }
+  .section{ padding: 54px 0; }
+  .coin-chips{ width: 100%; }
+  .whale-row{ align-items: flex-start; }
+  .whale-right{ margin-left: 0; text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- Fixed ambient background blobs -->
+<div class="bg-mesh" aria-hidden="true">
+  <span class="blob-1"></span>
+  <span class="blob-2"></span>
+  <span class="blob-3"></span>
+</div>
+
+<!-- ================= Live Crypto Ticker ================= -->
+<div class="ticker-wrap" role="marquee" aria-label="Live cryptocurrency price ticker">
+  <div class="container">
+    <div class="ticker-track" data-ticker-track>
+      <span class="ticker-item"><i class="fa-solid fa-spinner fa-spin"></i>&nbsp;Loading live prices…</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Sticky Navbar ================= -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="CoinOsprey home">
+      <span class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></span> CoinOsprey
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a>
+      <a href="prices.html"><i class="fa-solid fa-chart-line"></i> Prices</a>
+      <a href="price-prediction.html"><i class="fa-solid fa-crystal-ball"></i> Predictions</a>
+      <a href="whales.html" class="active" aria-current="page"><i class="fa-solid fa-water"></i> Whale Tracker</a>
+      <a href="sentiment.html"><i class="fa-solid fa-gauge-high"></i> Fear &amp; Greed</a>
+      <a href="academy.html"><i class="fa-solid fa-graduation-cap"></i> Learn</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" data-search-toggle aria-label="Open search" aria-expanded="false">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="icon-btn nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Search popover -->
+    <div class="glass search-pop" role="search">
+      <div class="search-inner">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search coins, articles, tools…" aria-label="Search CoinOsprey">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= Page Hero ================= -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><i class="fa-solid fa-water"></i> On-chain monitoring</p>
+      <h1>Follow the money before the headlines do</h1>
+      <p class="lede">Large exchange inflows, outflows and wallet-to-wallet transfers across the top cryptocurrencies — filterable by coin and transaction size.</p>
+      <span class="disclaimer-chip"><i class="fa-solid fa-triangle-exclamation"></i> Simulated illustrative feed — not a live on-chain data source</span>
+    </div>
+  </section>
+
+  <!-- ================= Stats Overview ================= -->
+  <section class="section" style="padding-bottom:0;" aria-labelledby="stats-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow status-line" data-feed-status><i class="fa-solid fa-spinner fa-spin"></i> Loading…</p>
+          <h2 id="stats-heading">Session Overview</h2>
+        </div>
+      </div>
+      <div class="grid-4" data-whale-stats>
+        <div class="glass loading-row">Aggregating transfers…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Live Feed ================= -->
+  <section class="section" aria-labelledby="feed-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 id="feed-heading">Live Transfer Feed</h2>
+          <p>New transfers append automatically. Filter by coin or minimum size below.</p>
+        </div>
+      </div>
+
+      <div class="whale-controls">
+        <div class="glass coin-chips" role="tablist" aria-label="Filter by coin">
+          <button class="coin-chip active" data-coin="all">All</button>
+          <button class="coin-chip" data-coin="btc">BTC</button>
+          <button class="coin-chip" data-coin="eth">ETH</button>
+          <button class="coin-chip" data-coin="sol">SOL</button>
+          <button class="coin-chip" data-coin="xrp">XRP</button>
+          <button class="coin-chip" data-coin="bnb">BNB</button>
+        </div>
+        <select class="threshold-select" data-threshold aria-label="Minimum transaction size">
+          <option value="0">Any size</option>
+          <option value="1000000" selected>$1M+</option>
+          <option value="5000000">$5M+</option>
+          <option value="10000000">$10M+</option>
+          <option value="25000000">$25M+</option>
+        </select>
+      </div>
+
+      <div class="glass whale-feed" data-whale-feed>
+        <div class="loading-row">Connecting to the feed…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Explainer ================= -->
+  <section class="section" style="padding-top:0;" aria-labelledby="explainer-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-solid fa-diagram-project"></i> Reading the feed</p>
+          <h2 id="explainer-heading">What each move usually means</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="glass method-card inflow">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <h3>Exchange Inflow</h3>
+          <p>Coins moving onto an exchange from a private wallet. Often read as a precursor to selling, since coins usually need to be on an exchange to be sold.</p>
+        </div>
+        <div class="glass method-card outflow">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <h3>Exchange Outflow</h3>
+          <p>Coins moving off an exchange into private custody. Often read as accumulation or a shift toward longer-term holding.</p>
+        </div>
+        <div class="glass method-card transfer">
+          <i class="fa-solid fa-right-left"></i>
+          <h3>Wallet-to-Wallet Transfer</h3>
+          <p>Coins moving between two private wallets with no exchange involved — could be custody changes, OTC settlement, or internal reshuffling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section" style="padding-top:0;" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-regular fa-circle-question"></i> FAQ</p>
+          <h2 id="faq-heading">Common questions</h2>
+        </div>
+      </div>
+      <div style="max-width:760px;">
+        <div class="glass faq-item">
+          <button class="faq-q" aria-expanded="false">What is a crypto whale? <i class="fa-solid fa-plus"></i></button>
+          <div class="faq-a"><p>A whale is a wallet or entity holding enough of a cryptocurrency that its trades can noticeably move the market — transfers of $500,000 or more are commonly used as the threshold.</p></div>
+        </div>
+        <div class="glass faq-item">
+          <button class="faq-q" aria-expanded="false">Why does exchange inflow or outflow matter? <i class="fa-solid fa-plus"></i></button>
+          <div class="faq-a"><p>Coins moving onto an exchange often signal an intent to sell, while coins moving into private custody often signal accumulation, so large flows are watched as a sentiment indicator rather than a guaranteed outcome.</p></div>
+        </div>
+        <div class="glass faq-item">
+          <button class="faq-q" aria-expanded="false">Is this a real-time on-chain feed? <i class="fa-solid fa-plus"></i></button>
+          <div class="faq-a"><p>This page displays a simulated, illustrative feed for demonstration purposes. Wiring it to a real provider (such as an on-chain data API) would replace it with genuine live transfers.</p></div>
+        </div>
+        <div class="glass faq-item">
+          <button class="faq-q" aria-expanded="false">Can I filter by coin or transaction size? <i class="fa-solid fa-plus"></i></button>
+          <div class="faq-a"><p>Yes — use the coin chips and the minimum-size dropdown above the feed to narrow it down to what matters to you.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Newsletter ================= -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="glass newsletter">
+        <div>
+          <h3><i class="fa-regular fa-envelope"></i> Get the daily briefing</h3>
+          <p>One email, every morning — the moves that mattered and why. No hype, no noise.</p>
+        </div>
+        <form class="nl-form" onsubmit="event.preventDefault(); this.querySelector('button').innerHTML='<i class=\'fa-solid fa-check\'></i> Subscribed';">
+          <input type="email" required placeholder="you@email.com" aria-label="Email address">
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= Footer ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></span> CoinOsprey</a>
+        <p>Independent crypto news and research, read by traders who'd rather watch closely than react late.</p>
+        <div class="socials">
+          <a href="#" class="icon-btn" aria-label="Follow on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="icon-btn" aria-label="Join Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="#" class="icon-btn" aria-label="Subscribe via RSS"><i class="fa-solid fa-rss"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Markets</h4>
+        <a href="news.html">News</a>
+        <a href="prices.html">Prices</a>
+        <a href="price-prediction.html">Predictions</a>
+      </div>
+      <div>
+        <h4>Research</h4>
+        <a href="whales.html">Whale Tracker</a>
+        <a href="sentiment.html">Fear &amp; Greed</a>
+        <a href="airdrops.html">Airdrops</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="academy.html">Crypto Academy</a>
+        <a href="tools.html">Tools &amp; Calculators</a>
+        <a href="events.html">Events Calendar</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CoinOsprey. All rights reserved.</span>
+      <span>Transfer feed is a simulated illustration. Market data via CoinGecko.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts: api.js must load before app.js -->
+<script>
+/* ==============================================================
+   CoinOsprey — api.js  (identical to the homepage copy)
+   ============================================================== */
+const CoinOspreyAPI = (() => {
+
+  const COINGECKO = "https://api.coingecko.com/api/v3";
+
+  const FALLBACK_MARKETS = [
+    { id:"bitcoin", symbol:"btc", name:"Bitcoin", current_price:107452, market_cap:2123000000000, total_volume:38200000000, price_change_percentage_24h:1.82 },
+    { id:"ethereum", symbol:"eth", name:"Ethereum", current_price:3894, market_cap:469000000000, total_volume:19800000000, price_change_percentage_24h:-0.74 },
+    { id:"solana", symbol:"sol", name:"Solana", current_price:198.3, market_cap:96000000000, total_volume:4200000000, price_change_percentage_24h:3.41 },
+    { id:"ripple", symbol:"xrp", name:"XRP", current_price:2.41, market_cap:139000000000, total_volume:5100000000, price_change_percentage_24h:-1.15 },
+    { id:"binancecoin", symbol:"bnb", name:"BNB", current_price:712.4, market_cap:103000000000, total_volume:1800000000, price_change_percentage_24h:0.52 },
+  ];
+
+  async function withTimeout(fn, ms = 6000) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ms);
+    try { return await fn(ctrl.signal); }
+    finally { clearTimeout(timer); }
+  }
+
+  async function getMarkets(limit = 10) {
+    try {
+      const res = await withTimeout((signal) =>
+        fetch(`${COINGECKO}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1&price_change_percentage=24h`, { signal })
+      );
+      if (!res.ok) throw new Error("bad response");
+      const data = await res.json();
+      if (!Array.isArray(data) || !data.length) throw new Error("empty");
+      return { data, live: true };
+    } catch (err) {
+      return { data: FALLBACK_MARKETS.slice(0, limit), live: false };
+    }
+  }
+
+  function formatUSD(n) {
+    if (n == null || isNaN(n)) return "—";
+    if (n >= 1) return "$" + n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    return "$" + n.toLocaleString(undefined, { maximumFractionDigits: 6 });
+  }
+  function formatCompact(n) {
+    if (n == null || isNaN(n)) return "—";
+    return "$" + Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 2 }).format(n);
+  }
+
+  return { getMarkets, formatUSD, formatCompact, FALLBACK_MARKETS };
+})();
+</script>
+<script>
+/* ==============================================================
+   CoinOsprey — whales.js
+   Page-specific logic: renders a simulated, clearly-labeled
+   whale-transfer feed, with coin/threshold filtering and live
+   stat aggregation. Prices are real (via api.js); the transfer
+   events themselves are generated client-side for demonstration.
+   ============================================================== */
+
+let COINS = [];
+let FEED = [];
+let ACTIVE_COIN = "all";
+let ACTIVE_THRESHOLD = 1000000;
+let MINUTES_AGO_COUNTER = 2;
+
+const EXCHANGES = ["Binance", "Coinbase", "Kraken", "OKX", "Bybit", "Upbit"];
+const WALLET_LABEL = "Unknown Wallet";
+
+document.addEventListener("DOMContentLoaded", async () => {
+  initMobileNav();
+  initSearchPopover();
+  initFaqAccordion();
+  initCoinChips();
+  initThresholdSelect();
+
+  loadTicker();
+
+  const { data, live } = await CoinOspreyAPI.getMarkets(5);
+  COINS = data;
+  setStatus("[data-feed-status]", live);
+
+  seedInitialFeed();
+  renderFeed();
+  renderStats();
+
+  setInterval(() => {
+    FEED.unshift(generateTransaction("Just now"));
+    ageFeedTimestamps();
+    if (FEED.length > 50) FEED.length = 50;
+    renderFeed(true);
+    renderStats();
+  }, 5000);
+});
+
+/* ---------------- Navigation ---------------- */
+function initMobileNav() {
+  const toggle = document.querySelector(".nav-toggle");
+  const links = document.querySelector(".nav-links");
+  if (!toggle || !links) return;
+  toggle.addEventListener("click", () => {
+    const isOpen = links.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+}
+function initSearchPopover() {
+  const btn = document.querySelector("[data-search-toggle]");
+  const pop = document.querySelector(".search-pop");
+  if (!btn || !pop) return;
+  btn.addEventListener("click", () => pop.classList.toggle("open"));
+  document.addEventListener("click", (e) => {
+    if (!pop.contains(e.target) && !btn.contains(e.target)) pop.classList.remove("open");
+  });
+}
+function initFaqAccordion() {
+  document.querySelectorAll(".faq-item").forEach((item) => {
+    const btn = item.querySelector(".faq-q");
+    btn.addEventListener("click", () => {
+      const isOpen = item.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(isOpen));
+    });
+  });
+}
+function initCoinChips() {
+  document.querySelectorAll(".coin-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll(".coin-chip").forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+      ACTIVE_COIN = chip.dataset.coin;
+      renderFeed();
+    });
+  });
+}
+function initThresholdSelect() {
+  const sel = document.querySelector("[data-threshold]");
+  if (!sel) return;
+  sel.addEventListener("change", () => {
+    ACTIVE_THRESHOLD = Number(sel.value);
+    renderFeed();
+  });
+}
+
+/* ---------------- Ticker ---------------- */
+async function loadTicker() {
+  const track = document.querySelector("[data-ticker-track]");
+  if (!track) return;
+  const { data } = await CoinOspreyAPI.getMarkets(10);
+  const html = data.map(renderTickerItem).join("");
+  track.innerHTML = html + html;
+}
+function renderTickerItem(c) {
+  const dir = c.price_change_percentage_24h >= 0 ? "up" : "down";
+  const icon = dir === "up" ? "fa-caret-up" : "fa-caret-down";
+  return `<span class="ticker-item">
+    <span class="sym">${c.symbol.toUpperCase()}</span>
+    <span>${CoinOspreyAPI.formatUSD(c.current_price)}</span>
+    <span class="${dir}"><i class="fa-solid ${icon}"></i> ${(c.price_change_percentage_24h >= 0 ? "+" : "") + c.price_change_percentage_24h.toFixed(2)}%</span>
+  </span>`;
+}
+
+/* ---------------- Feed generation ---------------- */
+function seedInitialFeed() {
+  FEED = [];
+  const times = ["3m ago","11m ago","18m ago","24m ago","31m ago","42m ago","55m ago","1h ago","1h ago","2h ago","2h ago","3h ago","4h ago","5h ago","6h ago"];
+  times.forEach((t) => FEED.push(generateTransaction(t)));
+}
+
+function generateTransaction(timeLabel) {
+  const coin = COINS[Math.floor(Math.random() * COINS.length)] || CoinOspreyAPI.FALLBACK_MARKETS[0];
+  const typeRoll = Math.random();
+  const type = typeRoll < 0.42 ? "inflow" : typeRoll < 0.84 ? "outflow" : "transfer";
+
+  // log-scale USD value between ~$300K and ~$40M so big moves are rarer
+  const usdValue = Math.round(Math.exp(Math.log(300000) + Math.random() * (Math.log(40000000) - Math.log(300000))));
+  const coinAmount = usdValue / coin.current_price;
+
+  const exchangeA = EXCHANGES[Math.floor(Math.random() * EXCHANGES.length)];
+  let exchangeB = EXCHANGES[Math.floor(Math.random() * EXCHANGES.length)];
+  while (exchangeB === exchangeA) exchangeB = EXCHANGES[Math.floor(Math.random() * EXCHANGES.length)];
+
+  let flowLabel;
+  if (type === "inflow") flowLabel = `${WALLET_LABEL} → ${exchangeA}`;
+  else if (type === "outflow") flowLabel = `${exchangeA} → ${WALLET_LABEL}`;
+  else flowLabel = `${WALLET_LABEL} → ${WALLET_LABEL}`;
+
+  return { coin, type, usdValue, coinAmount, flowLabel, timeLabel, isNew: timeLabel === "Just now" };
+}
+
+function ageFeedTimestamps() {
+  // Once a "Just now" item has been on screen for one refresh cycle,
+  // give it a real elapsed label so the feed keeps feeling alive.
+  FEED.forEach((tx) => {
+    if (tx.timeLabel === "Just now" && !tx.isNew) tx.timeLabel = "1m ago";
+  });
+  FEED.forEach((tx) => { tx.isNew = tx.timeLabel === "Just now" ? true : false; });
+  // mark the true newest as still "new" for the flash animation, rest settle
+  if (FEED.length) FEED[0].isNew = true;
+  for (let i = 1; i < FEED.length; i++) FEED[i].isNew = false;
+}
+
+/* ---------------- Rendering ---------------- */
+function renderFeed() {
+  const wrap = document.querySelector("[data-whale-feed]");
+  if (!wrap) return;
+
+  const filtered = FEED.filter((tx) => {
+    const coinMatch = ACTIVE_COIN === "all" || tx.coin.symbol === ACTIVE_COIN;
+    const sizeMatch = tx.usdValue >= ACTIVE_THRESHOLD;
+    return coinMatch && sizeMatch;
+  });
+
+  if (!filtered.length) {
+    wrap.innerHTML = `<div class="no-results">No transfers match these filters yet.</div>`;
+    return;
+  }
+
+  wrap.innerHTML = filtered.map(renderWhaleRow).join("");
+}
+
+function renderWhaleRow(tx) {
+  const icon = tx.type === "inflow" ? "fa-arrow-right-to-bracket" : tx.type === "outflow" ? "fa-arrow-right-from-bracket" : "fa-right-left";
+  const badgeClass = tx.type === "inflow" ? "down" : tx.type === "outflow" ? "up" : "neutral";
+  const badgeLabel = tx.type === "inflow" ? "Exchange Inflow" : tx.type === "outflow" ? "Exchange Outflow" : "Wallet Transfer";
+  const rowClass = tx.isNew ? "whale-row whale-new" : "whale-row";
+
+  return `<div class="${rowClass}">
+    <div class="whale-left">
+      <div class="whale-icon ${tx.type}"><i class="fa-solid ${icon}"></i></div>
+      <div class="whale-meta">
+        <div class="whale-coin">${tx.coin.name} <span class="badge ${badgeClass}" style="margin-left:6px;">${badgeLabel}</span></div>
+        <div class="wallet-flow">${tx.flowLabel}</div>
+      </div>
+    </div>
+    <div class="whale-right">
+      <div class="whale-amount">${CoinOspreyAPI.formatCompact(tx.usdValue)}</div>
+      <div class="whale-coin-amt">${formatCoinAmount(tx.coinAmount)} ${tx.coin.symbol.toUpperCase()}</div>
+      <div class="whale-time">${tx.timeLabel}</div>
+    </div>
+  </div>`;
+}
+
+function renderStats() {
+  const wrap = document.querySelector("[data-whale-stats]");
+  if (!wrap) return;
+  if (!FEED.length) return;
+
+  const totalVolume = FEED.reduce((sum, tx) => sum + tx.usdValue, 0);
+  const inflowVolume = FEED.filter((t) => t.type === "inflow").reduce((s, t) => s + t.usdValue, 0);
+  const outflowVolume = FEED.filter((t) => t.type === "outflow").reduce((s, t) => s + t.usdValue, 0);
+  const netFlow = outflowVolume - inflowVolume;
+  const largest = FEED.reduce((max, t) => (t.usdValue > max.usdValue ? t : max), FEED[0]);
+
+  wrap.innerHTML = `
+    <div class="glass stat-card">
+      <i class="fa-solid fa-water"></i>
+      <b>${FEED.length}</b>
+      <span>Tracked Transfers</span>
+    </div>
+    <div class="glass stat-card">
+      <i class="fa-solid fa-layer-group"></i>
+      <b>${CoinOspreyAPI.formatCompact(totalVolume)}</b>
+      <span>Total Volume</span>
+    </div>
+    <div class="glass stat-card">
+      <i class="fa-solid ${netFlow >= 0 ? "fa-arrow-right-from-bracket" : "fa-arrow-right-to-bracket"}"></i>
+      <b style="color:${netFlow >= 0 ? "var(--rise)" : "var(--fall)"}">${netFlow >= 0 ? "+" : ""}${CoinOspreyAPI.formatCompact(Math.abs(netFlow))}</b>
+      <span>Net Exchange Flow${netFlow >= 0 ? " (Outflow)" : " (Inflow)"}</span>
+    </div>
+    <div class="glass stat-card">
+      <i class="fa-solid fa-star"></i>
+      <b>${CoinOspreyAPI.formatCompact(largest.usdValue)}</b>
+      <span>Largest Single Transfer</span>
+    </div>
+  `;
+}
+
+function formatCoinAmount(n) {
+  if (n >= 1000) return n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  if (n >= 1) return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  return n.toLocaleString(undefined, { maximumFractionDigits: 4 });
+}
+
+function setStatus(selector, live) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+  el.innerHTML = live
+    ? `<span class="pulse-dot"></span> Live prices, simulated transfers`
+    : `<span class="pulse-dot" style="background:var(--text-3)"></span> Recent price snapshot — simulated transfers`;
+}
+</script>
+</body>
+</html>

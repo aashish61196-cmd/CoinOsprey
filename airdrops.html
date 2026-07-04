@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- ============ Meta / SEO ============ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Airdrops Tracker — Active &amp; Upcoming Token Airdrops | CoinOsprey</title>
+<meta name="description" content="Track active and upcoming crypto airdrops in one place — eligibility, estimated rewards, deadlines and chain, plus safety tips to avoid scams. Updated by CoinOsprey.">
+<meta name="keywords" content="crypto airdrops, upcoming airdrops, active airdrops, token airdrop tracker, how to qualify for airdrops, airdrop scams">
+<meta name="author" content="CoinOsprey">
+<link rel="canonical" href="https://www.coinosprey.com/airdrops.html">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Crypto Airdrops Tracker — CoinOsprey">
+<meta property="og:description" content="Active and upcoming token airdrops, tracked in one place — eligibility, rewards, deadlines and safety tips.">
+<meta property="og:url" content="https://www.coinosprey.com/airdrops.html">
+<meta property="og:site_name" content="CoinOsprey">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;><rect width=&quot;32&quot; height=&quot;32&quot; rx=&quot;8&quot; fill=&quot;%23E3A73B&quot;/><path d=&quot;M16 7 L23 22 L16 18 L9 22 Z&quot; fill=&quot;%230A0E13&quot;/></svg>" type="image/svg+xml">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Site stylesheet -->
+<style>
+/* ==============================================================
+   CoinOsprey — Premium Glassmorphism Stylesheet (shared)
+   ============================================================== */
+:root{
+  --bg-deep:      #06090D;
+  --bg-glow-1:    #E3A73B;
+  --bg-glow-2:    #2DD4BF;
+  --bg-glow-3:    #6C63FF;
+
+  --glass-bg:     rgba(255,255,255,0.045);
+  --glass-bg-2:   rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-blur:   18px;
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.45);
+
+  --text-1: #F3F5F7;
+  --text-2: #A7B0BC;
+  --text-3: #6E7885;
+
+  --rise: #34D399;
+  --fall: #FB5B5B;
+  --accent: #E3A73B;
+  --accent-2: #2DD4BF;
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --container: 1260px;
+
+  --font-display: "Space Grotesk", "Arial Narrow", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0;
+  background: var(--bg-deep);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+ul{ list-style: none; margin: 0; padding: 0; }
+button{ font-family: inherit; cursor: pointer; }
+input, select{ font-family: inherit; }
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.bg-mesh{ position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-deep); }
+.bg-mesh span{ position: absolute; border-radius: 50%; filter: blur(110px); opacity: 0.35; animation: drift 22s ease-in-out infinite; }
+.bg-mesh .blob-1{ width: 520px; height: 520px; background: var(--bg-glow-1); top: -120px; left: -80px; }
+.bg-mesh .blob-2{ width: 480px; height: 480px; background: var(--bg-glow-2); top: 30%; right: -140px; animation-delay: -6s; }
+.bg-mesh .blob-3{ width: 460px; height: 460px; background: var(--bg-glow-3); bottom: -160px; left: 22%; animation-delay: -12s; }
+@keyframes drift{ 0%, 100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(40px,-30px) scale(1.08); } }
+@media (prefers-reduced-motion: reduce){ .bg-mesh span{ animation: none; } }
+
+.container{ max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+.eyebrow{
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); display: inline-flex; align-items: center; gap: 8px;
+}
+h1, h2, h3, h4{ font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; margin: 0 0 .5em; color: var(--text-1); }
+p{ color: var(--text-2); margin: 0 0 1em; }
+
+.glass{
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--r-md);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  box-shadow: var(--glass-shadow);
+}
+.glass-hover{ transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+.glass-hover:hover{ transform: translateY(-4px); border-color: rgba(227,167,59,0.35); background: var(--glass-bg-2); }
+
+.section{ padding: 76px 0; }
+.section-head{ display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.section-head h2{ font-size: clamp(24px, 3vw, 34px); margin: 8px 0 0; }
+.section-head p{ margin: 0; max-width: 46ch; }
+.view-all{ font-family: var(--font-mono); font-size: 13px; color: var(--accent-2); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.view-all i{ font-size: 11px; transition: transform .2s ease; }
+.view-all:hover i{ transform: translateX(3px); }
+
+.btn{
+  display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px; border-radius: 999px;
+  font-weight: 600; font-size: 14px; border: 1px solid transparent; transition: transform .15s ease, box-shadow .2s ease;
+}
+.btn-primary{ background: linear-gradient(135deg, var(--accent), #f2c168); color: #181104; box-shadow: 0 8px 24px rgba(227,167,59,0.25); }
+.btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 12px 30px rgba(227,167,59,0.35); }
+.btn-ghost{ background: var(--glass-bg); border-color: var(--glass-border); color: var(--text-1); backdrop-filter: blur(10px); }
+.btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+.btn-sm{ padding: 9px 18px; font-size: 13px; }
+
+/* Ticker */
+.ticker-wrap{ border-bottom: 1px solid var(--glass-border); background: rgba(255,255,255,0.02); backdrop-filter: blur(14px); }
+.ticker-wrap .container{ display: flex; align-items: center; height: 38px; overflow: hidden; }
+.ticker-track{ display: flex; gap: 40px; white-space: nowrap; animation: scroll-ticker 34s linear infinite; font-family: var(--font-mono); font-size: 12.5px; }
+.ticker-wrap:hover .ticker-track{ animation-play-state: paused; }
+.ticker-item{ display: flex; gap: 8px; align-items: center; color: var(--text-2); }
+.ticker-item .sym{ color: var(--text-1); font-weight: 600; }
+.ticker-item .up{ color: var(--rise); }
+.ticker-item .down{ color: var(--fall); }
+@keyframes scroll-ticker{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+
+/* Navbar */
+.navbar{ position: sticky; top: 0; z-index: 200; background: rgba(6,9,13,0.55); backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%); border-bottom: 1px solid var(--glass-border); }
+.navbar .container{ display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.brand{ display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 21px; }
+.brand-mark{ width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06090D; font-size: 16px; }
+.nav-links{ display: flex; align-items: center; gap: 28px; font-size: 14.5px; color: var(--text-2); }
+.nav-links a{ display: inline-flex; align-items: center; gap: 6px; }
+.nav-links a i{ font-size: 12px; opacity: .7; }
+.nav-links a:hover{ color: var(--text-1); }
+.nav-links a.active{ color: var(--accent); }
+.nav-actions{ display: flex; align-items: center; gap: 12px; }
+.icon-btn{ width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-2); backdrop-filter: blur(10px); transition: color .2s ease, border-color .2s ease; }
+.icon-btn:hover{ color: var(--accent); border-color: var(--accent); }
+.nav-toggle{ display: none; }
+.search-pop{ position: absolute; right: 24px; top: 72px; width: min(420px, 90vw); padding: 10px; display: none; z-index: 210; }
+.search-pop.open{ display: block; }
+.search-pop .search-inner{ display: flex; align-items: center; gap: 10px; padding: 8px 14px; }
+.search-pop input{ flex: 1; background: transparent; border: none; color: var(--text-1); font-size: 14px; }
+.search-pop input:focus{ outline: none; }
+.search-pop i{ color: var(--text-3); }
+
+/* Grids */
+.grid-4{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.grid-3{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+
+.badge{ font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; text-transform: uppercase; letter-spacing: .04em; }
+.badge.up{ color: var(--rise); background: rgba(52,211,153,0.12); }
+.badge.down{ color: var(--fall); background: rgba(251,91,91,0.12); }
+.badge.neutral{ color: var(--accent-2); background: rgba(45,212,191,0.12); }
+
+/* Market overview / stat cards */
+.stat-card{ padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.stat-card i{ font-size: 20px; color: var(--accent); }
+.stat-card b{ font-family: var(--font-display); font-size: 26px; color: var(--text-1); }
+.stat-card span{ font-size: 12.5px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .05em; }
+.stat-card .stat-delta{ font-family: var(--font-mono); font-size: 12px; }
+
+/* Footer */
+footer{ border-top: 1px solid var(--glass-border); padding: 60px 0 26px; margin-top: 20px; }
+.footer-grid{ display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; padding-bottom: 36px; }
+.footer-grid h4{ font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-3); margin-bottom: 16px; }
+.footer-grid a{ display: block; color: var(--text-2); font-size: 14px; padding: 6px 0; }
+.footer-grid a:hover{ color: var(--accent); }
+.footer-about p{ font-size: 14px; max-width: 36ch; }
+.socials{ display: flex; gap: 12px; margin-top: 16px; }
+.footer-bottom{ border-top: 1px solid var(--glass-border); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-3); flex-wrap: wrap; gap: 10px; }
+
+.loading-row{ font-family: var(--font-mono); font-size: 12px; color: var(--text-3); padding: 18px; text-align: center; }
+.status-line{ display: flex; align-items: center; gap: 8px; }
+.pulse-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--rise); display: inline-block; margin-right: 6px; box-shadow: 0 0 0 0 rgba(52,211,153,.6); animation: pulse 2s infinite; }
+@keyframes pulse{ 0%{ box-shadow: 0 0 0 0 rgba(52,211,153,.5); } 70%{ box-shadow: 0 0 0 9px rgba(52,211,153,0); } 100%{ box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
+
+/* ==============================================================
+   Airdrops page — additional rules
+   ============================================================== */
+
+/* Page hero */
+.page-hero{ padding: 64px 0 20px; }
+.page-hero h1{ font-size: clamp(32px, 4.4vw, 48px); line-height: 1.08; max-width: 22ch; }
+.page-hero .lede{ font-size: 16.5px; max-width: 56ch; margin: 14px 0 0; }
+
+/* Filter bar */
+.filter-bar{ padding: 18px 22px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 32px 0 36px; }
+.filter-search{ display: flex; align-items: center; gap: 10px; flex: 1; min-width: 220px; }
+.filter-search i{ color: var(--text-3); }
+.filter-search input{ flex: 1; background: transparent; border: none; color: var(--text-1); font-size: 14px; }
+.filter-search input:focus{ outline: none; }
+.filter-divider{ width: 1px; height: 26px; background: var(--glass-border); }
+.chip-group{ display: flex; gap: 8px; flex-wrap: wrap; }
+.chip{
+  font-family: var(--font-mono); font-size: 12.5px; padding: 8px 15px; border-radius: 999px;
+  border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-2);
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+}
+.chip:hover{ color: var(--text-1); border-color: rgba(227,167,59,0.35); }
+.chip.is-active{ background: linear-gradient(135deg, var(--accent), #f2c168); color: #181104; border-color: transparent; font-weight: 600; }
+
+/* Layout: cards + sidebar */
+.airdrops-layout{ display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start; }
+.airdrop-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+/* Airdrop card */
+.airdrop-card{ padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+.airdrop-card-top{ display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.airdrop-id{ display: flex; align-items: center; gap: 12px; }
+.airdrop-ico{
+  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(227,167,59,0.28), rgba(45,212,191,0.18));
+  border: 1px solid var(--glass-border);
+  display: grid; place-items: center; font-family: var(--font-mono); font-weight: 700; font-size: 13px; color: var(--text-1);
+}
+.airdrop-name{ font-size: 16px; font-weight: 600; color: var(--text-1); }
+.airdrop-chain{ font-size: 12px; color: var(--text-3); font-family: var(--font-mono); }
+
+.status-badge{ font-family: var(--font-mono); font-size: 10.5px; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: .05em; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.status-badge.live{ color: var(--rise); background: rgba(52,211,153,0.12); }
+.status-badge.upcoming{ color: var(--accent-2); background: rgba(45,212,191,0.12); }
+.status-badge.ending{ color: var(--accent); background: rgba(227,167,59,0.14); }
+.status-badge.ended{ color: var(--text-3); background: rgba(255,255,255,0.05); }
+.status-badge .dot{ width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+.airdrop-desc{ font-size: 13.5px; margin: 0; }
+
+.airdrop-meta{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px 0; border-top: 1px solid var(--glass-border); }
+.airdrop-meta-item{ display: flex; flex-direction: column; gap: 3px; }
+.airdrop-meta-item span{ font-size: 10.5px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .05em; }
+.airdrop-meta-item b{ font-size: 13.5px; color: var(--text-1); font-family: var(--font-display); }
+
+.airdrop-tags{ display: flex; gap: 6px; flex-wrap: wrap; }
+.airdrop-tags span{ font-family: var(--font-mono); font-size: 10.5px; padding: 3px 9px; border-radius: 999px; background: var(--glass-bg-2); border: 1px solid var(--glass-border); color: var(--text-2); }
+
+.airdrop-card-foot{ display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+.airdrop-card-foot .deadline{ font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); }
+.airdrop-card-foot .deadline b{ color: var(--text-1); }
+
+/* Sidebar */
+.sidebar-panel{ padding: 22px; }
+.sidebar-panel + .sidebar-panel{ margin-top: 22px; }
+.sidebar-panel h3{ font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.sidebar-panel h3 i{ color: var(--accent); font-size: 13px; }
+
+.ending-item{ display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--glass-border); gap: 10px; }
+.ending-item:first-of-type{ border-top: none; }
+.ending-item-name{ font-size: 13.5px; font-weight: 600; color: var(--text-1); }
+.ending-item-chain{ font-size: 11px; color: var(--text-3); font-family: var(--font-mono); }
+.ending-item-time{ font-family: var(--font-mono); font-size: 12px; color: var(--accent); text-align: right; white-space: nowrap; }
+
+.safety-list{ display: flex; flex-direction: column; gap: 14px; }
+.safety-item{ display: flex; gap: 12px; align-items: flex-start; }
+.safety-item i{ color: var(--accent-2); font-size: 14px; margin-top: 2px; }
+.safety-item p{ font-size: 13px; margin: 0; color: var(--text-2); }
+.safety-item b{ color: var(--text-1); }
+
+/* Responsive */
+@media (max-width: 1080px){
+  .grid-4{ grid-template-columns: repeat(2, 1fr); }
+  .airdrops-layout{ grid-template-columns: 1fr; }
+  .airdrop-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 980px){
+  .grid-3{ grid-template-columns: repeat(2, 1fr); }
+  .grid-2{ grid-template-columns: 1fr; }
+  .footer-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px){
+  .nav-links{ position: fixed; inset: 72px 0 0 0; z-index: 190; background: rgba(6,9,13,0.92); backdrop-filter: blur(20px); flex-direction: column; align-items: flex-start; padding: 28px 24px; display: none; gap: 4px; border-top: 1px solid var(--glass-border); }
+  .nav-links.open{ display: flex; }
+  .nav-links a{ padding: 14px 0; font-size: 16px; width: 100%; border-bottom: 1px solid var(--glass-border); }
+  .nav-toggle{ display: grid; }
+  .grid-3, .grid-4{ grid-template-columns: 1fr; }
+  .airdrop-grid{ grid-template-columns: 1fr; }
+  .footer-grid{ grid-template-columns: 1fr; }
+  .section{ padding: 54px 0; }
+  .airdrop-meta{ grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Fixed ambient background blobs -->
+<div class="bg-mesh" aria-hidden="true">
+  <span class="blob-1"></span>
+  <span class="blob-2"></span>
+  <span class="blob-3"></span>
+</div>
+
+<!-- ================= Live Crypto Ticker ================= -->
+<div class="ticker-wrap" role="marquee" aria-label="Live cryptocurrency price ticker">
+  <div class="container">
+    <div class="ticker-track" data-ticker-track>
+      <span class="ticker-item"><i class="fa-solid fa-spinner fa-spin"></i>&nbsp;Loading live prices…</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Sticky Navbar ================= -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="CoinOsprey home">
+      <span class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></span> CoinOsprey
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a>
+      <a href="prices.html"><i class="fa-solid fa-chart-line"></i> Prices</a>
+      <a href="price-prediction.html"><i class="fa-solid fa-crystal-ball"></i> Predictions</a>
+      <a href="whales.html"><i class="fa-solid fa-water"></i> Whale Tracker</a>
+      <a href="sentiment.html"><i class="fa-solid fa-gauge-high"></i> Fear &amp; Greed</a>
+      <a href="academy.html"><i class="fa-solid fa-graduation-cap"></i> Learn</a>
+      <a href="airdrops.html" class="active"><i class="fa-solid fa-parachute-box"></i> Airdrops</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" data-search-toggle aria-label="Open search" aria-expanded="false">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="icon-btn nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Search popover -->
+    <div class="glass search-pop" role="search">
+      <div class="search-inner">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search coins, articles, tools…" aria-label="Search CoinOsprey">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= Page Hero ================= -->
+  <section class="page-hero" aria-labelledby="airdrops-heading">
+    <div class="container">
+      <p class="eyebrow"><i class="fa-solid fa-parachute-box"></i> AIRDROP TRACKER</p>
+      <h1 id="airdrops-heading">Crypto airdrops worth your <span style="background:linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;">attention</span></h1>
+      <p class="lede">Active and upcoming token airdrops, tracked in one place — eligibility, estimated reward, deadline and chain, so you can decide what's worth the gas fee.</p>
+    </div>
+  </section>
+
+  <!-- ================= Stats overview ================= -->
+  <section class="section" style="padding-top:12px; padding-bottom:0;" aria-labelledby="airdrop-stats-heading">
+    <div class="container">
+      <h2 id="airdrop-stats-heading" class="visually-hidden" style="position:absolute; left:-9999px;">Airdrop stats overview</h2>
+      <div class="grid-4">
+        <div class="glass stat-card">
+          <i class="fa-solid fa-parachute-box"></i>
+          <b>47</b>
+          <span>Airdrops Tracked</span>
+        </div>
+        <div class="glass stat-card">
+          <i class="fa-solid fa-bolt"></i>
+          <b>12</b>
+          <span>Live Right Now</span>
+          <span class="stat-delta" style="color:var(--rise)">+3 this week</span>
+        </div>
+        <div class="glass stat-card">
+          <i class="fa-solid fa-sack-dollar"></i>
+          <b>$2.8B+</b>
+          <span>Est. Value Distributed</span>
+        </div>
+        <div class="glass stat-card">
+          <i class="fa-solid fa-hourglass-half"></i>
+          <b>9</b>
+          <span>Ending Within 14 Days</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Filter bar + Cards + Sidebar ================= -->
+  <section class="section" aria-labelledby="airdrop-list-heading">
+    <div class="container">
+
+      <div class="glass filter-bar">
+        <div class="filter-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search by project or chain…" aria-label="Search airdrops" data-airdrop-search>
+        </div>
+        <div class="filter-divider"></div>
+        <div class="chip-group" role="group" aria-label="Filter by status" data-status-filter>
+          <button class="chip is-active" data-status="all">All</button>
+          <button class="chip" data-status="live">Live</button>
+          <button class="chip" data-status="upcoming">Upcoming</button>
+          <button class="chip" data-status="ending">Ending Soon</button>
+          <button class="chip" data-status="ended">Ended</button>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-solid fa-list"></i> Tracked Projects</p>
+          <h2 id="airdrop-list-heading">Active &amp; Upcoming Airdrops</h2>
+        </div>
+        <span class="view-all" data-results-count>Showing 8 of 47</span>
+      </div>
+
+      <div class="airdrops-layout">
+        <!-- Cards grid -->
+        <div class="airdrop-grid" data-airdrop-grid>
+
+          <div class="glass glass-hover airdrop-card" data-status="live">
+            <div class="airdrop-card-top">
+              <div class="airdrop-id">
+                <div class="airdrop-ico">ZN</div>
+                <div>
+                  <div class="airdrop-name">Zenith Protocol</div>
+                  <div class="airdrop-chain">Arbitrum · DeFi</div>
+                </div>
+              </div>
+              <span class="status-badge live"><span class="dot"></span> Live</span>
+            </div>
+            <p class="airdrop-desc">Points-based rewards for liquidity provision and trading volume ahead of the ZNT token launch.</p>
+            <div class="airdrop-meta">
+              <div class="airdrop-meta-item"><span>Est. Reward</span><b>$200–$1,800</b></div>
+              <div class="airdrop-meta-item"><span>Difficulty</span><b>Easy</b></div>
+              <div class="airdrop-meta-item"><span>Tasks</span><b>3 steps</b></div>
+            </div>
+            <div class="airdrop-tags"><span>No funding round</span><span>Testnet + mainnet</span></div>
+            <div class="airdrop-card-foot">
+              <span class="deadline">Snapshot in <b>18 days</b></span>
+              <a href="#" class="btn btn-ghost btn-sm">Details <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="glass glass-hover airdrop-card" data-status="ending">
+            <div class="airdrop-card-top">
+              <div class="airdrop-id">
+                <div class="airdrop-ico">LR</div>
+                <div>
+                  <div class="airdrop-name">Layerune</div>
+                  <div class="airdrop-chain">zkSync · Infra</div>
+                </div>
+              </div>
+              <span class="status-badge ending"><span class="dot"></span> Ending Soon</span>
+            </div>
+            <p class="airdrop-desc">Bridge-and-hold campaign rewarding early zkSync bridgers with tiered LRT allocations.</p>
+            <div class="airdrop-meta">
+              <div class="airdrop-meta-item"><span>Est. Reward</span><b>$80–$600</b></div>
+              <div class="airdrop-meta-item"><span>Difficulty</span><b>Easy</b></div>
+              <div class="airdrop-meta-item"><span>Tasks</span><b>2 steps</b></div>
+            </div>
+            <div class="airdrop-tags"><span>Bridge required</span><span>Sybil-checked</span></div>
+            <div class="airdrop-card-foot">
+              <span class="deadline">Ends in <b>3 days</b></span>
+              <a href="#" class="btn btn-ghost btn-sm">Details <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="glass glass-hover airdrop-card" data-status="upcoming">
+            <div class="airdrop-card-top">
+              <div class="airdrop-id">
+                <div class="airdrop-ico">VX</div>
+                <div>
+                  <div class="airdrop-name">Vortex Exchange</div>
+                  <div class="airdrop-chain">Solana · DEX</div>
+                </div>
+              </div>
+              <span class="status-badge upcoming"><span class="dot"></span> Upcoming</span>
+            </div>
+            <p class="airdrop-desc">Perp DEX plans a retroactive drop to early traders; eligibility criteria not yet finalized.</p>
+            <div class="airdrop-meta">
+              <div class="airdrop-meta-item"><span>Est. Reward</span><b>TBA</b></div>
+              <div class="airdrop-meta-item"><span>Difficulty</span><b>Medium</b></div>
+              <div class="airdrop-meta-item"><span>Tasks</span><b>4 steps</b></div>
+            </div>
+            <div class="airdrop-tags"><span>Trade volume</span><span>Referrals count</span></div>
+            <div class="airdrop-card-foot">
+              <span class="deadline">Opens in <b>~5 weeks</b></span>
+              <a href="#" class="btn btn-ghost btn-sm">Details <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="glass glass-hover airdrop-card" data-status="live">
+            <div class="airdrop-card-top">
+              <div class="airdrop-id">
+                <div class="airdrop-ico">GV</div>
+                <div>
+                  <div class="airdrop-name">Grove Finance</div>
+                  <div class="airdrop-chain">Base · Lending</div>
+                </div>
+              </div>
+              <span class="status-badge live"><span class="dot"></span> Live</span>
+            </div>
+            <p class="airdrop-desc">Deposit and borrow on Base to farm GRV points, redeemable at token launch on a sliding scale.</p>
+            <div class="airdrop-meta">
+              <div class="airdrop-meta-item"><span>Est. Reward</span><b>$50–$900</b></div>
+              <div class="airdrop-meta-item"><span>Difficulty</span><b>Medium</b></div>
+              <div class="airdrop-meta-item"><span>Tasks</span><b>3 steps</b></div>
+            </div>
+            <div class="airdrop-tags"><span>Deposit required</span><span>Points program</span></div>
+            <div class="airdrop-card-foot">
+              <span class="deadline">Snapshot in <b>27 days</b></span>
+              <a href="#" class="btn btn-ghost btn-sm">Details <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="glass glass-hover airdrop-card" data-status="ending">
+            <div class="airdrop-card-top">
+              <div class="airdrop-id">
+                <div class="airdrop-ico">NB</div>
+                <div>
+                  <div class="airdrop-name">Nimbus Chain</div>
+                  <div class="airdrop-chain">Cosmos · L1</div>
+                </div>
+              </div>
+              <span class="status-badge ending"><span class="dot"></span> Ending Soon</span>
+            </div>
+            <p class="airdrop-desc">Validator delegators and governance voters on the testnet qualify for a mainnet genesis drop.</p>
+            <div class="airdrop-meta">
+              <div class="airdrop-meta-item"><span>Est. Reward</span><b>$120–$750</b></div>
+              <div class="airdrop-meta-item"><span>Difficulty</span><b>Medium</b></div>
+              <div class="airdrop-meta-item"><span>Tasks</span><b>5 steps</b></div>
+            </div>
+            <div class="airdrop-tags"><span>Testnet only</span><span>Governance votes</span></div>
+            <div class="airdrop-card-foot">
+              <span class="deadline">Ends in <b>6 days</b></span>
+              <a href="#" class="btn btn-ghost btn-sm">Details <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="glass glass-hover airdrop-card" data-status="ended">
+            <div class="airdrop-card-top">
+              <div class="airdrop-id">
+                <div class="airdrop-ico">PL</div>
+                <div>
+                  <div class="airdrop-name">Polline</div>
+                  <div class="airdrop-chain">Ethereum · NFT</div>
+                </div>
+              </div>
+              <span class="status-badge ended"><span class="dot"></span> Ended</span>
+            </div>
+            <p class="airdrop-desc">Claim window has closed. Token distributed to NFT holders and marketplace early users.</p>
+            <div class="airdrop-meta">
+              <div class="airdrop-meta-item"><span>Final Reward</span><b>$310 avg</b></div>
+              <div class="airdrop-meta-item"><span>Difficulty</span><b>Easy</b></div>
+              <div class="airdrop-meta-item"><span>Claimed</span><b>82%</b></div>
+            </div>
+            <div class="airdrop-tags"><span>Claim closed</span></div>
+            <div class="airdrop-card-foot">
+              <span class="deadline">Ended <b>12 days ago</b></span>
+              <a href="#" class="btn btn-ghost btn-sm">Recap <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="glass glass-hover airdrop-card" data-status="upcoming">
+            <div class="airdrop-card-top">
+              <div class="airdrop-id">
+                <div class="airdrop-ico">OR</div>
+                <div>
+                  <div class="airdrop-name">Oracle Mesh</div>
+                  <div class="airdrop-chain">Multi-chain · Oracle</div>
+                </div>
+              </div>
+              <span class="status-badge upcoming"><span class="dot"></span> Upcoming</span>
+            </div>
+            <p class="airdrop-desc">Node operators and API consumers will be eligible once the points program opens next month.</p>
+            <div class="airdrop-meta">
+              <div class="airdrop-meta-item"><span>Est. Reward</span><b>TBA</b></div>
+              <div class="airdrop-meta-item"><span>Difficulty</span><b>Hard</b></div>
+              <div class="airdrop-meta-item"><span>Tasks</span><b>6 steps</b></div>
+            </div>
+            <div class="airdrop-tags"><span>Run a node</span><span>API usage</span></div>
+            <div class="airdrop-card-foot">
+              <span class="deadline">Opens in <b>~4 weeks</b></span>
+              <a href="#" class="btn btn-ghost btn-sm">Details <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="glass glass-hover airdrop-card" data-status="live">
+            <div class="airdrop-card-top">
+              <div class="airdrop-id">
+                <div class="airdrop-ico">HV</div>
+                <div>
+                  <div class="airdrop-name">Halcyon Vault</div>
+                  <div class="airdrop-chain">Optimism · Yield</div>
+                </div>
+              </div>
+              <span class="status-badge live"><span class="dot"></span> Live</span>
+            </div>
+            <p class="airdrop-desc">Vault depositors earn boosted HVX points during the current season, capped per wallet.</p>
+            <div class="airdrop-meta">
+              <div class="airdrop-meta-item"><span>Est. Reward</span><b>$60–$450</b></div>
+              <div class="airdrop-meta-item"><span>Difficulty</span><b>Easy</b></div>
+              <div class="airdrop-meta-item"><span>Tasks</span><b>2 steps</b></div>
+            </div>
+            <div class="airdrop-tags"><span>Deposit required</span><span>Wallet cap</span></div>
+            <div class="airdrop-card-foot">
+              <span class="deadline">Snapshot in <b>34 days</b></span>
+              <a href="#" class="btn btn-ghost btn-sm">Details <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="glass sidebar-panel">
+            <h3><i class="fa-solid fa-hourglass-end"></i> Ending Soon</h3>
+            <div class="ending-item">
+              <div>
+                <div class="ending-item-name">Layerune</div>
+                <div class="ending-item-chain">zkSync</div>
+              </div>
+              <div class="ending-item-time">3 days</div>
+            </div>
+            <div class="ending-item">
+              <div>
+                <div class="ending-item-name">Nimbus Chain</div>
+                <div class="ending-item-chain">Cosmos</div>
+              </div>
+              <div class="ending-item-time">6 days</div>
+            </div>
+            <div class="ending-item">
+              <div>
+                <div class="ending-item-name">Zenith Protocol</div>
+                <div class="ending-item-chain">Arbitrum</div>
+              </div>
+              <div class="ending-item-time">18 days</div>
+            </div>
+            <div class="ending-item">
+              <div>
+                <div class="ending-item-name">Grove Finance</div>
+                <div class="ending-item-chain">Base</div>
+              </div>
+              <div class="ending-item-time">27 days</div>
+            </div>
+          </div>
+
+          <div class="glass sidebar-panel">
+            <h3><i class="fa-solid fa-shield-halved"></i> Airdrop Safety Tips</h3>
+            <div class="safety-list">
+              <div class="safety-item">
+                <i class="fa-solid fa-key"></i>
+                <p><b>Never share your seed phrase.</b> No legitimate airdrop ever asks for it — that request alone is the scam.</p>
+              </div>
+              <div class="safety-item">
+                <i class="fa-solid fa-link-slash"></i>
+                <p><b>Verify links directly.</b> Type project URLs yourself or use official docs rather than links from DMs or comments.</p>
+              </div>
+              <div class="safety-item">
+                <i class="fa-solid fa-wallet"></i>
+                <p><b>Use a burner wallet.</b> Interact with unaudited claim contracts from a wallet holding minimal funds.</p>
+              </div>
+              <div class="safety-item">
+                <i class="fa-solid fa-magnifying-glass-dollar"></i>
+                <p><b>Skip "pay to claim."</b> Real airdrops don't require an upfront fee to receive free tokens.</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= Newsletter ================= -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="glass newsletter" style="padding:48px; display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap;">
+        <div>
+          <h3 style="font-size:25px; margin-bottom:6px;">Never miss a new airdrop</h3>
+          <p style="max-width:44ch; margin:0;">One email a week: new campaigns, closing deadlines, and which ones are worth your time.</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <input type="email" placeholder="you@example.com" aria-label="Email address" style="background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:var(--text-1); padding:14px 18px; border-radius:999px; width:270px;">
+          <button class="btn btn-primary">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= Footer ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></span> CoinOsprey</a>
+        <p>Independent crypto news and research, read by traders who'd rather watch closely than react late.</p>
+        <div class="socials">
+          <a href="#" class="icon-btn" aria-label="Follow on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="icon-btn" aria-label="Join Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="#" class="icon-btn" aria-label="Subscribe via RSS"><i class="fa-solid fa-rss"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Markets</h4>
+        <a href="news.html">News</a>
+        <a href="prices.html">Prices</a>
+        <a href="price-prediction.html">Predictions</a>
+      </div>
+      <div>
+        <h4>Research</h4>
+        <a href="whales.html">Whale Tracker</a>
+        <a href="sentiment.html">Fear &amp; Greed</a>
+        <a href="airdrops.html">Airdrops</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="academy.html">Crypto Academy</a>
+        <a href="tools.html">Tools &amp; Calculators</a>
+        <a href="events.html">Events Calendar</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CoinOsprey. All rights reserved.</span>
+      <span>Market data via CoinGecko. Not financial advice.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+/* ==============================================================
+   CoinOsprey — api.js (shared ticker data)
+   ============================================================== */
+const CoinOspreyAPI = (() => {
+  const COINGECKO = "https://api.coingecko.com/api/v3";
+
+  const FALLBACK_MARKETS = [
+    { symbol:"btc", current_price:107452, price_change_percentage_24h:1.82 },
+    { symbol:"eth", current_price:3894, price_change_percentage_24h:-0.74 },
+    { symbol:"sol", current_price:198.3, price_change_percentage_24h:3.41 },
+    { symbol:"xrp", current_price:2.41, price_change_percentage_24h:-1.15 },
+    { symbol:"bnb", current_price:712.4, price_change_percentage_24h:0.52 },
+    { symbol:"doge", current_price:0.221, price_change_percentage_24h:5.67 },
+    { symbol:"ada", current_price:0.812, price_change_percentage_24h:-2.31 },
+    { symbol:"avax", current_price:38.7, price_change_percentage_24h:2.02 },
+  ];
+
+  async function withTimeout(fn, ms = 6000) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ms);
+    try { return await fn(ctrl.signal); }
+    finally { clearTimeout(timer); }
+  }
+
+  async function getMarkets(limit = 10) {
+    try {
+      const res = await withTimeout((signal) =>
+        fetch(`${COINGECKO}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1&price_change_percentage=24h`, { signal })
+      );
+      if (!res.ok) throw new Error("bad response");
+      const data = await res.json();
+      if (!Array.isArray(data) || !data.length) throw new Error("empty");
+      return { data, live: true };
+    } catch (err) {
+      return { data: FALLBACK_MARKETS.slice(0, limit), live: false };
+    }
+  }
+
+  function formatUSD(n) {
+    if (n == null || isNaN(n)) return "—";
+    if (n >= 1) return "$" + n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    return "$" + n.toLocaleString(undefined, { maximumFractionDigits: 6 });
+  }
+  function formatPct(n) {
+    if (n == null || isNaN(n)) return "—";
+    const sign = n >= 0 ? "+" : "";
+    return `${sign}${n.toFixed(2)}%`;
+  }
+
+  return { getMarkets, formatUSD, formatPct };
+})();
+</script>
+<script>
+/* ==============================================================
+   CoinOsprey — app.js (airdrops page)
+   ============================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  initMobileNav();
+  initSearchPopover();
+  loadTicker();
+  initAirdropFilters();
+});
+
+function initMobileNav() {
+  const toggle = document.querySelector(".nav-toggle");
+  const links = document.querySelector(".nav-links");
+  if (!toggle || !links) return;
+  toggle.addEventListener("click", () => {
+    const isOpen = links.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+}
+
+function initSearchPopover() {
+  const btn = document.querySelector("[data-search-toggle]");
+  const pop = document.querySelector(".search-pop");
+  if (!btn || !pop) return;
+  btn.addEventListener("click", () => pop.classList.toggle("open"));
+  document.addEventListener("click", (e) => {
+    if (!pop.contains(e.target) && !btn.contains(e.target)) {
+      pop.classList.remove("open");
+    }
+  });
+}
+
+async function loadTicker() {
+  const track = document.querySelector("[data-ticker-track]");
+  if (!track) return;
+  const { data } = await CoinOspreyAPI.getMarkets(10);
+  const html = data.map(renderTickerItem).join("");
+  track.innerHTML = html + html;
+}
+
+function renderTickerItem(c) {
+  const dir = c.price_change_percentage_24h >= 0 ? "up" : "down";
+  const icon = dir === "up" ? "fa-caret-up" : "fa-caret-down";
+  return `<span class="ticker-item">
+    <span class="sym">${c.symbol.toUpperCase()}</span>
+    <span>${CoinOspreyAPI.formatUSD(c.current_price)}</span>
+    <span class="${dir}"><i class="fa-solid ${icon}"></i> ${CoinOspreyAPI.formatPct(c.price_change_percentage_24h)}</span>
+  </span>`;
+}
+
+/* ---------------------------------------------------------------
+   Airdrop filter bar: status chips + live search, client-side only
+--------------------------------------------------------------- */
+function initAirdropFilters() {
+  const grid = document.querySelector("[data-airdrop-grid]");
+  const chips = document.querySelectorAll("[data-status-filter] .chip");
+  const search = document.querySelector("[data-airdrop-search]");
+  const countEl = document.querySelector("[data-results-count]");
+  if (!grid) return;
+
+  const cards = Array.from(grid.querySelectorAll(".airdrop-card"));
+  let activeStatus = "all";
+
+  function applyFilters() {
+    const term = (search?.value || "").trim().toLowerCase();
+    let visible = 0;
+    cards.forEach((card) => {
+      const status = card.dataset.status;
+      const text = card.textContent.toLowerCase();
+      const matchesStatus = activeStatus === "all" || status === activeStatus;
+      const matchesSearch = !term || text.includes(term);
+      const show = matchesStatus && matchesSearch;
+      card.style.display = show ? "" : "none";
+      if (show) visible++;
+    });
+    if (countEl) countEl.textContent = `Showing ${visible} of ${cards.length}`;
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      chips.forEach((c) => c.classList.remove("is-active"));
+      chip.classList.add("is-active");
+      activeStatus = chip.dataset.status;
+      applyFilters();
+    });
+  });
+
+  if (search) search.addEventListener("input", applyFilters);
+}
+</script>
+</body>
+</html>
