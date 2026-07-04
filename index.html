@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoinOsprey — Crypto News, Prices & Research</title>
+<meta name="description" content="CoinOsprey covers crypto markets with a hunter's precision: live prices, whale tracking, price predictions, airdrops and research — no noise, just signal.">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Ticker strip -->
+<div class="topbar">
+  <div class="container">
+    <div class="ticker-track" data-ticker-track>
+      <span class="ticker-item"><span class="sym">Loading market data…</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">⌃</span> CoinOsprey
+    </a>
+    <nav class="nav-links">
+      <a href="news.html">News</a>
+      <a href="prices.html">Prices</a>
+      <a href="price-prediction.html">Predictions</a>
+      <a href="analysis.html">Analysis</a>
+      <a href="whales.html">Whale Tracker</a>
+      <a href="sentiment.html">Fear &amp; Greed</a>
+      <a href="airdrops.html">Airdrops</a>
+      <a href="academy.html">Learn</a>
+      <a href="tools.html">Tools</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" data-search-toggle aria-label="Search">⌕</button>
+      <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">☀</button>
+      <button class="icon-btn nav-toggle" aria-label="Menu">☰</button>
+    </div>
+    <div class="search-pop">
+      <input type="text" placeholder="Search coins, articles, tools…">
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">CRYPTO NEWS &amp; RESEARCH</p>
+      <h1>Watch the market<br>the way an <em>osprey</em><br>watches the water.</h1>
+      <p class="lede">CoinOsprey tracks price action, whale wallets and market sentiment in real time, then breaks it down in plain language — so you can act with precision instead of guessing.</p>
+      <div class="hero-cta">
+        <a href="prices.html" class="btn btn-primary">See live prices</a>
+        <a href="news.html" class="btn btn-ghost">Read today's news</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="panel-title"><span><span class="pulse-dot"></span>Watchlist</span><span>USD</span></div>
+      <div data-hero-watchlist>
+        <div class="coin-row"><span class="coin-sub">Loading…</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trending -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow" data-data-status>Loading market data…</p>
+        <h2>Trending coins</h2>
+      </div>
+      <a href="prices.html" class="view-all">View all prices →</a>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="trend-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Coin</th><th class="num">Price</th><th class="num">24h</th>
+            <th class="num">Market Cap</th><th class="num">Volume (24h)</th><th class="num">7d</th>
+          </tr>
+        </thead>
+        <tbody data-trending-body>
+          <tr class="loading-row"><td colspan="7">Fetching live prices from CoinGecko…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Featured articles -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><p class="eyebrow">Editor's picks</p><h2>Featured articles</h2></div>
+      <a href="news.html" class="view-all">All news →</a>
+    </div>
+    <div class="grid-3">
+      <article class="article-card">
+        <div class="article-thumb"><span class="tag">Bitcoin</span></div>
+        <div class="article-body">
+          <h3>Bitcoin holds above key support as ETF inflows accelerate</h3>
+          <p style="color:var(--mist); font-size:14px;">Spot ETF demand has outpaced new supply for three straight weeks, tightening exchange float.</p>
+          <div class="article-meta"><span>5 min read</span><span>·</span><span>Markets</span></div>
+        </div>
+      </article>
+      <article class="article-card">
+        <div class="article-thumb"><span class="tag">DeFi</span></div>
+        <div class="article-body">
+          <h3>Restaking protocols cross $18B TVL — is the risk priced in?</h3>
+          <p style="color:var(--mist); font-size:14px;">A look at slashing conditions and validator concentration across the top five protocols.</p>
+          <div class="article-meta"><span>7 min read</span><span>·</span><span>DeFi</span></div>
+        </div>
+      </article>
+      <article class="article-card">
+        <div class="article-thumb"><span class="tag">Regulation</span></div>
+        <div class="article-body">
+          <h3>What the new market-structure bill actually changes for exchanges</h3>
+          <p style="color:var(--mist); font-size:14px;">A plain-language breakdown of custody rules, disclosure requirements and enforcement timelines.</p>
+          <div class="article-meta"><span>6 min read</span><span>·</span><span>Regulation</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Explore grid -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><p class="eyebrow">Explore CoinOsprey</p><h2>Tools built for watching closely</h2></div>
+    </div>
+    <div class="grid-4">
+      <a class="article-card" style="padding:22px; display:block;" href="whales.html">
+        <p class="eyebrow" style="margin-bottom:10px;">Whale Tracker</p>
+        <h3 style="font-size:16px;">Follow large wallet moves before they hit the charts</h3>
+      </a>
+      <a class="article-card" style="padding:22px; display:block;" href="sentiment.html">
+        <p class="eyebrow" style="margin-bottom:10px;">Fear &amp; Greed</p>
+        <h3 style="font-size:16px;">Read market mood with our daily sentiment index</h3>
+      </a>
+      <a class="article-card" style="padding:22px; display:block;" href="airdrops.html">
+        <p class="eyebrow" style="margin-bottom:10px;">Airdrops</p>
+        <h3 style="font-size:16px;">Active and upcoming airdrops, verified weekly</h3>
+      </a>
+      <a class="article-card" style="padding:22px; display:block;" href="tools.html">
+        <p class="eyebrow" style="margin-bottom:10px;">Calculators</p>
+        <h3 style="font-size:16px;">Position size, P/L, liquidation &amp; more</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="section" style="border-top:none;">
+  <div class="container">
+    <div class="newsletter">
+      <div>
+        <h3>Get the daily briefing</h3>
+        <p>One email, every morning — the moves that mattered and why. No hype, no noise.</p>
+      </div>
+      <form class="nl-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓';">
+        <input type="email" required placeholder="you@email.com">
+        <button class="btn btn-primary" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="brand"><span class="brand-mark">⌃</span> CoinOsprey</a>
+        <p style="margin-top:14px;">Independent crypto news and research, read by traders who'd rather watch closely than react late.</p>
+        <div class="socials" style="margin-top:16px;">
+          <a href="#" class="icon-btn" aria-label="X / Twitter">𝕏</a>
+          <a href="#" class="icon-btn" aria-label="Telegram">✈</a>
+          <a href="#" class="icon-btn" aria-label="RSS">⟆</a>
+        </div>
+      </div>
+      <div>
+        <h4>Markets</h4>
+        <a href="news.html">News</a>
+        <a href="prices.html">Prices</a>
+        <a href="analysis.html">Analysis</a>
+        <a href="price-prediction.html">Predictions</a>
+      </div>
+      <div>
+        <h4>Research</h4>
+        <a href="whales.html">Whale Tracker</a>
+        <a href="sentiment.html">Fear &amp; Greed</a>
+        <a href="airdrops.html">Airdrops</a>
+        <a href="presales.html">Presales</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="academy.html">Crypto Academy</a>
+        <a href="tools.html">Tools &amp; Calculators</a>
+        <a href="events.html">Events Calendar</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CoinOsprey. All rights reserved.</span>
+      <span>Market data via CoinGecko. Not financial advice.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
