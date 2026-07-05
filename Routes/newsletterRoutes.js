@@ -5,7 +5,7 @@ const {
   unsubscribe,
   listSubscribers,
   sendCampaign,
-} = require("../controllers/newsletterController");
+} = require("../Controllers/newsletterController");
 const { protect } = require("../middleware/auth");
 const { permit } = require("../middleware/admin");
 
