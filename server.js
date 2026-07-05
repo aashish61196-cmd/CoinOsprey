@@ -1,73 +1,74 @@
-require('dotenv').config();
+require("dotenv").config();
+const express = require("express");
+const path = require("path");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
+const rateLimit = require("express-rate-limit");
 
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const path = require('path');
+const connectDB = require("./config/db");
+const logger = require("./utils/logger");
+const { notFound, errorHandler } = require("./middleware/errorHandler");
 
-const connectDB = require('./config/db');
-const logger = require('./utils/logger');
-const errorHandler = require('./middleware/errorHandler');
-
-// ---- Route imports ----
-const authRoutes = require('./routes/authRoutes');
-const articleRoutes = require('./routes/articleRoutes');
-const commentRoutes = require('./routes/commentRoutes');
-const adminRoutes = require('./routes/adminRoutes');
-const newsletterRoutes = require('./routes/newsletterRoutes');
-const seoRoutes = require('./routes/seoRoutes');
-const apiRoutes = require('./routes/apiRoutes');
+const authRoutes = require("./routes/authRoutes");
+const articleRoutes = require("./routes/articleRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const newsletterRoutes = require("./routes/newsletterRoutes");
+const seoRoutes = require("./routes/seoRoutes");
+const apiRoutes = require("./routes/apiRoutes");
+const { sitemap, robots } = require("./controllers/seoController");
 
 const app = express();
 
-// ---- Connect to database ----
-connectDB();
-
-// ---- Core middleware ----
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true, // required so the refreshToken cookie is accepted cross-origin
-}));
-app.use(express.json({ limit: '2mb' })); // higher limit for large article HTML bodies
+// ---------- Core middleware ----------
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "*",
+    credentials: true,
+  })
+);
+app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 
-// ---- Static file serving (uploaded images) ----
-app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+// Basic rate limiting on write-heavy/auth endpoints to slow down abuse.
+const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 50 });
+const commentLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20 });
+app.use("/api/auth", authLimiter);
+app.use("/api/comments", commentLimiter);
 
-// ---- Request logging ----
-app.use((req, res, next) => {
-  logger.logRequest(req);
-  next();
-});
+// Serve uploaded images
+app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
 
-// ---- Routes ----
-app.use('/api/auth', authRoutes);
-app.use('/api/articles', articleRoutes);
-app.use('/api/comments', commentRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/newsletter', newsletterRoutes);
-app.use('/api/seo', seoRoutes);
-app.use('/api/data', apiRoutes);
+// ---------- Routes ----------
+app.get("/", (req, res) => res.json({ success: true, message: "CoinOsprey API is running." }));
+app.get("/sitemap.xml", sitemap);
+app.get("/robots.txt", robots);
 
-// ---- 404 handler for unmatched API routes ----
-app.use('/api', (req, res) => {
-  res.status(404).json({ success: false, message: 'API route not found' });
-});
+app.use("/api/auth", authRoutes);
+app.use("/api/articles", articleRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/newsletter", newsletterRoutes);
+app.use("/api/seo", seoRoutes);
+app.use("/api/crypto", apiRoutes);
 
-// ---- Centralized error handler (must be last) ----
+// ---------- Error handling ----------
+app.use(notFound);
 app.use(errorHandler);
 
+// ---------- Start ----------
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  logger.info(`AVFINANCEHUB backend running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
-});
+async function start() {
+  await connectDB();
+  app.listen(PORT, () => {
+    logger.info(`CoinOsprey API listening on port ${PORT} (${process.env.NODE_ENV || "development"})`);
+  });
+}
 
-// ---- Graceful shutdown ----
-process.on('unhandledRejection', (err) => {
-  logger.logError(err, 'unhandledRejection');
-  process.exit(1);
-});
+start();
 
 module.exports = app;
