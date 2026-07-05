@@ -1,4 +1,4 @@
-const logger = require("../utils/logger");
+const logger = require("../middleware/utils/logger");
 
 const BASE = process.env.COINGECKO_API_BASE || "https://api.coingecko.com/api/v3";
 const API_KEY = process.env.COINGECKO_API_KEY || "";
