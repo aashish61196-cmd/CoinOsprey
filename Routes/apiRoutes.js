@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getMarkets, getGlobal, getFearGreed } = require("../controllers/apiController");
+const { getMarkets, getGlobal, getFearGreed } = require("../Controllers/apiController");
 
 router.get("/markets", getMarkets);
 router.get("/global", getGlobal);
