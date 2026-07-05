@@ -1,7 +1,7 @@
 const Comment = require("../models/Comment");
 const Article = require("../models/Article");
-const { isValidEmail, required } = require("../utils/validator");
-const { sendCommentApprovedEmail } = require("../services/emailService");
+const { isValidEmail, required } = require("../Utils/validator");
+const { sendCommentApprovedEmail } = require("../Services/emailService");
 
 // GET /api/comments/article/:articleId  (public — approved only)
 exports.getCommentsForArticle = async (req, res, next) => {
