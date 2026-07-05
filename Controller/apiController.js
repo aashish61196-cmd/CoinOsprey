@@ -1,4 +1,4 @@
-const cryptoAPI = require("../services/cryptoAPI");
+const cryptoAPI = require("../Services/cryptoAPI");
 
 // GET /api/crypto/markets?limit=50
 exports.getMarkets = async (req, res, next) => {
