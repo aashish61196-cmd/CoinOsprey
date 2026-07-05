@@ -11,14 +11,13 @@ const logger = require("./middleware/utils/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
 
 const authRoutes = require("./middleware/routes/authRoutes");
-const articleRoutes = require("./routes/articleRoutes");
-const commentRoutes = require("./routes/commentRoutes");
-const adminRoutes = require("./routes/adminRoutes");
-const newsletterRoutes = require("./routes/newsletterRoutes");
-const seoRoutes = require("./routes/seoRoutes");
-const apiRoutes = require("./routes/apiRoutes");
-const { sitemap, robots } = require("./controllers/seoController");
-
+const articleRoutes = require("./Routes/articleRoutes");
+const commentRoutes = require("./Routes/commentRoutes");
+const adminRoutes = require("./Routes/adminRoutes");
+const newsletterRoutes = require("./Routes/newsletterRoutes");
+const seoRoutes = require("./Routes/seoRoutes");
+const apiRoutes = require("./Routes/apiRoutes");
+const { sitemap, robots } = require("./Controller/seoController");
 const app = express();
 
 // ---------- Core middleware ----------
