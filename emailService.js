@@ -1,119 +1,60 @@
-const transporter = require('../config/mail');
-const logger = require('../utils/logger');
+const { getTransporter } = require("../config/mail");
 
-const APP_NAME = process.env.APP_NAME || 'AVFINANCEHUB';
-const CLIENT_URL = process.env.CLIENT_URL || 'https://avfinancehub.com';
-const FROM_ADDRESS = process.env.MAIL_FROM || `"${APP_NAME}" <no-reply@avfinancehub.com>`;
+const FROM = process.env.MAIL_FROM || '"CoinOsprey" <no-reply@coinosprey.com>';
 
-// ---- Shared wrapper: send + log, throw on failure so callers can handle it ----
-async function send(mailOptions) {
-  try {
-    const info = await transporter.sendMail({ from: FROM_ADDRESS, ...mailOptions });
-    logger.info(`Email sent: ${mailOptions.subject} -> ${mailOptions.to}`);
-    return info;
-  } catch (err) {
-    logger.logError(err, `emailService.send - ${mailOptions.to}`);
-    throw err;
-  }
+async function sendMail({ to, subject, html, text }) {
+  const transporter = getTransporter();
+  return transporter.sendMail({ from: FROM, to, subject, html, text });
 }
 
-// ---- Basic shared email wrapper template ----
-function wrapTemplate(bodyHtml) {
+function wrapTemplate(title, bodyHtml) {
   return `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
-      <div style="background: #0f172a; padding: 20px; text-align: center;">
-        <h1 style="color: #14b8a6; margin: 0; font-size: 22px;">${APP_NAME}</h1>
-      </div>
-      <div style="padding: 24px; background: #ffffff;">
-        ${bodyHtml}
-      </div>
-      <div style="padding: 16px; text-align: center; font-size: 12px; color: #888;">
-        &copy; ${new Date().getFullYear()} ${APP_NAME}. All rights reserved.
-      </div>
+  <div style="font-family:Inter,Arial,sans-serif;background:#06090D;padding:32px;color:#F3F5F7;">
+    <div style="max-width:520px;margin:0 auto;background:#0d1218;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px;">
+      <h2 style="color:#E3A73B;margin:0 0 16px;">${title}</h2>
+      <div style="color:#A7B0BC;line-height:1.6;">${bodyHtml}</div>
+      <p style="margin-top:32px;font-size:12px;color:#6E7885;">CoinOsprey — crypto news &amp; market research</p>
     </div>
-  `;
+  </div>`;
 }
 
-/**
- * Send account email verification link after registration.
- */
-async function sendVerificationEmail(to, name, token) {
-  const verifyUrl = `${CLIENT_URL}/verify-email/${token}`;
-  const html = wrapTemplate(`
-    <h2>Hi ${name},</h2>
-    <p>Thanks for signing up for ${APP_NAME}. Please verify your email address to activate your account.</p>
-    <p style="text-align: center; margin: 28px 0;">
-      <a href="${verifyUrl}" style="background:#14b8a6;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;">Verify Email</a>
-    </p>
-    <p>This link expires in 24 hours. If you didn't create this account, you can safely ignore this email.</p>
-  `);
-
-  return send({ to, subject: `Verify your ${APP_NAME} account`, html });
+async function sendWelcomeEmail(email, unsubscribeToken) {
+  const unsubUrl = `${process.env.CLIENT_URL || ""}/unsubscribe?token=${unsubscribeToken}`;
+  const html = wrapTemplate(
+    "Welcome to CoinOsprey 👋",
+    `<p>You're subscribed to the CoinOsprey newsletter — market recaps, breaking news and price alerts, straight to your inbox.</p>
+     <p style="font-size:12px;">Didn't sign up? <a style="color:#2DD4BF" href="${unsubUrl}">Unsubscribe here</a>.</p>`
+  );
+  return sendMail({ to: email, subject: "Welcome to CoinOsprey", html });
 }
 
-/**
- * Send password reset link.
- */
-async function sendPasswordResetEmail(to, name, token) {
-  const resetUrl = `${CLIENT_URL}/reset-password/${token}`;
-  const html = wrapTemplate(`
-    <h2>Hi ${name},</h2>
-    <p>We received a request to reset your password. Click below to choose a new one.</p>
-    <p style="text-align: center; margin: 28px 0;">
-      <a href="${resetUrl}" style="background:#14b8a6;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;">Reset Password</a>
-    </p>
-    <p>This link expires in 1 hour. If you didn't request this, you can safely ignore this email.</p>
-  `);
-
-  return send({ to, subject: `Reset your ${APP_NAME} password`, html });
+async function sendCommentApprovedEmail(email, articleTitle, articleUrl) {
+  const html = wrapTemplate(
+    "Your comment was approved",
+    `<p>Your comment on <b>${articleTitle}</b> is now live.</p>
+     <p><a style="color:#2DD4BF" href="${articleUrl}">View it on CoinOsprey</a></p>`
+  );
+  return sendMail({ to: email, subject: "Your comment was approved", html });
 }
 
-/**
- * Send newsletter double opt-in confirmation.
- */
-async function sendNewsletterConfirmation(to, name, token) {
-  const confirmUrl = `${CLIENT_URL}/newsletter/confirm/${token}`;
-  const greeting = name ? `Hi ${name},` : 'Hi,';
-  const html = wrapTemplate(`
-    <h2>${greeting}</h2>
-    <p>Please confirm your subscription to the ${APP_NAME} newsletter for the latest crypto and market insights.</p>
-    <p style="text-align: center; margin: 28px 0;">
-      <a href="${confirmUrl}" style="background:#14b8a6;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;">Confirm Subscription</a>
-    </p>
-    <p>This link expires in 48 hours. If you didn't request this, you can safely ignore this email.</p>
-  `);
-
-  return send({ to, subject: `Confirm your ${APP_NAME} newsletter subscription`, html });
-}
-
-/**
- * Send a marketing/campaign email to a newsletter subscriber, with an
- * unsubscribe link built from their personal unsubscribe token.
- */
-async function sendCampaignEmail(to, subject, htmlContent, unsubscribeToken) {
-  const unsubscribeUrl = `${CLIENT_URL}/api/newsletter/unsubscribe/${unsubscribeToken}`;
-  const html = wrapTemplate(`
-    ${htmlContent}
-    <p style="text-align: center; margin-top: 32px; font-size: 12px; color: #888;">
-      <a href="${unsubscribeUrl}" style="color: #888;">Unsubscribe from these emails</a>
-    </p>
-  `);
-
-  return send({ to, subject, html });
-}
-
-/**
- * Send a notification to admins (e.g. new comment pending moderation).
- */
-async function sendAdminNotification(to, subject, message) {
-  const html = wrapTemplate(`<h2>${subject}</h2><p>${message}</p>`);
-  return send({ to, subject: `[${APP_NAME} Admin] ${subject}`, html });
+async function sendNewsletterCampaign(recipients, subject, contentHtml) {
+  // Sends sequentially to keep this simple/dependency-free. For large lists,
+  // swap this for a batch provider (SendGrid/Mailgun/SES) instead of SMTP.
+  const results = [];
+  for (const email of recipients) {
+    try {
+      await sendMail({ to: email, subject, html: wrapTemplate(subject, contentHtml) });
+      results.push({ email, sent: true });
+    } catch (err) {
+      results.push({ email, sent: false, error: err.message });
+    }
+  }
+  return results;
 }
 
 module.exports = {
-  sendVerificationEmail,
-  sendPasswordResetEmail,
-  sendNewsletterConfirmation,
-  sendCampaignEmail,
-  sendAdminNotification,
+  sendMail,
+  sendWelcomeEmail,
+  sendCommentApprovedEmail,
+  sendNewsletterCampaign,
 };

@@ -1,165 +1,66 @@
-const axios = require('axios');
-const logger = require('../utils/logger');
+const logger = require("../utils/logger");
 
-const COINGECKO_BASE_URL = 'https://api.coingecko.com/api/v3';
-const NSE_BASE_URL = process.env.NSE_API_BASE_URL || 'https://www.nseindia.com/api';
+const BASE = process.env.COINGECKO_API_BASE || "https://api.coingecko.com/api/v3";
+const API_KEY = process.env.COINGECKO_API_KEY || "";
 
-const httpClient = axios.create({
-  timeout: 8000,
-  headers: { Accept: 'application/json' },
-});
+// Simple in-memory cache so the free CoinGecko tier doesn't rate-limit us
+// every time the site's ticker/dashboard polls this backend.
+const cache = new Map();
+const TTL_MS = 60 * 1000; // 60s
 
-// ---- Simple retry wrapper for flaky external APIs ----
-async function withRetry(fn, retries = 2, delayMs = 500) {
-  let lastErr;
-  for (let attempt = 0; attempt <= retries; attempt += 1) {
-    try {
-      return await fn();
-    } catch (err) {
-      lastErr = err;
-      if (attempt < retries) {
-        await new Promise((resolve) => setTimeout(resolve, delayMs * (attempt + 1)));
-      }
-    }
+async function cachedFetch(key, url) {
+  const hit = cache.get(key);
+  if (hit && Date.now() - hit.time < TTL_MS) {
+    return { data: hit.data, live: false, cached: true };
   }
-  throw lastErr;
-}
 
-/**
- * Get current price + 24h change for a single coin by symbol or CoinGecko id.
- */
-async function getCoinPrice(symbolOrId) {
   try {
-    const id = symbolOrId.toLowerCase();
-    const response = await withRetry(() =>
-      httpClient.get(`${COINGECKO_BASE_URL}/simple/price`, {
-        params: {
-          ids: id,
-          vs_currencies: 'usd,inr',
-          include_24hr_change: true,
-          include_market_cap: true,
-        },
-      })
-    );
-
-    const data = response.data[id];
-    if (!data) return null;
-
-    return {
-      symbol: symbolOrId.toUpperCase(),
-      priceUsd: data.usd,
-      priceInr: data.inr,
-      change24h: data.usd_24h_change,
-      marketCapUsd: data.usd_market_cap,
-    };
+    const headers = API_KEY ? { "x-cg-pro-api-key": API_KEY } : {};
+    const res = await fetch(url, { headers });
+    if (!res.ok) throw new Error(`CoinGecko responded ${res.status}`);
+    const data = await res.json();
+    cache.set(key, { data, time: Date.now() });
+    return { data, live: true, cached: false };
   } catch (err) {
-    logger.logError(err, `cryptoAPI.getCoinPrice - ${symbolOrId}`);
-    throw new Error(`Failed to fetch price for ${symbolOrId}`);
+    logger.warn(`cryptoAPI: live fetch failed for ${key} (${err.message})`);
+    if (hit) return { data: hit.data, live: false, cached: true }; // serve stale
+    throw err;
   }
 }
 
-/**
- * Get detailed market data for a coin (rank, volume, supply, ATH, etc.)
- */
-async function getCoinMarketData(symbolOrId) {
-  try {
-    const id = symbolOrId.toLowerCase();
-    const response = await withRetry(() =>
-      httpClient.get(`${COINGECKO_BASE_URL}/coins/${id}`, {
-        params: {
-          localization: false,
-          tickers: false,
-          community_data: false,
-          developer_data: false,
-        },
-      })
-    );
-
-    const d = response.data;
-    return {
-      name: d.name,
-      rank: d.market_cap_rank,
-      volume24h: d.market_data?.total_volume?.usd,
-      circulatingSupply: d.market_data?.circulating_supply,
-      totalSupply: d.market_data?.total_supply,
-      ath: d.market_data?.ath?.usd,
-      athDate: d.market_data?.ath_date?.usd,
-      atl: d.market_data?.atl?.usd,
-    };
-  } catch (err) {
-    logger.logError(err, `cryptoAPI.getCoinMarketData - ${symbolOrId}`);
-    return null; // non-critical enrichment data; don't fail the whole request
-  }
+async function getMarkets(limit = 50) {
+  const url = `${BASE}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1&sparkline=true&price_change_percentage=24h`;
+  return cachedFetch(`markets:${limit}`, url);
 }
 
-/**
- * Get top N coins by market cap, for the site-wide ticker bar.
- */
-async function getTopCoins(limit = 10) {
-  try {
-    const response = await withRetry(() =>
-      httpClient.get(`${COINGECKO_BASE_URL}/coins/markets`, {
-        params: {
-          vs_currency: 'usd',
-          order: 'market_cap_desc',
-          per_page: limit,
-          page: 1,
-          sparkline: false,
-        },
-      })
-    );
-
-    return response.data.map((coin) => ({
-      symbol: coin.symbol.toUpperCase(),
-      name: coin.name,
-      price: coin.current_price,
-      change24h: coin.price_change_percentage_24h,
-      marketCap: coin.market_cap,
-      image: coin.image,
-    }));
-  } catch (err) {
-    logger.logError(err, 'cryptoAPI.getTopCoins');
-    throw new Error('Failed to fetch top coins list');
-  }
+async function getGlobal() {
+  const url = `${BASE}/global`;
+  const { data, live, cached } = await cachedFetch("global", url);
+  const g = data.data || data; // CoinGecko wraps global stats in { data: {...} }
+  return {
+    live,
+    cached,
+    data: {
+      total_market_cap_usd: g.total_market_cap ? g.total_market_cap.usd : 0,
+      total_volume_usd: g.total_volume ? g.total_volume.usd : 0,
+      btc_dominance: g.market_cap_percentage ? g.market_cap_percentage.btc : 0,
+      active_cryptocurrencies: g.active_cryptocurrencies || 0,
+      market_cap_change_24h: g.market_cap_change_percentage_24h_usd || 0,
+    },
+  };
 }
 
-/**
- * Get a live quote for an Indian stock (NSE). NSE's public API is unofficial
- * and rate-limit/session sensitive - wrap carefully and fail gracefully.
- */
-async function getIndianStockQuote(symbol) {
-  try {
-    const response = await withRetry(() =>
-      httpClient.get(`${NSE_BASE_URL}/quote-equity`, {
-        params: { symbol: symbol.toUpperCase() },
-        headers: {
-          'User-Agent': 'Mozilla/5.0',
-          Referer: 'https://www.nseindia.com/',
-        },
-      })
-    );
-
-    const d = response.data;
-    if (!d?.priceInfo) return null;
-
-    return {
-      symbol: symbol.toUpperCase(),
-      price: d.priceInfo.lastPrice,
-      change: d.priceInfo.change,
-      changePercent: d.priceInfo.pChange,
-      dayHigh: d.priceInfo.intraDayHighLow?.max,
-      dayLow: d.priceInfo.intraDayHighLow?.min,
-      previousClose: d.priceInfo.previousClose,
-    };
-  } catch (err) {
-    logger.logError(err, `cryptoAPI.getIndianStockQuote - ${symbol}`);
-    return null; // NSE API is unreliable; let caller handle "no data" gracefully
-  }
+async function getFearGreed() {
+  // CoinGecko doesn't provide Fear & Greed; alternative.me does, and matches
+  // the data shape the frontend's CoinOspreyAPI already expects.
+  const url = "https://api.alternative.me/fng/?limit=1";
+  const { data, live, cached } = await cachedFetch("fng", url);
+  const item = (data.data && data.data[0]) || { value: 50, value_classification: "Neutral" };
+  return {
+    live,
+    cached,
+    data: { value: Number(item.value), classification: item.value_classification },
+  };
 }
 
-module.exports = {
-  getCoinPrice,
-  getCoinMarketData,
-  getTopCoins,
-  getIndianStockQuote,
-};
+module.exports = { getMarkets, getGlobal, getFearGreed };
