@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- ============ Meta / SEO ============ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Presales — Trending Presales, Tokenomics &amp; Risk Ratings | CoinOsprey</title>
+<meta name="description" content="Track trending crypto presales — funding progress, hard cap, soft cap, token price, countdowns, roadmap, tokenomics and independent risk ratings, in one place.">
+<meta name="keywords" content="crypto presale, token presale, ICO tracker, hard cap soft cap, presale tokenomics, presale risk rating">
+<meta name="author" content="CoinOsprey">
+<link rel="canonical" href="https://www.coinosprey.com/presale.html">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Crypto Presales — CoinOsprey">
+<meta property="og:description" content="Funding progress, caps, token price, countdowns, roadmap, tokenomics and risk ratings for trending presales.">
+<meta property="og:url" content="https://www.coinosprey.com/presale.html">
+<meta property="og:site_name" content="CoinOsprey">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23E3A73B'/><path d='M16 7 L23 22 L16 18 L9 22 Z' fill='%230A0E13'/></svg>" type="image/svg+xml">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+/* ==============================================================
+   CoinOsprey — Crypto Presale page
+   Shares the site's glassmorphism tokens/components, plus new
+   components for funding progress, countdowns, roadmap timeline,
+   tokenomics donut, risk rating and FAQ accordion.
+   ============================================================== */
+
+:root{
+  --bg-deep:      #06090D;
+  --bg-glow-1:    #E3A73B;
+  --bg-glow-2:    #2DD4BF;
+  --bg-glow-3:    #6C63FF;
+
+  --glass-bg:     rgba(255,255,255,0.045);
+  --glass-bg-2:   rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-blur:   18px;
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.45);
+
+  --text-1: #F3F5F7;
+  --text-2: #A7B0BC;
+  --text-3: #6E7885;
+
+  --rise: #34D399;
+  --fall: #FB5B5B;
+  --accent: #E3A73B;
+  --accent-2: #2DD4BF;
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --container: 1260px;
+
+  --font-display: "Space Grotesk", "Arial Narrow", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0; background: var(--bg-deep); color: var(--text-1); font-family: var(--font-body);
+  line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+ul{ list-style: none; margin: 0; padding: 0; }
+button{ font-family: inherit; cursor: pointer; }
+input, select{ font-family: inherit; }
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.bg-mesh{ position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-deep); }
+.bg-mesh span{ position: absolute; border-radius: 50%; filter: blur(110px); opacity: 0.35; animation: drift 22s ease-in-out infinite; }
+.bg-mesh .blob-1{ width: 520px; height: 520px; background: var(--bg-glow-1); top: -120px; left: -80px; }
+.bg-mesh .blob-2{ width: 480px; height: 480px; background: var(--bg-glow-2); top: 30%; right: -140px; animation-delay: -6s; }
+.bg-mesh .blob-3{ width: 460px; height: 460px; background: var(--bg-glow-3); bottom: -160px; left: 22%; animation-delay: -12s; }
+@keyframes drift{ 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(40px,-30px) scale(1.08); } }
+@media (prefers-reduced-motion: reduce){ .bg-mesh span{ animation: none; } }
+
+.container{ max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+.eyebrow{ font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); display: inline-flex; align-items: center; gap: 8px; }
+h1, h2, h3, h4{ font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; margin: 0 0 .5em; color: var(--text-1); }
+p{ color: var(--text-2); margin: 0 0 1em; }
+
+.glass{ background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--r-md); backdrop-filter: blur(var(--glass-blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%); box-shadow: var(--glass-shadow); }
+.glass-hover{ transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+.glass-hover:hover{ transform: translateY(-4px); border-color: rgba(227,167,59,0.35); background: var(--glass-bg-2); }
+
+.section{ padding: 76px 0; }
+.section-head{ display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.section-head h2{ font-size: clamp(24px, 3vw, 34px); margin: 8px 0 0; }
+.section-head p{ margin: 0; max-width: 46ch; }
+.view-all{ font-family: var(--font-mono); font-size: 13px; color: var(--accent-2); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.view-all i{ font-size: 11px; transition: transform .2s ease; }
+.view-all:hover i{ transform: translateX(3px); }
+
+.btn{ display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px; border-radius: 999px; font-weight: 600; font-size: 14px; border: 1px solid transparent; transition: transform .15s ease, box-shadow .2s ease; }
+.btn-primary{ background: linear-gradient(135deg, var(--accent), #f2c168); color: #181104; box-shadow: 0 8px 24px rgba(227,167,59,0.25); }
+.btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 12px 30px rgba(227,167,59,0.35); }
+.btn-ghost{ background: var(--glass-bg); border-color: var(--glass-border); color: var(--text-1); backdrop-filter: blur(10px); }
+.btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+.btn-block{ width: 100%; justify-content: center; }
+.btn[disabled]{ opacity: .5; cursor: not-allowed; }
+
+/* Ticker */
+.ticker-wrap{ border-bottom: 1px solid var(--glass-border); background: rgba(255,255,255,0.02); backdrop-filter: blur(14px); }
+.ticker-wrap .container{ display: flex; align-items: center; height: 38px; overflow: hidden; }
+.ticker-track{ display: flex; gap: 40px; white-space: nowrap; animation: scroll-ticker 34s linear infinite; font-family: var(--font-mono); font-size: 12.5px; }
+.ticker-wrap:hover .ticker-track{ animation-play-state: paused; }
+.ticker-item{ display: flex; gap: 8px; align-items: center; color: var(--text-2); }
+.ticker-item .sym{ color: var(--text-1); font-weight: 600; }
+.ticker-item .up{ color: var(--rise); }
+.ticker-item .down{ color: var(--fall); }
+@keyframes scroll-ticker{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+
+/* Navbar */
+.navbar{ position: sticky; top: 0; z-index: 200; background: rgba(6,9,13,0.55); backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%); border-bottom: 1px solid var(--glass-border); }
+.navbar .container{ display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.brand{ display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 21px; }
+.brand-mark{ width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06090D; font-size: 16px; }
+.nav-links{ display: flex; align-items: center; gap: 24px; font-size: 14.5px; color: var(--text-2); }
+.nav-links a{ display: inline-flex; align-items: center; gap: 6px; }
+.nav-links a i{ font-size: 12px; opacity: .7; }
+.nav-links a:hover{ color: var(--text-1); }
+.nav-links a.active{ color: var(--accent); }
+.nav-links a.active i{ opacity: 1; }
+.nav-actions{ display: flex; align-items: center; gap: 12px; }
+
+.icon-btn{ width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-2); backdrop-filter: blur(10px); transition: color .2s ease, border-color .2s ease; }
+.icon-btn:hover{ color: var(--accent); border-color: var(--accent); }
+.nav-toggle{ display: none; }
+
+.search-pop{ position: absolute; right: 24px; top: 72px; width: min(420px, 90vw); padding: 10px; display: none; z-index: 210; }
+.search-pop.open{ display: block; }
+.search-pop .search-inner{ display: flex; align-items: center; gap: 10px; padding: 8px 14px; }
+.search-pop input{ flex: 1; background: transparent; border: none; color: var(--text-1); font-size: 14px; }
+.search-pop input:focus{ outline: none; }
+.search-pop i{ color: var(--text-3); }
+
+/* Hero */
+.hero{ padding: 88px 0 52px; position: relative; }
+.hero-grid{ display: grid; grid-template-columns: 1.1fr .9fr; gap: 52px; align-items: center; }
+.hero h1{ font-size: clamp(34px, 4.6vw, 54px); line-height: 1.06; }
+.hero h1 span.accent-text{ background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .lede{ font-size: 17px; max-width: 50ch; margin: 16px 0 26px; }
+.hero-cta{ display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
+.hero-stats{ display: flex; gap: 28px; flex-wrap: wrap; }
+.hero-stat b{ display: block; font-family: var(--font-display); font-size: 22px; color: var(--text-1); }
+.hero-stat span{ font-size: 12.5px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+
+.hero-card{ padding: 24px; }
+.hero-card .panel-title{ display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-3); margin-bottom: 16px; }
+.pulse-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--rise); display: inline-block; margin-right: 6px; box-shadow: 0 0 0 0 rgba(52,211,153,.6); animation: pulse 2s infinite; }
+@keyframes pulse{ 0%{ box-shadow: 0 0 0 0 rgba(52,211,153,.5); } 70%{ box-shadow: 0 0 0 9px rgba(52,211,153,0); } 100%{ box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
+
+/* Badges */
+.badge{ font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; text-transform: uppercase; letter-spacing: .04em; }
+.badge.up{ color: var(--rise); background: rgba(52,211,153,0.12); }
+.badge.down{ color: var(--fall); background: rgba(251,91,91,0.12); }
+.badge.neutral{ color: var(--accent-2); background: rgba(45,212,191,0.12); }
+.badge.warn{ color: var(--accent); background: rgba(227,167,59,0.14); }
+
+/* Grids */
+.grid-4{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.grid-3{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.grid-2{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+
+/* Coin id row (shared) */
+.coin-id{ display: flex; align-items: center; gap: 10px; }
+.coin-ico{ width: 32px; height: 32px; border-radius: 10px; background: var(--glass-bg-2); border: 1px solid var(--glass-border); display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px; font-weight: 700; }
+.coin-name{ font-size: 14px; font-weight: 600; color: var(--text-1); }
+.coin-sub{ font-size: 12px; color: var(--text-3); }
+
+/* ---------- Presale cards ---------- */
+.presale-card{ padding: 20px; }
+.presale-top{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.presale-tagline{ font-size: 13px; margin: 10px 0 14px; }
+.progress-bar{ height: 9px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; position: relative; }
+.progress-fill{ position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+.progress-meta{ display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); margin-top: 8px; }
+.progress-meta b{ color: var(--text-1); }
+.presale-stats{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; font-family: var(--font-mono); font-size: 12px; }
+.presale-stats div{ background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--r-sm); padding: 9px 11px; }
+.presale-stats span{ display: block; color: var(--text-3); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+.presale-stats b{ color: var(--text-1); font-size: 13.5px; }
+.presale-foot{ display: flex; align-items: center; justify-content: space-between; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); }
+.risk-pill{ display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 11px; padding: 3px 9px; border-radius: 999px; }
+.risk-pill.low{ color: var(--rise); background: rgba(52,211,153,0.12); }
+.risk-pill.med{ color: var(--accent); background: rgba(227,167,59,0.14); }
+.risk-pill.high{ color: var(--fall); background: rgba(251,91,91,0.12); }
+
+/* ---------- Featured presale detail ---------- */
+.presale-detail{ padding: 0; overflow: hidden; }
+.pd-head{ display: flex; align-items: center; justify-content: space-between; padding: 24px 28px; border-bottom: 1px solid var(--glass-border); flex-wrap: wrap; gap: 16px; }
+.pd-head .coin-ico{ width: 46px; height: 46px; font-size: 15px; }
+.pd-head h3{ margin: 0; font-size: 20px; }
+.pd-head .coin-sub{ font-size: 12.5px; }
+.pd-body{ display: grid; grid-template-columns: 1.15fr .85fr; gap: 0; }
+.pd-main{ padding: 28px; border-right: 1px solid var(--glass-border); }
+.pd-side{ padding: 28px; }
+
+.countdown-grid{ display: flex; gap: 12px; margin: 6px 0 24px; }
+.countdown-box{ flex: 1; text-align: center; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--r-sm); padding: 14px 6px; }
+.countdown-box b{ display: block; font-family: var(--font-display); font-size: 26px; }
+.countdown-box span{ font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: .06em; }
+
+.fund-progress-lg{ margin-bottom: 10px; }
+.fund-progress-lg .progress-bar{ height: 14px; }
+.fund-progress-lg .cap-markers{ position: relative; height: 14px; }
+.fund-progress-lg .cap-markers .marker-line{ position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--text-1); opacity: .6; }
+.fund-labels{ display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px; color: var(--text-3); margin-top: 10px; }
+.fund-labels b{ color: var(--text-1); }
+
+.pd-stat-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+.pd-stat{ background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--r-sm); padding: 14px 16px; }
+.pd-stat span{ display: block; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px; }
+.pd-stat b{ font-family: var(--font-display); font-size: 18px; }
+
+.stage-list{ display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+.stage-row{ display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: var(--r-sm); border: 1px solid var(--glass-border); font-family: var(--font-mono); font-size: 12.5px; }
+.stage-row.current{ border-color: var(--accent); background: rgba(227,167,59,0.08); }
+.stage-row .stage-name{ color: var(--text-2); }
+.stage-row.current .stage-name{ color: var(--accent); font-weight: 600; }
+
+/* ---------- Roadmap ---------- */
+.roadmap-track{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; }
+.roadmap-track::before{ content:""; position: absolute; top: 17px; left: 3%; right: 3%; height: 2px; background: var(--glass-border); z-index: 0; }
+.roadmap-item{ position: relative; z-index: 1; padding: 22px 18px; text-align: left; }
+.roadmap-dot{ width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--glass-bg-2); border: 2px solid var(--glass-border); margin-bottom: 16px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
+.roadmap-item.done .roadmap-dot{ background: linear-gradient(135deg, var(--rise), #1f9d73); border-color: transparent; color: #06140f; }
+.roadmap-item.active .roadmap-dot{ background: linear-gradient(135deg, var(--accent), #f2c168); border-color: transparent; color: #181104; }
+.roadmap-item h4{ font-size: 15px; margin-bottom: 6px; }
+.roadmap-item p{ font-size: 13px; margin-bottom: 10px; }
+.roadmap-item .badge{ margin-top: 2px; }
+
+/* ---------- Tokenomics ---------- */
+.tokenomics-wrap{ display: grid; grid-template-columns: auto 1fr; gap: 44px; align-items: center; padding: 30px; }
+.donut{ width: 220px; height: 220px; border-radius: 50%; position: relative; flex-shrink: 0; }
+.donut::before{ content:""; position: absolute; inset: 26px; border-radius: 50%; background: var(--bg-deep); }
+.donut-center{ position: absolute; inset: 26px; display: grid; place-items: center; text-align: center; }
+.donut-center b{ display: block; font-family: var(--font-display); font-size: 20px; }
+.donut-center span{ font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: .05em; }
+.token-legend{ display: flex; flex-direction: column; gap: 12px; }
+.token-legend .leg-row{ display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: var(--text-2); border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+.token-legend .leg-row:last-child{ border-bottom: none; padding-bottom: 0; }
+.token-legend .leg-name{ display: flex; align-items: center; gap: 10px; }
+.token-legend .leg-dot{ width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
+.token-legend b{ font-family: var(--font-mono); color: var(--text-1); }
+
+/* ---------- Risk rating ---------- */
+.risk-panel{ padding: 28px; display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center; }
+.risk-score{ text-align: center; }
+.risk-ring{ width: 128px; height: 128px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--rise) 0deg 259deg, rgba(255,255,255,0.08) 259deg 360deg); position: relative; margin: 0 auto 10px; }
+.risk-ring::before{ content:""; position: absolute; inset: 10px; border-radius: 50%; background: var(--bg-deep); }
+.risk-ring b{ position: relative; z-index: 1; font-family: var(--font-display); font-size: 28px; }
+.risk-score span{ font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: .06em; }
+.risk-checklist{ display: flex; flex-direction: column; gap: 12px; }
+.risk-item{ display: flex; align-items: center; justify-content: space-between; font-size: 14px; color: var(--text-2); border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+.risk-item:last-child{ border: none; padding-bottom: 0; }
+.risk-item i.fa-circle-check{ color: var(--rise); }
+.risk-item i.fa-circle-xmark{ color: var(--fall); }
+.risk-item i.fa-triangle-exclamation{ color: var(--accent); }
+
+/* ---------- FAQ ---------- */
+.faq-item{ padding: 4px 22px; margin-bottom: 12px; }
+.faq-item summary{ list-style: none; display: flex; align-items: center; justify-content: space-between; padding: 18px 0; font-family: var(--font-display); font-size: 15.5px; cursor: pointer; }
+.faq-item summary::-webkit-details-marker{ display: none; }
+.faq-item summary i{ color: var(--accent-2); transition: transform .25s ease; flex-shrink: 0; margin-left: 14px; }
+.faq-item[open] summary i{ transform: rotate(45deg); }
+.faq-item .faq-a{ padding: 0 0 20px; font-size: 14.5px; }
+
+/* ---------- Disclaimer ---------- */
+.disclaimer{ display: flex; gap: 12px; align-items: flex-start; padding: 16px 20px; font-size: 13px; color: var(--text-3); }
+.disclaimer i{ color: var(--accent); margin-top: 2px; }
+
+/* Footer */
+footer{ border-top: 1px solid var(--glass-border); padding: 60px 0 26px; margin-top: 20px; }
+.footer-grid{ display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; padding-bottom: 36px; }
+.footer-grid h4{ font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-3); margin-bottom: 16px; }
+.footer-grid a{ display: block; color: var(--text-2); font-size: 14px; padding: 6px 0; }
+.footer-grid a:hover{ color: var(--accent); }
+.footer-about p{ font-size: 14px; max-width: 36ch; }
+.socials{ display: flex; gap: 12px; margin-top: 16px; }
+.footer-bottom{ border-top: 1px solid var(--glass-border); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-3); flex-wrap: wrap; gap: 10px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px){
+  .grid-4{ grid-template-columns: repeat(2, 1fr); }
+  .pd-body{ grid-template-columns: 1fr; }
+  .pd-main{ border-right: none; border-bottom: 1px solid var(--glass-border); }
+  .tokenomics-wrap{ grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .token-legend{ width: 100%; max-width: 380px; }
+}
+@media (max-width: 980px){
+  .hero-grid{ grid-template-columns: 1fr; }
+  .grid-3{ grid-template-columns: repeat(2, 1fr); }
+  .grid-2{ grid-template-columns: 1fr; }
+  .roadmap-track{ grid-template-columns: 1fr; }
+  .roadmap-track::before{ display: none; }
+  .risk-panel{ grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .risk-checklist{ width: 100%; }
+  .footer-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px){
+  .nav-links{
+    position: fixed; inset: 72px 0 0 0; z-index: 190;
+    background: rgba(6,9,13,0.96); backdrop-filter: blur(20px);
+    flex-direction: column; align-items: flex-start; padding: 28px 24px;
+    display: none; gap: 4px; border-top: 1px solid var(--glass-border);
+    overflow-y: auto;
+  }
+  .nav-links.open{ display: flex; }
+  .nav-links a{ padding: 14px 0; font-size: 16px; width: 100%; border-bottom: 1px solid var(--glass-border); }
+  .nav-toggle{ display: grid; }
+  .grid-3, .grid-4{ grid-template-columns: 1fr; }
+  .footer-grid{ grid-template-columns: 1fr; }
+  .section{ padding: 54px 0; }
+  .hero{ padding: 72px 0 40px; }
+  .countdown-grid{ gap: 8px; }
+  .countdown-box{ padding: 10px 4px; }
+  .countdown-box b{ font-size: 20px; }
+  .pd-stat-grid{ grid-template-columns: 1fr; }
+  .presale-stats{ grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-mesh" aria-hidden="true">
+  <span class="blob-1"></span>
+  <span class="blob-2"></span>
+  <span class="blob-3"></span>
+</div>
+
+<!-- ================= Live Crypto Ticker ================= -->
+<div class="ticker-wrap" role="marquee" aria-label="Live cryptocurrency price ticker">
+  <div class="container">
+    <div class="ticker-track">
+      <span class="ticker-item"><span class="sym">BTC</span><span>$107,452</span><span class="up"><i class="fa-solid fa-caret-up"></i> +1.82%</span></span>
+      <span class="ticker-item"><span class="sym">ETH</span><span>$3,894</span><span class="down"><i class="fa-solid fa-caret-down"></i> -0.74%</span></span>
+      <span class="ticker-item"><span class="sym">SOL</span><span>$198.30</span><span class="up"><i class="fa-solid fa-caret-up"></i> +3.41%</span></span>
+      <span class="ticker-item"><span class="sym">XRP</span><span>$2.41</span><span class="down"><i class="fa-solid fa-caret-down"></i> -1.15%</span></span>
+      <span class="ticker-item"><span class="sym">BNB</span><span>$712.40</span><span class="up"><i class="fa-solid fa-caret-up"></i> +0.52%</span></span>
+      <span class="ticker-item"><span class="sym">DOGE</span><span>$0.221</span><span class="up"><i class="fa-solid fa-caret-up"></i> +5.67%</span></span>
+      <span class="ticker-item"><span class="sym">BTC</span><span>$107,452</span><span class="up"><i class="fa-solid fa-caret-up"></i> +1.82%</span></span>
+      <span class="ticker-item"><span class="sym">ETH</span><span>$3,894</span><span class="down"><i class="fa-solid fa-caret-down"></i> -0.74%</span></span>
+      <span class="ticker-item"><span class="sym">SOL</span><span>$198.30</span><span class="up"><i class="fa-solid fa-caret-up"></i> +3.41%</span></span>
+      <span class="ticker-item"><span class="sym">XRP</span><span>$2.41</span><span class="down"><i class="fa-solid fa-caret-down"></i> -1.15%</span></span>
+      <span class="ticker-item"><span class="sym">BNB</span><span>$712.40</span><span class="up"><i class="fa-solid fa-caret-up"></i> +0.52%</span></span>
+      <span class="ticker-item"><span class="sym">DOGE</span><span>$0.221</span><span class="up"><i class="fa-solid fa-caret-up"></i> +5.67%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Sticky Navbar ================= -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="CoinOsprey home">
+      <span class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></span> CoinOsprey
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="news.html"><i class="fa-regular fa-newspaper"></i> News</a>
+      <a href="prices.html"><i class="fa-solid fa-chart-line"></i> Prices</a>
+      <a href="technical-analysis.html"><i class="fa-solid fa-chart-simple"></i> Analysis</a>
+      <a href="presale.html" class="active"><i class="fa-solid fa-rocket"></i> Presales</a>
+      <a href="whales.html"><i class="fa-solid fa-water"></i> Whale Tracker</a>
+      <a href="sentiment.html"><i class="fa-solid fa-gauge-high"></i> Fear &amp; Greed</a>
+      <a href="academy.html"><i class="fa-solid fa-graduation-cap"></i> Learn</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" data-search-toggle aria-label="Open search" aria-expanded="false">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="icon-btn nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <div class="glass search-pop" role="search">
+      <div class="search-inner">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search coins, articles, tools…" aria-label="Search CoinOsprey">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= Hero ================= -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow"><i class="fa-solid fa-rocket"></i> PRESALE TRACKER</p>
+        <h1 id="hero-heading">Presales, tracked the way <span class="accent-text">diligence</span> actually looks</h1>
+        <p class="lede">Funding progress, caps, token price and vesting — laid out next to an independent risk rating, so hype is never the only thing in front of you.</p>
+        <div class="hero-cta">
+          <a href="#trending" class="btn btn-primary"><i class="fa-solid fa-fire"></i> View trending presales</a>
+          <a href="#faqs" class="btn btn-ghost"><i class="fa-regular fa-circle-question"></i> How presales work</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>14</b><span>Presales tracked</span></div>
+          <div class="hero-stat"><b>$42.8M</b><span>Total raised (live)</span></div>
+          <div class="hero-stat"><b>24/7</b><span>Funding updates</span></div>
+        </div>
+      </div>
+
+      <div class="glass hero-card">
+        <div class="panel-title"><span><span class="pulse-dot"></span> Live · Ending Soon</span><span>NBLX</span></div>
+        <div class="countdown-grid" style="margin-bottom:16px;">
+          <div class="countdown-box"><b>02</b><span>Days</span></div>
+          <div class="countdown-box"><b>14</b><span>Hours</span></div>
+          <div class="countdown-box"><b>37</b><span>Mins</span></div>
+          <div class="countdown-box"><b>09</b><span>Secs</span></div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:74%"></div></div>
+        <div class="progress-meta"><span>Raised <b>$3.7M</b></span><span>Hard Cap <b>$5.0M</b></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Trending Presales ================= -->
+  <section class="section" id="trending" style="padding-top:0;" aria-labelledby="trending-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-solid fa-fire"></i> Trending</p>
+          <h2 id="trending-heading">Trending Presales</h2>
+          <p>Ranked by funding velocity over the last 24 hours — not by how loud the marketing is.</p>
+        </div>
+      </div>
+      <div class="grid-4">
+
+        <div class="glass glass-hover presale-card">
+          <div class="presale-top">
+            <div class="coin-id"><div class="coin-ico">NB</div><div><div class="coin-name">NebulaSwap</div><div class="coin-sub">NBLX</div></div></div>
+            <span class="badge up">Live</span>
+          </div>
+          <p class="presale-tagline">Cross-chain DEX aggregator routing swaps across 9 chains.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:74%"></div></div>
+          <div class="progress-meta"><span>74% filled</span><span><b>$3.7M</b> / $5.0M</span></div>
+          <div class="presale-stats">
+            <div><span>Token Price</span><b>$0.014</b></div>
+            <div><span>Soft Cap</span><b>$1.2M</b></div>
+          </div>
+          <div class="presale-foot"><span><i class="fa-regular fa-clock"></i> 2d 14h left</span><span class="risk-pill low"><i class="fa-solid fa-shield-halved"></i> Low risk</span></div>
+        </div>
+
+        <div class="glass glass-hover presale-card">
+          <div class="presale-top">
+            <div class="coin-id"><div class="coin-ico">FG</div><div><div class="coin-name">ForgeChain</div><div class="coin-sub">FORG</div></div></div>
+            <span class="badge up">Live</span>
+          </div>
+          <p class="presale-tagline">Modular L2 for on-chain gaming with sub-cent transaction fees.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:41%"></div></div>
+          <div class="progress-meta"><span>41% filled</span><span><b>$1.64M</b> / $4.0M</span></div>
+          <div class="presale-stats">
+            <div><span>Token Price</span><b>$0.008</b></div>
+            <div><span>Soft Cap</span><b>$900K</b></div>
+          </div>
+          <div class="presale-foot"><span><i class="fa-regular fa-clock"></i> 6d 3h left</span><span class="risk-pill med"><i class="fa-solid fa-shield-halved"></i> Medium risk</span></div>
+        </div>
+
+        <div class="glass glass-hover presale-card">
+          <div class="presale-top">
+            <div class="coin-id"><div class="coin-ico">AE</div><div><div class="coin-name">AetherPay</div><div class="coin-sub">AETP</div></div></div>
+            <span class="badge neutral">Upcoming</span>
+          </div>
+          <p class="presale-tagline">Stablecoin settlement rail for cross-border merchant payments.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="progress-meta"><span>Opens in 4d</span><span><b>$0</b> / $6.0M</span></div>
+          <div class="presale-stats">
+            <div><span>Token Price</span><b>$0.021</b></div>
+            <div><span>Soft Cap</span><b>$1.5M</b></div>
+          </div>
+          <div class="presale-foot"><span><i class="fa-regular fa-clock"></i> Not started</span><span class="risk-pill med"><i class="fa-solid fa-shield-halved"></i> Medium risk</span></div>
+        </div>
+
+        <div class="glass glass-hover presale-card">
+          <div class="presale-top">
+            <div class="coin-id"><div class="coin-ico">ZN</div><div><div class="coin-name">ZenithFi</div><div class="coin-sub">ZNTH</div></div></div>
+            <span class="badge down">Ending soon</span>
+          </div>
+          <p class="presale-tagline">Undercollateralized lending pools scored by on-chain credit history.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:93%"></div></div>
+          <div class="progress-meta"><span>93% filled</span><span><b>$2.79M</b> / $3.0M</span></div>
+          <div class="presale-stats">
+            <div><span>Token Price</span><b>$0.032</b></div>
+            <div><span>Soft Cap</span><b>$800K</b></div>
+          </div>
+          <div class="presale-foot"><span><i class="fa-regular fa-clock"></i> 9h left</span><span class="risk-pill high"><i class="fa-solid fa-shield-halved"></i> High risk</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Featured Presale Detail ================= -->
+  <section class="section" aria-labelledby="detail-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-solid fa-circle-info"></i> Featured</p>
+          <h2 id="detail-heading">NebulaSwap (NBLX) — Presale Details</h2>
+        </div>
+      </div>
+      <div class="glass presale-detail">
+        <div class="pd-head">
+          <div class="coin-id">
+            <div class="coin-ico">NB</div>
+            <div><h3>NebulaSwap</h3><div class="coin-sub">NBLX · BNB Chain</div></div>
+          </div>
+          <span class="badge up"><span class="pulse-dot"></span> Live — Stage 3 of 4</span>
+        </div>
+        <div class="pd-body">
+          <div class="pd-main">
+            <p class="eyebrow" style="color:var(--text-3); margin-bottom:10px;">TIME LEFT IN THIS STAGE</p>
+            <div class="countdown-grid">
+              <div class="countdown-box"><b>02</b><span>Days</span></div>
+              <div class="countdown-box"><b>14</b><span>Hours</span></div>
+              <div class="countdown-box"><b>37</b><span>Mins</span></div>
+              <div class="countdown-box"><b>09</b><span>Secs</span></div>
+            </div>
+
+            <div class="fund-progress-lg">
+              <div class="progress-bar"><div class="progress-fill" style="width:74%"></div></div>
+              <div class="fund-labels">
+                <span>Soft Cap <b>$1.2M</b></span>
+                <span>Raised <b style="color:var(--accent)">$3.7M</b></span>
+                <span>Hard Cap <b>$5.0M</b></span>
+              </div>
+            </div>
+
+            <div class="pd-stat-grid">
+              <div class="pd-stat"><span>Hard Cap</span><b>$5,000,000</b></div>
+              <div class="pd-stat"><span>Soft Cap</span><b>$1,200,000</b></div>
+              <div class="pd-stat"><span>Current Token Price</span><b>$0.0140</b></div>
+              <div class="pd-stat"><span>Listing Price (target)</span><b>$0.0220</b></div>
+              <div class="pd-stat"><span>Min / Max Contribution</span><b>$25 – $10,000</b></div>
+              <div class="pd-stat"><span>Network</span><b>BNB Chain</b></div>
+            </div>
+          </div>
+
+          <div class="pd-side">
+            <p class="eyebrow" style="color:var(--text-3); margin-bottom:10px;">PRICE BY STAGE</p>
+            <div class="stage-list">
+              <div class="stage-row"><span class="stage-name">Stage 1 — Seed</span><span>$0.008 <i class="fa-solid fa-check" style="color:var(--rise); margin-left:8px;"></i></span></div>
+              <div class="stage-row"><span class="stage-name">Stage 2 — Private</span><span>$0.011 <i class="fa-solid fa-check" style="color:var(--rise); margin-left:8px;"></i></span></div>
+              <div class="stage-row current"><span class="stage-name">Stage 3 — Public (current)</span><span>$0.014</span></div>
+              <div class="stage-row"><span class="stage-name">Stage 4 — Final</span><span>$0.018</span></div>
+            </div>
+            <a href="#" class="btn btn-primary btn-block" style="margin-top:22px;"><i class="fa-solid fa-wallet"></i> Connect wallet to participate</a>
+            <p style="font-size:12px; margin-top:12px; margin-bottom:0;">Contract verified · Liquidity lock 12 months · KYC on file with a third-party provider.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Roadmap ================= -->
+  <section class="section" aria-labelledby="roadmap-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-solid fa-route"></i> Roadmap</p>
+          <h2 id="roadmap-heading">NebulaSwap Roadmap</h2>
+        </div>
+      </div>
+      <div class="roadmap-track">
+        <div class="glass roadmap-item done">
+          <div class="roadmap-dot"><i class="fa-solid fa-check"></i></div>
+          <h4>Q1 — Foundation</h4>
+          <p>Smart contract audit, testnet aggregator across 3 chains, community formed.</p>
+          <span class="badge up">Completed</span>
+        </div>
+        <div class="glass roadmap-item active">
+          <div class="roadmap-dot">Q2</div>
+          <h4>Q2 — Presale &amp; Launch</h4>
+          <p>Public presale (current stage), liquidity lock, mainnet aggregator across 9 chains.</p>
+          <span class="badge warn">In progress</span>
+        </div>
+        <div class="glass roadmap-item">
+          <div class="roadmap-dot">Q3</div>
+          <h4>Q3 — Exchange Listings</h4>
+          <p>DEX listing at launch, CEX listing applications, staking vault v1.</p>
+          <span class="badge neutral">Planned</span>
+        </div>
+        <div class="glass roadmap-item">
+          <div class="roadmap-dot">Q4</div>
+          <h4>Q4 — Ecosystem Growth</h4>
+          <p>Governance module, grants program for integrators, chain #10–15 support.</p>
+          <span class="badge neutral">Planned</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Tokenomics ================= -->
+  <section class="section" aria-labelledby="tokenomics-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-solid fa-chart-pie"></i> Tokenomics</p>
+          <h2 id="tokenomics-heading">NBLX Token Allocation</h2>
+          <p>Total supply: 1,000,000,000 NBLX. Team and advisor tokens vest over 24 months with a 6-month cliff.</p>
+        </div>
+      </div>
+      <div class="glass tokenomics-wrap">
+        <div class="donut" style="background: conic-gradient(
+            #E3A73B 0deg 90deg,
+            #2DD4BF 90deg 162deg,
+            #6C63FF 162deg 234deg,
+            #34D399 234deg 288deg,
+            #FB5B5B 288deg 324deg,
+            #6E7885 324deg 360deg);">
+          <div class="donut-center"><b>1B</b><span>Total supply</span></div>
+        </div>
+        <div class="token-legend">
+          <div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:#E3A73B"></span> Presale</span><b>25%</b></div>
+          <div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:#2DD4BF"></span> Liquidity</span><b>20%</b></div>
+          <div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:#6C63FF"></span> Team &amp; Advisors (vested)</span><b>20%</b></div>
+          <div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:#34D399"></span> Ecosystem &amp; Staking</span><b>15%</b></div>
+          <div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:#FB5B5B"></span> Marketing</span><b>10%</b></div>
+          <div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:#6E7885"></span> Treasury Reserve</span><b>10%</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Risk Rating ================= -->
+  <section class="section" aria-labelledby="risk-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-solid fa-shield-halved"></i> Due diligence</p>
+          <h2 id="risk-heading">Risk Rating — NebulaSwap</h2>
+          <p>A model-based score from public, checkable signals. It is not a guarantee of safety or returns.</p>
+        </div>
+      </div>
+      <div class="glass risk-panel">
+        <div class="risk-score">
+          <div class="risk-ring"><b>7.2</b></div>
+          <span>Out of 10 · Low-Medium Risk</span>
+        </div>
+        <div class="risk-checklist">
+          <div class="risk-item"><span><i class="fa-solid fa-circle-check"></i> Smart contract audited</span><span class="coin-sub">CertiK, published</span></div>
+          <div class="risk-item"><span><i class="fa-solid fa-circle-check"></i> Liquidity lock</span><span class="coin-sub">12 months, on-chain</span></div>
+          <div class="risk-item"><span><i class="fa-solid fa-circle-check"></i> Team KYC on file</span><span class="coin-sub">Third-party verified</span></div>
+          <div class="risk-item"><span><i class="fa-solid fa-triangle-exclamation"></i> Team identity</span><span class="coin-sub">Partially doxxed</span></div>
+          <div class="risk-item"><span><i class="fa-solid fa-circle-xmark"></i> Track record</span><span class="coin-sub">First-time founding team</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQs ================= -->
+  <section class="section" id="faqs" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><i class="fa-regular fa-circle-question"></i> FAQs</p>
+          <h2 id="faq-heading">Frequently Asked Questions</h2>
+        </div>
+      </div>
+
+      <details class="glass faq-item" open>
+        <summary>What's the difference between the soft cap and the hard cap? <i class="fa-solid fa-plus"></i></summary>
+        <div class="faq-a"><p style="margin-bottom:0;">The soft cap is the minimum amount a presale needs to raise for the project to proceed; if it isn't reached, contributions are typically refunded. The hard cap is the maximum amount the presale will accept — once it's hit, the round closes even if demand is higher.</p></div>
+      </details>
+
+      <details class="glass faq-item">
+        <summary>How is the token price set during a presale? <i class="fa-solid fa-plus"></i></summary>
+        <div class="faq-a"><p style="margin-bottom:0;">Most presales sell tokens in sequential stages at rising prices (seed, private, public, final), rewarding earlier participants with a lower entry price. The final stage price is usually set below the target exchange listing price.</p></div>
+      </details>
+
+      <details class="glass faq-item">
+        <summary>What does the risk rating actually measure? <i class="fa-solid fa-plus"></i></summary>
+        <div class="faq-a"><p style="margin-bottom:0;">It's a model-based score built from public, checkable signals — audit status, liquidity lock terms, contract verification and team KYC. It does not evaluate the team's execution ability, market demand for the product, or token price performance after listing.</p></div>
+      </details>
+
+      <details class="glass faq-item">
+        <summary>Are presale tokens locked after purchase? <i class="fa-solid fa-plus"></i></summary>
+        <div class="faq-a"><p style="margin-bottom:0;">Often, yes. Many presales apply a vesting schedule to public contributors as well as the team, releasing tokens gradually after listing rather than all at once. Always check the specific project's vesting terms before contributing.</p></div>
+      </details>
+
+      <details class="glass faq-item">
+        <summary>Is participating in a crypto presale safe? <i class="fa-solid fa-plus"></i></summary>
+        <div class="faq-a"><p style="margin-bottom:0;">No presale is "safe" in the way a bank deposit is. Presale tokens are early-stage, illiquid, and carry a real risk of total loss — from failed launches, rug pulls, or the token simply never trading above its presale price. Treat the risk rating and metrics on this page as a starting point for your own research, not a recommendation.</p></div>
+      </details>
+
+      <div class="glass disclaimer" style="margin-top:24px;">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>Presale figures, countdowns, tokenomics and risk scores shown on this page are illustrative examples for a fictional project, used to demonstrate the page layout — not a live offering. Crypto presales are high-risk, largely unregulated, and can result in total loss of funds. This is not financial advice; always do independent research and verify audits, KYC and lock-up terms directly with the project before contributing.</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= Footer ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></span> CoinOsprey</a>
+        <p>Independent crypto news and research, read by traders who'd rather watch closely than react late.</p>
+        <div class="socials">
+          <a href="#" class="icon-btn" aria-label="Follow on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="icon-btn" aria-label="Join Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="#" class="icon-btn" aria-label="Subscribe via RSS"><i class="fa-solid fa-rss"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Markets</h4>
+        <a href="news.html">News</a>
+        <a href="prices.html">Prices</a>
+        <a href="technical-analysis.html">Technical Analysis</a>
+        <a href="presale.html">Presales</a>
+      </div>
+      <div>
+        <h4>Research</h4>
+        <a href="whales.html">Whale Tracker</a>
+        <a href="sentiment.html">Fear &amp; Greed</a>
+        <a href="airdrops.html">Airdrops</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="academy.html">Crypto Academy</a>
+        <a href="tools.html">Tools &amp; Calculators</a>
+        <a href="events.html">Events Calendar</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CoinOsprey. All rights reserved.</span>
+      <span>Presale data is illustrative. Not financial advice.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  initMobileNav();
+  initSearchPopover();
+  initCountdowns();
+});
+
+function initMobileNav() {
+  const toggle = document.querySelector(".nav-toggle");
+  const links = document.querySelector(".nav-links");
+  if (!toggle || !links) return;
+  toggle.addEventListener("click", () => {
+    const isOpen = links.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+}
+
+function initSearchPopover() {
+  const btn = document.querySelector("[data-search-toggle]");
+  const pop = document.querySelector(".search-pop");
+  if (!btn || !pop) return;
+  btn.addEventListener("click", () => pop.classList.toggle("open"));
+  document.addEventListener("click", (e) => {
+    if (!pop.contains(e.target) && !btn.contains(e.target)) pop.classList.remove("open");
+  });
+}
+
+/* Live-ticking countdowns. Each .countdown-grid is wired to a
+   fixed target time below (matches the "2d 14h 37m" shown in
+   the static markup at page load) so refreshing keeps counting
+   down instead of resetting. */
+function initCountdowns() {
+  const target = new Date(Date.now() + (2 * 86400 + 14 * 3600 + 37 * 60 + 9) * 1000);
+
+  function tick() {
+    const diff = Math.max(0, target - new Date());
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const pad = (n) => String(n).padStart(2, "0");
+
+    document.querySelectorAll(".countdown-grid").forEach((grid) => {
+      const boxes = grid.querySelectorAll(".countdown-box b");
+      if (boxes.length < 4) return;
+      boxes[0].textContent = pad(d);
+      boxes[1].textContent = pad(h);
+      boxes[2].textContent = pad(m);
+      boxes[3].textContent = pad(s);
+    });
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+</script>
+</body>
+</html>
