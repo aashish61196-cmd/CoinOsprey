@@ -1,6 +1,6 @@
 const Newsletter = require("../models/Newsletter");
-const { isValidEmail, required } = require("../utils/validator");
-const { sendWelcomeEmail, sendNewsletterCampaign } = require("../services/emailService");
+const { isValidEmail, required } = require("../Utils/validator");
+const { sendWelcomeEmail, sendNewsletterCampaign } = require("../Services/emailService");
 
 // POST /api/newsletter/subscribe  (public)
 exports.subscribe = async (req, res, next) => {
