@@ -1,27 +1,32 @@
-const jwt = require('jsonwebtoken');
+const { signJwt } = require("../config/jwt");
 
 /**
- * Generate a short-lived access token for a user.
- * Sent in the response body, used in the Authorization header for API calls.
+ * Signs a JWT for a user and attaches it as an httpOnly cookie on the response.
+ * Also returns the token/user payload as JSON for clients (like the admin
+ * dashboard) that store the token in memory/localStorage instead of relying
+ * on the cookie.
  */
-function generateToken(userId, role = 'user') {
-  return jwt.sign(
-    { id: userId, role },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN || '15m' }
-  );
+function generateTokenAndRespond(res, user, statusCode = 200) {
+  const token = signJwt({ id: user._id, role: user.role });
+
+  const cookieDays = Number(process.env.COOKIE_EXPIRES_DAYS || 7);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: cookieDays * 24 * 60 * 60 * 1000,
+  });
+
+  res.status(statusCode).json({
+    success: true,
+    token,
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
+  });
 }
 
-/**
- * Generate a long-lived refresh token for a user.
- * Sent only as an httpOnly cookie, used solely to mint new access tokens.
- */
-function generateRefreshToken(userId) {
-  return jwt.sign(
-    { id: userId },
-    process.env.JWT_REFRESH_SECRET,
-    { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d' }
-  );
-}
-
-module.exports = { generateToken, generateRefreshToken };
+module.exports = generateTokenAndRespond;
