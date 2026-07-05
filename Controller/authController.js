@@ -1,6 +1,6 @@
 const User = require("../models/User");
-const generateTokenAndRespond = require("../utils/generateToken");
-const { isValidEmail, isStrongEnoughPassword, required } = require("../utils/validator");
+const generateTokenAndRespond = require("../Utils/generateToken");
+const { isValidEmail, isStrongEnoughPassword, required } = require("../Utils/validator");
 
 // POST /api/auth/register  (creates an "author" by default — promote to
 // editor/admin via the admin user-management endpoint, not self-service)
