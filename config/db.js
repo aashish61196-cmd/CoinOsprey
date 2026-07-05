@@ -1,4 +1,4 @@
-
+const mongoose = require("mongoose");
 const logger = require("../middleware/utils/logger");
 
 async function connectDB() {
