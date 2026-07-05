@@ -8,7 +8,7 @@ const {
   listCategories,
   createCategory,
   deleteCategory,
-} = require("../controllers/adminController");
+} = require("../Controller/adminController");
 const { protect } = require("../middleware/auth");
 const { permit } = require("../middleware/admin");
 
