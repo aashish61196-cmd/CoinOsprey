@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 
 const connectDB = require("./config/db");
-const logger = require("./utils/logger");
+const logger = require("./middleware/utils/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
 
 const authRoutes = require("./routes/authRoutes");
