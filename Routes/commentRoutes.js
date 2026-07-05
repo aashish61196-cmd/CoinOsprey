@@ -6,7 +6,7 @@ const {
   listAllCommentsForAdmin,
   updateCommentStatus,
   deleteComment,
-} = require("../Controllers/commentController");
+} = require("../Controller/commentController");
 const { protect } = require("../middleware/auth");
 const { permit } = require("../middleware/admin");
 
