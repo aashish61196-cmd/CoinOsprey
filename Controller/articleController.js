@@ -1,5 +1,5 @@
 const Article = require("../models/Article");
-const { basicSanitize, required } = require("../utils/validator");
+const { basicSanitize, required } = require("../Utils/validator");
 
 // GET /api/articles  (public — published only, unless ?status= is used by an authed editor/admin)
 exports.listArticles = async (req, res, next) => {
