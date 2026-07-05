@@ -3,6 +3,12 @@
 <head>
 <!-- ============ Meta / SEO ============ -->
 <meta charset="UTF-8">
+  <script>
+  (function(){
+    var saved = localStorage.getItem("coinosprey-theme");
+    if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+  })();
+  </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CoinOsprey — Premium Crypto News, Prices &amp; Market Research</title>
 <meta name="description" content="CoinOsprey delivers live cryptocurrency prices, breaking news, whale-level market analysis, price predictions and a real-time Fear &amp; Greed index — built for traders who watch closely.">
