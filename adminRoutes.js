@@ -1,35 +1,27 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-
 const {
-  getDashboardStats,
-  getUsers,
-  updateUserRole,
-  toggleUserStatus,
+  getStats,
+  listUsers,
+  updateUser,
+  deleteUser,
+  listCategories,
   createCategory,
-  updateCategory,
   deleteCategory,
-  getProductionStats,
-} = require('../controllers/adminController');
+} = require("../controllers/adminController");
+const { protect } = require("../middleware/auth");
+const { permit } = require("../middleware/admin");
 
-const { protect } = require('../middleware/auth');
-const { authorize } = require('../middleware/admin');
+router.use(protect); // everything below requires login
 
-// ---- All admin routes require authentication + admin role ----
-router.use(protect, authorize('admin'));
+router.get("/stats", permit("admin", "editor"), getStats);
 
-// ---- Dashboard ----
-router.get('/dashboard', getDashboardStats);
-router.get('/production-stats', getProductionStats);
+router.get("/users", permit("admin"), listUsers);
+router.patch("/users/:id", permit("admin"), updateUser);
+router.delete("/users/:id", permit("admin"), deleteUser);
 
-// ---- User management ----
-router.get('/users', getUsers);
-router.patch('/users/:id/role', updateUserRole);
-router.patch('/users/:id/status', toggleUserStatus);
-
-// ---- Category management ----
-router.post('/categories', createCategory);
-router.put('/categories/:id', updateCategory);
-router.delete('/categories/:id', deleteCategory);
+router.get("/categories", permit("admin", "editor"), listCategories);
+router.post("/categories", permit("admin", "editor"), createCategory);
+router.delete("/categories/:id", permit("admin"), deleteCategory);
 
 module.exports = router;

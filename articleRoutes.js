@@ -1,42 +1,27 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-
 const {
-  createArticle,
-  getArticles,
+  listArticles,
   getArticleBySlug,
+  listAllArticlesForAdmin,
+  createArticle,
   updateArticle,
   deleteArticle,
-  publishArticle,
-  getTrendingArticles,
-  getRelatedArticles,
-} = require('../controllers/articleController');
+} = require("../controllers/articleController");
+const { protect } = require("../middleware/auth");
+const { permit } = require("../middleware/admin");
+const upload = require("../middleware/upload");
 
-const { protect } = require('../middleware/auth');
-const { authorize } = require('../middleware/admin');
-const { uploadSingle, handleUploadError } = require('../middleware/upload');
+// Public
+router.get("/", listArticles);
 
-// ---- Public routes ----
-// Note: getArticles/getArticleBySlug read req.user when present (via optional
-// auth) to allow editors/admins to preview drafts, but work fine without it.
-router.get('/trending', getTrendingArticles);
-router.get('/:id/related', getRelatedArticles);
-router.get('/:slug', getArticleBySlug);
-router.get('/', getArticles);
+// Protected — order matters: this must come before "/:slug"
+router.get("/admin/all", protect, permit("admin", "editor"), listAllArticlesForAdmin);
+router.post("/", protect, permit("admin", "editor", "author"), upload.single("coverImage"), createArticle);
+router.put("/:id", protect, permit("admin", "editor", "author"), upload.single("coverImage"), updateArticle);
+router.delete("/:id", protect, permit("admin", "editor", "author"), deleteArticle);
 
-// ---- Protected routes (editor/admin only) ----
-router.post(
-  '/',
-  protect,
-  authorize('editor', 'admin'),
-  uploadSingle('thumbnail'),
-  handleUploadError,
-  createArticle
-);
-
-router.put('/:id', protect, updateArticle); // ownership checked inside controller
-router.delete('/:id', protect, deleteArticle); // ownership checked inside controller
-
-router.patch('/:id/publish', protect, authorize('editor', 'admin'), publishArticle);
+// Public — keep last since ":slug" is a catch-all
+router.get("/:slug", getArticleBySlug);
 
 module.exports = router;
