@@ -1,36 +1,20 @@
-/* ==============================================================
-   middleware/admin.js
-   Restricts a route to admin users. Always run AFTER
-   middleware/auth.js's `protect`, since it relies on req.user
-   already being set.
-   ============================================================== */
-
-function adminOnly(req, res, next) {
-  if (!req.user) {
-    // Should never happen if `protect` ran first, but guard anyway.
-    return res.status(401).json({ success: false, message: "Not authorized" });
-  }
-  if (req.user.role !== "admin") {
-    return res.status(403).json({ success: false, message: "Admin access required" });
-  }
-  next();
-}
-
 /**
- * Broader guard for roles like "editor" who can manage articles
- * but shouldn't reach user-management or site-settings endpoints.
- * Usage: allowRoles("admin", "editor")
+ * Restricts a route to specific roles. Use after `protect`.
+ * Example: router.delete("/:id", protect, permit("admin"), handler)
  */
-function allowRoles(...roles) {
+function permit(...allowedRoles) {
   return (req, res, next) => {
     if (!req.user) {
-      return res.status(401).json({ success: false, message: "Not authorized" });
+      return res.status(401).json({ success: false, message: "Not authenticated." });
     }
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).json({ success: false, message: `Requires one of these roles: ${roles.join(", ")}` });
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: `Role '${req.user.role}' is not permitted to perform this action.`,
+      });
     }
     next();
   };
 }
 
-module.exports = { adminOnly, allowRoles };
+module.exports = { permit, isAdmin: permit("admin") };
