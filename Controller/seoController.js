@@ -1,4 +1,4 @@
-const { generateSitemapXml, generateRobotsTxt, buildArticleMeta } = require("../services/seoService");
+const { generateSitemapXml, generateRobotsTxt, buildArticleMeta } = require("../Services/seoService");
 const Article = require("../models/Article");
 
 // GET /sitemap.xml
