@@ -1,236 +1,81 @@
-const crypto = require('crypto');
-const Newsletter = require('../models/Newsletter');
-const { sendNewsletterConfirmation, sendCampaignEmail } = require('../services/emailService');
-const logger = require('../utils/logger');
+const Newsletter = require("../models/Newsletter");
+const { isValidEmail, required } = require("../utils/validator");
+const { sendWelcomeEmail, sendNewsletterCampaign } = require("../services/emailService");
 
-// @desc    Subscribe to the newsletter (starts double opt-in flow)
-// @route   POST /api/newsletter/subscribe
-// @access  Public
+// POST /api/newsletter/subscribe  (public)
 exports.subscribe = async (req, res, next) => {
   try {
-    const { email, name, interests, frequency, language, source } = req.body;
-
-    if (!email) {
-      return res.status(400).json({ success: false, message: 'Email is required' });
+    const missing = required(["email"], req.body);
+    if (missing.length || !isValidEmail(req.body.email)) {
+      return res.status(400).json({ success: false, message: "A valid email is required." });
     }
 
-    let subscriber = await Newsletter.findOne({ email: email.toLowerCase() });
-
-    if (subscriber && subscriber.status === 'subscribed') {
-      return res.status(200).json({
-        success: true,
-        message: 'You are already subscribed to our newsletter',
-      });
+    let sub = await Newsletter.findOne({ email: req.body.email });
+    if (sub && sub.status === "subscribed") {
+      return res.status(200).json({ success: true, message: "You're already subscribed." });
     }
 
-    if (!subscriber) {
-      subscriber = new Newsletter({
-        email,
-        name,
-        interests,
-        frequency,
-        language,
-        source: source || 'website',
-        ipAddress: req.ip,
-      });
+    if (sub) {
+      sub.status = "subscribed";
+      sub.subscribedAt = new Date();
+      sub.unsubscribedAt = undefined;
+      await sub.save();
     } else {
-      // Re-subscribing after a previous unsubscribe; refresh preferences
-      subscriber.name = name || subscriber.name;
-      subscriber.interests = interests || subscriber.interests;
-      subscriber.frequency = frequency || subscriber.frequency;
-      subscriber.language = language || subscriber.language;
-      subscriber.status = 'pending';
+      sub = await Newsletter.create({ email: req.body.email });
     }
 
-    const confirmationToken = subscriber.generateConfirmationToken();
-    subscriber.generateUnsubscribeToken();
-    await subscriber.save();
+    sendWelcomeEmail(sub.email, sub.unsubscribeToken).catch(() => {});
 
-    try {
-      await sendNewsletterConfirmation(subscriber.email, subscriber.name, confirmationToken);
-    } catch (emailErr) {
-      logger.logError(emailErr, 'newsletterController.subscribe - sendNewsletterConfirmation');
-    }
-
-    res.status(201).json({
-      success: true,
-      message: 'Please check your email to confirm your subscription',
-    });
-  } catch (err) {
-    if (err.code === 11000) {
-      return res.status(409).json({ success: false, message: 'This email is already registered' });
-    }
-    next(err);
-  }
-};
-
-// @desc    Confirm a newsletter subscription (double opt-in)
-// @route   GET /api/newsletter/confirm/:token
-// @access  Public
-exports.confirmSubscription = async (req, res, next) => {
-  try {
-    const hashedToken = crypto
-      .createHash('sha256')
-      .update(req.params.token)
-      .digest('hex');
-
-    const subscriber = await Newsletter.findOne({
-      confirmationToken: hashedToken,
-      confirmationTokenExpires: { $gt: Date.now() },
-    }).select('+confirmationToken +confirmationTokenExpires');
-
-    if (!subscriber) {
-      return res.status(400).json({
-        success: false,
-        message: 'Confirmation link is invalid or has expired',
-      });
-    }
-
-    await subscriber.confirmSubscription();
-
-    res.status(200).json({
-      success: true,
-      message: 'Subscription confirmed! You are now on our newsletter list.',
-    });
+    res.status(201).json({ success: true, message: "Subscribed! Check your inbox for a welcome email." });
   } catch (err) {
     next(err);
   }
 };
 
-// @desc    Unsubscribe using a one-click token from an email footer
-// @route   GET /api/newsletter/unsubscribe/:token
-// @access  Public
+// GET /api/newsletter/unsubscribe?token=...  (public — link from email)
 exports.unsubscribe = async (req, res, next) => {
   try {
-    const hashedToken = crypto
-      .createHash('sha256')
-      .update(req.params.token)
-      .digest('hex');
+    const sub = await Newsletter.findOne({ unsubscribeToken: req.query.token });
+    if (!sub) return res.status(404).json({ success: false, message: "Subscription not found." });
 
-    const subscriber = await Newsletter.findOne({
-      unsubscribeToken: hashedToken,
-    }).select('+unsubscribeToken');
+    sub.status = "unsubscribed";
+    sub.unsubscribedAt = new Date();
+    await sub.save();
 
-    if (!subscriber) {
-      return res.status(400).json({ success: false, message: 'Invalid unsubscribe link' });
-    }
-
-    await subscriber.unsubscribe(req.query.reason || '');
-
-    res.status(200).json({ success: true, message: 'You have been unsubscribed successfully' });
+    res.json({ success: true, message: "You have been unsubscribed." });
   } catch (err) {
     next(err);
   }
 };
 
-// @desc    Update subscriber preferences (interests, frequency, language)
-// @route   PUT /api/newsletter/preferences/:token
-// @access  Public (token-authenticated, no login required)
-exports.updatePreferences = async (req, res, next) => {
+// GET /api/newsletter/admin/subscribers  (protected)
+exports.listSubscribers = async (req, res, next) => {
   try {
-    const hashedToken = crypto
-      .createHash('sha256')
-      .update(req.params.token)
-      .digest('hex');
+    const filter = {};
+    if (req.query.status) filter.status = req.query.status;
 
-    const subscriber = await Newsletter.findOne({ unsubscribeToken: hashedToken }).select(
-      '+unsubscribeToken'
-    );
-
-    if (!subscriber) {
-      return res.status(400).json({ success: false, message: 'Invalid preferences link' });
-    }
-
-    const { interests, frequency, language } = req.body;
-    if (interests) subscriber.interests = interests;
-    if (frequency) subscriber.frequency = frequency;
-    if (language) subscriber.language = language;
-
-    await subscriber.save();
-
-    res.status(200).json({ success: true, message: 'Preferences updated successfully' });
+    const subscribers = await Newsletter.find(filter).sort({ createdAt: -1 });
+    res.json({ success: true, data: subscribers, count: subscribers.length });
   } catch (err) {
     next(err);
   }
 };
 
-// @desc    Get all subscribers with pagination and filters
-// @route   GET /api/newsletter/subscribers
-// @access  Private (admin)
-exports.getSubscribers = async (req, res, next) => {
-  try {
-    const { page = 1, limit = 50, status, interest } = req.query;
-    const query = {};
-
-    if (status) query.status = status;
-    if (interest) query.interests = interest;
-
-    const skip = (Number(page) - 1) * Number(limit);
-    const [subscribers, total] = await Promise.all([
-      Newsletter.find(query).sort({ createdAt: -1 }).skip(skip).limit(Number(limit)),
-      Newsletter.countDocuments(query),
-    ]);
-
-    res.status(200).json({
-      success: true,
-      data: subscribers,
-      pagination: {
-        page: Number(page),
-        limit: Number(limit),
-        total,
-        totalPages: Math.ceil(total / Number(limit)),
-      },
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-
-// @desc    Send a campaign email to filtered active subscribers
-// @route   POST /api/newsletter/send-campaign
-// @access  Private (admin)
+// POST /api/newsletter/admin/campaign  (protected — send to all active subscribers)
 exports.sendCampaign = async (req, res, next) => {
   try {
-    const { subject, htmlContent, interests, language } = req.body;
-
-    if (!subject || !htmlContent) {
-      return res.status(400).json({
-        success: false,
-        message: 'Subject and HTML content are required',
-      });
+    const missing = required(["subject", "html"], req.body);
+    if (missing.length) {
+      return res.status(400).json({ success: false, message: `Missing fields: ${missing.join(", ")}` });
     }
 
-    const filters = {};
-    if (interests && interests.length) filters.interests = { $in: interests };
-    if (language) filters.language = language;
+    const subs = await Newsletter.find({ status: "subscribed" }).select("email -_id");
+    const recipients = subs.map((s) => s.email);
 
-    const subscribers = await Newsletter.getActiveSubscribers(filters);
+    const results = await sendNewsletterCampaign(recipients, req.body.subject, req.body.html);
+    const sentCount = results.filter((r) => r.sent).length;
 
-    if (subscribers.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: 'No active subscribers match the given filters',
-      });
-    }
-
-    // Send in the background so the request doesn't block on hundreds/thousands of emails
-    res.status(202).json({
-      success: true,
-      message: `Campaign queued for ${subscribers.length} subscriber(s)`,
-    });
-
-    for (const subscriber of subscribers) {
-      try {
-        await sendCampaignEmail(subscriber.email, subject, htmlContent, subscriber.unsubscribeToken);
-        subscriber.lastEmailSentAt = new Date();
-        subscriber.emailsSentCount += 1;
-        await subscriber.save({ validateBeforeSave: false });
-      } catch (emailErr) {
-        subscriber.bounceCount += 1;
-        await subscriber.save({ validateBeforeSave: false });
-        logger.logError(emailErr, `sendCampaign - ${subscriber.email}`);
-      }
-    }
+    res.json({ success: true, message: `Campaign sent to ${sentCount}/${recipients.length} subscribers.`, results });
   } catch (err) {
     next(err);
   }
