@@ -7,7 +7,7 @@ const {
   createArticle,
   updateArticle,
   deleteArticle,
-} = require("../Controllers/articleController");
+} = require("../Controller/articleController");
 const { protect } = require("../middleware/auth");
 const { permit } = require("../middleware/admin");
 const upload = require("../middleware/upload");
