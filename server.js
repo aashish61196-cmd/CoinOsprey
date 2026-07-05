@@ -10,7 +10,7 @@ const connectDB = require("./config/db");
 const logger = require("./middleware/utils/logger");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
 
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./middleware/routes/authRoutes");
 const articleRoutes = require("./routes/articleRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
