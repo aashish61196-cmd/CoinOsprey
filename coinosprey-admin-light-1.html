@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoinOsprey — Content Console</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23E3A73B%22/><path d=%22M16 7 L23 22 L16 18 L9 22 Z%22 fill=%22%230A0E13%22/></svg>" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    /* CoinOsprey — light glass theme, same tokens/fonts as coinosprey.com */
+    --navy-950:#F4F6FA;                /* --bg-deep : page wash (light) */
+    --navy-900:#FFFFFF;                /* --surface-menu : solid light surface */
+    --navy-800:rgba(255,255,255,0.72); /* --glass-bg-2 (frosted white card surfaces) */
+    --navy-700:rgba(11,23,48,0.045);   /* hover / table head tint */
+    --navy-600:rgba(11,23,48,0.12);
+    --line:rgba(11,23,48,0.10);        /* --glass-border */
+    --teal:#0D9488;
+    --teal-dim:#0b7a70;
+    --amber:#F5A623;
+    --amber-dim:#d18f16;
+    --violet:#5B52E0;
+    --text-hi:#0B1730;
+    --text-mid:#4B5468;
+    --text-low:#8892A6;
+    --red:#DC2F45;
+    --green:#16A34A;
+    --ink:#06090D;                     /* fixed dark text used ON bright accent chips/buttons */
+    --mono: 'IBM Plex Mono','SFMono-Regular',Menlo,monospace;
+    --sans: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --display: 'Space Grotesk','Arial Narrow',sans-serif;
+    --glass-blur: 18px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;font-family:var(--sans);color:var(--text-hi);
+    background:
+      radial-gradient(1100px 500px at 12% -10%, rgba(245,166,35,.12), transparent 60%),
+      radial-gradient(900px 600px at 100% 20%, rgba(13,148,136,.08), transparent 60%),
+      radial-gradient(800px 700px at 50% 120%, rgba(91,82,224,.07), transparent 60%),
+      var(--navy-950);
+    background-attachment:fixed;
+  }
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-thumb{background:var(--navy-600);border-radius:6px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+
+  a{color:inherit;text-decoration:none;}
+
+  /* ===== SHELL ===== */
+  .shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh;}
+
+  /* ===== SIDEBAR ===== */
+  .sidebar{background:rgba(255,255,255,.65);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;height:100vh;overflow-y:auto;box-shadow:2px 0 24px rgba(16,24,40,.05);}
+  .brand{display:flex;align-items:center;gap:10px;padding:0 4px;}
+  .brand-mark{width:38px;height:38px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#ffd27a,var(--amber) 55%,var(--amber-dim) 100%);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:15px;color:var(--ink);box-shadow:0 4px 12px rgba(245,166,35,.35);}
+  .brand-name{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:-.2px;line-height:1.1;color:var(--text-hi);}
+  .brand-name em{color:var(--amber);font-style:normal;}
+  .brand-name span{display:block;font-size:10px;color:var(--text-low);font-weight:600;letter-spacing:1px;margin-top:2px;font-style:normal;}
+
+  .user-card{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;}
+  .avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--amber));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--ink);font-size:18px;}
+  .user-name{font-weight:600;font-size:13px;}
+  .user-role{font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;background:rgba(45,212,191,.12);padding:2px 8px;border-radius:20px;}
+
+  .navsearch{background:var(--navy-800);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--text-low);}
+
+  .navgroup{display:flex;flex-direction:column;gap:2px;}
+  .navlabel{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-low);padding:8px 10px 4px;}
+  .navitem{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-size:13px;color:var(--text-mid);cursor:pointer;border:1px solid transparent;transition:.15s;}
+  .navitem:hover{background:var(--navy-800);color:var(--text-hi);}
+  .navitem.active{background:rgba(45,212,191,.1);border-color:rgba(45,212,191,.35);color:var(--teal);font-weight:600;}
+  .navicon{width:16px;text-align:center;font-size:14px;}
+
+  /* ===== MAIN ===== */
+  .main{display:flex;flex-direction:column;min-height:100vh;}
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.68));
+    backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));
+    position:sticky;top:0;z-index:20;
+    box-shadow:0 6px 24px rgba(16,24,40,.06);
+  }
+  .crumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-low);}
+  .crumb-icon{width:30px;height:30px;border-radius:8px;background:var(--navy-800);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--teal);}
+  .crumb b{color:var(--text-hi);font-weight:600;letter-spacing:.2px;}
+  .crumb-path{display:flex;flex-direction:column;gap:2px;}
+  .crumb-path .crumb-top{font-size:9.5px;text-transform:uppercase;letter-spacing:1px;color:var(--text-low);}
+  .crumb-path .crumb-now{font-size:13.5px;color:var(--text-hi);font-weight:700;font-family:var(--display);}
+
+  .topbar-right{display:flex;align-items:center;gap:8px;}
+  .clock{font-family:var(--mono);font-size:11.5px;color:var(--text-low);background:var(--navy-800);border:1px solid var(--line);padding:7px 11px;border-radius:8px;}
+  .topbar-divider{width:1px;height:24px;background:var(--line);margin:0 4px;}
+  .topbar-iconbtn{width:34px;height:34px;border-radius:8px;background:var(--navy-800);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--text-mid);cursor:pointer;font-size:13px;transition:.15s;position:relative;}
+  .topbar-iconbtn:hover{border-color:var(--teal);color:var(--teal);}
+  .topbar-iconbtn .dot-badge{position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 2px var(--navy-950);}
+  .topbar-profile{display:flex;align-items:center;gap:9px;padding:5px 10px 5px 5px;border-radius:24px;background:var(--navy-800);border:1px solid var(--line);cursor:pointer;transition:.15s;}
+  .topbar-profile:hover{border-color:var(--teal);}
+  .topbar-profile-meta{display:flex;flex-direction:column;line-height:1.25;}
+  .topbar-profile-meta .name{font-size:12px;font-weight:600;color:var(--text-hi);}
+  .topbar-profile-meta .role{font-size:9.5px;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;}
+  .topbar-profile .fa-chevron-down{font-size:9px;color:var(--text-low);margin-right:2px;}
+  .topbar .avatar{width:32px;height:32px;font-size:12.5px;cursor:pointer;}
+
+  .content{padding:24px 28px 60px;flex:1;}
+  .page{display:none;}
+  .page.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  .page-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+  .page-title{font-size:20px;font-weight:700;letter-spacing:.2px;font-family:var(--display);}
+  .page-sub{font-size:12px;color:var(--text-low);margin-top:2px;}
+
+  .btnrow{display:flex;gap:8px;flex-wrap:wrap;}
+  .btn{border:1px solid var(--line);background:var(--navy-800);color:var(--text-hi);padding:9px 14px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s;}
+  .btn:hover{border-color:var(--teal);color:var(--teal);}
+  .btn-primary{background:var(--teal);border-color:var(--teal);color:#ffffff;}
+  .btn-primary:hover{background:var(--teal-dim);color:#ffffff;}
+  .btn-amber{background:var(--amber);border-color:var(--amber);color:var(--ink);}
+  .btn-amber:hover{background:var(--amber-dim);}
+  .btn-ghost{background:transparent;}
+  .btn-sm{padding:6px 9px;font-size:11px;}
+  .btn-icon{width:32px;height:32px;padding:0;justify-content:center;border-radius:7px;}
+  .btn-danger{color:var(--red);}
+  .btn-danger:hover{border-color:var(--red);}
+
+  /* filter bar */
+  .filterbar{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:12px;}
+  .filterbar select, .filterbar input{background:var(--navy-800);border:1px solid var(--line);color:var(--text-hi);padding:9px 10px;border-radius:8px;font-size:12px;width:100%;}
+  .filterbar select:focus, .filterbar input:focus{outline:none;border-color:var(--teal);}
+  .filter-actions{display:flex;gap:8px;margin-bottom:18px;}
+
+  /* table */
+  .tablewrap{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 28px rgba(16,24,40,.08);}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  thead th{background:var(--navy-700);color:var(--text-hi);text-transform:uppercase;font-size:10.5px;letter-spacing:.6px;padding:12px 10px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line);}
+  tbody td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:middle;color:var(--text-mid);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(45,212,191,.04);}
+  .thumb{width:56px;height:36px;border-radius:6px;object-fit:cover;background:var(--navy-600);display:block;}
+  .title-cell{max-width:260px;}
+  .title-cell b{color:var(--text-hi);font-size:12.5px;display:block;margin-bottom:2px;}
+  .title-cell span{color:var(--text-low);font-size:11px;}
+  .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:700;}
+  .tag-news{color:#2563a8;background:rgba(37,99,168,.10);}
+  .tag-blog{color:var(--teal);background:rgba(45,212,191,.12);}
+  .tag-pred{color:var(--amber);background:rgba(227,167,59,.12);}
+  .yes{color:var(--green);font-weight:700;}
+  .no{color:var(--red);font-weight:700;}
+  .actioncell{display:flex;gap:6px;flex-wrap:wrap;}
+
+  .empty{padding:50px 20px;text-align:center;color:var(--text-low);font-size:13px;}
+  .empty b{display:block;color:var(--text-hi);font-size:14px;margin-bottom:6px;}
+
+  /* stat cards */
+  .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+  .statcard{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;padding:16px;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(16,24,40,.07);}
+  .statcard .value{font-family:var(--display) !important;}
+  .statcard::before{content:"";position:absolute;top:-30px;right:-30px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,.18),transparent 70%);}
+  .statcard .label{font-size:11px;color:var(--text-low);text-transform:uppercase;letter-spacing:.6px;}
+  .statcard .value{font-size:26px;font-weight:700;margin-top:6px;font-family:var(--mono);}
+  .statcard .delta{font-size:11px;margin-top:4px;color:var(--green);}
+
+  /* form */
+  .formcard{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;padding:24px;box-shadow:0 8px 28px rgba(16,24,40,.08);}
+  .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-size:12px;color:var(--text-mid);font-weight:600;}
+  .field label em{color:var(--red);font-style:normal;}
+  .field input[type=text], .field input[type=date], .field input[type=datetime-local], .field select, .field textarea{
+    background:var(--navy-900);border:1px solid var(--line);color:var(--text-hi);padding:10px 12px;border-radius:8px;font-size:13px;font-family:var(--sans);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{outline:none;border-color:var(--teal);}
+  .field textarea{resize:vertical;min-height:70px;}
+  .hint{font-size:10.5px;color:var(--text-low);}
+  .checkrow{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+  .checkrow label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid);}
+  .toolbar{display:flex;gap:2px;flex-wrap:wrap;padding:8px;background:#F4F5F8;border:1px solid var(--line);border-bottom:none;border-radius:8px 8px 0 0;align-items:center;}
+  .toolbar button{background:transparent;border:1px solid transparent;color:var(--text-mid);min-width:28px;height:28px;padding:0 6px;border-radius:6px;cursor:pointer;font-size:12px;}
+  .toolbar button:hover{background:var(--navy-700);color:var(--teal);}
+  .toolbar button.active{background:rgba(45,212,191,.15);color:var(--teal);border-color:rgba(45,212,191,.4);}
+  .toolbar select{background:var(--navy-800);border:1px solid var(--line);color:var(--text-hi);font-size:11.5px;height:28px;border-radius:6px;padding:0 4px;}
+  .toolbar .tsep{width:1px;height:20px;background:var(--line);margin:0 4px;}
+  .toolbar input[type=color]{width:26px;height:26px;padding:0;border:1px solid var(--line);border-radius:6px;background:transparent;cursor:pointer;}
+  .toolbar .tgroup{position:relative;display:inline-flex;}
+  .tpopover{position:absolute;top:34px;left:0;background:var(--navy-800);border:1px solid var(--line);border-radius:8px;padding:8px;z-index:50;box-shadow:0 12px 30px rgba(16,24,40,.14);display:none;}
+  .tpopover.open{display:block;}
+  .emoji-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;width:220px;}
+  .emoji-grid button{font-size:15px;}
+  .icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:180px;}
+  .icon-grid button{font-size:14px;}
+  .editor{min-height:220px;border-top:none;border-radius:0 0 8px 8px;background:#ffffff;border:1px solid var(--line);color:#1a1a1a;padding:16px;overflow-y:auto;font-size:14px;line-height:1.7;}
+  .editor:focus{outline:none;border-color:var(--teal);}
+  .editor[contenteditable]:empty::before{content:attr(data-placeholder);color:#9aa4ad;}
+  .editor h1{font-size:1.7em;margin:.5em 0;color:#0b1626;}
+  .editor h2{font-size:1.4em;margin:.5em 0;color:#0b1626;}
+  .editor h3{font-size:1.2em;margin:.4em 0;color:#0b1626;}
+  .editor h4{font-size:1.08em;margin:.4em 0;color:#0b1626;}
+  .editor h5{font-size:1em;margin:.4em 0;color:#0b1626;font-weight:700;}
+  .editor a{color:var(--teal-dim);text-decoration:underline;}
+  .editor table{border-collapse:collapse;width:100%;margin:10px 0;}
+  .editor table td,.editor table th{border:1px solid #d7dee4;padding:6px 9px;font-size:13px;}
+  .editor ul.checklist{list-style:none;padding-left:4px;}
+  .editor ul.checklist li{display:flex;align-items:center;gap:8px;margin:2px 0;}
+  .editor img{max-width:100%;border-radius:4px;}
+  .editor iframe{max-width:100%;border-radius:4px;border:none;}
+  .form-actions{display:flex;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line);}
+  .imgpick{display:flex;align-items:center;gap:8px;}
+  .imgpick input{flex:1;}
+
+  .badge-count{background:var(--navy-700);color:var(--text-low);font-size:11px;padding:2px 8px;border-radius:20px;}
+
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--navy-900);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--teal);color:var(--text-hi);padding:12px 18px;border-radius:10px;font-size:13px;box-shadow:0 10px 30px rgba(16,24,40,.14);display:none;align-items:center;gap:8px;z-index:100;}
+  .toast.show{display:flex;animation:fade .2s ease;}
+  .toast .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);}
+
+  @media(max-width:1000px){
+    .filterbar{grid-template-columns:repeat(2,1fr);}
+    .formgrid{grid-template-columns:1fr;}
+    .statgrid{grid-template-columns:repeat(2,1fr);}
+    .shell{grid-template-columns:1fr;}
+    .sidebar{position:relative;height:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-kiwi-bird"></i></div>
+      <div class="brand-name">Coin<em>Osprey</em><span>CONTENT CONSOLE</span></div>
+    </div>
+
+    <div class="user-card">
+      <div class="avatar" id="sbAvatar">M2</div>
+      <div class="user-name" id="sbName">M2 Editor</div>
+      <div class="user-role">Journalist · Admin</div>
+    </div>
+
+    <input class="navsearch" placeholder="Search modules…" oninput="filterNav(this.value)">
+
+    <div class="navgroup" id="navgroup">
+      <div class="navlabel">Overview</div>
+      <div class="navitem active" data-page="home"><span class="navicon">◈</span> Dashboard</div>
+
+      <div class="navlabel">Content</div>
+      <div class="navitem" data-page="news"><span class="navicon">▤</span> Crypto News</div>
+      <div class="navitem" data-page="draft"><span class="navicon">▥</span> Draft News</div>
+      <div class="navitem" data-page="create"><span class="navicon">✎</span> Add New Article</div>
+      <div class="navitem" data-page="authors"><span class="navicon">☺</span> Author Models</div>
+
+      <div class="navlabel">Growth</div>
+      <div class="navitem" data-page="events"><span class="navicon">◔</span> Fetch Data Event List</div>
+      <div class="navitem" data-page="gsc"><span class="navicon">◎</span> Google Search Console</div>
+      <div class="navitem" data-page="keywords"><span class="navicon">▦</span> Keyword Dashboard</div>
+      <div class="navitem" data-page="fetchkw"><span class="navicon">⇅</span> Fetch Keyword Data</div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">
+        <div class="crumb-icon"><i class="fa-solid fa-house"></i></div>
+        <div class="crumb-path">
+          <span class="crumb-top">Home <span id="crumbSep">›</span></span>
+          <span class="crumb-now" id="crumbCurrent">Dashboard</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="clock" id="clock">--:--:--</span>
+        <div class="topbar-divider"></div>
+        <button class="topbar-iconbtn" title="Notifications"><i class="fa-regular fa-bell"></i><span class="dot-badge"></span></button>
+        <button class="topbar-iconbtn" title="Crypto News" onclick="go('news')"><i class="fa-solid fa-newspaper"></i></button>
+        <div class="topbar-divider"></div>
+        <div class="topbar-profile" title="Account">
+          <div class="avatar">M2</div>
+          <div class="topbar-profile-meta">
+            <span class="name">M2 Editor</span>
+            <span class="role">Admin</span>
+          </div>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ===================== HOME ===================== -->
+      <section class="page active" id="page-home">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Hi! Welcome back, M2 👋</div>
+            <div class="page-sub">CoinOsprey · Premium crypto news &amp; market research console · <span id="todayStr"></span></div>
+          </div>
+          <div class="btnrow">
+            <button class="btn" onclick="go('authors')">⚙ General Settings</button>
+            <button class="btn" onclick="alert('Print view would open here.')">🖨 Print</button>
+            <button class="btn btn-amber" onclick="go('create')">＋ New Article</button>
+          </div>
+        </div>
+
+        <div class="statgrid">
+          <div class="statcard"><div class="label">Published Today</div><div class="value" id="statPublished">0</div><div class="delta">▲ live count</div></div>
+          <div class="statcard"><div class="label">Drafts Pending</div><div class="value" id="statDrafts">0</div><div class="delta" style="color:var(--amber)">Needs review</div></div>
+          <div class="statcard"><div class="label">SEO Passed</div><div class="value" id="statSeo">0%</div><div class="delta">Across all news</div></div>
+          <div class="statcard"><div class="label">Authors Active</div><div class="value" id="statAuthors">0</div><div class="delta">Content team</div></div>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Title</th><th>Type</th><th>Author</th><th>Published</th><th>SEO</th></tr></thead>
+            <tbody id="homeRecent"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== CRYPTO NEWS ===================== -->
+      <section class="page" id="page-news">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Crypto News <span class="badge-count" id="newsCount">0</span></div>
+            <div class="page-sub">All published price prediction &amp; market news articles</div>
+          </div>
+          <div class="btnrow">
+            <button class="btn" onclick="toggleFilters()">☰ Hide Filters</button>
+            <button class="btn btn-primary" onclick="go('create')">＋ Add New</button>
+            <button class="btn">⇩ Import JSON</button>
+            <button class="btn">⇧ Export News</button>
+            <button class="btn btn-amber">✦ AI Generate</button>
+            <button class="btn" onclick="go('draft')">Draft News</button>
+          </div>
+        </div>
+
+        <div class="filterbar" id="filterbar">
+          <input id="fSearch" placeholder="Keyword Search…" oninput="renderNews()">
+          <select id="fCreatedBy" onchange="renderNews()"><option value="">Select Created By</option></select>
+          <select id="fAuthor" onchange="renderNews()"><option value="">Select Author</option></select>
+          <select id="fType" onchange="renderNews()">
+            <option value="">Select News Type</option>
+            <option>Gabbar News</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option><option>Price Prediction</option>
+          </select>
+          <select id="fLang" onchange="renderNews()">
+            <option value="">Language</option><option>English</option><option>Hindi</option><option>Hinglish</option>
+          </select>
+          <select id="fOrder" onchange="renderNews()">
+            <option value="new">Order By Uploaded DESC</option>
+            <option value="old">Order By Uploaded ASC</option>
+            <option value="az">Title A → Z</option>
+          </select>
+        </div>
+        <div class="filter-actions">
+          <button class="btn btn-primary btn-sm" onclick="renderNews()">🔍 Search</button>
+          <button class="btn btn-sm" onclick="resetFilters()">↻ Reset</button>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Thumb</th><th>Title</th><th>Author</th><th>Created By</th><th>Uploaded</th><th>Published</th>
+                <th>Lan</th><th>Type</th><th>News/Blog</th><th>SEO</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="newsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== DRAFT NEWS ===================== -->
+      <section class="page" id="page-draft">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Draft News <span class="badge-count" id="draftCount">0</span></div>
+            <div class="page-sub">Unpublished articles awaiting SEO check &amp; publish</div>
+          </div>
+          <button class="btn" onclick="go('news')">← Back to Crypto News</button>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Thumb</th><th>Title</th><th>Author</th><th>Uploaded</th><th>Type</th><th>SEO</th><th>Action</th></tr></thead>
+            <tbody id="draftBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== CREATE / ADD NEW ===================== -->
+      <section class="page" id="page-create">
+        <div class="page-head">
+          <div>
+            <div class="page-title">Add New Article</div>
+            <div class="page-sub">Home › Crypto News › Create</div>
+          </div>
+        </div>
+
+        <div class="formcard">
+          <div class="formgrid">
+            <div class="field"><label>Title <em>*</em></label><input type="text" id="inTitle" placeholder="e.g. Bitcoin Price Prediction: BTC Eyes $70K Breakout"></div>
+            <div class="field"><label>Alias <em>*</em></label><input type="text" id="inAlias" placeholder="bitcoin-price-prediction-btc-70k"><span class="hint">No numbers/special chars — lowercase only</span></div>
+
+            <div class="field"><label>News Type <em>*</em></label>
+              <select id="inType"><option value="">Select News Type</option><option>Price Prediction</option><option>Market Update</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option></select>
+            </div>
+            <div class="field"><label>Author Name <em>*</em></label>
+              <select id="inAuthor"><option>M2</option><option>Aashish Vishwakarma</option><option>Coin Gabbar</option></select>
+            </div>
+
+            <div class="field"><label>Focus Keyword <em>*</em></label><input type="text" id="inKeyword" placeholder="bitcoin price prediction"></div>
+            <div class="field"><label>Published At <em>*</em></label><input type="datetime-local" id="inPublished"></div>
+
+            <div class="field"><label>Project / Token <em>*</em></label><input type="text" id="inProject" placeholder="Select or type coin…"></div>
+            <div class="field"><label>Select Channel</label>
+              <select id="inChannel"><option>CoinOsprey</option><option>AVFINANCEHUB</option><option>CryptoBossDaily</option><option>CoinGabbar (Contributor)</option></select>
+            </div>
+
+            <div class="field"><label>Category</label><input type="text" id="inCategory" placeholder="Category select…"></div>
+            <div class="field"><label>Coin / Token Image <em>*</em> <span class="hint">(max 200kb)</span></label>
+              <div class="imgpick"><input type="text" id="inImgName" placeholder="No file selected" readonly><button class="btn btn-sm" onclick="document.getElementById('fileHidden').click()">Browse</button></div>
+              <input type="file" id="fileHidden" style="display:none" onchange="document.getElementById('inImgName').value=this.files[0]?this.files[0].name:''">
+            </div>
+
+            <div class="field"><label>Image Alt Title <em>*</em></label><input type="text" id="inAlt" placeholder="Bitcoin BTC coin logo"></div>
+            <div class="field"><label>Is Home <em>*</em></label><select id="inHome"><option value="No">No</option><option value="Yes">Yes</option></select></div>
+
+            <div class="field full">
+              <label>Sync Sources</label>
+              <div class="checkrow">
+                <label><input type="checkbox"> Daily Hunt</label>
+                <label><input type="checkbox"> CMC</label>
+                <label><input type="checkbox"> Suncrypto</label>
+                <label><input type="checkbox"> Binance</label>
+                <label><input type="checkbox" checked> Is RSS Feed</label>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label>Description <em>*</em></label>
+              <div class="toolbar" id="descToolbar">
+                <select data-cmd="formatBlock" title="Paragraph / Heading">
+                  <option value="P">Paragraph</option>
+                  <option value="H1">Heading 1</option>
+                  <option value="H2">Heading 2</option>
+                  <option value="H3">Heading 3</option>
+                  <option value="H4">Heading 4</option>
+                  <option value="H5">Heading 5</option>
+                </select>
+                <select data-cmd="fontName" title="Font Family">
+                  <option value="">Font</option>
+                  <option value="Inter">Inter</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="'Times New Roman'">Times New Roman</option>
+                  <option value="'Courier New'">Courier New</option>
+                  <option value="Verdana">Verdana</option>
+                </select>
+                <select data-cmd="fontSize" title="Font Size">
+                  <option value="">Size</option>
+                  <option value="1">Small</option>
+                  <option value="3">Normal</option>
+                  <option value="5">Large</option>
+                  <option value="7">X-Large</option>
+                </select>
+                <div class="tsep"></div>
+
+                <button type="button" data-cmd="bold" title="Bold"><b>B</b></button>
+                <button type="button" data-cmd="italic" title="Italic"><i>I</i></button>
+                <button type="button" data-cmd="underline" title="Underline"><u>U</u></button>
+                <button type="button" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+                <button type="button" data-cmd="superscript" title="Superscript">x²</button>
+                <button type="button" data-cmd="subscript" title="Subscript">x₂</button>
+                <button type="button" data-cmd="removeFormat" title="Clear Formatting">Tx</button>
+                <div class="tsep"></div>
+
+                <label class="hint" style="display:flex;align-items:center;gap:4px;">A<input type="color" data-cmd="foreColor" title="Text Color" value="#0b1626"></label>
+                <label class="hint" style="display:flex;align-items:center;gap:4px;">▧<input type="color" data-cmd="hiliteColor" title="Background Highlight" value="#ffffff"></label>
+                <select data-cmd="textCase" title="Text Case">
+                  <option value="">Case</option>
+                  <option value="upper">UPPERCASE</option>
+                  <option value="lower">lowercase</option>
+                  <option value="title">Capitalize Each Word</option>
+                </select>
+                <div class="tsep"></div>
+
+                <button type="button" data-cmd="justifyLeft" title="Align left">≡L</button>
+                <button type="button" data-cmd="justifyCenter" title="Align center">≡C</button>
+                <button type="button" data-cmd="justifyRight" title="Align right">≡R</button>
+                <button type="button" data-cmd="justifyFull" title="Justify">≡J</button>
+                <div class="tsep"></div>
+
+                <button type="button" data-cmd="insertOrderedList" title="Numbered list">1.</button>
+                <button type="button" data-cmd="insertUnorderedList" title="Bulleted list">•</button>
+                <button type="button" data-cmd="insertChecklist" title="Checklist / To-do">☑</button>
+                <button type="button" data-cmd="indent" title="Multi-level: Indent">⇥</button>
+                <button type="button" data-cmd="outdent" title="Multi-level: Outdent">⇤</button>
+                <div class="tsep"></div>
+
+                <button type="button" data-cmd="createLink" title="Insert Link">🔗</button>
+                <button type="button" data-cmd="insertImageUrl" title="Insert Image">🖼</button>
+                <button type="button" data-cmd="insertVideoUrl" title="Insert Video">🎬</button>
+                <button type="button" data-cmd="insertAudioUrl" title="Insert Audio">🎵</button>
+                <button type="button" data-cmd="insertTable" title="Insert Table">▦</button>
+                <button type="button" data-cmd="insertFile" title="File Attachment">📎</button>
+
+                <div class="tgroup">
+                  <button type="button" data-cmd="toggleEmoji" title="Emoji">😊</button>
+                  <div class="tpopover" id="emojiPop"><div class="emoji-grid" id="emojiGrid"></div></div>
+                </div>
+                <div class="tgroup">
+                  <button type="button" data-cmd="toggleIcons" title="Icons">★</button>
+                  <div class="tpopover" id="iconPop"><div class="icon-grid" id="iconGrid"></div></div>
+                </div>
+                <div class="tsep"></div>
+
+                <button type="button" data-cmd="undo" title="Undo">↺</button>
+                <button type="button" data-cmd="redo" title="Redo">↻</button>
+                <button type="button" data-cmd="insertHorizontalRule" title="Divider">―</button>
+                <button type="button" data-cmd="toggleSource" title="View HTML source">&lt;/&gt;</button>
+              </div>
+              <div class="editor" id="inDesc" contenteditable="true" data-placeholder="Type something…"></div>
+              <textarea class="editor" id="inDescSource" style="display:none;font-family:var(--mono);font-size:12px;" spellcheck="false"></textarea>
+            </div>
+
+            <div class="field"><label>SEO Title</label><input type="text" id="inSeoTitle"></div>
+            <div class="field"><label>Meta Keywords</label><input type="text" id="inMetaKw"></div>
+            <div class="field full"><label>Meta Description</label><textarea id="inMetaDesc" style="min-height:50px"></textarea></div>
+            <div class="field full"><label>FAQs</label><textarea id="inFaqs" style="min-height:50px" placeholder="Q: ... A: ..."></textarea></div>
+            <div class="field full"><label>Prompt Instructions</label><textarea id="inPrompt" style="min-height:50px" placeholder="Editorial persona / tone / format instructions for AI generation"></textarea></div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="saveArticle()">✓ Save</button>
+            <button class="btn btn-amber" onclick="saveArticle(true)">✓ Save &amp; Publish</button>
+            <button class="btn btn-ghost" onclick="go('news')">Cancel</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== AUTHOR MODELS ===================== -->
+      <section class="page" id="page-authors">
+        <div class="page-head">
+          <div><div class="page-title">Author Models</div><div class="page-sub">Home › AuthorModels</div></div>
+          <button class="btn btn-primary" onclick="alert('Add author form would open here.')">＋ Add New</button>
+        </div>
+        <div class="filterbar" style="grid-template-columns:repeat(4,1fr)">
+          <input placeholder="Keyword Search…">
+          <select><option>Default</option></select>
+          <select><option>left</option></select>
+          <input type="date">
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Id</th><th>User Name</th><th>Display Name</th><th>Slug</th><th>User Type</th><th>Active</th><th>Order</th><th>Created At</th><th>Action</th></tr></thead>
+            <tbody id="authorBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== SIMPLE PLACEHOLDER PAGES ===================== -->
+      <section class="page" id="page-events">
+        <div class="page-head"><div><div class="page-title">Fetch Data Event List</div><div class="page-sub">Scheduled ingestion jobs from CoinGecko / RSS sources</div></div><button class="btn btn-primary">＋ New Event</button></div>
+        <div class="tablewrap"><div class="empty"><b>No events configured yet</b>Set up a scraping or RSS ingestion event to auto-pull crypto news.</div></div>
+      </section>
+
+      <section class="page" id="page-gsc">
+        <div class="page-head"><div><div class="page-title">Google Search Console</div><div class="page-sub">Indexing &amp; query performance for coinosprey.com</div></div><button class="btn">⇪ Connect Property</button></div>
+        <div class="statgrid">
+          <div class="statcard"><div class="label">Total Clicks (28d)</div><div class="value">—</div></div>
+          <div class="statcard"><div class="label">Impressions</div><div class="value">—</div></div>
+          <div class="statcard"><div class="label">Avg. CTR</div><div class="value">—</div></div>
+          <div class="statcard"><div class="label">Avg. Position</div><div class="value">—</div></div>
+        </div>
+        <div class="tablewrap"><div class="empty"><b>Connect Search Console</b>Link a verified property to see live query data here.</div></div>
+      </section>
+
+      <section class="page" id="page-keywords">
+        <div class="page-head"><div><div class="page-title">Keyword Dashboard</div><div class="page-sub">Tracked keyword rankings across crypto &amp; Nifty/Sensex content</div></div><button class="btn btn-primary">＋ Track Keyword</button></div>
+        <div class="tablewrap"><div class="empty"><b>No keywords tracked</b>Add a keyword to start monitoring SERP position.</div></div>
+      </section>
+
+      <section class="page" id="page-fetchkw">
+        <div class="page-head"><div><div class="page-title">Fetch Keyword Data</div><div class="page-sub">Pull fresh volume / difficulty data for the content pipeline</div></div><button class="btn btn-primary">⇩ Fetch Now</button></div>
+        <div class="tablewrap"><div class="empty"><b>Nothing fetched yet</b>Run a fetch to populate keyword metrics.</div></div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="dot"></span><span id="toastMsg">Saved</span></div>
+
+<script>
+/* ---------------- DATA (mock, in-memory only) ---------------- */
+let news = [
+  {id:1,title:"Bitcoin Price Prediction: BTC Eyes $70K As Momentum Builds",alias:"bitcoin-price-prediction-btc-70k",author:"M2",createdBy:"M2",uploaded:"08 Jul 2026 09:12 AM",published:"08 Jul 2026 09:15 AM",lang:"EN",type:"Price Prediction",newsBlog:"News",seo:true,img:"https://placehold.co/64x40/2DD4BF/06090D?text=BTC"},
+  {id:2,title:"Ethereum 3.0 Correlation With Nifty: What Traders Should Watch",alias:"eth-3-nifty-correlation",author:"M2",createdBy:"M2",uploaded:"08 Jul 2026 08:40 AM",published:"08 Jul 2026 08:44 AM",lang:"EN",type:"Market Update",newsBlog:"Blog",seo:true,img:"https://placehold.co/64x40/E3A73B/06090D?text=ETH"},
+  {id:3,title:"Sensex Today: FII Outflows Pressure Bluechips Amid RSI Overheat",alias:"sensex-today-fii-outflows",author:"Coin Gabbar",createdBy:"M2",uploaded:"08 Jul 2026 07:55 AM",published:"—",lang:"HI",type:"Market Update",newsBlog:"News",seo:false,img:"https://placehold.co/64x40/1a1f26/F3F5F7?text=SNX"},
+  {id:4,title:"XRP Presale Alert: New 100x Contender Emerges As SOL Cools",alias:"xrp-presale-100x-contender",author:"Aashish Vishwakarma",createdBy:"M2",uploaded:"07 Jul 2026 10:30 PM",published:"07 Jul 2026 10:34 PM",lang:"EN",type:"Sponsored",newsBlog:"News",seo:true,img:"https://placehold.co/64x40/2DD4BF/06090D?text=XRP"},
+];
+let drafts = [
+  {id:101,title:"Solana Price Prediction: SOL Volume Signals Breakout Zone",author:"M2",uploaded:"08 Jul 2026 09:40 AM",type:"Price Prediction",seo:true,img:"https://placehold.co/64x40/E3A73B/06090D?text=SOL"},
+  {id:102,title:"Nifty Bank Weekly Outlook: FII/DII Data Points To Consolidation",author:"M2",uploaded:"08 Jul 2026 09:02 AM",type:"Market Update",seo:false,img:"https://placehold.co/64x40/1a1f26/F3F5F7?text=NFT"},
+];
+let authors = [
+  {id:1,user:"M2",display:"M2",slug:"m2",type:"CoinOsprey Editor",active:true,order:0,created:"2026-01-15"},
+  {id:2,user:"Aashish Vishwakarma",display:"Aashish Vishwakarma",slug:"aashish-vishwakarma",type:"Coin Gabbar Blog Author",active:true,order:1,created:"2026-05-20"},
+];
+
+/* ---------------- NAV ---------------- */
+const titles = {home:"Dashboard",news:"Crypto News",draft:"Draft News",create:"Add New Article",authors:"Author Models",events:"Fetch Data Event List",gsc:"Google Search Console",keywords:"Keyword Dashboard",fetchkw:"Fetch Keyword Data"};
+function go(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.navitem').forEach(el=>el.classList.toggle('active', el.dataset.page===p));
+  document.getElementById('crumbCurrent').textContent = titles[p] || p;
+  if(p==='news') renderNews();
+  if(p==='draft') renderDraft();
+  if(p==='authors') renderAuthors();
+  if(p==='home') renderHome();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.navitem').forEach(el=>el.addEventListener('click',()=>go(el.dataset.page)));
+function filterNav(q){
+  q=q.toLowerCase();
+  document.querySelectorAll('.navitem').forEach(el=>{
+    el.style.display = el.textContent.toLowerCase().includes(q) ? 'flex':'none';
+  });
+}
+function toggleFilters(){document.getElementById('filterbar').style.display = document.getElementById('filterbar').style.display==='none'?'grid':'none';}
+
+/* ---------------- RENDER: NEWS ---------------- */
+function actionCell(){
+  return `<div class="actioncell">
+    <button class="btn btn-icon btn-sm" title="Preview">👁</button>
+    <button class="btn btn-icon btn-sm" title="Edit">✎</button>
+    <button class="btn btn-sm">&lt;/&gt; Prompt</button>
+    <button class="btn btn-sm btn-primary">⤴ Upgrade</button>
+    <button class="btn btn-sm btn-amber">🖼 AI Image</button>
+  </div>`;
+}
+function renderNews(){
+  populateFilterOptions();
+  const q=(document.getElementById('fSearch').value||'').toLowerCase();
+  const cb=document.getElementById('fCreatedBy').value;
+  const au=document.getElementById('fAuthor').value;
+  const ty=document.getElementById('fType').value;
+  const lg=document.getElementById('fLang').value;
+  const ord=document.getElementById('fOrder').value;
+
+  let rows = news.filter(n=>
+    (!q || n.title.toLowerCase().includes(q)) &&
+    (!cb || n.createdBy===cb) &&
+    (!au || n.author===au) &&
+    (!ty || n.type===ty) &&
+    (!lg || (lg==='English'&&n.lang==='EN')||(lg==='Hindi'&&n.lang==='HI')||(lg==='Hinglish'&&n.lang==='HI'))
+  );
+  if(ord==='az') rows=[...rows].sort((a,b)=>a.title.localeCompare(b.title));
+  if(ord==='old') rows=[...rows].reverse();
+
+  document.getElementById('newsCount').textContent = rows.length;
+  const body=document.getElementById('newsBody');
+  if(rows.length===0){ body.innerHTML=`<tr><td colspan="11"><div class="empty"><b>No articles match these filters</b>Try resetting filters or add a new article.</div></td></tr>`; return; }
+
+  body.innerHTML = rows.map(n=>`
+    <tr>
+      <td><img class="thumb" src="${n.img}"></td>
+      <td class="title-cell"><b>${n.title}</b><span>${n.alias}</span></td>
+      <td>${n.author}</td>
+      <td>${n.createdBy}</td>
+      <td>${n.uploaded}</td>
+      <td>${n.published}</td>
+      <td>${n.lang}</td>
+      <td><span class="tag ${n.type==='Price Prediction'?'tag-pred':n.newsBlog==='Blog'?'tag-blog':'tag-news'}">${n.type}</span></td>
+      <td>${n.newsBlog}</td>
+      <td>${n.seo?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
+      <td>${actionCell()}</td>
+    </tr>`).join('');
+}
+function populateFilterOptions(){
+  const cb=document.getElementById('fCreatedBy'), au=document.getElementById('fAuthor');
+  if(cb.options.length<=1){
+    [...new Set(news.map(n=>n.createdBy))].forEach(v=>cb.insertAdjacentHTML('beforeend',`<option>${v}</option>`));
+  }
+  if(au.options.length<=1){
+    [...new Set(news.map(n=>n.author))].forEach(v=>au.insertAdjacentHTML('beforeend',`<option>${v}</option>`));
+  }
+}
+function resetFilters(){
+  document.getElementById('fSearch').value='';
+  document.getElementById('fCreatedBy').value='';
+  document.getElementById('fAuthor').value='';
+  document.getElementById('fType').value='';
+  document.getElementById('fLang').value='';
+  document.getElementById('fOrder').value='new';
+  renderNews();
+}
+
+/* ---------------- RENDER: DRAFT ---------------- */
+function renderDraft(){
+  document.getElementById('draftCount').textContent = drafts.length;
+  const body=document.getElementById('draftBody');
+  if(drafts.length===0){ body.innerHTML=`<tr><td colspan="7"><div class="empty"><b>No drafts</b>Everything is published 🎉</div></td></tr>`; return; }
+  body.innerHTML = drafts.map(d=>`
+    <tr>
+      <td><img class="thumb" src="${d.img}"></td>
+      <td class="title-cell"><b>${d.title}</b></td>
+      <td>${d.author}</td>
+      <td>${d.uploaded}</td>
+      <td><span class="tag tag-pred">${d.type}</span></td>
+      <td>${d.seo?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
+      <td><button class="btn btn-primary btn-sm" onclick="pickNews(${d.id})">Pick News</button></td>
+    </tr>`).join('');
+}
+function pickNews(id){
+  const idx = drafts.findIndex(d=>d.id===id);
+  if(idx<0) return;
+  const d = drafts[idx];
+  news.unshift({id:Date.now(),title:d.title,alias:d.title.toLowerCase().replace(/[^a-z0-9]+/g,'-'),author:d.author,createdBy:"M2",uploaded:d.uploaded,published:new Date().toLocaleString(),lang:"EN",type:d.type,newsBlog:"News",seo:d.seo,img:d.img});
+  drafts.splice(idx,1);
+  renderDraft();
+  showToast(`"${d.title.slice(0,40)}…" moved to Crypto News`);
+}
+
+/* ---------------- RENDER: AUTHORS ---------------- */
+function renderAuthors(){
+  document.getElementById('authorBody').innerHTML = authors.map(a=>`
+    <tr>
+      <td>${a.id}</td>
+      <td>${a.user}</td>
+      <td>${a.display}</td>
+      <td>${a.slug}</td>
+      <td>${a.type}</td>
+      <td>${a.active?'<span class="yes">Active</span>':'<span class="no">Inactive</span>'}</td>
+      <td>${a.order}</td>
+      <td>${a.created}</td>
+      <td class="actioncell">
+        <button class="btn btn-icon btn-sm">👁</button>
+        <button class="btn btn-icon btn-sm">✎</button>
+        <button class="btn btn-icon btn-sm btn-danger">🗑</button>
+      </td>
+    </tr>`).join('');
+}
+
+/* ---------------- RENDER: HOME ---------------- */
+function renderHome(){
+  const today = news.filter(n=>n.published!=='—').length;
+  document.getElementById('statPublished').textContent = today;
+  document.getElementById('statDrafts').textContent = drafts.length;
+  const seoYes = news.filter(n=>n.seo).length;
+  document.getElementById('statSeo').textContent = news.length? Math.round(seoYes/news.length*100)+'%' : '0%';
+  document.getElementById('statAuthors').textContent = authors.filter(a=>a.active).length;
+  document.getElementById('homeRecent').innerHTML = news.slice(0,5).map(n=>`
+    <tr><td class="title-cell"><b>${n.title}</b></td><td><span class="tag ${n.type==='Price Prediction'?'tag-pred':'tag-news'}">${n.type}</span></td><td>${n.author}</td><td>${n.published}</td><td>${n.seo?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td></tr>
+  `).join('');
+  document.getElementById('todayStr').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+}
+
+/* ---------------- RICH TEXT EDITOR ---------------- */
+const descEditor = document.getElementById('inDesc');
+const descSource = document.getElementById('inDescSource');
+let sourceMode = false;
+
+const EMOJIS = ["😀","😂","😍","🤔","👍","👎","🔥","🚀","💰","📈","📉","⚠️","✅","❌","💡","🎯","🙌","😢","😎","🤝","📊","💹","🪙","⏰","🌐","📌","👀","💬","🧠","🎉","⭐","❗"];
+const ICONS = ["★","⚡","✔","✖","➜","➤","▲","▼","◆","●","■","▶","⚑","☎","✉","🏆","🔔","🔒","🔓","📅","📁","🖊","🌟","⛔"];
+
+function buildPopovers(){
+  document.getElementById('emojiGrid').innerHTML = EMOJIS.map(e=>`<button type="button">${e}</button>`).join('');
+  document.getElementById('iconGrid').innerHTML = ICONS.map(i=>`<button type="button">${i}</button>`).join('');
+}
+buildPopovers();
+
+function closePopovers(){
+  document.getElementById('emojiPop').classList.remove('open');
+  document.getElementById('iconPop').classList.remove('open');
+}
+
+document.getElementById('emojiGrid').addEventListener('click',(e)=>{
+  const b = e.target.closest('button'); if(!b) return;
+  descEditor.focus();
+  document.execCommand('insertText', false, b.textContent);
+  closePopovers();
+});
+document.getElementById('iconGrid').addEventListener('click',(e)=>{
+  const b = e.target.closest('button'); if(!b) return;
+  descEditor.focus();
+  document.execCommand('insertHTML', false, `<span style="font-size:1.1em;">${b.textContent}</span>&nbsp;`);
+  closePopovers();
+});
+
+function applyTextCase(mode){
+  const sel = window.getSelection();
+  if(!sel.rangeCount || sel.isCollapsed) { alert('Select some text first to change its case.'); return; }
+  const range = sel.getRangeAt(0);
+  const text = range.toString();
+  let out = text;
+  if(mode==='upper') out = text.toUpperCase();
+  else if(mode==='lower') out = text.toLowerCase();
+  else if(mode==='title') out = text.replace(/\w\S*/g, t => t.charAt(0).toUpperCase()+t.substr(1).toLowerCase());
+  document.execCommand('insertText', false, out);
+}
+
+function insertChecklist(){
+  document.execCommand('insertHTML', false,
+    `<ul class="checklist"><li><input type="checkbox">&nbsp;To-do item</li></ul><p><br></p>`);
+}
+
+function insertTableHTML(){
+  const rows = parseInt(prompt('Number of rows:', '2'), 10);
+  const cols = parseInt(prompt('Number of columns:', '3'), 10);
+  if(!rows || !cols) return;
+  let html = '<table><tbody>';
+  for(let r=0;r<rows;r++){
+    html += '<tr>';
+    for(let c=0;c<cols;c++) html += '<td>&nbsp;</td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table><p><br></p>';
+  document.execCommand('insertHTML', false, html);
+}
+
+document.getElementById('descToolbar').addEventListener('click', (e)=>{
+  // close popovers unless clicking their toggles
+  if(!e.target.closest('#emojiPop') && !e.target.closest('#iconPop') && e.target.dataset.cmd !== 'toggleEmoji' && e.target.dataset.cmd !== 'toggleIcons'){
+    closePopovers();
+  }
+
+  const btn = e.target.closest('button[data-cmd]');
+  if(!btn) return;
+  const cmd = btn.dataset.cmd;
+
+  if(cmd === 'toggleEmoji'){ document.getElementById('emojiPop').classList.toggle('open'); return; }
+  if(cmd === 'toggleIcons'){ document.getElementById('iconPop').classList.toggle('open'); return; }
+
+  if(cmd === 'toggleSource'){
+    sourceMode = !sourceMode;
+    if(sourceMode){
+      descSource.value = descEditor.innerHTML.trim();
+      descEditor.style.display = 'none';
+      descSource.style.display = 'block';
+      btn.classList.add('active');
+    } else {
+      descEditor.innerHTML = descSource.value;
+      descEditor.style.display = 'block';
+      descSource.style.display = 'none';
+      btn.classList.remove('active');
+    }
+    return;
+  }
+
+  descEditor.focus();
+
+  if(cmd === 'createLink'){
+    const url = prompt('Enter URL:', 'https://');
+    if(url) document.execCommand('createLink', false, url);
+    return;
+  }
+  if(cmd === 'insertImageUrl'){
+    const url = prompt('Enter image URL:', 'https://');
+    if(url) document.execCommand('insertImage', false, url);
+    return;
+  }
+  if(cmd === 'insertVideoUrl'){
+    const url = prompt('Enter video URL (YouTube embed or direct .mp4):', 'https://');
+    if(!url) return;
+    let html;
+    if(url.includes('youtube.com') || url.includes('youtu.be')){
+      const embed = url.replace('watch?v=','embed/').replace('youtu.be/','youtube.com/embed/');
+      html = `<iframe width="560" height="315" src="${embed}" allowfullscreen></iframe><p><br></p>`;
+    } else {
+      html = `<video controls style="max-width:100%"><source src="${url}"></video><p><br></p>`;
+    }
+    document.execCommand('insertHTML', false, html);
+    return;
+  }
+  if(cmd === 'insertAudioUrl'){
+    const url = prompt('Enter audio URL:', 'https://');
+    if(url) document.execCommand('insertHTML', false, `<audio controls src="${url}" style="width:100%"></audio><p><br></p>`);
+    return;
+  }
+  if(cmd === 'insertFile'){
+    const url = prompt('Enter file URL to attach:', 'https://');
+    const label = prompt('Link text to display:', 'Download attachment');
+    if(url) document.execCommand('insertHTML', false, `<a href="${url}" target="_blank">📎 ${label||'Attachment'}</a>&nbsp;`);
+    return;
+  }
+  if(cmd === 'insertTable'){ insertTableHTML(); return; }
+  if(cmd === 'insertChecklist'){ insertChecklist(); return; }
+
+  document.execCommand(cmd, false, null);
+});
+
+// dropdowns: paragraph/heading, font, size, case
+document.querySelectorAll('#descToolbar select[data-cmd]').forEach(sel=>{
+  sel.addEventListener('change', ()=>{
+    descEditor.focus();
+    const cmd = sel.dataset.cmd;
+    if(!sel.value) return;
+    if(cmd === 'textCase'){ applyTextCase(sel.value); sel.value=''; return; }
+    document.execCommand(cmd, false, sel.value);
+    sel.value = cmd==='formatBlock' ? sel.value : '';
+  });
+});
+
+// color pickers: text color + background highlight
+document.querySelectorAll('#descToolbar input[type=color][data-cmd]').forEach(inp=>{
+  inp.addEventListener('input', ()=>{
+    descEditor.focus();
+    document.execCommand(inp.dataset.cmd, false, inp.value);
+  });
+});
+
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('.tgroup')) closePopovers();
+});
+
+// keep formatting buttons visually reflecting cursor state
+document.addEventListener('selectionchange', ()=>{
+  if(document.activeElement !== descEditor) return;
+  ['bold','italic','underline','strikeThrough','insertOrderedList','insertUnorderedList','superscript','subscript'].forEach(cmd=>{
+    const btn = document.querySelector(`#descToolbar button[data-cmd="${cmd}"]`);
+    if(!btn) return;
+    try{ btn.classList.toggle('active', document.queryCommandState(cmd)); }catch(e){}
+  });
+});
+
+/* ---------------- CREATE FORM ---------------- */
+function saveArticle(publish){
+  const title = document.getElementById('inTitle').value.trim();
+  const alias = document.getElementById('inAlias').value.trim();
+  const type = document.getElementById('inType').value;
+  const author = document.getElementById('inAuthor').value;
+  if(!title || !alias || !type){
+    showToast('Please fill Title, Alias and News Type', true);
+    return;
+  }
+  const record = {
+    id: Date.now(),
+    title, alias, author, createdBy:"M2",
+    uploaded: new Date().toLocaleString(),
+    published: publish ? new Date().toLocaleString() : '—',
+    lang:"EN", type, newsBlog: publish?"News":"Draft",
+    seo:false,
+    img:"https://placehold.co/64x40/2DD4BF/06090D?text=NEW"
+  };
+  if(publish){
+    news.unshift(record);
+    showToast('Article saved & published ✓');
+    go('news');
+  } else {
+    drafts.unshift({id:record.id,title,author,uploaded:record.uploaded,type,seo:false,img:record.img});
+    showToast('Article saved as draft ✓');
+    go('draft');
+  }
+  document.querySelectorAll('#page-create input, #page-create select, #page-create textarea').forEach(el=>{
+    if(el.type==='checkbox') el.checked=false; else if(el.tagName!=='SELECT') el.value='';
+  });
+  descEditor.innerHTML = '';
+  descSource.value = '';
+  descEditor.style.display = 'block';
+  descSource.style.display = 'none';
+  sourceMode = false;
+  document.querySelectorAll('#descToolbar input[type=color]').forEach(inp=>{ inp.value = inp.dataset.cmd==='hiliteColor' ? '#ffffff' : '#0b1626'; });
+}
+
+/* ---------------- TOAST ---------------- */
+function showToast(msg, isError){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.style.borderColor = isError ? 'var(--red)' : 'var(--teal)';
+  t.querySelector('.dot').style.background = isError ? 'var(--red)' : 'var(--teal)';
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+/* ---------------- CLOCK ---------------- */
+function tickClock(){
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-IN',{hour12:true});
+}
+setInterval(tickClock,1000); tickClock();
+
+/* ---------------- INIT ---------------- */
+renderHome();
+renderNews();
+renderDraft();
+renderAuthors();
+document.getElementById('inPublished').value = new Date().toISOString().slice(0,16);
+</script>
+</body>
+</html>
