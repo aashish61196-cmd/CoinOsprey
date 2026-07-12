@@ -4139,6 +4139,36 @@
 })();
 
 </script>
+<script>
+const API_BASE = '/api'; // same domain, koi full URL ki zaroorat nahi
 
+async function loadNews() {
+  const list = document.getElementById('news-list');
+  if (!list) return;
+  try {
+    const res = await fetch(`${API_BASE}/articles`);
+    const articles = await res.json();
+
+    if (!Array.isArray(articles) || articles.length === 0) return;
+
+    list.innerHTML = articles.slice(0, 4).map(a => `
+      <li><a class="block-list__item" href="/article.html?slug=${a.slug}">
+        <div class="news-thumb">
+          <img src="${a.image || 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=128&h=128&fit=crop'}" alt="${a.imageAlt || a.title}">
+        </div>
+        <div class="news-item__body">
+          <span class="news-item__category">${a.category || a.project || 'Crypto'}</span>
+          <h3 class="news-item__headline">${a.title}</h3>
+          <span class="news-item__meta">${new Date(a.createdAt || a.publishedAt).toLocaleDateString()}</span>
+        </div>
+      </a></li>
+    `).join('');
+  } catch (err) {
+    console.error('Failed to load news:', err);
+  }
+}
+
+loadNews();
+</script>
 </body>
 </html>
