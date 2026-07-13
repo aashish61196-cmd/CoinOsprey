@@ -20,6 +20,23 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+let isConnected = false;
+async function connectDB() {
+  if (isConnected) return;
+  await mongoose.connect(process.env.MONGO_URI);
+  isConnected = true;
+}
+
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('MongoDB connection error:', err.message);
+    res.status(500).json({ message: 'Database connection error' });
+  }
+});
+
 app.get('/', (req, res) => {
   res.json({ ok: true, service: 'CoinOsprey API', time: new Date().toISOString() });
 });
@@ -40,23 +57,6 @@ app.get('/robots.txt', (req, res) => {
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ message: 'Server error' });
-});
-
-let isConnected = false;
-async function connectDB() {
-  if (isConnected) return;
-  await mongoose.connect(process.env.MONGO_URI);
-  isConnected = true;
-}
-
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    console.error('MongoDB connection error:', err.message);
-    res.status(500).json({ message: 'Database connection error' });
-  }
 });
 
 if (require.main === module) {
