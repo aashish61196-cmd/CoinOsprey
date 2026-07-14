@@ -10,63 +10,69 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root{
-    /* CoinOsprey — light glass theme, same tokens/fonts as coinosprey.com */
-    --navy-950:#F4F6FA;                /* --bg-deep : page wash (light) */
-    --navy-900:#FFFFFF;                /* --surface-menu : solid light surface */
-    --navy-800:rgba(255,255,255,0.72); /* --glass-bg-2 (frosted white card surfaces) */
-    --navy-700:rgba(11,23,48,0.045);   /* hover / table head tint */
-    --navy-600:rgba(11,23,48,0.12);
-    --line:rgba(11,23,48,0.10);        /* --glass-border */
-    --teal:#0D9488;
-    --teal-dim:#0b7a70;
-    --amber:#F5A623;
-    --amber-dim:#d18f16;
-    --violet:#5B52E0;
-    --text-hi:#0B1730;
-    --text-mid:#4B5468;
-    --text-low:#8892A6;
-    --red:#DC2F45;
-    --green:#16A34A;
-    --ink:#06090D;                     /* fixed dark text used ON bright accent chips/buttons */
-    --mono: 'IBM Plex Mono','SFMono-Regular',Menlo,monospace;
-    --sans: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-    --display: 'Space Grotesk','Arial Narrow',sans-serif;
-    --glass-blur: 18px;
+    --navy-950:#F4F6FA; --navy-900:#FFFFFF; --navy-800:rgba(255,255,255,0.72);
+    --navy-700:rgba(11,23,48,0.045); --navy-600:rgba(11,23,48,0.12); --line:rgba(11,23,48,0.10);
+    --teal:#0D9488; --teal-dim:#0b7a70; --amber:#F5A623; --amber-dim:#d18f16; --violet:#5B52E0;
+    --text-hi:#0B1730; --text-mid:#4B5468; --text-low:#8892A6; --red:#DC2F45; --green:#16A34A; --ink:#06090D;
+    --mono:'IBM Plex Mono','SFMono-Regular',Menlo,monospace;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --display:'Space Grotesk','Arial Narrow',sans-serif; --glass-blur:18px;
   }
   *{box-sizing:border-box;}
-  body{
-    margin:0;font-family:var(--sans);color:var(--text-hi);
-    background:
-      radial-gradient(1100px 500px at 12% -10%, rgba(245,166,35,.12), transparent 60%),
+  body{margin:0;font-family:var(--sans);color:var(--text-hi);
+    background:radial-gradient(1100px 500px at 12% -10%, rgba(245,166,35,.12), transparent 60%),
       radial-gradient(900px 600px at 100% 20%, rgba(13,148,136,.08), transparent 60%),
-      radial-gradient(800px 700px at 50% 120%, rgba(91,82,224,.07), transparent 60%),
-      var(--navy-950);
-    background-attachment:fixed;
-  }
+      radial-gradient(800px 700px at 50% 120%, rgba(91,82,224,.07), transparent 60%), var(--navy-950);
+    background-attachment:fixed;}
   ::-webkit-scrollbar{width:10px;height:10px;}
   ::-webkit-scrollbar-thumb{background:var(--navy-600);border-radius:6px;}
   ::-webkit-scrollbar-track{background:transparent;}
-
   a{color:inherit;text-decoration:none;}
 
-  /* ===== SHELL ===== */
-  .shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh;}
+  /* ===== LOGIN SCREEN ===== */
+  #loginScreen{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(1100px 500px at 12% -10%, rgba(245,166,35,.14), transparent 60%),
+      radial-gradient(900px 600px at 100% 20%, rgba(13,148,136,.10), transparent 60%), var(--navy-950);}
+  .login-card{width:340px;background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);
+    border-radius:14px;padding:30px 26px;box-shadow:0 20px 50px rgba(16,24,40,.14);}
+  .login-brand{display:flex;align-items:center;gap:10px;margin-bottom:22px;}
+  .login-mark{width:40px;height:40px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#ffd27a,var(--amber) 55%,var(--amber-dim) 100%);
+    display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;color:var(--ink);}
+  .login-brand-name{font-family:var(--display);font-weight:800;font-size:16px;}
+  .login-brand-name em{color:var(--amber);font-style:normal;}
+  .login-title{font-size:14px;font-weight:700;margin-bottom:14px;color:var(--text-hi);}
+  .login-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+  .login-field label{font-size:11.5px;color:var(--text-mid);font-weight:600;}
+  .login-field input{background:var(--navy-900);border:1px solid var(--line);color:var(--text-hi);
+    padding:10px 12px;border-radius:8px;font-size:13px;font-family:var(--sans);}
+  .login-field input:focus{outline:none;border-color:var(--teal);}
+  .login-error{font-size:11.5px;color:var(--red);min-height:16px;margin-bottom:8px;}
+  .login-btn{width:100%;background:var(--teal);border:1px solid var(--teal);color:#fff;padding:11px;border-radius:8px;
+    font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .login-btn:hover{background:var(--teal-dim);}
+  .login-btn[disabled]{opacity:.6;cursor:not-allowed;}
+  .login-hint{font-size:10.5px;color:var(--text-low);text-align:center;margin-top:14px;}
 
-  /* ===== SIDEBAR ===== */
-  .sidebar{background:rgba(255,255,255,.65);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;height:100vh;overflow-y:auto;box-shadow:2px 0 24px rgba(16,24,40,.05);}
+  /* ===== SHELL ===== */
+  .shell{display:none;grid-template-columns:250px 1fr;min-height:100vh;}
+  .shell.ready{display:grid;}
+  .sidebar{background:rgba(255,255,255,.65);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));
+    border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;
+    height:100vh;overflow-y:auto;box-shadow:2px 0 24px rgba(16,24,40,.05);}
   .brand{display:flex;align-items:center;gap:10px;padding:0 4px;}
-  .brand-mark{width:38px;height:38px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#ffd27a,var(--amber) 55%,var(--amber-dim) 100%);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:15px;color:var(--ink);box-shadow:0 4px 12px rgba(245,166,35,.35);}
+  .brand-mark{width:38px;height:38px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#ffd27a,var(--amber) 55%,var(--amber-dim) 100%);
+    display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:15px;color:var(--ink);
+    box-shadow:0 4px 12px rgba(245,166,35,.35);}
   .brand-name{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:-.2px;line-height:1.1;color:var(--text-hi);}
   .brand-name em{color:var(--amber);font-style:normal;}
   .brand-name span{display:block;font-size:10px;color:var(--text-low);font-weight:600;letter-spacing:1px;margin-top:2px;font-style:normal;}
-
-  .user-card{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;}
-  .avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--amber));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--ink);font-size:18px;}
+  .user-card{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;
+    padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;}
+  .avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--amber));
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--ink);font-size:18px;}
   .user-name{font-weight:600;font-size:13px;}
   .user-role{font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;background:rgba(45,212,191,.12);padding:2px 8px;border-radius:20px;}
-
   .navsearch{background:var(--navy-800);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--text-low);}
-
   .navgroup{display:flex;flex-direction:column;gap:2px;}
   .navlabel{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-low);padding:8px 10px 4px;}
   .navitem{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-size:13px;color:var(--text-mid);cursor:pointer;border:1px solid transparent;transition:.15s;}
@@ -76,22 +82,16 @@
 
   /* ===== MAIN ===== */
   .main{display:flex;flex-direction:column;min-height:100vh;}
-  .topbar{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:14px 28px;
-    border-bottom:1px solid var(--line);
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid var(--line);
     background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.68));
-    backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));
-    position:sticky;top:0;z-index:20;
-    box-shadow:0 6px 24px rgba(16,24,40,.06);
-  }
+    backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));position:sticky;top:0;z-index:20;
+    box-shadow:0 6px 24px rgba(16,24,40,.06);}
   .crumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-low);}
   .crumb-icon{width:30px;height:30px;border-radius:8px;background:var(--navy-800);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--teal);}
   .crumb b{color:var(--text-hi);font-weight:600;letter-spacing:.2px;}
   .crumb-path{display:flex;flex-direction:column;gap:2px;}
   .crumb-path .crumb-top{font-size:9.5px;text-transform:uppercase;letter-spacing:1px;color:var(--text-low);}
   .crumb-path .crumb-now{font-size:13.5px;color:var(--text-hi);font-weight:700;font-family:var(--display);}
-
   .topbar-right{display:flex;align-items:center;gap:8px;}
   .clock{font-family:var(--mono);font-size:11.5px;color:var(--text-low);background:var(--navy-800);border:1px solid var(--line);padding:7px 11px;border-radius:8px;}
   .topbar-divider{width:1px;height:24px;background:var(--line);margin:0 4px;}
@@ -103,18 +103,14 @@
   .topbar-profile-meta{display:flex;flex-direction:column;line-height:1.25;}
   .topbar-profile-meta .name{font-size:12px;font-weight:600;color:var(--text-hi);}
   .topbar-profile-meta .role{font-size:9.5px;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;}
-  .topbar-profile .fa-chevron-down{font-size:9px;color:var(--text-low);margin-right:2px;}
   .topbar .avatar{width:32px;height:32px;font-size:12.5px;cursor:pointer;}
-
   .content{padding:24px 28px 60px;flex:1;}
   .page{display:none;}
   .page.active{display:block;animation:fade .25s ease;}
   @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
-
   .page-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
   .page-title{font-size:20px;font-weight:700;letter-spacing:.2px;font-family:var(--display);}
   .page-sub{font-size:12px;color:var(--text-low);margin-top:2px;}
-
   .btnrow{display:flex;gap:8px;flex-wrap:wrap;}
   .btn{border:1px solid var(--line);background:var(--navy-800);color:var(--text-hi);padding:9px 14px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s;}
   .btn:hover{border-color:var(--teal);color:var(--teal);}
@@ -127,14 +123,11 @@
   .btn-icon{width:32px;height:32px;padding:0;justify-content:center;border-radius:7px;}
   .btn-danger{color:var(--red);}
   .btn-danger:hover{border-color:var(--red);}
-
-  /* filter bar */
+  .btn[disabled]{opacity:.55;cursor:not-allowed;}
   .filterbar{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:12px;}
   .filterbar select, .filterbar input{background:var(--navy-800);border:1px solid var(--line);color:var(--text-hi);padding:9px 10px;border-radius:8px;font-size:12px;width:100%;}
   .filterbar select:focus, .filterbar input:focus{outline:none;border-color:var(--teal);}
   .filter-actions{display:flex;gap:8px;margin-bottom:18px;}
-
-  /* table */
   .tablewrap{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 28px rgba(16,24,40,.08);}
   table{width:100%;border-collapse:collapse;font-size:12.5px;}
   thead th{background:var(--navy-700);color:var(--text-hi);text-transform:uppercase;font-size:10.5px;letter-spacing:.6px;padding:12px 10px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line);}
@@ -152,20 +145,14 @@
   .yes{color:var(--green);font-weight:700;}
   .no{color:var(--red);font-weight:700;}
   .actioncell{display:flex;gap:6px;flex-wrap:wrap;}
-
   .empty{padding:50px 20px;text-align:center;color:var(--text-low);font-size:13px;}
   .empty b{display:block;color:var(--text-hi);font-size:14px;margin-bottom:6px;}
-
-  /* stat cards */
   .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
   .statcard{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;padding:16px;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(16,24,40,.07);}
-  .statcard .value{font-family:var(--display) !important;}
   .statcard::before{content:"";position:absolute;top:-30px;right:-30px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,.18),transparent 70%);}
   .statcard .label{font-size:11px;color:var(--text-low);text-transform:uppercase;letter-spacing:.6px;}
   .statcard .value{font-size:26px;font-weight:700;margin-top:6px;font-family:var(--mono);}
   .statcard .delta{font-size:11px;margin-top:4px;color:var(--green);}
-
-  /* form */
   .formcard{background:var(--navy-800);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--line);border-radius:12px;padding:24px;box-shadow:0 8px 28px rgba(16,24,40,.08);}
   .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;}
   .field{display:flex;flex-direction:column;gap:6px;}
@@ -173,8 +160,7 @@
   .field label{font-size:12px;color:var(--text-mid);font-weight:600;}
   .field label em{color:var(--red);font-style:normal;}
   .field input[type=text], .field input[type=date], .field input[type=datetime-local], .field select, .field textarea{
-    background:var(--navy-900);border:1px solid var(--line);color:var(--text-hi);padding:10px 12px;border-radius:8px;font-size:13px;font-family:var(--sans);
-  }
+    background:var(--navy-900);border:1px solid var(--line);color:var(--text-hi);padding:10px 12px;border-radius:8px;font-size:13px;font-family:var(--sans);}
   .field input:focus, .field select:focus, .field textarea:focus{outline:none;border-color:var(--teal);}
   .field textarea{resize:vertical;min-height:70px;}
   .hint{font-size:10.5px;color:var(--text-low);}
@@ -209,28 +195,52 @@
   .editor ul.checklist li{display:flex;align-items:center;gap:8px;margin:2px 0;}
   .editor img{max-width:100%;border-radius:4px;}
   .editor iframe{max-width:100%;border-radius:4px;border:none;}
-  .form-actions{display:flex;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line);}
+  .form-actions{display:flex;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line);align-items:center;}
   .imgpick{display:flex;align-items:center;gap:8px;}
   .imgpick input{flex:1;}
-
+  .imgpreview{width:48px;height:32px;border-radius:6px;object-fit:cover;border:1px solid var(--line);background:var(--navy-600);}
   .badge-count{background:var(--navy-700);color:var(--text-low);font-size:11px;padding:2px 8px;border-radius:20px;}
-
   .toast{position:fixed;bottom:24px;right:24px;background:var(--navy-900);backdrop-filter:blur(var(--glass-blur));border:1px solid var(--teal);color:var(--text-hi);padding:12px 18px;border-radius:10px;font-size:13px;box-shadow:0 10px 30px rgba(16,24,40,.14);display:none;align-items:center;gap:8px;z-index:100;}
   .toast.show{display:flex;animation:fade .2s ease;}
+  .toast.err{border-color:var(--red);}
   .toast .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);}
-
+  .toast.err .dot{background:var(--red);}
+  .spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
   @media(max-width:1000px){
     .filterbar{grid-template-columns:repeat(2,1fr);}
     .formgrid{grid-template-columns:1fr;}
     .statgrid{grid-template-columns:repeat(2,1fr);}
-    .shell{grid-template-columns:1fr;}
+    .shell.ready{grid-template-columns:1fr;}
     .sidebar{position:relative;height:auto;}
   }
 </style>
 </head>
 <body>
 
-<div class="shell">
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-mark"><i class="fa-solid fa-kiwi-bird"></i></div>
+      <div class="login-brand-name">Coin<em>Osprey</em></div>
+    </div>
+    <div class="login-title">Content Console — Sign in</div>
+    <div class="login-field">
+      <label>Email</label>
+      <input type="text" id="loginEmail" placeholder="you@coinosprey.com" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div class="login-error" id="loginError"></div>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Sign In</button>
+    <div class="login-hint">Editor / Admin access only</div>
+  </div>
+</div>
+
+<div class="shell" id="shell">
 
   <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
@@ -240,9 +250,9 @@
     </div>
 
     <div class="user-card">
-      <div class="avatar" id="sbAvatar">M2</div>
-      <div class="user-name" id="sbName">M2 Editor</div>
-      <div class="user-role">Journalist · Admin</div>
+      <div class="avatar" id="sbAvatar">--</div>
+      <div class="user-name" id="sbName">—</div>
+      <div class="user-role" id="sbRole">—</div>
     </div>
 
     <input class="navsearch" placeholder="Search modules…" oninput="filterNav(this.value)">
@@ -263,6 +273,10 @@
       <div class="navitem" data-page="keywords"><span class="navicon">▦</span> Keyword Dashboard</div>
       <div class="navitem" data-page="fetchkw"><span class="navicon">⇅</span> Fetch Keyword Data</div>
     </div>
+
+    <div style="margin-top:auto;">
+      <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;" onclick="doLogout()">⎋ Logout</button>
+    </div>
   </aside>
 
   <!-- ============ MAIN ============ -->
@@ -281,11 +295,11 @@
         <button class="topbar-iconbtn" title="Notifications"><i class="fa-regular fa-bell"></i><span class="dot-badge"></span></button>
         <button class="topbar-iconbtn" title="Crypto News" onclick="go('news')"><i class="fa-solid fa-newspaper"></i></button>
         <div class="topbar-divider"></div>
-        <div class="topbar-profile" title="Account">
-          <div class="avatar">M2</div>
+        <div class="topbar-profile" title="Account" onclick="doLogout()">
+          <div class="avatar" id="tbAvatar">--</div>
           <div class="topbar-profile-meta">
-            <span class="name">M2 Editor</span>
-            <span class="role">Admin</span>
+            <span class="name" id="tbName">—</span>
+            <span class="role" id="tbRole">—</span>
           </div>
           <i class="fa-solid fa-chevron-down"></i>
         </div>
@@ -298,27 +312,27 @@
       <section class="page active" id="page-home">
         <div class="page-head">
           <div>
-            <div class="page-title">Hi! Welcome back, M2 👋</div>
+            <div class="page-title">Hi! Welcome back <span id="homeGreetName"></span> 👋</div>
             <div class="page-sub">CoinOsprey · Premium crypto news &amp; market research console · <span id="todayStr"></span></div>
           </div>
           <div class="btnrow">
             <button class="btn" onclick="go('authors')">⚙ General Settings</button>
-            <button class="btn" onclick="alert('Print view would open here.')">🖨 Print</button>
+            <button class="btn" onclick="window.print()">🖨 Print</button>
             <button class="btn btn-amber" onclick="go('create')">＋ New Article</button>
           </div>
         </div>
 
         <div class="statgrid">
-          <div class="statcard"><div class="label">Published Today</div><div class="value" id="statPublished">0</div><div class="delta">▲ live count</div></div>
+          <div class="statcard"><div class="label">Published</div><div class="value" id="statPublished">0</div><div class="delta">▲ live count</div></div>
           <div class="statcard"><div class="label">Drafts Pending</div><div class="value" id="statDrafts">0</div><div class="delta" style="color:var(--amber)">Needs review</div></div>
           <div class="statcard"><div class="label">SEO Passed</div><div class="value" id="statSeo">0%</div><div class="delta">Across all news</div></div>
-          <div class="statcard"><div class="label">Authors Active</div><div class="value" id="statAuthors">0</div><div class="delta">Content team</div></div>
+          <div class="statcard"><div class="label">Total Articles</div><div class="value" id="statAuthors">0</div><div class="delta">All content</div></div>
         </div>
 
         <div class="tablewrap">
           <table>
             <thead><tr><th>Title</th><th>Type</th><th>Author</th><th>Published</th><th>SEO</th></tr></thead>
-            <tbody id="homeRecent"></tbody>
+            <tbody id="homeRecent"><tr><td colspan="5"><div class="empty">Loading…</div></td></tr></tbody>
           </table>
         </div>
       </section>
@@ -333,9 +347,7 @@
           <div class="btnrow">
             <button class="btn" onclick="toggleFilters()">☰ Hide Filters</button>
             <button class="btn btn-primary" onclick="go('create')">＋ Add New</button>
-            <button class="btn">⇩ Import JSON</button>
-            <button class="btn">⇧ Export News</button>
-            <button class="btn btn-amber">✦ AI Generate</button>
+            <button class="btn" onclick="renderNews()">⟳ Refresh</button>
             <button class="btn" onclick="go('draft')">Draft News</button>
           </div>
         </div>
@@ -346,7 +358,7 @@
           <select id="fAuthor" onchange="renderNews()"><option value="">Select Author</option></select>
           <select id="fType" onchange="renderNews()">
             <option value="">Select News Type</option>
-            <option>Gabbar News</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option><option>Price Prediction</option>
+            <option>Gabbar News</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option><option>Price Prediction</option><option>Market Update</option>
           </select>
           <select id="fLang" onchange="renderNews()">
             <option value="">Language</option><option>English</option><option>Hindi</option><option>Hinglish</option>
@@ -370,7 +382,7 @@
                 <th>Lan</th><th>Type</th><th>News/Blog</th><th>SEO</th><th>Action</th>
               </tr>
             </thead>
-            <tbody id="newsBody"></tbody>
+            <tbody id="newsBody"><tr><td colspan="11"><div class="empty">Loading…</div></td></tr></tbody>
           </table>
         </div>
       </section>
@@ -387,7 +399,7 @@
         <div class="tablewrap">
           <table>
             <thead><tr><th>Thumb</th><th>Title</th><th>Author</th><th>Uploaded</th><th>Type</th><th>SEO</th><th>Action</th></tr></thead>
-            <tbody id="draftBody"></tbody>
+            <tbody id="draftBody"><tr><td colspan="7"><div class="empty">Loading…</div></td></tr></tbody>
           </table>
         </div>
       </section>
@@ -396,15 +408,16 @@
       <section class="page" id="page-create">
         <div class="page-head">
           <div>
-            <div class="page-title">Add New Article</div>
+            <div class="page-title" id="createTitle">Add New Article</div>
             <div class="page-sub">Home › Crypto News › Create</div>
           </div>
         </div>
 
         <div class="formcard">
+          <input type="hidden" id="editingId" value="">
           <div class="formgrid">
             <div class="field"><label>Title <em>*</em></label><input type="text" id="inTitle" placeholder="e.g. Bitcoin Price Prediction: BTC Eyes $70K Breakout"></div>
-            <div class="field"><label>Alias <em>*</em></label><input type="text" id="inAlias" placeholder="bitcoin-price-prediction-btc-70k"><span class="hint">No numbers/special chars — lowercase only</span></div>
+            <div class="field"><label>Alias / Slug <em>*</em></label><input type="text" id="inAlias" placeholder="bitcoin-price-prediction-btc-70k"><span class="hint">Lowercase, hyphens only — leave blank to auto-generate</span></div>
 
             <div class="field"><label>News Type <em>*</em></label>
               <select id="inType"><option value="">Select News Type</option><option>Price Prediction</option><option>Market Update</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option></select>
@@ -413,63 +426,41 @@
               <select id="inAuthor"><option>M2</option><option>Aashish Vishwakarma</option><option>Coin Gabbar</option></select>
             </div>
 
-            <div class="field"><label>Focus Keyword <em>*</em></label><input type="text" id="inKeyword" placeholder="bitcoin price prediction"></div>
-            <div class="field"><label>Published At <em>*</em></label><input type="datetime-local" id="inPublished"></div>
+            <div class="field"><label>Focus Keyword</label><input type="text" id="inKeyword" placeholder="bitcoin price prediction"></div>
+            <div class="field"><label>Published At</label><input type="datetime-local" id="inPublished"></div>
 
-            <div class="field"><label>Project / Token <em>*</em></label><input type="text" id="inProject" placeholder="Select or type coin…"></div>
-            <div class="field"><label>Select Channel</label>
-              <select id="inChannel"><option>CoinOsprey</option><option>AVFINANCEHUB</option><option>CryptoBossDaily</option><option>CoinGabbar (Contributor)</option></select>
-            </div>
-
-            <div class="field"><label>Category</label><input type="text" id="inCategory" placeholder="Category select…"></div>
-            <div class="field"><label>Coin / Token Image <em>*</em> <span class="hint">(max 200kb)</span></label>
-              <div class="imgpick"><input type="text" id="inImgName" placeholder="No file selected" readonly><button class="btn btn-sm" onclick="document.getElementById('fileHidden').click()">Browse</button></div>
-              <input type="file" id="fileHidden" style="display:none" onchange="document.getElementById('inImgName').value=this.files[0]?this.files[0].name:''">
-            </div>
-
-            <div class="field"><label>Image Alt Title <em>*</em></label><input type="text" id="inAlt" placeholder="Bitcoin BTC coin logo"></div>
-            <div class="field"><label>Is Home <em>*</em></label><select id="inHome"><option value="No">No</option><option value="Yes">Yes</option></select></div>
+            <div class="field"><label>Project / Token</label><input type="text" id="inProject" placeholder="e.g. BTC"></div>
+            <div class="field"><label>Category</label><input type="text" id="inCategory" placeholder="e.g. Bitcoin"></div>
 
             <div class="field full">
-              <label>Sync Sources</label>
-              <div class="checkrow">
-                <label><input type="checkbox"> Daily Hunt</label>
-                <label><input type="checkbox"> CMC</label>
-                <label><input type="checkbox"> Suncrypto</label>
-                <label><input type="checkbox"> Binance</label>
-                <label><input type="checkbox" checked> Is RSS Feed</label>
+              <label>Coin / Token Image URL <em>*</em></label>
+              <div class="imgpick">
+                <img class="imgpreview" id="imgPreview" src="https://placehold.co/64x40/2DD4BF/06090D?text=IMG" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'">
+                <input type="text" id="inImgUrl" placeholder="https://…jpg / .png" oninput="document.getElementById('imgPreview').src=this.value||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'">
               </div>
+              <span class="hint">No file upload backend yet — paste a direct image URL (e.g. from CoinMarketCap or your CDN)</span>
             </div>
+
+            <div class="field"><label>Image Alt Title</label><input type="text" id="inAlt" placeholder="Bitcoin BTC coin logo"></div>
+            <div class="field"><label>Show On Homepage</label><select id="inHome"><option value="No">No</option><option value="Yes">Yes</option></select></div>
 
             <div class="field full">
               <label>Description <em>*</em></label>
               <div class="toolbar" id="descToolbar">
                 <select data-cmd="formatBlock" title="Paragraph / Heading">
-                  <option value="P">Paragraph</option>
-                  <option value="H1">Heading 1</option>
-                  <option value="H2">Heading 2</option>
-                  <option value="H3">Heading 3</option>
-                  <option value="H4">Heading 4</option>
-                  <option value="H5">Heading 5</option>
+                  <option value="P">Paragraph</option><option value="H1">Heading 1</option><option value="H2">Heading 2</option>
+                  <option value="H3">Heading 3</option><option value="H4">Heading 4</option><option value="H5">Heading 5</option>
                 </select>
                 <select data-cmd="fontName" title="Font Family">
-                  <option value="">Font</option>
-                  <option value="Inter">Inter</option>
-                  <option value="Arial">Arial</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="'Times New Roman'">Times New Roman</option>
-                  <option value="'Courier New'">Courier New</option>
-                  <option value="Verdana">Verdana</option>
+                  <option value="">Font</option><option value="Inter">Inter</option><option value="Arial">Arial</option>
+                  <option value="Georgia">Georgia</option><option value="'Times New Roman'">Times New Roman</option>
+                  <option value="'Courier New'">Courier New</option><option value="Verdana">Verdana</option>
                 </select>
                 <select data-cmd="fontSize" title="Font Size">
-                  <option value="">Size</option>
-                  <option value="1">Small</option>
-                  <option value="3">Normal</option>
-                  <option value="5">Large</option>
-                  <option value="7">X-Large</option>
+                  <option value="">Size</option><option value="1">Small</option><option value="3">Normal</option>
+                  <option value="5">Large</option><option value="7">X-Large</option>
                 </select>
                 <div class="tsep"></div>
-
                 <button type="button" data-cmd="bold" title="Bold"><b>B</b></button>
                 <button type="button" data-cmd="italic" title="Italic"><i>I</i></button>
                 <button type="button" data-cmd="underline" title="Underline"><u>U</u></button>
@@ -478,37 +469,29 @@
                 <button type="button" data-cmd="subscript" title="Subscript">x₂</button>
                 <button type="button" data-cmd="removeFormat" title="Clear Formatting">Tx</button>
                 <div class="tsep"></div>
-
                 <label class="hint" style="display:flex;align-items:center;gap:4px;">A<input type="color" data-cmd="foreColor" title="Text Color" value="#0b1626"></label>
                 <label class="hint" style="display:flex;align-items:center;gap:4px;">▧<input type="color" data-cmd="hiliteColor" title="Background Highlight" value="#ffffff"></label>
                 <select data-cmd="textCase" title="Text Case">
-                  <option value="">Case</option>
-                  <option value="upper">UPPERCASE</option>
-                  <option value="lower">lowercase</option>
-                  <option value="title">Capitalize Each Word</option>
+                  <option value="">Case</option><option value="upper">UPPERCASE</option><option value="lower">lowercase</option><option value="title">Capitalize Each Word</option>
                 </select>
                 <div class="tsep"></div>
-
                 <button type="button" data-cmd="justifyLeft" title="Align left">≡L</button>
                 <button type="button" data-cmd="justifyCenter" title="Align center">≡C</button>
                 <button type="button" data-cmd="justifyRight" title="Align right">≡R</button>
                 <button type="button" data-cmd="justifyFull" title="Justify">≡J</button>
                 <div class="tsep"></div>
-
                 <button type="button" data-cmd="insertOrderedList" title="Numbered list">1.</button>
                 <button type="button" data-cmd="insertUnorderedList" title="Bulleted list">•</button>
                 <button type="button" data-cmd="insertChecklist" title="Checklist / To-do">☑</button>
                 <button type="button" data-cmd="indent" title="Multi-level: Indent">⇥</button>
                 <button type="button" data-cmd="outdent" title="Multi-level: Outdent">⇤</button>
                 <div class="tsep"></div>
-
                 <button type="button" data-cmd="createLink" title="Insert Link">🔗</button>
                 <button type="button" data-cmd="insertImageUrl" title="Insert Image">🖼</button>
                 <button type="button" data-cmd="insertVideoUrl" title="Insert Video">🎬</button>
                 <button type="button" data-cmd="insertAudioUrl" title="Insert Audio">🎵</button>
                 <button type="button" data-cmd="insertTable" title="Insert Table">▦</button>
                 <button type="button" data-cmd="insertFile" title="File Attachment">📎</button>
-
                 <div class="tgroup">
                   <button type="button" data-cmd="toggleEmoji" title="Emoji">😊</button>
                   <div class="tpopover" id="emojiPop"><div class="emoji-grid" id="emojiGrid"></div></div>
@@ -518,7 +501,6 @@
                   <div class="tpopover" id="iconPop"><div class="icon-grid" id="iconGrid"></div></div>
                 </div>
                 <div class="tsep"></div>
-
                 <button type="button" data-cmd="undo" title="Undo">↺</button>
                 <button type="button" data-cmd="redo" title="Redo">↻</button>
                 <button type="button" data-cmd="insertHorizontalRule" title="Divider">―</button>
@@ -532,12 +514,11 @@
             <div class="field"><label>Meta Keywords</label><input type="text" id="inMetaKw"></div>
             <div class="field full"><label>Meta Description</label><textarea id="inMetaDesc" style="min-height:50px"></textarea></div>
             <div class="field full"><label>FAQs</label><textarea id="inFaqs" style="min-height:50px" placeholder="Q: ... A: ..."></textarea></div>
-            <div class="field full"><label>Prompt Instructions</label><textarea id="inPrompt" style="min-height:50px" placeholder="Editorial persona / tone / format instructions for AI generation"></textarea></div>
           </div>
 
           <div class="form-actions">
-            <button class="btn btn-primary" onclick="saveArticle()">✓ Save</button>
-            <button class="btn btn-amber" onclick="saveArticle(true)">✓ Save &amp; Publish</button>
+            <button class="btn btn-primary" id="btnSaveDraft" onclick="saveArticle(false)">✓ Save</button>
+            <button class="btn btn-amber" id="btnSavePublish" onclick="saveArticle(true)">✓ Save &amp; Publish</button>
             <button class="btn btn-ghost" onclick="go('news')">Cancel</button>
           </div>
         </div>
@@ -547,46 +528,30 @@
       <section class="page" id="page-authors">
         <div class="page-head">
           <div><div class="page-title">Author Models</div><div class="page-sub">Home › AuthorModels</div></div>
-          <button class="btn btn-primary" onclick="alert('Add author form would open here.')">＋ Add New</button>
-        </div>
-        <div class="filterbar" style="grid-template-columns:repeat(4,1fr)">
-          <input placeholder="Keyword Search…">
-          <select><option>Default</option></select>
-          <select><option>left</option></select>
-          <input type="date">
         </div>
         <div class="tablewrap">
-          <table>
-            <thead><tr><th>Id</th><th>User Name</th><th>Display Name</th><th>Slug</th><th>User Type</th><th>Active</th><th>Order</th><th>Created At</th><th>Action</th></tr></thead>
-            <tbody id="authorBody"></tbody>
-          </table>
+          <div class="empty"><b>Coming soon</b>Author management will connect once the authors API is added on the backend.</div>
         </div>
       </section>
 
       <!-- ===================== SIMPLE PLACEHOLDER PAGES ===================== -->
       <section class="page" id="page-events">
-        <div class="page-head"><div><div class="page-title">Fetch Data Event List</div><div class="page-sub">Scheduled ingestion jobs from CoinGecko / RSS sources</div></div><button class="btn btn-primary">＋ New Event</button></div>
+        <div class="page-head"><div><div class="page-title">Fetch Data Event List</div><div class="page-sub">Scheduled ingestion jobs from CoinGecko / RSS sources</div></div></div>
         <div class="tablewrap"><div class="empty"><b>No events configured yet</b>Set up a scraping or RSS ingestion event to auto-pull crypto news.</div></div>
       </section>
 
       <section class="page" id="page-gsc">
-        <div class="page-head"><div><div class="page-title">Google Search Console</div><div class="page-sub">Indexing &amp; query performance for coinosprey.com</div></div><button class="btn">⇪ Connect Property</button></div>
-        <div class="statgrid">
-          <div class="statcard"><div class="label">Total Clicks (28d)</div><div class="value">—</div></div>
-          <div class="statcard"><div class="label">Impressions</div><div class="value">—</div></div>
-          <div class="statcard"><div class="label">Avg. CTR</div><div class="value">—</div></div>
-          <div class="statcard"><div class="label">Avg. Position</div><div class="value">—</div></div>
-        </div>
+        <div class="page-head"><div><div class="page-title">Google Search Console</div><div class="page-sub">Indexing &amp; query performance for coinosprey.com</div></div></div>
         <div class="tablewrap"><div class="empty"><b>Connect Search Console</b>Link a verified property to see live query data here.</div></div>
       </section>
 
       <section class="page" id="page-keywords">
-        <div class="page-head"><div><div class="page-title">Keyword Dashboard</div><div class="page-sub">Tracked keyword rankings across crypto &amp; Nifty/Sensex content</div></div><button class="btn btn-primary">＋ Track Keyword</button></div>
+        <div class="page-head"><div><div class="page-title">Keyword Dashboard</div><div class="page-sub">Tracked keyword rankings across crypto content</div></div></div>
         <div class="tablewrap"><div class="empty"><b>No keywords tracked</b>Add a keyword to start monitoring SERP position.</div></div>
       </section>
 
       <section class="page" id="page-fetchkw">
-        <div class="page-head"><div><div class="page-title">Fetch Keyword Data</div><div class="page-sub">Pull fresh volume / difficulty data for the content pipeline</div></div><button class="btn btn-primary">⇩ Fetch Now</button></div>
+        <div class="page-head"><div><div class="page-title">Fetch Keyword Data</div><div class="page-sub">Pull fresh volume / difficulty data for the content pipeline</div></div></div>
         <div class="tablewrap"><div class="empty"><b>Nothing fetched yet</b>Run a fetch to populate keyword metrics.</div></div>
       </section>
 
@@ -597,21 +562,142 @@
 <div class="toast" id="toast"><span class="dot"></span><span id="toastMsg">Saved</span></div>
 
 <script>
-/* ---------------- DATA (mock, in-memory only) ---------------- */
-let news = [
-  {id:1,title:"Bitcoin Price Prediction: BTC Eyes $70K As Momentum Builds",alias:"bitcoin-price-prediction-btc-70k",author:"M2",createdBy:"M2",uploaded:"08 Jul 2026 09:12 AM",published:"08 Jul 2026 09:15 AM",lang:"EN",type:"Price Prediction",newsBlog:"News",seo:true,img:"https://placehold.co/64x40/2DD4BF/06090D?text=BTC"},
-  {id:2,title:"Ethereum 3.0 Correlation With Nifty: What Traders Should Watch",alias:"eth-3-nifty-correlation",author:"M2",createdBy:"M2",uploaded:"08 Jul 2026 08:40 AM",published:"08 Jul 2026 08:44 AM",lang:"EN",type:"Market Update",newsBlog:"Blog",seo:true,img:"https://placehold.co/64x40/E3A73B/06090D?text=ETH"},
-  {id:3,title:"Sensex Today: FII Outflows Pressure Bluechips Amid RSI Overheat",alias:"sensex-today-fii-outflows",author:"Coin Gabbar",createdBy:"M2",uploaded:"08 Jul 2026 07:55 AM",published:"—",lang:"HI",type:"Market Update",newsBlog:"News",seo:false,img:"https://placehold.co/64x40/1a1f26/F3F5F7?text=SNX"},
-  {id:4,title:"XRP Presale Alert: New 100x Contender Emerges As SOL Cools",alias:"xrp-presale-100x-contender",author:"Aashish Vishwakarma",createdBy:"M2",uploaded:"07 Jul 2026 10:30 PM",published:"07 Jul 2026 10:34 PM",lang:"EN",type:"Sponsored",newsBlog:"News",seo:true,img:"https://placehold.co/64x40/2DD4BF/06090D?text=XRP"},
-];
-let drafts = [
-  {id:101,title:"Solana Price Prediction: SOL Volume Signals Breakout Zone",author:"M2",uploaded:"08 Jul 2026 09:40 AM",type:"Price Prediction",seo:true,img:"https://placehold.co/64x40/E3A73B/06090D?text=SOL"},
-  {id:102,title:"Nifty Bank Weekly Outlook: FII/DII Data Points To Consolidation",author:"M2",uploaded:"08 Jul 2026 09:02 AM",type:"Market Update",seo:false,img:"https://placehold.co/64x40/1a1f26/F3F5F7?text=NFT"},
-];
-let authors = [
-  {id:1,user:"M2",display:"M2",slug:"m2",type:"CoinOsprey Editor",active:true,order:0,created:"2026-01-15"},
-  {id:2,user:"Aashish Vishwakarma",display:"Aashish Vishwakarma",slug:"aashish-vishwakarma",type:"Coin Gabbar Blog Author",active:true,order:1,created:"2026-05-20"},
-];
+/* ==================================================================
+   PART 2 — paste this whole block right after the PART 1 comment
+   (i.e. still inside the same <script> tag, before </script>).
+   This part: config, login/auth, API calls, nav, and all
+   list/CRUD logic (news, draft, home, save/edit/delete/publish).
+================================================================== */
+
+/* ---------------- CONFIG ---------------- */
+// Same-origin relative paths — works both on Vercel (frontend+api together)
+// and locally. Change this if admin.html is ever hosted on a different
+// domain than the API.
+const API_BASE = '';
+const TOKEN_KEY = 'coinosprey_token';
+const USER_KEY  = 'coinosprey_user';
+
+let authToken = localStorage.getItem(TOKEN_KEY) || null;
+let currentUser = null;
+try { currentUser = JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch(e){ currentUser = null; }
+
+let articlesCache = []; // full admin list from GET /api/articles/admin/all
+
+/* ---------------- API HELPER ---------------- */
+async function apiFetch(path, options = {}) {
+  const headers = Object.assign({}, options.headers || {});
+  if (options.body && !(options.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json';
+  }
+  if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+
+  const res = await fetch(API_BASE + path, Object.assign({}, options, { headers }));
+
+  if (res.status === 401) {
+    // token expired / invalid — force back to login
+    doLogout(true);
+    throw new Error('Session expired, please log in again');
+  }
+
+  let data = null;
+  try { data = await res.json(); } catch(e) { /* no body */ }
+
+  if (!res.ok) {
+    const msg = (data && data.message) ? data.message : ('Request failed (' + res.status + ')');
+    throw new Error(msg);
+  }
+  return data;
+}
+
+/* ---------------- LOGIN / LOGOUT ---------------- */
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+  errEl.textContent = '';
+
+  if (!email || !password) {
+    errEl.textContent = 'Please enter both email and password.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Signing in…';
+
+  try {
+    const data = await apiFetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password })
+    });
+    authToken = data.token;
+    currentUser = data.user;
+    localStorage.setItem(TOKEN_KEY, authToken);
+    localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+
+    // editor/admin only — content console isn't for plain readers
+    if (currentUser.role !== 'admin' && currentUser.role !== 'editor') {
+      errEl.textContent = 'This account does not have console access.';
+      doLogout(true);
+      return;
+    }
+
+    enterApp();
+  } catch (err) {
+    errEl.textContent = err.message || 'Login failed. Check your credentials.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Sign In';
+  }
+}
+
+async function checkSession() {
+  if (!authToken) { showLogin(); return; }
+  try {
+    const data = await apiFetch('/api/auth/me');
+    currentUser = data.user;
+    localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+    if (currentUser.role !== 'admin' && currentUser.role !== 'editor') {
+      doLogout(true);
+      return;
+    }
+    enterApp();
+  } catch (err) {
+    showLogin();
+  }
+}
+
+function doLogout(silent) {
+  authToken = null;
+  currentUser = null;
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
+  showLogin();
+  if (!silent) showToast('Logged out');
+}
+
+function showLogin() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('shell').classList.remove('ready');
+  document.getElementById('loginPassword').value = '';
+}
+
+function enterApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('shell').classList.add('ready');
+
+  const initials = (currentUser.name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+  document.getElementById('sbAvatar').textContent = initials;
+  document.getElementById('sbName').textContent = currentUser.name || '—';
+  document.getElementById('sbRole').textContent = currentUser.role || '—';
+  document.getElementById('tbAvatar').textContent = initials;
+  document.getElementById('tbName').textContent = currentUser.name || '—';
+  document.getElementById('tbRole').textContent = currentUser.role || '—';
+  document.getElementById('homeGreetName').textContent = (currentUser.name || '').split(' ')[0] || '';
+  document.getElementById('todayStr').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  loadArticles();
+}
 
 /* ---------------- NAV ---------------- */
 const titles = {home:"Dashboard",news:"Crypto News",draft:"Draft News",create:"Add New Article",authors:"Author Models",events:"Fetch Data Event List",gsc:"Google Search Console",keywords:"Keyword Dashboard",fetchkw:"Fetch Keyword Data"};
@@ -622,8 +708,10 @@ function go(p){
   document.getElementById('crumbCurrent').textContent = titles[p] || p;
   if(p==='news') renderNews();
   if(p==='draft') renderDraft();
-  if(p==='authors') renderAuthors();
   if(p==='home') renderHome();
+  if(p==='create' && !document.getElementById('editingId').value){
+    resetCreateForm(); // fresh "Add New" unless we're mid-edit (editArticle sets editingId first)
+  }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('.navitem').forEach(el=>el.addEventListener('click',()=>go(el.dataset.page)));
@@ -635,62 +723,106 @@ function filterNav(q){
 }
 function toggleFilters(){document.getElementById('filterbar').style.display = document.getElementById('filterbar').style.display==='none'?'grid':'none';}
 
-/* ---------------- RENDER: NEWS ---------------- */
-function actionCell(){
+/* ---------------- LOAD DATA ---------------- */
+async function loadArticles() {
+  try {
+    const data = await apiFetch('/api/articles/admin/all');
+    // controller returns the array directly (see getAllForAdmin)
+    articlesCache = Array.isArray(data) ? data : (data.articles || []);
+  } catch (err) {
+    showToast(err.message || 'Could not load articles', true);
+    articlesCache = [];
+  }
+  renderHome();
+  renderNews();
+  renderDraft();
+}
+
+function fmtDate(d){
+  if(!d) return '—';
+  const dt = new Date(d);
+  if (isNaN(dt.getTime())) return '—';
+  return dt.toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:true });
+}
+
+/* ---------------- RENDER: HOME ---------------- */
+function renderHome(){
+  const published = articlesCache.filter(a => a.status === 'published');
+  const draftsArr = articlesCache.filter(a => a.status !== 'published');
+  document.getElementById('statPublished').textContent = published.length;
+  document.getElementById('statDrafts').textContent = draftsArr.length;
+  const seoYes = articlesCache.filter(a => a.seoTitle && a.metaDescription).length;
+  document.getElementById('statSeo').textContent = articlesCache.length ? Math.round(seoYes/articlesCache.length*100)+'%' : '0%';
+  document.getElementById('statAuthors').textContent = articlesCache.length;
+
+  const recent = [...articlesCache].sort((a,b)=> new Date(b.publishedAt||b.createdAt||0) - new Date(a.publishedAt||a.createdAt||0)).slice(0,5);
+  const body = document.getElementById('homeRecent');
+  if (!recent.length) { body.innerHTML = `<tr><td colspan="5"><div class="empty"><b>No articles yet</b>Create your first article to see it here.</div></td></tr>`; return; }
+  body.innerHTML = recent.map(a => `
+    <tr>
+      <td class="title-cell"><b>${escapeHtml(a.title)}</b></td>
+      <td><span class="tag ${a.type==='Price Prediction'?'tag-pred':'tag-news'}">${escapeHtml(a.type||'—')}</span></td>
+      <td>${escapeHtml(a.author||'—')}</td>
+      <td>${a.status==='published' ? fmtDate(a.publishedAt) : '—'}</td>
+      <td>${(a.seoTitle && a.metaDescription) ? '<span class="yes">Yes</span>' : '<span class="no">No</span>'}</td>
+    </tr>`).join('');
+}
+
+/* ---------------- RENDER: NEWS (published) ---------------- */
+function actionCell(a){
   return `<div class="actioncell">
-    <button class="btn btn-icon btn-sm" title="Preview">👁</button>
-    <button class="btn btn-icon btn-sm" title="Edit">✎</button>
-    <button class="btn btn-sm">&lt;/&gt; Prompt</button>
-    <button class="btn btn-sm btn-primary">⤴ Upgrade</button>
-    <button class="btn btn-sm btn-amber">🖼 AI Image</button>
+    <button class="btn btn-icon btn-sm" title="Edit" onclick="editArticle('${a._id}')">✎</button>
+    <button class="btn btn-icon btn-sm btn-danger" title="Delete" onclick="deleteArticle('${a._id}')">🗑</button>
+    ${a.status!=='published' ? `<button class="btn btn-sm btn-primary" onclick="publishArticle('${a._id}')">⤴ Publish</button>` : ''}
   </div>`;
 }
+
 function renderNews(){
   populateFilterOptions();
   const q=(document.getElementById('fSearch').value||'').toLowerCase();
   const cb=document.getElementById('fCreatedBy').value;
   const au=document.getElementById('fAuthor').value;
   const ty=document.getElementById('fType').value;
-  const lg=document.getElementById('fLang').value;
   const ord=document.getElementById('fOrder').value;
 
-  let rows = news.filter(n=>
-    (!q || n.title.toLowerCase().includes(q)) &&
-    (!cb || n.createdBy===cb) &&
-    (!au || n.author===au) &&
-    (!ty || n.type===ty) &&
-    (!lg || (lg==='English'&&n.lang==='EN')||(lg==='Hindi'&&n.lang==='HI')||(lg==='Hinglish'&&n.lang==='HI'))
+  let rows = articlesCache.filter(a => a.status === 'published').filter(a=>
+    (!q || (a.title||'').toLowerCase().includes(q)) &&
+    (!cb || a.author===cb) &&
+    (!au || a.author===au) &&
+    (!ty || a.type===ty)
   );
-  if(ord==='az') rows=[...rows].sort((a,b)=>a.title.localeCompare(b.title));
-  if(ord==='old') rows=[...rows].reverse();
+  if(ord==='az') rows=[...rows].sort((a,b)=>(a.title||'').localeCompare(b.title||''));
+  else if(ord==='old') rows=[...rows].sort((a,b)=> new Date(a.publishedAt||0) - new Date(b.publishedAt||0));
+  else rows=[...rows].sort((a,b)=> new Date(b.publishedAt||0) - new Date(a.publishedAt||0));
 
   document.getElementById('newsCount').textContent = rows.length;
   const body=document.getElementById('newsBody');
   if(rows.length===0){ body.innerHTML=`<tr><td colspan="11"><div class="empty"><b>No articles match these filters</b>Try resetting filters or add a new article.</div></td></tr>`; return; }
 
-  body.innerHTML = rows.map(n=>`
+  body.innerHTML = rows.map(a=>`
     <tr>
-      <td><img class="thumb" src="${n.img}"></td>
-      <td class="title-cell"><b>${n.title}</b><span>${n.alias}</span></td>
-      <td>${n.author}</td>
-      <td>${n.createdBy}</td>
-      <td>${n.uploaded}</td>
-      <td>${n.published}</td>
-      <td>${n.lang}</td>
-      <td><span class="tag ${n.type==='Price Prediction'?'tag-pred':n.newsBlog==='Blog'?'tag-blog':'tag-news'}">${n.type}</span></td>
-      <td>${n.newsBlog}</td>
-      <td>${n.seo?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
-      <td>${actionCell()}</td>
+      <td><img class="thumb" src="${a.image||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'}" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'"></td>
+      <td class="title-cell"><b>${escapeHtml(a.title)}</b><span>${escapeHtml(a.slug||'')}</span></td>
+      <td>${escapeHtml(a.author||'—')}</td>
+      <td>${escapeHtml(a.author||'—')}</td>
+      <td>${fmtDate(a.createdAt)}</td>
+      <td>${fmtDate(a.publishedAt)}</td>
+      <td>EN</td>
+      <td><span class="tag ${a.type==='Price Prediction'?'tag-pred':'tag-news'}">${escapeHtml(a.type||'—')}</span></td>
+      <td>News</td>
+      <td>${(a.seoTitle && a.metaDescription)?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
+      <td>${actionCell(a)}</td>
     </tr>`).join('');
 }
+
 function populateFilterOptions(){
   const cb=document.getElementById('fCreatedBy'), au=document.getElementById('fAuthor');
-  if(cb.options.length<=1){
-    [...new Set(news.map(n=>n.createdBy))].forEach(v=>cb.insertAdjacentHTML('beforeend',`<option>${v}</option>`));
-  }
-  if(au.options.length<=1){
-    [...new Set(news.map(n=>n.author))].forEach(v=>au.insertAdjacentHTML('beforeend',`<option>${v}</option>`));
-  }
+  const authorsList = [...new Set(articlesCache.map(a=>a.author).filter(Boolean))];
+  cb.innerHTML = '<option value="">Select Created By</option>' + authorsList.map(v=>`<option>${escapeHtml(v)}</option>`).join('');
+  au.innerHTML = '<option value="">Select Author</option>' + authorsList.map(v=>`<option>${escapeHtml(v)}</option>`).join('');
+  // NOTE: backend Article model has no separate "createdBy" field yet — both
+  // filters currently key off `author`. If you later add createdBy to the
+  // schema, swap the mapping above.
 }
 function resetFilters(){
   document.getElementById('fSearch').value='';
@@ -704,63 +836,185 @@ function resetFilters(){
 
 /* ---------------- RENDER: DRAFT ---------------- */
 function renderDraft(){
-  document.getElementById('draftCount').textContent = drafts.length;
+  const rows = articlesCache.filter(a => a.status !== 'published');
+  document.getElementById('draftCount').textContent = rows.length;
   const body=document.getElementById('draftBody');
-  if(drafts.length===0){ body.innerHTML=`<tr><td colspan="7"><div class="empty"><b>No drafts</b>Everything is published 🎉</div></td></tr>`; return; }
-  body.innerHTML = drafts.map(d=>`
+  if(rows.length===0){ body.innerHTML=`<tr><td colspan="7"><div class="empty"><b>No drafts</b>Everything is published 🎉</div></td></tr>`; return; }
+  body.innerHTML = rows.map(a=>`
     <tr>
-      <td><img class="thumb" src="${d.img}"></td>
-      <td class="title-cell"><b>${d.title}</b></td>
-      <td>${d.author}</td>
-      <td>${d.uploaded}</td>
-      <td><span class="tag tag-pred">${d.type}</span></td>
-      <td>${d.seo?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
-      <td><button class="btn btn-primary btn-sm" onclick="pickNews(${d.id})">Pick News</button></td>
-    </tr>`).join('');
-}
-function pickNews(id){
-  const idx = drafts.findIndex(d=>d.id===id);
-  if(idx<0) return;
-  const d = drafts[idx];
-  news.unshift({id:Date.now(),title:d.title,alias:d.title.toLowerCase().replace(/[^a-z0-9]+/g,'-'),author:d.author,createdBy:"M2",uploaded:d.uploaded,published:new Date().toLocaleString(),lang:"EN",type:d.type,newsBlog:"News",seo:d.seo,img:d.img});
-  drafts.splice(idx,1);
-  renderDraft();
-  showToast(`"${d.title.slice(0,40)}…" moved to Crypto News`);
-}
-
-/* ---------------- RENDER: AUTHORS ---------------- */
-function renderAuthors(){
-  document.getElementById('authorBody').innerHTML = authors.map(a=>`
-    <tr>
-      <td>${a.id}</td>
-      <td>${a.user}</td>
-      <td>${a.display}</td>
-      <td>${a.slug}</td>
-      <td>${a.type}</td>
-      <td>${a.active?'<span class="yes">Active</span>':'<span class="no">Inactive</span>'}</td>
-      <td>${a.order}</td>
-      <td>${a.created}</td>
+      <td><img class="thumb" src="${a.image||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'}" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'"></td>
+      <td class="title-cell"><b>${escapeHtml(a.title)}</b></td>
+      <td>${escapeHtml(a.author||'—')}</td>
+      <td>${fmtDate(a.createdAt)}</td>
+      <td><span class="tag tag-pred">${escapeHtml(a.type||'—')}</span></td>
+      <td>${(a.seoTitle && a.metaDescription)?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
       <td class="actioncell">
-        <button class="btn btn-icon btn-sm">👁</button>
-        <button class="btn btn-icon btn-sm">✎</button>
-        <button class="btn btn-icon btn-sm btn-danger">🗑</button>
+        <button class="btn btn-icon btn-sm" title="Edit" onclick="editArticle('${a._id}')">✎</button>
+        <button class="btn btn-primary btn-sm" onclick="publishArticle('${a._id}')">⤴ Publish</button>
+        <button class="btn btn-icon btn-sm btn-danger" title="Delete" onclick="deleteArticle('${a._id}')">🗑</button>
       </td>
     </tr>`).join('');
 }
 
-/* ---------------- RENDER: HOME ---------------- */
-function renderHome(){
-  const today = news.filter(n=>n.published!=='—').length;
-  document.getElementById('statPublished').textContent = today;
-  document.getElementById('statDrafts').textContent = drafts.length;
-  const seoYes = news.filter(n=>n.seo).length;
-  document.getElementById('statSeo').textContent = news.length? Math.round(seoYes/news.length*100)+'%' : '0%';
-  document.getElementById('statAuthors').textContent = authors.filter(a=>a.active).length;
-  document.getElementById('homeRecent').innerHTML = news.slice(0,5).map(n=>`
-    <tr><td class="title-cell"><b>${n.title}</b></td><td><span class="tag ${n.type==='Price Prediction'?'tag-pred':'tag-news'}">${n.type}</span></td><td>${n.author}</td><td>${n.published}</td><td>${n.seo?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td></tr>
-  `).join('');
-  document.getElementById('todayStr').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+/* ---------------- CREATE / EDIT / DELETE / PUBLISH ---------------- */
+function slugify(str){
+  return (str||'').toLowerCase().trim()
+    .replace(/[^a-z0-9\s-]/g,'')
+    .replace(/\s+/g,'-')
+    .replace(/-+/g,'-');
 }
+
+function resetCreateForm(){
+  document.getElementById('editingId').value = '';
+  document.getElementById('createTitle').textContent = 'Add New Article';
+  document.querySelectorAll('#page-create input[type=text], #page-create input[type=datetime-local]').forEach(el=>el.value='');
+  document.querySelectorAll('#page-create select').forEach(el=>el.selectedIndex=0);
+  document.querySelectorAll('#page-create textarea').forEach(el=>el.value='');
+  document.getElementById('inDesc').innerHTML = '';
+  document.getElementById('inDescSource').value = '';
+  document.getElementById('inDesc').style.display='block';
+  document.getElementById('inDescSource').style.display='none';
+  document.getElementById('imgPreview').src = 'https://placehold.co/64x40/2DD4BF/06090D?text=IMG';
+  document.getElementById('inPublished').value = new Date().toISOString().slice(0,16);
+  document.getElementById('btnSaveDraft').style.display='inline-flex';
+  document.getElementById('btnSavePublish').textContent = '✓ Save & Publish';
+}
+
+function editArticle(id){
+  const a = articlesCache.find(x => x._id === id);
+  if (!a) { showToast('Article not found', true); return; }
+  resetCreateForm();
+  document.getElementById('editingId').value = a._id;
+  document.getElementById('createTitle').textContent = 'Edit Article';
+  document.getElementById('inTitle').value = a.title || '';
+  document.getElementById('inAlias').value = a.slug || '';
+  document.getElementById('inType').value = a.type || '';
+  document.getElementById('inAuthor').value = a.author || 'M2';
+  document.getElementById('inKeyword').value = a.focusKeyword || '';
+  document.getElementById('inProject').value = a.project || '';
+  document.getElementById('inCategory').value = a.category || '';
+  document.getElementById('inImgUrl').value = a.image || '';
+  document.getElementById('imgPreview').src = a.image || 'https://placehold.co/64x40/2DD4BF/06090D?text=IMG';
+  document.getElementById('inAlt').value = a.imageAlt || '';
+  document.getElementById('inSeoTitle').value = a.seoTitle || '';
+  document.getElementById('inMetaKw').value = a.metaKeywords || '';
+  document.getElementById('inMetaDesc').value = a.metaDescription || '';
+  document.getElementById('inFaqs').value = a.faqs || '';
+  document.getElementById('inDesc').innerHTML = a.content || a.description || '';
+  if (a.publishedAt) {
+    const dt = new Date(a.publishedAt);
+    if (!isNaN(dt.getTime())) document.getElementById('inPublished').value = dt.toISOString().slice(0,16);
+  }
+  document.getElementById('btnSavePublish').textContent = a.status==='published' ? '✓ Update' : '✓ Save & Publish';
+  go('create');
+}
+
+async function saveArticle(publish){
+  const title = document.getElementById('inTitle').value.trim();
+  const type = document.getElementById('inType').value;
+  const author = document.getElementById('inAuthor').value;
+  if(!title || !type){
+    showToast('Please fill at least Title and News Type', true);
+    return;
+  }
+  const editingId = document.getElementById('editingId').value;
+  const aliasRaw = document.getElementById('inAlias').value.trim();
+  const contentHtml = document.getElementById('inDesc').style.display==='none'
+    ? document.getElementById('inDescSource').value
+    : document.getElementById('inDesc').innerHTML;
+
+  const payload = {
+    title,
+    slug: aliasRaw ? slugify(aliasRaw) : slugify(title),
+    type,
+    author,
+    category: document.getElementById('inCategory').value.trim(),
+    image: document.getElementById('inImgUrl').value.trim(),
+    content: contentHtml,
+    description: contentHtml,
+    seoTitle: document.getElementById('inSeoTitle').value.trim(),
+    metaKeywords: document.getElementById('inMetaKw').value.trim(),
+    metaDescription: document.getElementById('inMetaDesc').value.trim(),
+    publish: !!publish
+  };
+  // NOTE: focusKeyword / project / imageAlt / faqs are captured in the form
+  // for editorial reference but the current Article schema (from the
+  // summary you gave me) doesn't list those fields — they won't persist
+  // until you add them to backend/models/Article.js. Tell me if you want
+  // that added and I'll extend the model + controller.
+
+  const btn = publish ? document.getElementById('btnSavePublish') : document.getElementById('btnSaveDraft');
+  const originalLabel = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Saving…';
+
+  try {
+    if (editingId) {
+      await apiFetch('/api/articles/' + editingId, { method: 'PUT', body: JSON.stringify(payload) });
+      showToast(publish ? 'Article updated & published ✓' : 'Article updated ✓');
+    } else {
+      await apiFetch('/api/articles', { method: 'POST', body: JSON.stringify(payload) });
+      showToast(publish ? 'Article saved & published ✓' : 'Article saved as draft ✓');
+    }
+    await loadArticles();
+    resetCreateForm();
+    go(publish ? 'news' : 'draft');
+  } catch (err) {
+    showToast(err.message || 'Save failed', true);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalLabel;
+  }
+}
+
+async function publishArticle(id){
+  try {
+    await apiFetch('/api/articles/' + id, { method: 'PUT', body: JSON.stringify({ publish: true }) });
+    showToast('Published ✓');
+    await loadArticles();
+  } catch (err) {
+    showToast(err.message || 'Publish failed', true);
+  }
+}
+
+async function deleteArticle(id){
+  const a = articlesCache.find(x => x._id === id);
+  if (!confirm(`Delete "${a ? a.title : 'this article'}"? This cannot be undone.`)) return;
+  try {
+    await apiFetch('/api/articles/' + id, { method: 'DELETE' });
+    showToast('Article deleted');
+    await loadArticles();
+  } catch (err) {
+    showToast(err.message || 'Delete failed', true);
+  }
+}
+
+/* ---------------- MISC UTIL ---------------- */
+function escapeHtml(str){
+  return (str==null?'':String(str)).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+/* ---------------- TOAST ---------------- */
+function showToast(msg, isError){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.toggle('err', !!isError);
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+/* Part 3 will add: rich text editor toolbar wiring, clock, and the
+   DOMContentLoaded bootstrap that calls checkSession() + buildPopovers(). */
+</script>
+
+<script>
+/* ==================================================================
+   PART 3 — paste this whole block right after the PART 2 script
+   (still inside the same <script> tag, before </script>, as the
+   last piece). This part: rich text editor toolbar, emoji/icon
+   popovers, clock, and the final bootstrap that starts the app.
+================================================================== */
 
 /* ---------------- RICH TEXT EDITOR ---------------- */
 const descEditor = document.getElementById('inDesc');
@@ -774,7 +1028,6 @@ function buildPopovers(){
   document.getElementById('emojiGrid').innerHTML = EMOJIS.map(e=>`<button type="button">${e}</button>`).join('');
   document.getElementById('iconGrid').innerHTML = ICONS.map(i=>`<button type="button">${i}</button>`).join('');
 }
-buildPopovers();
 
 function closePopovers(){
   document.getElementById('emojiPop').classList.remove('open');
@@ -826,7 +1079,6 @@ function insertTableHTML(){
 }
 
 document.getElementById('descToolbar').addEventListener('click', (e)=>{
-  // close popovers unless clicking their toggles
   if(!e.target.closest('#emojiPop') && !e.target.closest('#iconPop') && e.target.dataset.cmd !== 'toggleEmoji' && e.target.dataset.cmd !== 'toggleIcons'){
     closePopovers();
   }
@@ -896,7 +1148,6 @@ document.getElementById('descToolbar').addEventListener('click', (e)=>{
   document.execCommand(cmd, false, null);
 });
 
-// dropdowns: paragraph/heading, font, size, case
 document.querySelectorAll('#descToolbar select[data-cmd]').forEach(sel=>{
   sel.addEventListener('change', ()=>{
     descEditor.focus();
@@ -908,7 +1159,6 @@ document.querySelectorAll('#descToolbar select[data-cmd]').forEach(sel=>{
   });
 });
 
-// color pickers: text color + background highlight
 document.querySelectorAll('#descToolbar input[type=color][data-cmd]').forEach(inp=>{
   inp.addEventListener('input', ()=>{
     descEditor.focus();
@@ -920,7 +1170,6 @@ document.addEventListener('click',(e)=>{
   if(!e.target.closest('.tgroup')) closePopovers();
 });
 
-// keep formatting buttons visually reflecting cursor state
 document.addEventListener('selectionchange', ()=>{
   if(document.activeElement !== descEditor) return;
   ['bold','italic','underline','strikeThrough','insertOrderedList','insertUnorderedList','superscript','subscript'].forEach(cmd=>{
@@ -930,55 +1179,13 @@ document.addEventListener('selectionchange', ()=>{
   });
 });
 
-/* ---------------- CREATE FORM ---------------- */
-function saveArticle(publish){
-  const title = document.getElementById('inTitle').value.trim();
-  const alias = document.getElementById('inAlias').value.trim();
-  const type = document.getElementById('inType').value;
-  const author = document.getElementById('inAuthor').value;
-  if(!title || !alias || !type){
-    showToast('Please fill Title, Alias and News Type', true);
-    return;
-  }
-  const record = {
-    id: Date.now(),
-    title, alias, author, createdBy:"M2",
-    uploaded: new Date().toLocaleString(),
-    published: publish ? new Date().toLocaleString() : '—',
-    lang:"EN", type, newsBlog: publish?"News":"Draft",
-    seo:false,
-    img:"https://placehold.co/64x40/2DD4BF/06090D?text=NEW"
-  };
-  if(publish){
-    news.unshift(record);
-    showToast('Article saved & published ✓');
-    go('news');
-  } else {
-    drafts.unshift({id:record.id,title,author,uploaded:record.uploaded,type,seo:false,img:record.img});
-    showToast('Article saved as draft ✓');
-    go('draft');
-  }
-  document.querySelectorAll('#page-create input, #page-create select, #page-create textarea').forEach(el=>{
-    if(el.type==='checkbox') el.checked=false; else if(el.tagName!=='SELECT') el.value='';
-  });
-  descEditor.innerHTML = '';
-  descSource.value = '';
-  descEditor.style.display = 'block';
-  descSource.style.display = 'none';
-  sourceMode = false;
-  document.querySelectorAll('#descToolbar input[type=color]').forEach(inp=>{ inp.value = inp.dataset.cmd==='hiliteColor' ? '#ffffff' : '#0b1626'; });
-}
-
-/* ---------------- TOAST ---------------- */
-function showToast(msg, isError){
-  const t=document.getElementById('toast');
-  document.getElementById('toastMsg').textContent = msg;
-  t.style.borderColor = isError ? 'var(--red)' : 'var(--teal)';
-  t.querySelector('.dot').style.background = isError ? 'var(--red)' : 'var(--teal)';
-  t.classList.add('show');
-  clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
-}
+/* ---------------- LOGIN FORM: Enter key submits ---------------- */
+document.getElementById('loginPassword').addEventListener('keydown', (e)=>{
+  if (e.key === 'Enter') doLogin();
+});
+document.getElementById('loginEmail').addEventListener('keydown', (e)=>{
+  if (e.key === 'Enter') document.getElementById('loginPassword').focus();
+});
 
 /* ---------------- CLOCK ---------------- */
 function tickClock(){
@@ -986,12 +1193,9 @@ function tickClock(){
 }
 setInterval(tickClock,1000); tickClock();
 
-/* ---------------- INIT ---------------- */
-renderHome();
-renderNews();
-renderDraft();
-renderAuthors();
-document.getElementById('inPublished').value = new Date().toISOString().slice(0,16);
+/* ---------------- BOOTSTRAP ---------------- */
+buildPopovers();
+checkSession(); // shows login screen, or auto-enters app if a valid token is already saved
 </script>
 </body>
 </html>
