@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const articleController = require('../controllers/articleController');
-const { protect, adminOnly } = require('../middleware/authMiddleware'); // ⚠️ path check karo neeche
+const { protect, adminOnly } = require('../middleware/auth');  // ✅ correct path
 
 // Public routes
 router.get('/', articleController.getPublished);
