@@ -593,14 +593,20 @@ async function apiFetch(path, options = {}) {
 
   const res = await fetch(API_BASE + path, Object.assign({}, options, { headers }));
 
+  let data = null;
+  try { data = await res.json(); } catch(e) { /* no body */ }
+
   if (res.status === 401) {
-    // token expired / invalid — force back to login
+    const wasLoginCall = path === '/api/auth/login';
+    if (wasLoginCall) {
+      // wrong email/password on the login screen itself — show the
+      // backend's real message, don't mask it as a session expiry
+      throw new Error((data && data.message) ? data.message : 'Invalid email or password');
+    }
+    // an already-logged-in session got rejected (expired/invalid token)
     doLogout(true);
     throw new Error('Session expired, please log in again');
   }
-
-  let data = null;
-  try { data = await res.json(); } catch(e) { /* no body */ }
 
   if (!res.ok) {
     const msg = (data && data.message) ? data.message : ('Request failed (' + res.status + ')');
