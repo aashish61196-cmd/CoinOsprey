@@ -446,13 +446,15 @@
             <div class="field"><label>Category</label><input type="text" id="inCategory" placeholder="e.g. Bitcoin"></div>
 
             <div class="field full">
-              <label>Coin / Token Image URL <em>*</em></label>
-              <div class="imgpick">
-                <img class="imgpreview" id="imgPreview" src="https://placehold.co/64x40/2DD4BF/06090D?text=IMG" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'">
-                <input type="text" id="inImgUrl" placeholder="https://…jpg / .png" oninput="document.getElementById('imgPreview').src=this.value||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'">
-              </div>
-              <span class="hint">No file upload backend yet — paste a direct image URL (e.g. from CoinMarketCap or your CDN)</span>
-            </div>
+  <label>Coin / Token Image URL <em>*</em></label>
+  <div class="imgpick">
+    <img class="imgpreview" id="imgPreview" src="https://placehold.co/64x40/2DD4BF/06090D?text=IMG" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'">
+    <input type="text" id="inImgUrl" placeholder="https://…jpg / .png" oninput="document.getElementById('imgPreview').src=this.value||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'">
+    <input type="file" id="inImgFile" accept="image/*" style="display:none" onchange="uploadImageFile(this)">
+    <button type="button" class="btn btn-sm" onclick="document.getElementById('inImgFile').click()">📁 Upload</button>
+  </div>
+  <span class="hint">Paste an image URL, or tap Upload to pick a photo from your device</span>
+</div>
 
             <div class="field"><label>Image Alt Title</label><input type="text" id="inAlt" placeholder="Bitcoin BTC coin logo"></div>
             <div class="field"><label>Show On Homepage</label><select id="inHome"><option value="No">No</option><option value="Yes">Yes</option></select></div>
