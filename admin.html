@@ -573,7 +573,15 @@
 </div>
 
 <div class="toast" id="toast"><span class="dot"></span><span id="toastMsg">Saved</span></div>
-
+<div class="modal-overlay" id="previewModal" onclick="if(event.target===this) closePreview()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Article Preview</h3>
+      <button class="modal-close" onclick="closePreview()">✕</button>
+    </div>
+    <div class="modal-body" id="previewBody"></div>
+  </div>
+</div>
 <script>
 /* ==================================================================
    PART 2 — paste this whole block right after the PART 1 comment
