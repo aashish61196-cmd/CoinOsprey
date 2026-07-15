@@ -12,6 +12,7 @@ const commentRoutes = require('./routes/comments');
 const newsletterRoutes = require('./routes/newsletter');
 const adminRoutes = require('./routes/admin');
 const cryptoRoutes = require('./routes/crypto');
+const uploadRoutes = require('./routes/upload');
 
 const app = express();
 
@@ -49,6 +50,7 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/crypto', cryptoRoutes);
+app.use('/api', uploadRoutes);
 
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send(
