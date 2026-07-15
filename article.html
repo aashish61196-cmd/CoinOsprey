@@ -663,7 +663,7 @@
     // markdown parser above only picks up FAQs embedded as fenced JSON
     // inside content. Render article.faqs separately here as a fallback,
     // skipping it if a FAQ block was already produced from content.
-    if (Array.isArray(article.faqs) && article.faqs.length && !document.getElementById('articleFaqBlock')) {
+    if (article.faqs && (typeof article.faqs === 'string' ? article.faqs.trim().length : article.faqs.length) && !document.getElementById('articleFaqBlock')) {
       document.getElementById('articleBody').insertAdjacentHTML('beforeend', renderFaqsField(article.faqs));
     }
 
