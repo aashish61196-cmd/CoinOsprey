@@ -796,7 +796,45 @@ function renderHome(){
 }
 
 /* ---------------- RENDER: NEWS (published) ---------------- */
-function actionCell(a){
+function previewArticle(id){
+  const a = articlesCache.find(x => x._id === id);
+  if(!a){ showToast('Article not found', true); return; }
+
+  const row = (label, value) => `
+    <div class="pv-row">
+      <div class="pv-label">${label}</div>
+      <div class="pv-value ${value ? '' : 'empty'}">${value ? escapeHtml(value) : 'Not set'}</div>
+    </div>`;
+
+  document.getElementById('previewBody').innerHTML = `
+    ${row('H1 / Title', a.title)}
+    ${row('Slug', a.slug)}
+    ${row('SEO Title', a.seoTitle)}
+    ${row('Meta Description', a.metaDescription)}
+    ${row('Meta Keywords', a.metaKeywords)}
+    ${row('Focus Keyword', a.focusKeyword)}
+    <div class="pv-row">
+      <div class="pv-label">Thumbnail Image</div>
+      ${a.image ? `<img class="pv-img" src="${a.image}" onerror="this.src='https://placehold.co/300x180/1a1f26/F3F5F7?text=broken'">` : `<div class="pv-value empty">Not set</div>`}
+    </div>
+    ${row('Image Alt Text', a.imageAlt)}
+    ${row('Category', a.category)}
+    ${row('Project / Token', a.project)}
+    ${row('Type', a.type)}
+    ${row('Author', a.author)}
+    ${row('Status', a.status)}
+    <div class="pv-row">
+      <div class="pv-label">Article Content</div>
+      <div class="pv-html">${a.content || '<em style="color:#8892A6">Not set</em>'}</div>
+    </div>
+    ${row('FAQs (raw)', a.faqs)}
+  `;
+  document.getElementById('previewModal').classList.add('open');
+}
+function closePreview(){
+  document.getElementById('previewModal').classList.remove('open');
+}
+  function actionCell(a){
   return `<div class="actioncell">
     <button class="btn btn-icon btn-sm" title="Edit" onclick="editArticle('${a._id}')">✎</button>
     <button class="btn btn-icon btn-sm btn-danger" title="Delete" onclick="deleteArticle('${a._id}')">🗑</button>
