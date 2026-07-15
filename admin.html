@@ -796,7 +796,16 @@ function renderHome(){
 }
 
 /* ---------------- RENDER: NEWS (published) ---------------- */
-function previewArticle(id){
+
+  function actionCell(a){
+  return `<div class="actioncell">
+    <button class="btn btn-icon btn-sm" title="Preview" onclick="previewArticle('${a._id}')">👁</button>
+    <button class="btn btn-icon btn-sm" title="Edit" onclick="editArticle('${a._id}')">✎</button>
+    <button class="btn btn-icon btn-sm btn-danger" title="Delete" onclick="deleteArticle('${a._id}')">🗑</button>
+    ${a.status!=='published' ? `<button class="btn btn-sm btn-primary" onclick="publishArticle('${a._id}')">⤴ Publish</button>` : ''}
+  </div>`;
+  }
+  function previewArticle(id){
   const a = articlesCache.find(x => x._id === id);
   if(!a){ showToast('Article not found', true); return; }
 
