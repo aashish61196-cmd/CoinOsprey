@@ -941,6 +941,10 @@ async function saveArticle(publish){
     seoTitle: document.getElementById('inSeoTitle').value.trim(),
     metaKeywords: document.getElementById('inMetaKw').value.trim(),
     metaDescription: document.getElementById('inMetaDesc').value.trim(),
+    faqs: document.getElementById('inFaqs').value.trim(),
+    focusKeyword: document.getElementById('inKeyword').value.trim(),
+    project: document.getElementById('inProject').value.trim(),
+    imageAlt: document.getElementById('inAlt').value.trim(),
     publish: !!publish
   };
   // NOTE: focusKeyword / project / imageAlt / faqs are captured in the form
