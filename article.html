@@ -316,6 +316,8 @@
     font-family:var(--co-font-display);
   }
   .article-body em{ color:var(--co-gray-700); }
+  .article-body div{ margin-bottom:2px; }
+  .article-body div:has(br:only-child){ height:10px; }
 
   @media (max-width:640px){
     .article-wrap{ padding:20px 16px 48px; }
@@ -455,9 +457,9 @@
   /* --------------------------------------------------------------------
      2. Lightweight markdown-ish renderer
      Handles the article body format used by CoinOsprey's content
-     pipeline: **bold-only lines** as headings, pipe tables, fenced
-     ```json``` FAQ blocks, and plain paragraphs with **bold**/*italic*.
-     No external library — kept dependency-free for a static page.
+     pipeline: bold-only lines as headings, pipe tables, fenced JSON
+     code blocks as FAQs, and plain paragraphs with inline bold and italic.
+     No external library, kept dependency-free for a static page.
      -------------------------------------------------------------------- */
   function escapeHtml(str) {
     return str.replace(/[&<>"']/g, function (c) {
@@ -529,6 +531,15 @@
 
   function renderMarkdown(md) {
     if (!md) return '';
+
+    // The admin panel's content field is a rich-text editor that saves
+    // actual HTML (<div>line</div><div><br></div> per line), not markdown.
+    // If we detect real HTML tags already, render them directly instead of
+    // running the markdown parser (which would escape and flatten them).
+    if (/<\/?(div|p|br|table|h[1-6]|strong|em|b|i)[\s>]/i.test(md)) {
+      return md;
+    }
+
     var lines = md.replace(/\r\n/g, '\n').split('\n');
     var html = '';
     var i = 0;
