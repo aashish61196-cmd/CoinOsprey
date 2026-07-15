@@ -834,13 +834,6 @@ function previewArticle(id){
 function closePreview(){
   document.getElementById('previewModal').classList.remove('open');
 }
-  function actionCell(a){
-  return `<div class="actioncell">
-    <button class="btn btn-icon btn-sm" title="Edit" onclick="editArticle('${a._id}')">✎</button>
-    <button class="btn btn-icon btn-sm btn-danger" title="Delete" onclick="deleteArticle('${a._id}')">🗑</button>
-    ${a.status!=='published' ? `<button class="btn btn-sm btn-primary" onclick="publishArticle('${a._id}')">⤴ Publish</button>` : ''}
-  </div>`;
-}
 
 function renderNews(){
   populateFilterOptions();
