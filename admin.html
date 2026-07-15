@@ -947,12 +947,6 @@ async function saveArticle(publish){
     imageAlt: document.getElementById('inAlt').value.trim(),
     publish: !!publish
   };
-  // NOTE: focusKeyword / project / imageAlt / faqs are captured in the form
-  // for editorial reference but the current Article schema (from the
-  // summary you gave me) doesn't list those fields — they won't persist
-  // until you add them to backend/models/Article.js. Tell me if you want
-  // that added and I'll extend the model + controller.
-
   const btn = publish ? document.getElementById('btnSavePublish') : document.getElementById('btnSaveDraft');
   const originalLabel = btn.innerHTML;
   btn.disabled = true;
