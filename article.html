@@ -528,10 +528,30 @@
       return null; // not valid FAQ JSON, fall back to plain rendering
     }
   }
+function tryRenderFaqJson(jsonText) {
+    ...
+  }
+
+  // 👇 NEW FUNCTION YAHAN PASTE KARO
+  function renderFaqsField(faqs) {
+    if (!Array.isArray(faqs) || !faqs.length) return '';
+    var html = '<div class="article-faq" id="articleFaqBlock"><h2>Frequently Asked Questions</h2>';
+    faqs.forEach(function (item) {
+      var q = item.question || item.q;
+      var a = item.answer || item.a;
+      if (!q || !a) return;
+      html += '<div class="faq-item">' +
+                '<div class="faq-question">' + inlineFormat(q) + '</div>' +
+                '<div class="faq-answer">' + inlineFormat(a) + '</div>' +
+              '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
 
   function renderMarkdown(md) {
-    if (!md) return '';
-
+    ...
+  }
     // The admin panel's content field is a rich-text editor that saves
     // actual HTML (<div>line</div><div><br></div> per line), not markdown.
     // If we detect real HTML tags already, render them directly instead of
