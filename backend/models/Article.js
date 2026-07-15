@@ -9,10 +9,13 @@ const articleSchema = new mongoose.Schema({
   category: { type: String, default: '' },
   type: { type: String, default: 'Market Update' },
   image: { type: String, default: '' },
+  imageAlt: { type: String, default: '' },
+  project: { type: String, default: '' },
   status: { type: String, enum: ['draft', 'published'], default: 'draft' },
   seoTitle: { type: String, default: '' },
   metaKeywords: { type: String, default: '' },
   metaDescription: { type: String, default: '' },
+  faqs: { type: String, default: '' },
   views: { type: Number, default: 0 },
   publishedAt: { type: Date }
 }, { timestamps: true });
