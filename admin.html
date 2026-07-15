@@ -907,10 +907,11 @@ function renderDraft(){
       <td><span class="tag tag-pred">${escapeHtml(a.type||'—')}</span></td>
       <td>${(a.seoTitle && a.metaDescription)?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
       <td class="actioncell">
-        <button class="btn btn-icon btn-sm" title="Edit" onclick="editArticle('${a._id}')">✎</button>
-        <button class="btn btn-primary btn-sm" onclick="publishArticle('${a._id}')">⤴ Publish</button>
-        <button class="btn btn-icon btn-sm btn-danger" title="Delete" onclick="deleteArticle('${a._id}')">🗑</button>
-      </td>
+      <button class="btn btn-icon btn-sm" title="Preview" onclick="previewArticle('${a._id}')">👁</button>
+      <button class="btn btn-icon btn-sm" title="Edit" onclick="editArticle('${a._id}')">✎</button>
+      <button class="btn btn-primary btn-sm" onclick="publishArticle('${a._id}')">⤴ Publish</button>
+      <button class="btn btn-icon btn-sm btn-danger" title="Delete" onclick="deleteArticle('${a._id}')">🗑</button>
+     </td>
     </tr>`).join('');
 }
 
