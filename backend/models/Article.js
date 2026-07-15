@@ -16,6 +16,9 @@ const articleSchema = new mongoose.Schema({
   metaKeywords: { type: String, default: '' },
   metaDescription: { type: String, default: '' },
   faqs: { type: String, default: '' },
+  focusKeyword: { type: String, default: '' },
+  project: { type: String, default: '' },
+  imageAlt: { type: String, default: '' },
   views: { type: Number, default: 0 },
   publishedAt: { type: Date }
 }, { timestamps: true });
