@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Loading Article… — CoinOsprey</title>
+<meta name="description" id="pageDescription" content="CoinOsprey crypto news and price prediction article.">
+<meta name="theme-color" content="#0b1730">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================================================
+     DESIGN SYSTEM (matches index.html — same tokens, reused verbatim so the
+     article page never visually drifts from the rest of the site)
+     ========================================================================== */
+  :root{
+    --co-navy-900:#0b1730;
+    --co-navy-800:#0e1c3a;
+    --co-navy-700:#132449;
+    --co-navy-600:#1a2e58;
+    --co-amber-500:#f5a623;
+    --co-amber-600:#e2960f;
+    --co-red-600:#e0293e;
+    --co-red-700:#c31f32;
+    --co-white:#ffffff;
+    --co-gray-050:#f4f5f8;
+    --co-gray-100:#e9ebf1;
+    --co-gray-300:#c7cbd8;
+    --co-gray-500:#8892a6;
+    --co-gray-700:#4b5468;
+    --co-teal-500:#1fb6a8;
+    --co-violet-500:#7c5cff;
+
+    --co-font-display:'Space Grotesk', sans-serif;
+    --co-font-body:'Inter', sans-serif;
+    --co-font-mono:'IBM Plex Mono', monospace;
+
+    --co-header-h-topbar:35px;
+    --co-header-h-nav:16px;
+    --co-header-h-ticker:16px;
+
+    --co-radius-sm:4px;
+    --co-radius-md:8px;
+    --co-radius-lg:14px;
+
+    --shadow-sm:0 1px 3px rgba(11,23,48,0.06);
+    --shadow-md:0 6px 18px rgba(11,23,48,0.08);
+    --shadow-lg:0 18px 40px rgba(11,23,48,0.14);
+
+    --co-transition:200ms ease;
+    --ease:cubic-bezier(.4,0,.2,1);
+
+    --max-width:1469px;
+    --page-bg:#f4f6fa;
+
+    --c-gold-500:var(--co-amber-500);
+    --c-gold-600:var(--co-amber-600);
+    --c-navy-900:var(--co-navy-900);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:var(--co-font-body);
+    background:var(--page-bg);
+    color:var(--co-navy-900);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+  ul{ list-style:none; margin:0; padding:0; }
+  img{ display:block; max-width:100%; }
+
+  a[href], button, .btn, .co-chip, .co-nav__link, .co-nav-logo, .back-to-top{ cursor:pointer; }
+  input, textarea{ cursor:text; }
+
+  /* ---------- Top info bar ---------- */
+  .co-topbar{
+    background:var(--co-navy-900);
+    color:var(--co-white);
+    font-size:12.5px;
+    min-height:var(--co-header-h-topbar);
+  }
+  .co-topbar__inner{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:8px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .co-topbar__left{ display:flex; align-items:center; gap:18px; min-width:0; flex:1; }
+  .co-topbar__item{ display:flex; align-items:center; gap:6px; white-space:nowrap; color:var(--co-gray-300); }
+  .co-topbar__time{
+    display:flex; align-items:center; gap:6px;
+    background:var(--co-red-600); color:var(--co-white);
+    font-family:var(--co-font-mono); font-weight:500;
+    padding:3px 10px; border-radius:var(--co-radius-sm);
+  }
+  .co-topbar__right{ display:flex; align-items:center; gap:14px; flex-shrink:0; }
+  .co-topbar__follow{ color:var(--co-gray-300); white-space:nowrap; }
+  .co-topbar__social{ display:flex; align-items:center; gap:10px; }
+  .co-topbar__social-link{ width:20px; height:20px; flex-shrink:0; display:flex; border-radius:6px; overflow:hidden; }
+  .co-topbar__social-link svg{ width:100%; height:100%; display:block; }
+
+  /* ---------- Nav ---------- */
+  .co-nav{
+    background:var(--co-navy-900);
+    position:sticky;
+    top:0;
+    z-index:1000;
+  }
+  .co-nav__inner{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:0 24px;
+    height:56px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .co-nav-logo{ display:flex; align-items:center; gap:10px; }
+  .co-nav-logo__icon{
+    width:38px; height:38px; flex-shrink:0; border-radius:9px;
+    background:radial-gradient(circle at 30% 30%, #f5c26b, #d4941f);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; color:var(--co-navy-900); font-weight:800;
+  }
+  .co-nav-logo__text{
+    font-family:var(--co-font-display); font-size:22px; font-weight:800;
+    letter-spacing:-.3px; color:#ffffff; white-space:nowrap;
+  }
+  .co-nav-logo__text span{ color:var(--co-amber-500); }
+  .co-nav__back{
+    display:flex; align-items:center; gap:6px;
+    color:var(--co-gray-100); font-size:13.5px; font-weight:600;
+    padding:8px 14px; border-radius:20px; border:1px solid rgba(255,255,255,0.14);
+    transition:background var(--co-transition), border-color var(--co-transition);
+  }
+  .co-nav__back:hover{ background:rgba(255,255,255,0.08); border-color:var(--co-amber-500); }
+  .co-nav__back svg{ width:15px; height:15px; }
+
+  /* ---------- Breaking ticker (reused) ---------- */
+  .co-ticker{ background:var(--co-white); border-bottom:1px solid var(--co-gray-100); }
+  .co-ticker__inner{
+    max-width:var(--max-width); margin:0 auto; padding:0 24px;
+    display:flex; align-items:center; height:var(--co-header-h-ticker); gap:16px;
+  }
+  .co-ticker__tag{
+    display:flex; align-items:center; gap:6px;
+    background:var(--co-red-600); color:var(--co-white);
+    font-size:12px; font-weight:700; letter-spacing:.4px;
+    padding:6px 14px; border-radius:var(--co-radius-sm); flex-shrink:0;
+    clip-path:polygon(0 0, 100% 0, 92% 100%, 0% 100%); padding-right:20px;
+  }
+  .co-ticker__bolt{ width:12px; height:12px; }
+  .co-ticker__viewport{ flex:1; overflow:hidden; position:relative; }
+  .co-ticker__track{
+    display:flex; align-items:center; gap:40px; white-space:nowrap; width:max-content;
+    animation:co-ticker-scroll 28s linear infinite;
+  }
+  .co-ticker__viewport:hover .co-ticker__track{ animation-play-state:paused; }
+  @keyframes co-ticker-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .co-ticker__entry{ display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--co-navy-900); }
+  .co-ticker__entry-icon{
+    width:20px; height:20px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:10px; font-weight:700; color:var(--co-white); flex-shrink:0;
+  }
+  .co-ticker__entry-icon--btc{ background:#f7931a; }
+  .co-ticker__entry-icon--eth{ background:var(--co-violet-500); }
+  .co-ticker__entry-icon--sol{ background:var(--co-teal-500); }
+  .co-ticker__entry-icon--bnb{ background:var(--co-navy-900); }
+
+  @media (max-width:640px){
+    .co-topbar__inner{ padding:7px 16px; }
+    .co-nav__inner{ padding:0 16px; }
+    .co-ticker__inner{ padding:0 16px; }
+    .co-nav-logo__text{ font-size:19px; }
+    .co-nav__back span{ display:none; }
+  }
+
+  /* ==========================================================================
+     ARTICLE PAGE LAYOUT (new for this page)
+     ========================================================================== */
+  .article-wrap{
+    max-width:900px;
+    margin:0 auto;
+    padding:32px 24px 64px;
+  }
+
+  /* Loading skeleton state, shown until fetch resolves */
+  .article-skeleton{ display:block; }
+  .article-skeleton .sk-line{
+    height:16px; border-radius:6px; margin-bottom:12px;
+    background:linear-gradient(90deg, #e9ebf1 25%, #f4f5f8 37%, #e9ebf1 63%);
+    background-size:400% 100%;
+    animation:co-skeleton-sweep 1.4s ease-in-out infinite;
+  }
+  @keyframes co-skeleton-sweep{ 0%{ background-position:100% 50%; } 100%{ background-position:0% 50%; } }
+  .sk-title{ height:34px; width:85%; margin-bottom:20px; }
+  .sk-meta{ width:40%; }
+  .sk-image{ height:280px; border-radius:var(--co-radius-lg); margin:20px 0; }
+  .sk-para{ width:100%; }
+  .sk-para.short{ width:70%; }
+
+  /* Error state, shown if fetch fails or slug missing */
+  .article-error{
+    display:none;
+    text-align:center;
+    padding:80px 20px;
+  }
+  .article-error h1{
+    font-family:var(--co-font-display);
+    font-size:24px;
+    margin:0 0 10px;
+  }
+  .article-error p{
+    color:var(--co-gray-700);
+    margin:0 0 20px;
+  }
+  .article-error a{
+    display:inline-flex;
+    padding:11px 22px;
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+    font-weight:700;
+    border-radius:var(--co-radius-sm);
+  }
+
+  /* Actual article content, hidden until populated */
+  .article-content{ display:none; }
+
+  .article-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--co-navy-900);
+    background:var(--co-amber-500);
+    padding:5px 12px;
+    border-radius:var(--co-radius-sm);
+    margin-bottom:16px;
+  }
+
+  .article-title{
+    font-family:var(--co-font-display);
+    font-size:32px;
+    line-height:1.25;
+    font-weight:800;
+    margin:0 0 16px;
+    color:var(--co-navy-900);
+  }
+
+  .article-meta{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:13px;
+    color:var(--co-gray-700);
+    margin-bottom:24px;
+    padding-bottom:20px;
+    border-bottom:1px solid var(--co-gray-100);
+  }
+  .article-meta__author-icon{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--co-amber-500);
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:13px; flex-shrink:0;
+  }
+  .article-meta__dot{ width:3px; height:3px; border-radius:50%; background:var(--co-gray-300); }
+
+  .article-hero-image{
+    width:100%;
+    max-height:420px;
+    object-fit:cover;
+    border-radius:var(--co-radius-lg);
+    margin-bottom:28px;
+    box-shadow:var(--shadow-md);
+  }
+
+  .article-body{
+    font-size:16px;
+    line-height:1.75;
+    color:#2c3446;
+  }
+  .article-body h2, .article-body h3{
+    font-family:var(--co-font-display);
+    color:var(--co-navy-900);
+    margin:32px 0 12px;
+    line-height:1.35;
+  }
+  .article-body h2{ font-size:22px; }
+  .article-body h3{ font-size:18px; }
+  .article-body p{ margin:0 0 16px; }
+  .article-body table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+    font-size:14px;
+  }
+  .article-body th, .article-body td{
+    border:1px solid var(--co-gray-100);
+    padding:10px 12px;
+    text-align:left;
+  }
+  .article-body th{
+    background:var(--co-gray-050);
+    font-weight:700;
+    font-family:var(--co-font-display);
+  }
+  .article-body em{ color:var(--co-gray-700); }
+
+  @media (max-width:640px){
+    .article-wrap{ padding:20px 16px 48px; }
+    .article-title{ font-size:23px; }
+    .article-hero-image{ max-height:220px; }
+    .article-body{ font-size:15px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="co-header" id="coHeader">
+  <div class="co-topbar">
+    <div class="co-topbar__inner">
+      <div class="co-topbar__left">
+        <span class="co-topbar__item" id="topbarDate">
+          <span class="co-topbar__label">Wednesday, 15 July 2026</span>
+        </span>
+        <span class="co-topbar__time">
+          <span id="topbarTimeText">12:00:00 PM</span>
+        </span>
+      </div>
+      <div class="co-topbar__right">
+        <span class="co-topbar__follow">Follow Us</span>
+        <nav class="co-topbar__social" aria-label="Social media links">
+          <a class="co-topbar__social-link" href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#000000"/><path fill="#ffffff" d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/></svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#ffffff" d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/></svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/><path fill="#ffffff" d="M10 8.5v7l6-3.5-6-3.5Z"/></svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="co-nav">
+    <div class="co-nav__inner">
+      <a href="/" class="co-nav-logo" aria-label="CoinOsprey — go to homepage">
+        <span class="co-nav-logo__icon" aria-hidden="true">&#9760;</span>
+        <span class="co-nav-logo__text">Coin<span>Osprey</span></span>
+      </a>
+      <a href="/" class="co-nav__back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>
+        <span>Back to Home</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="co-ticker">
+    <div class="co-ticker__inner">
+      <span class="co-ticker__tag">
+        <svg class="co-ticker__bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>
+        <span>BREAKING NEWS</span>
+      </span>
+      <div class="co-ticker__viewport">
+        <div class="co-ticker__track" id="tickerTrack"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="article-wrap">
+
+    <!-- Loading skeleton: shown by default, hidden once article loads -->
+    <div class="article-skeleton" id="articleSkeleton">
+      <div class="sk-line sk-title"></div>
+      <div class="sk-line sk-meta"></div>
+      <div class="sk-line sk-image"></div>
+      <div class="sk-line sk-para"></div>
+      <div class="sk-line sk-para"></div>
+      <div class="sk-line sk-para short"></div>
+    </div>
+
+    <!-- Error state: shown if no slug in URL or article not found -->
+    <div class="article-error" id="articleError">
+      <h1>Article Not Found</h1>
+      <p>This article may have been moved, unpublished, or the link is incorrect.</p>
+      <a href="/">Back to Homepage</a>
+    </div>
+
+    <!-- Populated article content -->
+    <article class="article-content" id="articleContent">
+      <span class="article-eyebrow" id="articleCategory">Altcoin</span>
+      <h1 class="article-title" id="articleTitle"></h1>
+      <div class="article-meta">
+        <span class="article-meta__author-icon" aria-hidden="true">🦅</span>
+        <span id="articleAuthor">CoinOsprey Team</span>
+        <span class="article-meta__dot"></span>
+        <span id="articleDate"></span>
+        <span class="article-meta__dot"></span>
+        <span id="articleViews">0 views</span>
+      </div>
+      <img class="article-hero-image" id="articleImage" style="display:none;" alt="">
+      <div class="article-body" id="articleBody"></div>
+      <!-- Part 2 will populate #articleBody, and Part 3 adds FAQ + footer + closing scripts -->
+    </article>
+
+  </div>
+</main>
+
+<!-- PART 1 END — continue in Part 2 -->
+<!-- ==========================================================================
+     PART 2 — ARTICLE FETCH + RENDER LOGIC
+     This is a standalone <script> block. When merging: paste this directly
+     after the closing </main> tag from Part 1 (before Part 3's footer).
+     ========================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  var API_BASE = '/api';
+
+  /* --------------------------------------------------------------------
+     1. Get slug from the URL
+     Supports both patterns so nothing breaks if links use either style:
+       /article.html?slug=my-article
+       /article.html/my-article  (not expected, but harmless to check)
+     -------------------------------------------------------------------- */
+  function getSlugFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var slug = params.get('slug');
+    if (slug) return slug.trim();
+
+    // fallback: last non-empty path segment, in case of a rewrite pattern
+    var parts = window.location.pathname.split('/').filter(Boolean);
+    var last = parts[parts.length - 1];
+    if (last && last !== 'article.html') return decodeURIComponent(last);
+
+    return null;
+  }
+
+  /* --------------------------------------------------------------------
+     2. Lightweight markdown-ish renderer
+     Handles the article body format used by CoinOsprey's content
+     pipeline: **bold-only lines** as headings, pipe tables, fenced
+     ```json``` FAQ blocks, and plain paragraphs with **bold**/*italic*.
+     No external library — kept dependency-free for a static page.
+     -------------------------------------------------------------------- */
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function inlineFormat(text) {
+    var out = escapeHtml(text);
+    out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    return out;
+  }
+
+  function isTableRow(line) {
+    return /^\s*\|.*\|\s*$/.test(line);
+  }
+
+  function isTableDivider(line) {
+    return /^\s*\|?[\s:|-]+\|?\s*$/.test(line) && line.indexOf('-') !== -1;
+  }
+
+  function renderTable(lines) {
+    var rows = lines.map(function (line) {
+      return line.trim().replace(/^\||\|$/g, '').split('|').map(function (cell) {
+        return cell.trim();
+      });
+    });
+
+    var header = rows[0];
+    var body = rows.slice(2); // skip header + divider row
+
+    var html = '<table><thead><tr>';
+    header.forEach(function (cell) {
+      html += '<th>' + inlineFormat(cell) + '</th>';
+    });
+    html += '</tr></thead><tbody>';
+    body.forEach(function (row) {
+      html += '<tr>';
+      row.forEach(function (cell) {
+        html += '<td>' + inlineFormat(cell) + '</td>';
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    return html;
+  }
+
+  function tryRenderFaqJson(jsonText) {
+    try {
+      var data = JSON.parse(jsonText);
+      if (!Array.isArray(data) || !data.length) return null;
+
+      var html = '<div class="article-faq" id="articleFaqBlock">';
+      html += '<h2>Frequently Asked Questions</h2>';
+      data.forEach(function (item) {
+        if (!item.question || !item.answer) return;
+        html += '<div class="faq-item">' +
+                  '<div class="faq-question">' + inlineFormat(item.question) + '</div>' +
+                  '<div class="faq-answer">' + inlineFormat(item.answer) + '</div>' +
+                '</div>';
+      });
+      html += '</div>';
+      return html;
+    } catch (e) {
+      return null; // not valid FAQ JSON, fall back to plain rendering
+    }
+  }
+
+  function renderMarkdown(md) {
+    if (!md) return '';
+    var lines = md.replace(/\r\n/g, '\n').split('\n');
+    var html = '';
+    var i = 0;
+
+    while (i < lines.length) {
+      var line = lines[i];
+
+      // Skip blank lines
+      if (line.trim() === '') { i++; continue; }
+
+      // Fenced code block, e.g. ```json ... ```
+      if (/^```/.test(line.trim())) {
+        var lang = line.trim().replace(/```/g, '');
+        var codeLines = [];
+        i++;
+        while (i < lines.length && !/^```/.test(lines[i].trim())) {
+          codeLines.push(lines[i]);
+          i++;
+        }
+        i++; // skip closing fence
+        var codeText = codeLines.join('\n');
+        if (lang.toLowerCase() === 'json') {
+          var faqHtml = tryRenderFaqJson(codeText);
+          html += faqHtml || ('<pre>' + escapeHtml(codeText) + '</pre>');
+        } else {
+          html += '<pre>' + escapeHtml(codeText) + '</pre>';
+        }
+        continue;
+      }
+
+      // Markdown table
+      if (isTableRow(line) && lines[i + 1] && isTableDivider(lines[i + 1])) {
+        var tableLines = [];
+        while (i < lines.length && isTableRow(lines[i])) {
+          tableLines.push(lines[i]);
+          i++;
+        }
+        html += renderTable(tableLines);
+        continue;
+      }
+
+      // Markdown headings (## / ###)
+      if (/^###\s+/.test(line)) {
+        html += '<h3>' + inlineFormat(line.replace(/^###\s+/, '')) + '</h3>';
+        i++; continue;
+      }
+      if (/^##\s+/.test(line)) {
+        html += '<h2>' + inlineFormat(line.replace(/^##\s+/, '')) + '</h2>';
+        i++; continue;
+      }
+
+      // A line that is entirely **bold** and short is treated as a
+      // section heading (matches the CoinOsprey "plain bold heading" style)
+      var boldOnly = line.trim().match(/^\*\*(.+)\*\*$/);
+      if (boldOnly && boldOnly[1].length < 90) {
+        html += '<h2>' + inlineFormat(boldOnly[1]) + '</h2>';
+        i++; continue;
+      }
+
+      // Otherwise, collect a paragraph (consecutive non-blank lines)
+      var paraLines = [];
+      while (i < lines.length && lines[i].trim() !== '' &&
+             !isTableRow(lines[i]) && !/^```/.test(lines[i].trim()) &&
+             !/^##\s+/.test(lines[i]) && !/^###\s+/.test(lines[i])) {
+        paraLines.push(lines[i]);
+        i++;
+      }
+      html += '<p>' + inlineFormat(paraLines.join(' ')) + '</p>';
+    }
+
+    return html;
+  }
+
+  /* --------------------------------------------------------------------
+     3. Populate the page once article data is fetched
+     -------------------------------------------------------------------- */
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    var d = new Date(dateStr);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function populateArticle(article) {
+    // SEO / head tags
+    var seoTitle = article.seoTitle || article.title || 'CoinOsprey';
+    document.title = seoTitle + ' — CoinOsprey';
+    var titleTag = document.getElementById('pageTitle');
+    if (titleTag) titleTag.textContent = seoTitle + ' — CoinOsprey';
+
+    var descTag = document.getElementById('pageDescription');
+    if (descTag) descTag.setAttribute('content', article.metaDescription || article.description || '');
+
+    if (article.metaKeywords) {
+      var kwTag = document.querySelector('meta[name="keywords"]');
+      if (!kwTag) {
+        kwTag = document.createElement('meta');
+        kwTag.setAttribute('name', 'keywords');
+        document.head.appendChild(kwTag);
+      }
+      kwTag.setAttribute('content', article.metaKeywords);
+    }
+
+    // Visible content
+    document.getElementById('articleCategory').textContent = article.category || article.type || 'Crypto';
+    document.getElementById('articleTitle').textContent = article.title || '';
+    document.getElementById('articleAuthor').textContent = article.author || 'CoinOsprey Team';
+    document.getElementById('articleDate').textContent = formatDate(article.publishedAt || article.createdAt);
+    document.getElementById('articleViews').textContent = (article.views || 0).toLocaleString() + ' views';
+
+    var imageEl = document.getElementById('articleImage');
+    if (article.image) {
+      imageEl.src = article.image;
+      imageEl.alt = article.imageAlt || article.title || '';
+      imageEl.style.display = 'block';
+    }
+
+    document.getElementById('articleBody').innerHTML = renderMarkdown(article.content || article.description || '');
+
+    // Swap visibility: hide skeleton, show real content
+    document.getElementById('articleSkeleton').style.display = 'none';
+    document.getElementById('articleContent').style.display = 'block';
+  }
+
+  function showError() {
+    document.getElementById('articleSkeleton').style.display = 'none';
+    document.getElementById('articleContent').style.display = 'none';
+    document.getElementById('articleError').style.display = 'block';
+  }
+
+  /* --------------------------------------------------------------------
+     4. Kick things off
+     -------------------------------------------------------------------- */
+  function loadArticle() {
+    var slug = getSlugFromUrl();
+    if (!slug) { showError(); return; }
+
+    fetch(API_BASE + '/articles/' + encodeURIComponent(slug))
+      .then(function (res) {
+        if (!res.ok) throw new Error('Not found');
+        return res.json();
+      })
+      .then(function (article) {
+        if (!article || !article.title) throw new Error('Empty article');
+        populateArticle(article);
+      })
+      .catch(function () {
+        showError();
+      });
+  }
+
+  loadArticle();
+})();
+</script>
+<!-- PART 2 END — continue in Part 3 -->
+<!-- ==========================================================================
+     PART 3 — FAQ STYLING, FOOTER, BACK-TO-TOP, SITE-CHROME SCRIPTS, CLOSE TAGS
+     When merging: paste the <style> block into Part 1's <head> (or leave it
+     here, both work), then paste everything else directly after Part 2's
+     closing </script> tag, right before </body></html>.
+     ========================================================================== -->
+<style>
+  /* ---------- FAQ accordion (generated by Part 2's renderMarkdown) ---------- */
+  .article-faq{
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid var(--co-gray-100);
+  }
+  .article-faq h2{
+    font-family:var(--co-font-display);
+    font-size:22px;
+    color:var(--co-navy-900);
+    margin:0 0 16px;
+  }
+  .faq-item{
+    border:1px solid var(--co-gray-100);
+    border-radius:var(--co-radius-md);
+    margin-bottom:10px;
+    overflow:hidden;
+    background:var(--co-white);
+    transition:border-color var(--co-transition), box-shadow var(--co-transition);
+  }
+  .faq-item:hover{
+    border-color:rgba(245,166,35,0.4);
+    box-shadow:var(--shadow-sm);
+  }
+  .faq-question{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:14px 18px;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--co-navy-900);
+    cursor:pointer;
+    user-select:none;
+  }
+  .faq-question::after{
+    content:'+';
+    flex-shrink:0;
+    font-size:20px;
+    font-weight:400;
+    color:var(--co-amber-600);
+    transition:transform var(--co-transition);
+    line-height:1;
+  }
+  .faq-item.is-open .faq-question::after{ transform:rotate(45deg); }
+  .faq-answer{
+    max-height:0;
+    overflow:hidden;
+    padding:0 18px;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--co-gray-700);
+    transition:max-height 280ms var(--ease), padding 280ms var(--ease);
+  }
+  .faq-item.is-open .faq-answer{
+    max-height:400px;
+    padding:0 18px 16px;
+  }
+
+  /* ---------- Disclaimer block (rendered inline if present in content) ---------- */
+  .article-body h2 + p em,
+  .article-disclaimer{
+    display:block;
+    margin-top:28px;
+    padding:16px 18px;
+    background:var(--co-gray-050);
+    border-left:3px solid var(--co-amber-500);
+    border-radius:var(--co-radius-sm);
+    font-size:13px;
+    color:var(--co-gray-700);
+    line-height:1.6;
+  }
+
+  /* ---------- Footer (reused from index.html, condensed for article page) ---------- */
+  .site-footer{
+    margin-top:40px;
+    background:var(--co-navy-900);
+    color:rgba(255,255,255,0.68);
+    padding:40px 24px 0;
+  }
+  .footer__grid{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:0 0 32px;
+    display:grid;
+    grid-template-columns:1.6fr 1fr 1fr;
+    gap:28px;
+  }
+  .footer-brand__logo{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .footer-brand__logo-icon{
+    width:34px; height:34px; border-radius:8px;
+    background:radial-gradient(circle at 30% 30%, #f6bd3a, var(--co-amber-600));
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; color:var(--co-navy-900); font-weight:800;
+  }
+  .footer-brand__logo-text{ font-family:var(--co-font-display); font-size:19px; font-weight:800; color:#fff; }
+  .footer-brand__logo-text span{ color:var(--co-amber-500); }
+  .footer-brand__desc{ font-size:13px; line-height:1.6; color:rgba(255,255,255,0.62); margin:0 0 18px; max-width:320px; }
+  .footer-col__heading{
+    font-family:var(--co-font-display); font-size:13px; font-weight:700;
+    letter-spacing:.04em; text-transform:uppercase; color:#fff; margin:0 0 16px;
+  }
+  .footer-links{ display:flex; flex-direction:column; gap:11px; }
+  .footer-links__item{ font-size:13px; color:rgba(255,255,255,0.62); transition:color var(--co-transition); }
+  .footer-links__item:hover{ color:#fff; }
+  .footer-bottom{ border-top:1px solid rgba(255,255,255,0.08); }
+  .footer-bottom__inner{
+    max-width:var(--max-width); margin:0 auto; padding:18px 0;
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  }
+  .footer-bottom__text, .footer-bottom__disclaimer{ font-size:12px; color:rgba(255,255,255,0.45); }
+  .footer-bottom__disclaimer{ font-style:italic; }
+
+  @media (max-width:900px){
+    .footer__grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Back to top ---------- */
+  .back-to-top{
+    position:fixed; right:24px; bottom:24px; width:46px; height:46px;
+    border-radius:50%; background:var(--co-navy-900); color:var(--co-amber-500);
+    border:1px solid rgba(245,166,35,0.35);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 26px rgba(11,23,48,0.3);
+    opacity:0; visibility:hidden; transform:translateY(12px);
+    transition:opacity var(--co-transition), transform var(--co-transition), visibility var(--co-transition), background var(--co-transition);
+    z-index:900;
+  }
+  .back-to-top.is-visible{ opacity:1; visibility:visible; transform:translateY(0); }
+  .back-to-top:hover{ background:var(--co-amber-500); color:var(--co-navy-900); }
+  .back-to-top svg{ width:18px; height:18px; }
+</style>
+
+<footer class="site-footer">
+  <div class="footer__grid">
+    <div class="footer-col footer-brand">
+      <a href="/" class="footer-brand__logo" aria-label="CoinOsprey home">
+        <span class="footer-brand__logo-icon" aria-hidden="true">&#9760;</span>
+        <span class="footer-brand__logo-text">Coin<span>Osprey</span></span>
+      </a>
+      <p class="footer-brand__desc">Your trusted source for crypto news, price predictions, education and market insights.</p>
+    </div>
+    <nav class="footer-col" aria-labelledby="footer-quicklinks">
+      <h3 class="footer-col__heading" id="footer-quicklinks">Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="/" class="footer-links__item">Home</a></li>
+        <li><a href="/#news" class="footer-links__item">News</a></li>
+        <li><a href="/#price-predictions" class="footer-links__item">Price Predictions</a></li>
+        <li><a href="/#academy" class="footer-links__item">Academy</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="footer-legal">
+      <h3 class="footer-col__heading" id="footer-legal">Legal</h3>
+      <ul class="footer-links">
+        <li><a href="#" class="footer-links__item">Privacy Policy</a></li>
+        <li><a href="#" class="footer-links__item">Terms &amp; Conditions</a></li>
+        <li><a href="#" class="footer-links__item">Disclaimer</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom__inner">
+      <p class="footer-bottom__text">&copy; 2026 CoinOsprey. All Rights Reserved.</p>
+      <p class="footer-bottom__disclaimer">Not Financial Advice. Do Your Own Research.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5"></path>
+    <path d="M5 12l7-7 7 7"></path>
+  </svg>
+</button>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Live date & time in topbar ---------- */
+  var dateEl = document.querySelector('#topbarDate .co-topbar__label');
+  var timeEl = document.getElementById('topbarTimeText');
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  function renderClock() {
+    var now = new Date();
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    if (dateEl) dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    var h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12; if (h12 === 0) h12 = 12;
+    if (timeEl) timeEl.textContent = h12 + ':' + pad(m) + ':' + pad(s) + ' ' + ampm;
+  }
+  renderClock();
+  setInterval(renderClock, 1000);
+
+  /* ---------- Breaking news ticker content ---------- */
+  var tickerItems = [
+    { icon: 'btc', label: 'B', text: 'Bitcoin ETF Inflows Surpass $500M' },
+    { icon: 'eth', label: '\u039E', text: 'Ethereum Layer 2 Activity Climbs' },
+    { icon: 'sol', label: 'S', text: 'Solana Network Hits New Milestone' },
+    { icon: 'bnb', label: '\u25C8', text: 'Binance Lists New Token' }
+  ];
+  var track = document.getElementById('tickerTrack');
+  if (track) {
+    function buildEntries() {
+      var html = '';
+      tickerItems.forEach(function (item) {
+        html += '<span class="co-ticker__entry">' +
+                  '<span class="co-ticker__entry-icon co-ticker__entry-icon--' + item.icon + '">' + item.label + '</span>' +
+                  item.text +
+                '</span>';
+      });
+      return html;
+    }
+    track.innerHTML = buildEntries() + buildEntries();
+  }
+
+  /* ---------- Back to top button ---------- */
+  var backToTop = document.getElementById('backToTop');
+  function toggleBackToTop() {
+    if (!backToTop) return;
+    if (window.scrollY > 480) backToTop.classList.add('is-visible');
+    else backToTop.classList.remove('is-visible');
+  }
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  toggleBackToTop();
+  if (backToTop) {
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- FAQ accordion interaction ----------
+     Delegated listener so it works even though #articleFaqBlock is
+     injected dynamically by Part 2's renderMarkdown() after fetch. */
+  document.addEventListener('click', function (e) {
+    var question = e.target.closest('.faq-question');
+    if (!question) return;
+    var item = question.closest('.faq-item');
+    if (item) item.classList.toggle('is-open');
+  });
+})();
+</script>
+</body>
+</html>
