@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true
+}
+</br>```
+
+Ye Vercel ko bolega ki `.html` extension automatically resolve kare — matlab `/admin` request aane par khud `admin.html` serve kar dega.
+
+**Steps for Option B:**
+1. GitHub root pe `vercel.json` kholo
+2. Content ko upar wale JSON se replace karo
+3. Commit karo
+4. Naya deployment complete hone do
+5. `coinosprey.com/admin` try karo
+
+Mera suggestion: abhi ke liye Option A use karo (`/admin.html`) taaki turant kaam chal jaye, aur jab time ho tab Option B add kar dena permanent fix ke liye.
