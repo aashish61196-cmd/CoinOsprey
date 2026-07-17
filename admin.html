@@ -1315,10 +1315,7 @@ document.addEventListener('selectionchange', ()=>{
 /* ---------------- LOGIN FORM: Enter key submits ---------------- */
 document.getElementById('loginPassword').addEventListener('keydown', (e)=>{
   if (e.key === 'Enter') doLogin();
-});
 
- ... 
-document.getElementById('loginEmail').addEventListener('keydown', (e)=>{
   if (e.key === 'Enter') document.getElementById('loginPassword').focus();
 });
 
