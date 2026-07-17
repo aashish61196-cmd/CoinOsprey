@@ -1295,6 +1295,7 @@ document.querySelectorAll('#descToolbar select[data-cmd]').forEach(sel=>{
 document.querySelectorAll('#descToolbar input[type=color][data-cmd]').forEach(inp=>{
   inp.addEventListener('input', ()=>{
     descEditor.focus();
+    <input type="file" id="descImgFile" accept="image/*" style="display:none">
     document.execCommand(inp.dataset.cmd, false, inp.value);
   });
 });
