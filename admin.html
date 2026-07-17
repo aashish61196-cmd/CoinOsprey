@@ -1056,6 +1056,74 @@ async function deleteArticle(id){
     showToast(err.message || 'Delete failed', true);
   }
 }
+  /* ---------------- IMAGE UPLOAD via ImgBB (was missing) ---------------- */
+const IMGBB_API_KEY = '8f84571e5a852c332515d9a5286e60ea';
+// NOTE: this key is visible to anyone who views page source, since the call
+// happens directly from the browser. Fine for a low-stakes free ImgBB key,
+// but if you ever want it hidden, move this call to your own backend route
+// instead and have the backend hold the key.
+
+async function uploadImageFile(inputEl){
+  const file = inputEl.files && inputEl.files[0];
+  if(!file) return;
+
+  // basic client-side guardrails
+  if(!file.type.startsWith('image/')){
+    showToast('Please select an image file', true);
+    inputEl.value = '';
+    return;
+  }
+  const MAX_MB = 32; // ImgBB free tier limit
+  if(file.size > MAX_MB * 1024 * 1024){
+    showToast(`Image too large (max ${MAX_MB}MB)`, true);
+    inputEl.value = '';
+    return;
+  }
+
+  const urlField = document.getElementById('inImgUrl');
+  const preview = document.getElementById('imgPreview');
+
+  // show local preview immediately while upload is in progress
+  const localPreviewUrl = URL.createObjectURL(file);
+  preview.src = localPreviewUrl;
+
+  const formData = new FormData();
+  formData.append('image', file); // ImgBB accepts raw file under "image"
+
+  try{
+    urlField.disabled = true;
+    urlField.placeholder = 'Uploading…';
+
+    // Direct call to ImgBB — NOT through apiFetch(), since this isn't our
+    // own backend and doesn't need our auth token.
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+      method: 'POST',
+      body: formData
+    });
+    const data = await res.json();
+
+    if(!data.success){
+      throw new Error((data.error && data.error.message) || 'ImgBB upload failed');
+    }
+
+    const uploadedUrl = data.data.url; // direct image URL
+    urlField.value = uploadedUrl;
+    preview.src = uploadedUrl;
+    showToast('Image uploaded ✓');
+  }catch(err){
+    showToast(err.message || 'Image upload failed', true);
+    preview.src = urlField.value || 'https://placehold.co/64x40/1a1f26/F3F5F7?text=?';
+  }finally{
+    urlField.disabled = false;
+    urlField.placeholder = 'https://…jpg / .png';
+    inputEl.value = ''; // allow re-selecting the same file again later
+    URL.revokeObjectURL(localPreviewUrl);
+  }
+}
+
+/* ---------------- IMAGE UPLOAD via ImgBB (was missing) ---------------- */
+const IMGBB_API_KEY = '8f84571e5a852c332515d9a5286e60ea';
+async function uploadImageFile(inputEl){ ... }
 
 /* ---------------- MISC UTIL ---------------- */
 function escapeHtml(str){
