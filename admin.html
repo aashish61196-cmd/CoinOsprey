@@ -1246,10 +1246,10 @@ document.getElementById('descToolbar').addEventListener('click', (e)=>{
     if(url) document.execCommand('createLink', false, url);
     return;
   }
-  if(cmd === 'insertImageUrl'){
-    const url = prompt('Enter image URL:', 'https://');
-    if(url) document.execCommand('insertImage', false, url);
-    return;
+if(cmd === 'insertImageUrl'){
+  document.getElementById('descImgFile').click();
+  return;
+}
   }
   if(cmd === 'insertVideoUrl'){
     const url = prompt('Enter video URL (YouTube embed or direct .mp4):', 'https://');
