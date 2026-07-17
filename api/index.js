@@ -1,5 +1,5 @@
 // api/index.js
-const app = require('../server.js');
+const app = require('../backend/server.js');
 
 module.exports = function handler(req, res) {
   const rawPath = req.query.path;
