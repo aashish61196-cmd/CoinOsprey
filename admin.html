@@ -1316,6 +1316,8 @@ document.addEventListener('selectionchange', ()=>{
 document.getElementById('loginPassword').addEventListener('keydown', (e)=>{
   if (e.key === 'Enter') doLogin();
 });
+
+ ... 
 document.getElementById('loginEmail').addEventListener('keydown', (e)=>{
   if (e.key === 'Enter') document.getElementById('loginPassword').focus();
 });
@@ -1325,14 +1327,6 @@ function tickClock(){
   document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-IN',{hour12:true});
 }
 setInterval(tickClock,1000); tickClock();
-...
-document.getElementById('loginEmail').addEventListener('keydown', ...);
-
-/* ---------------- CLOCK ---------------- */
-function tickClock(){...}
-setInterval(tickClock,1000); tickClock();
-
-document.getElementById('descImgFile').addEventListener('change',
 /* ---------------- BOOTSTRAP ---------------- */
 buildPopovers();
 checkSession(); // shows login screen, or auto-enters app if a valid token is already saved
