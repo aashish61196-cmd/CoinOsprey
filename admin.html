@@ -973,6 +973,7 @@ function resetCreateForm(){
   document.getElementById('inPublished').value = new Date().toISOString().slice(0,16);
   document.getElementById('btnSaveDraft').style.display='inline-flex';
   document.getElementById('btnSavePublish').textContent = '✓ Save & Publish';
+  document.getElementById('inAuthorCustom').style.display = 'none';
 }
 
 function editArticle(id){
