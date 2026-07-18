@@ -436,6 +436,8 @@
   var API_BASE = '/api';
 
   function getSlugFromUrl() {
+    var parts = window.location.pathname.split('/').filter(Boolean);
+  return { lang: parts[0] || 'en', section: parts[1] || 'news' };
     var params = new URLSearchParams(window.location.search);
     var slug = params.get('slug');
     if (slug) return slug.trim();
