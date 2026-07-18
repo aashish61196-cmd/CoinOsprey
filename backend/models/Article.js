@@ -7,6 +7,12 @@ const articleSchema = new mongoose.Schema({
   content: { type: String, default: '' },
   author: { type: String, default: 'CoinOsprey Team' },
   category: { type: String, default: '' },
+  section: {
+  type: String,
+  enum: ['news', 'price-prediction', 'blog', 'research', 'academy', 'tools'],
+  required: true,
+  default: 'news'
+},
   type: { type: String, default: 'Market Update' },
   image: { type: String, default: '' },
   imageAlt: { type: String, default: '' },
