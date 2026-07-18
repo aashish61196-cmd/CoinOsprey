@@ -1,6 +1,8 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index?path=$1" }
+    { "source": "/api/(.*)", "destination": "/api/index?path=$1" },
+    { "source": "/en/:section/:slug", "destination": "/article.html" },
+    { "source": "/hi/:section/:slug", "destination": "/article.html" }
   ]
 }
