@@ -436,7 +436,10 @@
               <select id="inType"><option value="">Select News Type</option><option>Price Prediction</option><option>Market Update</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option></select>
             </div>
             <div class="field"><label>Author Name <em>*</em></label>
-              <select id="inAuthor"><option>M2</option><option>Aashish Vishwakarma</option><option>Coin Gabbar</option></select>
+              <select id="inAuthor" onchange="document.getElementById('inAuthorCustom').style.display=this.value==='__custom__'?'block':'none'">
+                <option>M2</option><option>Aashish Vishwakarma</option><option value="__custom__">+ Add New Author...</option>
+              </select>
+              <input type="text" id="inAuthorCustom" placeholder="Enter new author name" style="display:none;margin-top:6px;">
             </div>
 
             <div class="field"><label>Focus Keyword</label><input type="text" id="inKeyword" placeholder="bitcoin price prediction"></div>
