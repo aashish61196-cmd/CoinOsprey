@@ -4161,7 +4161,7 @@ async function loadNews() {
     if (!Array.isArray(articles) || articles.length === 0) return;
 
     list.innerHTML = articles.slice(0, 4).map(a => `
-      <li><a class="block-list__item" href="/article.html?slug=${a.slug}">
+      <li><a class="block-list__item" href="/en/${a.section}/${a.slug}">
         <div class="news-thumb">
           <img src="${a.image || 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=128&h=128&fit=crop'}" alt="${a.imageAlt || a.title}">
         </div>
