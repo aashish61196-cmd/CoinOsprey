@@ -630,6 +630,17 @@
   function populateArticle(article) {
     var seoTitle = article.seoTitle || article.title || 'CoinOsprey';
     document.title = seoTitle + ' — CoinOsprey';
+   var loc = getLangAndSectionFromUrl();
+var basePath = '/' + loc.section + '/' + (article.slug || '');
+var linkEn = document.createElement('link');
+linkEn.rel = 'alternate'; linkEn.hreflang = 'en';
+linkEn.href = 'https://www.coinosprey.com/en' + basePath;
+document.head.appendChild(linkEn);
+
+var linkHi = document.createElement('link');
+linkHi.rel = 'alternate'; linkHi.hreflang = 'hi';
+linkHi.href = 'https://www.coinosprey.com/hi' + basePath;
+document.head.appendChild(linkHi);
     var titleTag = document.getElementById('pageTitle');
     if (titleTag) titleTag.textContent = seoTitle + ' — CoinOsprey';
 
