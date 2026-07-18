@@ -1016,6 +1016,7 @@ if (author === '__custom__') {
     slug: aliasRaw ? slugify(aliasRaw) : slugify(title),
     type,
     author,
+    section: document.getElementById('inSection').value,
     category: document.getElementById('inCategory').value.trim(),
     image: document.getElementById('inImgUrl').value.trim(),
     content: contentHtml,
