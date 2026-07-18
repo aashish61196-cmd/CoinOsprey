@@ -444,6 +444,16 @@
             <div class="field"><label>News Type <em>*</em></label>
               <select id="inType"><option value="">Select News Type</option><option>Price Prediction</option><option>Market Update</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option></select>
             </div>
+            <div class="field"><label>Section <em>*</em></label>
+              <select id="inSection">
+                <option value="news">News</option>
+                <option value="price-prediction">Price Prediction</option>
+                <option value="blog">Blog</option>
+                <option value="research">Research</option>
+                <option value="academy">Academy</option>
+                <option value="tools">Tools</option>
+              </select>
+            </div>
             <div class="field"><label>Author Name <em>*</em></label>
               <select id="inAuthor" onchange="document.getElementById('inAuthorCustom').style.display=this.value==='__custom__'?'block':'none'">
                 <option>M2</option><option>Aashish Vishwakarma</option><option value="__custom__">+ Add New Author...</option>
