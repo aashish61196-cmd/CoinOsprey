@@ -973,7 +973,8 @@ function editArticle(id){
   document.getElementById('createTitle').textContent = 'Edit Article';
   document.getElementById('inTitle').value = a.title || '';
   document.getElementById('inAlias').value = a.slug || '';
-  document.getElementById('inType').value = a.type || '';
+document.getElementById('inType').value = a.type || '';
+  document.getElementById('inSection').value = a.section || 'news';
   document.getElementById('inAuthor').value = a.author || 'M2';
   document.getElementById('inKeyword').value = a.focusKeyword || '';
   document.getElementById('inProject').value = a.project || '';
