@@ -986,7 +986,10 @@ function editArticle(id){
 async function saveArticle(publish){
   const title = document.getElementById('inTitle').value.trim();
   const type = document.getElementById('inType').value;
-  const author = document.getElementById('inAuthor').value;
+  let author = document.getElementById('inAuthor').value;
+if (author === '__custom__') {
+  author = document.getElementById('inAuthorCustom').value.trim();
+}
   if(!title || !type){
     showToast('Please fill at least Title and News Type', true);
     return;
