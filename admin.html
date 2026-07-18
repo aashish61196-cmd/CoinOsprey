@@ -865,6 +865,7 @@ function renderNews(){
   const cb=document.getElementById('fCreatedBy').value;
   const au=document.getElementById('fAuthor').value;
   const ty=document.getElementById('fType').value;
+     const sec=document.getElementById('fSection').value;
   const ord=document.getElementById('fOrder').value;
 
   let rows = articlesCache.filter(a => a.status === 'published').filter(a=>
