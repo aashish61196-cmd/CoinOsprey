@@ -2146,14 +2146,9 @@
      RESPONSIVE
   ============================ */
   @media (max-width:1024px){
-    .disclaimer__inner{
-      padding-bottom:28px;
-      margin-bottom:28px;
-    }
-
     .footer__grid{
       grid-template-columns:repeat(3, 1fr);
-      row-gap:32px;
+      row-gap:22px;
     }
     .footer-brand{
       grid-column:1 / -1;
@@ -2162,18 +2157,12 @@
   }
 
   @media (max-width:640px){
-    .disclaimer{padding:0 16px;}
-    .disclaimer__inner{
-      padding-bottom:24px;
-      margin-bottom:24px;
-    }
-
     .footer__grid{
-      grid-template-columns:1fr;
-      padding:0 20px 28px;
-      row-gap:28px;
+      grid-template-columns:repeat(2, 1fr);
+      padding:0 20px 20px;
+      row-gap:24px;
     }
-    .footer-brand{grid-column:auto;}
+    .footer-brand{grid-column:1 / -1;}
 
     .footer-bottom__inner{
       flex-direction:column;
