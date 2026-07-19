@@ -2602,6 +2602,38 @@
     .co-nav__hamburger{ display:none !important; }
     .co-nav__mobile-panel{ display:none !important; }
   }
+/* ==========================================================================
+     ABSOLUTE FINAL FIX — forces horizontal nav row, no matter what
+     ========================================================================== */
+  @media (min-width: 900px){
+    .co-nav__inner{
+      display:flex !important;
+      flex-direction:row !important;
+      flex-wrap:nowrap !important;
+      align-items:center !important;
+    }
+    .co-nav__menu{
+      display:flex !important;
+      flex-direction:row !important;
+      flex-wrap:nowrap !important;
+      align-items:stretch !important;
+    }
+    .co-nav__item{
+      display:flex !important;
+      flex-direction:row !important;
+      position:relative !important;
+    }
+    .co-nav__link{
+      display:flex !important;
+      flex-direction:row !important;
+      align-items:center !important;
+      white-space:nowrap !important;
+    }
+    .co-nav__searchbar{
+      display:flex !important;
+      flex-direction:row !important;
+    }
+  }
 </style>
   <script type="application/ld+json">
 {
