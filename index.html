@@ -2584,6 +2584,24 @@
   .co-nav{ z-index:1000; }
   .scroll-progress{ z-index:1200; }
   .co-search-dropdown{ z-index:1300; }
+
+  /* ==========================================================================
+     FINAL HARD OVERRIDE — guarantees mobile hamburger vs desktop menu
+     switch works regardless of any earlier conflicting/duplicate rules.
+     ========================================================================== */
+  @media (max-width: 899px){
+    .co-nav__menu{ display:none !important; }
+    .co-nav__searchbar{ display:none !important; }
+    .co-nav__actions .co-btn-subscribe{ display:none !important; }
+    .co-nav__hamburger{ display:flex !important; }
+    .co-nav__mobile-panel{ display:block !important; }
+  }
+  @media (min-width: 900px){
+    .co-nav__menu{ display:flex !important; }
+    .co-nav__searchbar{ display:flex !important; }
+    .co-nav__hamburger{ display:none !important; }
+    .co-nav__mobile-panel{ display:none !important; }
+  }
 </style>
   <script type="application/ld+json">
 {
