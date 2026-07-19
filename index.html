@@ -3863,17 +3863,25 @@
   }
 
   megaNavItems.forEach(function (item) {
+  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  megaNavItems.forEach(function (item) {
     var link = item.querySelector(':scope > .co-nav__link');
 
     // Hovering a new item closes whichever menu was open before
     // opening this one, so only one mega menu is ever visible.
-    item.addEventListener('mouseenter', function () {
-      closeAllMegaMenus(item);
-      item.classList.add('is-open');
-    });
-    item.addEventListener('mouseleave', function () {
-      item.classList.remove('is-open');
-    });
+    // Only bind hover behavior on real mouse/desktop devices — on
+    // touch devices this fires right before "click" and instantly
+    // closes the menu it just opened.
+    if (supportsHover) {
+      item.addEventListener('mouseenter', function () {
+        closeAllMegaMenus(item);
+        item.classList.add('is-open');
+      });
+      item.addEventListener('mouseleave', function () {
+        item.classList.remove('is-open');
+      });
+    }
 
     // Click toggles the menu (useful for touch/trackpad) and still
     // guarantees exclusivity.
