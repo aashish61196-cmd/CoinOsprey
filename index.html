@@ -2156,15 +2156,23 @@
     }
     .footer-brand__desc{max-width:420px;}
   }
-
 @media (max-width:640px){
     .footer__grid{
-      grid-template-columns:repeat(3, 1fr);
+      display:flex;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
       padding:0 20px 20px;
-      gap:16px 12px;
-      row-gap:24px;
+      gap:28px;
     }
-    .footer-brand{grid-column:1 / -1;}
+    .footer__grid::-webkit-scrollbar{ display:none; }
+    .footer__grid > .footer-col{
+      flex:0 0 200px;
+    }
+    .footer-brand{
+      flex:0 0 240px;
+    }
     .footer-links__item, .footer-tags__item{
       font-size:12px;
     }
@@ -2182,7 +2190,6 @@
       transition-duration:0.01ms !important;
     }
   }
-
 
   /* ==========================================================================
      PART 5 — GLOBAL UTILITIES, COMPONENTS & SCROLL ANIMATION LIBRARY
