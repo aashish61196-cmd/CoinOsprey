@@ -3895,6 +3895,15 @@
         var wasOpen = item.classList.contains('is-open');
         closeAllMegaMenus(item);
         item.classList.toggle('is-open', !wasOpen);
+
+        if (autoCloseTimer) clearTimeout(autoCloseTimer);
+        if (!wasOpen) {
+          // just opened this menu — auto-close it after 30s of inactivity
+          autoCloseTimer = setTimeout(function () {
+            item.classList.remove('is-open');
+            autoCloseTimer = null;
+          }, 30000);
+        }
       });
     }
   });
