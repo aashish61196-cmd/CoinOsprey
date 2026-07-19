@@ -4194,10 +4194,18 @@
   /* Each header search field (desktop inline bar + mobile panel field) gets
      its own small, self-contained dropdown controller so typing works
      directly in place instead of handing off to a separate popup. */
-  function initHeaderSearch(inputId, dropdownId) {
+function initHeaderSearch(inputId, dropdownId, submitId) {
     var input = document.getElementById(inputId);
     var dropdown = document.getElementById(dropdownId);
+    var submitBtn = submitId ? document.getElementById(submitId) : null;
     if (!input || !dropdown) return;
+
+    function submitSearch() {
+      var firstResult = dropdown.querySelector('.co-search-dropdown__result');
+      if (firstResult) {
+        firstResult.click();
+      }
+    }
 
     function open() {
       dropdown.classList.add('is-open');
