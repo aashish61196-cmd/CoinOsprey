@@ -4252,7 +4252,13 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
       }).slice(0, 8);
 
       if (!matches.length) {
-        dropdown.innerHTML = '<div class="co-search-dropdown__empty">No results for &ldquo;' + escapeHtml(query) + '&rdquo;. Try a coin name, category or guide.</div>';
+        dropdown.innerHTML = '<div class="co-search-dropdown__empty">' +
+          '<div class="co-search-dropdown__empty-icon" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path><path d="M9 9l4 4M13 9l-4 4"></path></svg>' +
+          '</div>' +
+          '<div class="co-search-dropdown__empty-title">No results found</div>' +
+          '<div class="co-search-dropdown__empty-text">We couldn\u2019t find anything for &ldquo;' + escapeHtml(query) + '&rdquo;.<br>Try a coin name, category or guide.</div>' +
+        '</div>';
         return;
       }
 
