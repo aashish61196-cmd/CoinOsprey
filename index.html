@@ -3856,10 +3856,16 @@
     return item.querySelector('.co-nav__dropdown');
   });
 
+  var autoCloseTimer = null;
+
   function closeAllMegaMenus(exceptItem) {
     megaNavItems.forEach(function (item) {
       if (item !== exceptItem) item.classList.remove('is-open');
     });
+    if (!exceptItem && autoCloseTimer) {
+      clearTimeout(autoCloseTimer);
+      autoCloseTimer = null;
+    }
   }
   var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
