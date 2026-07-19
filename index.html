@@ -593,9 +593,13 @@
     left:50%;
     transform:translateX(-50%) translateY(4px) scale(.98);
   }
-  .co-nav__item.is-open .co-nav__dropdown--center,
-  .co-nav__item:focus-within .co-nav__dropdown--center{
+  .co-nav__item.is-open .co-nav__dropdown--center{
     transform:translateX(-50%) translateY(0) scale(1);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__dropdown--center{
+      transform:translateX(-50%) translateY(0) scale(1);
+    }
   }
   .co-nav__dropdown-cols{
     display:grid;
