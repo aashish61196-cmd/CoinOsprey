@@ -4232,5 +4232,253 @@ async function loadNews() {
 
 loadNews();
 </script>
+<script>
+/* ==========================================================================
+   HOMEPAGE — ALL SECTIONS wired to backend
+   Single fetch to GET /api/articles (returns ALL published articles,
+   sorted publishedAt DESC, no query-param filtering supported by backend).
+   Everything below filters/slices client-side by the `section` field
+   ('news' | 'price-prediction' | 'blog' | 'academy' | 'research').
+
+   Sections wired:
+     1. Featured News   -> .featured-news__container (1 hero + 4 cards)
+     2. Latest News     -> #news-list
+     3. Price Predictions -> #price-predictions .block-list
+     4. Blogs           -> #blogs .block-list
+     5. Academy Highlights -> #academy .block-list
+     6. Research & Analysis -> #research .block-list
+
+   If a section has zero matching articles, its static placeholder HTML
+   is left untouched (no empty section ever shown).
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  const ENDPOINT = '/api/articles';
+  const ARTICLE_URL_PREFIX = '/en/'; // -> /en/{section}/{slug}
+  const PLACEHOLDER_IMG = 'https://placehold.co/128x128/1a1f26/F3F5F7?text=%3F';
+
+  // ---------------- shared helpers ----------------
+  function escapeHtml(str) {
+    return (str == null ? '' : String(str)).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function fmtDate(d) {
+    if (!d) return '';
+    const dt = new Date(d);
+    if (isNaN(dt.getTime())) return '';
+    return dt.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function fmtViews(v) {
+    v = Number(v) || 0;
+    if (v >= 1000) return (v / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    return String(v);
+  }
+
+  function href(a) {
+    const section = a.section || 'news';
+    return ARTICLE_URL_PREFIX + encodeURIComponent(section) + '/' + encodeURIComponent(a.slug || '');
+  }
+
+  function img(a) {
+    return a.image || PLACEHOLDER_IMG;
+  }
+
+  // deterministic color from a string, used for coin-icon / academy-icon
+  // fallbacks when the project/category doesn't match a known preset
+  function colorFromString(str) {
+    str = str || '?';
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    const hue = Math.abs(hash) % 360;
+    return `hsl(${hue}, 55%, 42%)`;
+  }
+
+  // ---------------- section templates ----------------
+
+  function badgeClass(category) {
+    const map = {
+      bitcoin: 'badge--bitcoin', ethereum: 'badge--ethereum', altcoins: 'badge--altcoins',
+      exchange: 'badge--exchange', binance: 'badge--binance', regulation: 'badge--regulation',
+      sec: 'badge--sec'
+    };
+    return map[(category || '').toLowerCase()] || 'badge--dark';
+  }
+
+  function heroTemplate(a) {
+    return `
+      <article class="featured-news__hero">
+        <div class="featured-news__media">
+          <img class="featured-news__img is-loaded" src="${img(a)}" alt="${escapeHtml(a.imageAlt || a.title || '')}" loading="lazy" width="800" height="600">
+        </div>
+        <div class="featured-news__overlay"></div>
+        <div class="badge-row">
+          <span class="badge ${badgeClass(a.category)}">${escapeHtml(a.category || a.type || 'News')}</span>
+          <span class="badge badge--dark">${escapeHtml(a.type || 'Market News')}</span>
+        </div>
+        <div class="featured-news__content">
+          <h2 class="featured-news__title">${escapeHtml(a.title || '')}</h2>
+          <p class="featured-news__desc">${escapeHtml(a.metaDescription || '')}</p>
+          <div class="featured-news__meta">
+            <span class="featured-news__author-icon" aria-hidden="true">🦅</span>
+            <span class="featured-news__meta-item">${escapeHtml(a.author || 'CoinOsprey Team')}</span>
+            <span class="featured-news__meta-dot"></span>
+            <span class="featured-news__meta-item">${fmtDate(a.publishedAt || a.createdAt)}</span>
+            <span class="featured-news__meta-dot"></span>
+            <span class="featured-news__meta-item">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5c0 4.14-4.03 7.5-9 7.5-.94 0-1.85-.12-2.7-.34L4 20l1.2-3.6C4.44 15.36 4 13.98 4 12.5 4 7.36 8.03 4 13 4s8 3.36 8 7.5z"/></svg>
+              ${fmtViews(a.views)}
+            </span>
+            <span class="featured-news__arrow" aria-hidden="true">Read More <span class="featured-news__arrow-icon">→</span></span>
+          </div>
+        </div>
+        <a class="featured-news__hero-link" href="${href(a)}" aria-label="Read: ${escapeHtml(a.title || '')}"></a>
+      </article>`;
+  }
+
+  function newsCardTemplate(a) {
+    return `
+      <a class="news-card" href="${href(a)}" aria-label="${escapeHtml(a.title || '')}">
+        <div class="news-card__media">
+          <img class="news-card__img is-loaded" src="${img(a)}" alt="${escapeHtml(a.imageAlt || a.title || '')}" loading="lazy" width="500" height="300">
+          <div class="news-card__overlay"></div>
+        </div>
+        <div class="news-card__body">
+          <div class="badge-row news-card__badge-row">
+            <span class="badge ${badgeClass(a.category)}">${escapeHtml(a.category || a.type || 'News')}</span>
+          </div>
+          <h3 class="news-card__title">${escapeHtml(a.title || '')}</h3>
+          <div class="news-card__footer">
+            <span>${fmtDate(a.publishedAt || a.createdAt)}</span>
+            <span class="news-card__views">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9z"/></svg>
+              ${fmtViews(a.views)}
+            </span>
+          </div>
+        </div>
+      </a>`;
+  }
+
+  function listItemTemplate(a) {
+    // used for Latest News + Blogs (same visual: news-thumb + news-item__*)
+    return `
+      <li><a class="block-list__item" href="${href(a)}">
+        <div class="news-thumb"><img src="${img(a)}" alt="${escapeHtml(a.imageAlt || a.title || '')}"></div>
+        <div class="news-item__body">
+          <span class="news-item__category">${escapeHtml(a.category || a.type || '')}</span>
+          <h3 class="news-item__headline">${escapeHtml(a.title || '')}</h3>
+          <span class="news-item__meta">${fmtDate(a.publishedAt || a.createdAt)}</span>
+        </div>
+      </a></li>`;
+  }
+
+  const COIN_PRESETS = { btc: 'coin-icon--btc', eth: 'coin-icon--eth', sol: 'coin-icon--sol', xrp: 'coin-icon--xrp' };
+  function predictionItemTemplate(a) {
+    const label = a.project || a.category || 'Coin';
+    const key = label.toLowerCase();
+    const presetClass = COIN_PRESETS[key];
+    const iconStyle = presetClass ? '' : `style="background:${colorFromString(label)}"`;
+    return `
+      <li><a class="block-list__item" href="${href(a)}">
+        <div class="coin-icon ${presetClass || ''}" ${iconStyle} aria-hidden="true">${escapeHtml(label.charAt(0).toUpperCase())}</div>
+        <div class="prediction-item__body">
+          <span class="prediction-item__coin">${escapeHtml(label)}</span>
+          <h3 class="prediction-item__title">${escapeHtml(a.title || '')}</h3>
+          <span class="prediction-item__date">🕒 ${fmtDate(a.publishedAt || a.createdAt)}</span>
+        </div>
+      </a></li>`;
+  }
+
+  function academyItemTemplate(a) {
+    const label = a.category || 'Academy';
+    return `
+      <li><a class="block-list__item" href="${href(a)}">
+        <div class="academy-icon" style="background:${colorFromString(label)}22;color:${colorFromString(label)}" aria-hidden="true">${escapeHtml(label.charAt(0).toUpperCase())}</div>
+        <div class="academy-item__body">
+          <span class="academy-item__category">${escapeHtml(label)}</span>
+          <h3 class="academy-item__title">${escapeHtml(a.title || '')}</h3>
+          <div class="academy-item__meta">
+            <span class="academy-item__time">${fmtDate(a.publishedAt || a.createdAt)}</span>
+          </div>
+        </div>
+      </a></li>`;
+  }
+
+  function researchItemTemplate(a) {
+    return `
+      <li><a class="block-list__item" href="${href(a)}">
+        <div class="research-thumb"><img src="${img(a)}" alt="${escapeHtml(a.imageAlt || a.title || '')}"></div>
+        <div class="research-item__body">
+          <h3 class="research-item__title">${escapeHtml(a.title || '')}</h3>
+          <span class="research-item__author">By <strong>${escapeHtml(a.author || 'CoinOsprey Research')}</strong></span>
+        </div>
+      </a></li>`;
+  }
+
+  // ---------------- per-section renderers ----------------
+
+  function renderFeaturedNews(newsArticles) {
+    const container = document.querySelector('.featured-news__container');
+    if (!container || !newsArticles.length) return;
+    const [hero, ...rest] = newsArticles.slice(0, 5);
+    const cards = rest.slice(0, 4);
+    let html = heroTemplate(hero);
+    html += '<div class="featured-news__grid">' + cards.map(newsCardTemplate).join('') + '</div>';
+    container.innerHTML = html;
+  }
+
+  function renderLatestNews(newsArticles) {
+    const list = document.querySelector('#news-list');
+    if (!list || !newsArticles.length) return;
+    // offset past the 5 already used in the hero/cards above, so this
+    // list shows fresh items instead of repeating the featured ones
+    const items = (newsArticles.length > 5 ? newsArticles.slice(5) : newsArticles).slice(0, 4);
+    if (!items.length) return;
+    list.innerHTML = items.map(listItemTemplate).join('');
+  }
+
+  function renderSimpleList(sectionId, articles, template, max) {
+    const list = document.querySelector('#' + sectionId + ' .block-list');
+    if (!list || !articles.length) return;
+    list.innerHTML = articles.slice(0, max).map(template).join('');
+  }
+
+  // ---------------- boot ----------------
+  async function loadAllSections() {
+    let articles;
+    try {
+      const res = await fetch(ENDPOINT);
+      if (!res.ok) throw new Error('Request failed: ' + res.status);
+      const data = await res.json();
+      articles = Array.isArray(data) ? data : (data.articles || []);
+    } catch (err) {
+      console.warn('Could not load articles, static placeholders stay visible:', err.message);
+      return;
+    }
+    if (!articles.length) return;
+
+    const bySection = {
+      news: articles.filter(a => a.section === 'news'),
+      predictions: articles.filter(a => a.section === 'price-prediction'),
+      blogs: articles.filter(a => a.section === 'blog'),
+      academy: articles.filter(a => a.section === 'academy'),
+      research: articles.filter(a => a.section === 'research')
+    };
+
+    renderFeaturedNews(bySection.news);
+    renderLatestNews(bySection.news);
+    renderSimpleList('price-predictions', bySection.predictions, predictionItemTemplate, 4);
+    renderSimpleList('blogs', bySection.blogs, listItemTemplate, 4);
+    renderSimpleList('academy', bySection.academy, academyItemTemplate, 4);
+    renderSimpleList('research', bySection.research, researchItemTemplate, 4);
+  }
+
+  document.addEventListener('DOMContentLoaded', loadAllSections);
+})();
+</script>
+
 </body>
 </html>
