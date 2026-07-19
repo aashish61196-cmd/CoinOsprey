@@ -2157,13 +2157,17 @@
     .footer-brand__desc{max-width:420px;}
   }
 
-  @media (max-width:640px){
+@media (max-width:640px){
     .footer__grid{
-      grid-template-columns:repeat(2, 1fr);
+      grid-template-columns:repeat(3, 1fr);
       padding:0 20px 20px;
+      gap:16px 12px;
       row-gap:24px;
     }
     .footer-brand{grid-column:1 / -1;}
+    .footer-links__item, .footer-tags__item{
+      font-size:12px;
+    }
 
     .footer-bottom__inner{
       flex-direction:column;
