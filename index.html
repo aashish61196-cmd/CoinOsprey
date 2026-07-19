@@ -4281,8 +4281,18 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
       if (e.key === 'Escape') {
         close();
         input.blur();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        submitSearch();
       }
     });
+
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        submitSearch();
+      });
+    }
 
     document.addEventListener('click', function (e) {
       if (!input.contains(e.target) && !dropdown.contains(e.target)) close();
