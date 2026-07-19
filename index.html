@@ -924,11 +924,19 @@
   .co-ticker__inner{
     max-width:1440px;
     margin:0 auto;
-    padding:0 24px;
+    padding:8px 24px;
     display:flex;
     align-items:center;
-    height:var(--co-header-h-ticker);
+    justify-content:space-between;
+    height:auto;
+    min-height:var(--co-header-h-ticker);
     gap:16px;
+  }
+  .co-ticker__social{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
   }
   .co-ticker__tag{
     display:flex;
