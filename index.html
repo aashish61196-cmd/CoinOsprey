@@ -508,9 +508,13 @@
     width:9px; height:9px;
     transition:transform var(--co-transition);
   }
-  .co-nav__item.is-open .co-nav__caret,
-  .co-nav__item:focus-within .co-nav__caret{
+  .co-nav__item.is-open .co-nav__caret{
     transform:rotate(180deg);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__caret{
+      transform:rotate(180deg);
+    }
   }
   .co-nav__dropdown{
     position:absolute;
