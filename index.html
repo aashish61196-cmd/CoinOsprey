@@ -2158,21 +2158,12 @@
   }
 @media (max-width:640px){
     .footer__grid{
-      display:flex;
-      flex-wrap:nowrap;
-      overflow-x:auto;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
+      grid-template-columns:repeat(3, 1fr);
       padding:0 20px 20px;
-      gap:28px;
+      gap:16px 12px;
+      row-gap:24px;
     }
-    .footer__grid::-webkit-scrollbar{ display:none; }
-    .footer__grid > .footer-col{
-      flex:0 0 200px;
-    }
-    .footer-brand{
-      flex:0 0 240px;
-    }
+    .footer-brand{grid-column:1 / -1;}
     .footer-links__item, .footer-tags__item{
       font-size:12px;
     }
