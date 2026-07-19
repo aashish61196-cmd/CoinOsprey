@@ -688,6 +688,23 @@
     font-family:var(--co-font-body);
   }
   .co-nav__searchbar-input::placeholder{ color:var(--co-gray-500); }
+  .co-nav__searchbar-submit{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:26px; height:26px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:rgba(255,255,255,0.10);
+    color:var(--co-gray-300);
+    transition:background var(--co-transition), color var(--co-transition);
+  }
+  .co-nav__searchbar-submit:hover,
+  .co-nav__searchbar-submit:focus-visible{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .co-nav__searchbar-submit svg{ width:14px; height:14px; }
 
   /* ---------- Mobile panel search field ---------- */
   .co-nav__mobile-search{
