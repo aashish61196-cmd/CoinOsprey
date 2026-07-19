@@ -537,11 +537,17 @@
     height:3px;
     background:linear-gradient(90deg, var(--co-amber-500), var(--co-amber-600) 60%, var(--co-amber-500));
   }
-  .co-nav__item.is-open .co-nav__dropdown,
-  .co-nav__item:focus-within .co-nav__dropdown{
+  .co-nav__item.is-open .co-nav__dropdown{
     opacity:1;
     visibility:visible;
     transform:translateY(0) scale(1);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__dropdown{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0) scale(1);
+    }
   }
   .co-nav__dropdown-link{
     position:relative;
