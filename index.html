@@ -4232,7 +4232,14 @@ async function loadNews() {
 
 loadNews();
 </script>
-<script>
+
+
+
+
+    
+
+  
+    <script>
 /* ==========================================================================
    HOMEPAGE — ALL SECTIONS wired to backend
    Single fetch to GET /api/articles (returns ALL published articles,
@@ -4446,6 +4453,59 @@ loadNews();
     list.innerHTML = articles.slice(0, max).map(template).join('');
   }
 
+  // ---------------- top bar "BREAKING:" text ----------------
+  // Shows the single most recent published article (across all sections,
+  // since `articles` already arrives sorted publishedAt DESC from the API).
+  function renderBreakingBar(articles) {
+    const el = document.querySelector('.co-topbar__breaking-text');
+    if (!el || !articles.length) return;
+    const latest = articles[0];
+    el.textContent = latest.title || '';
+    // make the whole strip clickable through to the article, without
+    // touching the "BREAKING:" tag styling next to it
+    const wrapper = el.closest('.co-topbar__breaking');
+    if (wrapper && !wrapper.querySelector('a.co-topbar__breaking-link')) {
+      const a = document.createElement('a');
+      a.className = 'co-topbar__breaking-link';
+      a.href = href(latest);
+      a.style.color = 'inherit';
+      a.style.textDecoration = 'none';
+      a.style.overflow = 'hidden';
+      a.style.textOverflow = 'ellipsis';
+      a.style.whiteSpace = 'nowrap';
+      a.style.display = 'block';
+      el.parentNode.replaceChild(a, el);
+      a.appendChild(el);
+    }
+  }
+
+  // ---------------- scrolling breaking-news ticker ----------------
+  const TICKER_ICON = {
+    bitcoin: { cls: 'co-ticker__entry-icon--btc', label: 'B' },
+    ethereum: { cls: 'co-ticker__entry-icon--eth', label: 'Ξ' },
+    altcoins: { cls: 'co-ticker__entry-icon--sol', label: 'S' },
+    exchange: { cls: 'co-ticker__entry-icon--bnb', label: '◈' }
+  };
+  function tickerIconFor(a) {
+    const key = (a.category || '').toLowerCase();
+    return TICKER_ICON[key] || { cls: '', label: (a.category || a.title || '?').charAt(0).toUpperCase() };
+  }
+  function tickerEntryTemplate(a) {
+    const icon = tickerIconFor(a);
+    const style = icon.cls ? '' : `style="background:${colorFromString(a.category || a.title)}"`;
+    return `<a class="co-ticker__entry" href="${href(a)}" style="text-decoration:none;color:inherit;">
+      <span class="co-ticker__entry-icon ${icon.cls}" ${style}>${escapeHtml(icon.label)}</span>
+      ${escapeHtml(a.title || '')}
+    </a>`;
+  }
+  function renderTicker(articles) {
+    const track = document.getElementById('tickerTrack');
+    if (!track || !articles.length) return;
+    const items = articles.slice(0, 6).map(tickerEntryTemplate).join('');
+    // duplicated once, matching the site's existing seamless-loop pattern
+    track.innerHTML = items + items;
+  }
+
   // ---------------- boot ----------------
   async function loadAllSections() {
     let articles;
@@ -4474,11 +4534,16 @@ loadNews();
     renderSimpleList('blogs', bySection.blogs, listItemTemplate, 4);
     renderSimpleList('academy', bySection.academy, academyItemTemplate, 4);
     renderSimpleList('research', bySection.research, researchItemTemplate, 4);
+
+    // driven by the full unfiltered list (latest across every section)
+    renderBreakingBar(articles);
+    renderTicker(articles);
   }
 
   document.addEventListener('DOMContentLoaded', loadAllSections);
 })();
 </script>
+
 
 </body>
 </html>
