@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Loading… — CoinOsprey</title>
+<meta name="theme-color" content="#0b1730">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --co-navy-900:#0b1730; --co-navy-800:#0e1c3a; --co-navy-700:#132449;
+    --co-amber-500:#f5a623; --co-amber-600:#e2960f;
+    --co-white:#ffffff; --co-gray-050:#f4f5f8; --co-gray-100:#e9ebf1;
+    --co-gray-300:#c7cbd8; --co-gray-500:#8892a6; --co-gray-700:#4b5468;
+    --co-font-display:'Space Grotesk', sans-serif;
+    --co-font-body:'Inter', sans-serif;
+    --co-radius-sm:4px; --co-radius-md:8px; --co-radius-lg:14px;
+    --shadow-sm:0 1px 3px rgba(11,23,48,0.06);
+    --shadow-md:0 6px 18px rgba(11,23,48,0.08);
+    --max-width:1160px;
+    --page-bg:#f4f6fa;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--co-font-body);background:var(--page-bg);color:var(--co-navy-900);-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+
+  .topbar{background:var(--co-navy-900);color:#fff;}
+  .topbar-inner{max-width:var(--max-width);margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-icon{width:32px;height:32px;border-radius:8px;background:radial-gradient(circle at 30% 30%,#f5c26b,#d4941f);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--co-navy-900);}
+  .brand-text{font-family:var(--co-font-display);font-weight:800;font-size:19px;}
+  .brand-text span{color:var(--co-amber-500);}
+  .back-link{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--co-gray-100);padding:8px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.16);}
+  .back-link:hover{background:rgba(255,255,255,0.08);border-color:var(--co-amber-500);}
+
+  .page-head{max-width:var(--max-width);margin:0 auto;padding:28px 20px 8px;}
+  .page-head h1{font-family:var(--co-font-display);font-size:26px;font-weight:800;margin:0 0 4px;}
+  .page-head p{color:var(--co-gray-700);font-size:13.5px;margin:0;}
+
+  .grid-wrap{max-width:var(--max-width);margin:0 auto;padding:20px 20px 64px;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:620px){.grid{grid-template-columns:1fr;}}
+
+  .card{background:#fff;border-radius:var(--co-radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--co-gray-100);transition:box-shadow 200ms ease, transform 200ms ease;}
+  .card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+  .card-media{aspect-ratio:16/10;background:var(--co-gray-100);overflow:hidden;}
+  .card-media img{width:100%;height:100%;object-fit:cover;}
+  .card-body{padding:14px 16px 16px;}
+  .card-category{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--co-amber-600);margin-bottom:6px;}
+  .card-title{font-family:var(--co-font-display);font-size:15px;font-weight:700;line-height:1.4;margin:0 0 8px;color:var(--co-navy-900);}
+  .card-meta{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--co-gray-500);}
+
+  .skeleton-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:900px){.skeleton-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:620px){.skeleton-grid{grid-template-columns:1fr;}}
+  .skeleton-card{border-radius:var(--co-radius-lg);overflow:hidden;border:1px solid var(--co-gray-100);}
+  .skeleton-media, .skeleton-line{background:linear-gradient(90deg,#e9ebf1 25%,#f4f5f8 37%,#e9ebf1 63%);background-size:400% 100%;animation:sweep 1.4s ease-in-out infinite;}
+  .skeleton-media{aspect-ratio:16/10;}
+  .skeleton-line{height:12px;border-radius:6px;margin:14px 16px;}
+  @keyframes sweep{0%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+  .empty-state{text-align:center;padding:70px 20px;color:var(--co-gray-700);}
+  .empty-state h2{font-family:var(--co-font-display);font-size:20px;margin:0 0 8px;color:var(--co-navy-900);}
+  .empty-state a{display:inline-flex;margin-top:14px;padding:10px 20px;background:var(--co-amber-500);color:var(--co-navy-900);font-weight:700;border-radius:var(--co-radius-sm);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="brand" aria-label="CoinOsprey home">
+      <span class="brand-icon" aria-hidden="true">&#9760;</span>
+      <span class="brand-text">Coin<span>Osprey</span></span>
+    </a>
+    <a href="/" class="back-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>
+      Back to Home
+    </a>
+  </div>
+</div>
+
+<div class="page-head">
+  <h1 id="sectionTitle">Loading…</h1>
+  <p id="sectionCount"></p>
+</div>
+
+<div class="grid-wrap">
+  <div class="skeleton-grid" id="skeleton">
+    <div class="skeleton-card"><div class="skeleton-media"></div><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:90%"></div></div>
+    <div class="skeleton-card"><div class="skeleton-media"></div><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:90%"></div></div>
+    <div class="skeleton-card"><div class="skeleton-media"></div><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:90%"></div></div>
+  </div>
+  <div class="grid" id="grid" style="display:none;"></div>
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <h2>No articles yet</h2>
+    <p>Check back soon — new content is on the way.</p>
+    <a href="/">Back to Homepage</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  const SECTION_LABELS = {
+    'news': 'Latest News',
+    'price-prediction': 'Featured Price Predictions',
+    'blog': 'Blogs',
+    'academy': 'Academy Highlights',
+    'research': 'Research & Analysis',
+    'tools': 'Tools'
+  };
+  const ARTICLE_URL_PREFIX = '/en/'; // -> /en/{section}/{slug}, matches article.html pattern
+
+  function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name) || '';
+  }
+
+  function escapeHtml(str) {
+    return (str == null ? '' : String(str)).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  function fmtDate(d) {
+    if (!d) return '';
+    const dt = new Date(d);
+    if (isNaN(dt.getTime())) return '';
+    return dt.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function fmtViews(v) {
+    v = Number(v) || 0;
+    return v >= 1000 ? (v / 1000).toFixed(1).replace(/\.0$/, '') + 'K' : String(v);
+  }
+
+  function href(a) {
+    const section = a.section || 'news';
+    return ARTICLE_URL_PREFIX + encodeURIComponent(section) + '/' + encodeURIComponent(a.slug || '');
+  }
+
+  function cardTemplate(a) {
+    const img = a.image || 'https://placehold.co/500x300/1a1f26/F3F5F7?text=CoinOsprey';
+    return `
+      <a class="card" href="${href(a)}">
+        <div class="card-media"><img src="${img}" alt="${escapeHtml(a.imageAlt || a.title || '')}" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-category">${escapeHtml(a.category || a.type || '')}</span>
+          <h3 class="card-title">${escapeHtml(a.title || '')}</h3>
+          <div class="card-meta">
+            <span>${fmtDate(a.publishedAt || a.createdAt)}</span>
+            <span>👁 ${fmtViews(a.views)}</span>
+          </div>
+        </div>
+      </a>`;
+  }
+
+  async function load() {
+    const section = getParam('section');
+    const label = SECTION_LABELS[section] || 'All Articles';
+    document.getElementById('sectionTitle').textContent = label;
+    document.title = label + ' — CoinOsprey';
+
+    try {
+      const res = await fetch('/api/articles');
+      if (!res.ok) throw new Error('Request failed: ' + res.status);
+      const data = await res.json();
+      let articles = Array.isArray(data) ? data : (data.articles || []);
+
+      if (section) articles = articles.filter(a => a.section === section);
+
+      document.getElementById('skeleton').style.display = 'none';
+
+      if (!articles.length) {
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('sectionCount').textContent = '';
+        return;
+      }
+
+      document.getElementById('sectionCount').textContent = articles.length + (articles.length === 1 ? ' article' : ' articles');
+      const grid = document.getElementById('grid');
+      grid.innerHTML = articles.map(cardTemplate).join('');
+      grid.style.display = 'grid';
+    } catch (err) {
+      document.getElementById('skeleton').style.display = 'none';
+      document.getElementById('sectionTitle').textContent = 'Something went wrong';
+      document.getElementById('sectionCount').textContent = 'Could not load articles. Please try again later.';
+    }
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
