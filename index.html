@@ -1229,17 +1229,8 @@
 /* transparent black gradient, present only behind the text zone so the
    thumbnail stays the primary visual focus */
 .featured-news__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(
-    180deg,
-    rgba(6, 8, 20, 0) 38%,
-    rgba(6, 8, 20, 0.4) 62%,
-    rgba(6, 8, 20, 0.58) 100%
-  );
+  display: none;
 }
-
 .featured-news__content {
   position: absolute;
   left: 0;
