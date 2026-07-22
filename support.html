@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — CoinOsprey</title>
+<meta name="description" content="Get help with CoinOsprey — report broken links or bugs, newsletter issues, content corrections, or general feedback. We'll get back to you as soon as possible.">
+<meta name="theme-color" content="#0b1730">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --co-navy-900:#0b1730; --co-navy-800:#0e1c3a; --co-navy-700:#132449; --co-navy-600:#1a2e58;
+    --co-amber-500:#f5a623; --co-amber-600:#e2960f;
+    --co-red-600:#e0293e; --co-red-700:#c31f32;
+    --co-white:#ffffff;
+    --co-gray-050:#f4f5f8; --co-gray-100:#e9ebf1; --co-gray-300:#c7cbd8; --co-gray-500:#8892a6; --co-gray-700:#4b5468;
+    --co-teal-500:#1fb6a8; --co-violet-500:#7c5cff; --co-sky-500:#2f8fe0;
+    --co-mint-500:#22c07b; --co-mint-600:#189a63;
+    --co-font-display:'Space Grotesk', sans-serif;
+    --co-font-body:'Inter', sans-serif;
+    --co-font-mono:'IBM Plex Mono', monospace;
+    --co-header-h-topbar:35px; --co-header-h-nav:16px; --co-header-h-ticker:16px;
+    --co-radius-sm:4px; --co-radius-md:8px; --co-radius-lg:14px;
+    --co-transition:200ms ease;
+    --max-width:1469px;
+    --page-bg:#f4f6fa;
+    --shadow-sm:0 1px 3px rgba(11,23,48,0.06);
+    --shadow-md:0 6px 18px rgba(11,23,48,0.08);
+    --shadow-lg:0 18px 40px rgba(11,23,48,0.14);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; overflow-x:clip; }
+  body{
+    font-family:var(--co-font-body);
+    background:var(--page-bg);
+    color:var(--co-navy-900);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip; max-width:100vw;
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+  ul{ list-style:none; }
+  img{ display:block; max-width:100%; }
+
+  /* ============ HEADER (shared) ============ */
+  .co-header{ position:relative; width:100%; }
+  .co-topbar{ background:var(--co-navy-900); color:var(--co-white); font-size:12.5px; min-height:var(--co-header-h-topbar); }
+  .co-topbar__inner{ max-width:var(--max-width); margin:0 auto; padding:8px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .co-topbar__left{ display:flex; align-items:center; gap:18px; min-width:0; flex:1; }
+  .co-topbar__item{ display:flex; align-items:center; gap:6px; white-space:nowrap; color:var(--co-gray-300); }
+  .co-topbar__icon{ width:13px; height:13px; flex-shrink:0; opacity:.85; }
+  .co-topbar__time{ display:flex; align-items:center; gap:6px; background:var(--co-red-600); color:var(--co-white); font-family:var(--co-font-mono); font-weight:500; padding:3px 10px; border-radius:var(--co-radius-sm); }
+  .co-topbar__breaking{ display:flex; align-items:center; gap:8px; min-width:0; overflow:hidden; }
+  .co-topbar__breaking-tag{ background:var(--co-red-600); color:var(--co-white); font-weight:700; letter-spacing:.4px; padding:3px 8px; border-radius:var(--co-radius-sm); flex-shrink:0; font-size:11px; }
+  .co-topbar__breaking-text{ color:var(--co-gray-100); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .co-topbar__right{ display:flex; align-items:center; gap:14px; flex-shrink:0; }
+  .co-topbar__follow{ color:var(--co-gray-300); white-space:nowrap; }
+  .co-topbar__social{ display:flex; align-items:center; gap:10px; }
+  .co-topbar__social-link{ width:20px; height:20px; flex-shrink:0; display:flex; border-radius:6px; overflow:hidden; transition:transform var(--co-transition), box-shadow var(--co-transition); cursor:pointer; }
+  .co-topbar__social-link:hover{ transform:translateY(-2px) scale(1.1); box-shadow:0 4px 10px rgba(0,0,0,0.35); }
+  .co-topbar__social-link svg{ width:100%; height:100%; display:block; }
+
+  .co-nav{ background:var(--co-navy-900); position:sticky; top:0; z-index:1000; transition:box-shadow var(--co-transition); }
+  .co-header--scrolled .co-nav{ box-shadow:0 2px 14px rgba(11,23,48,0.18); }
+  .co-nav__inner{ max-width:var(--max-width); margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:60px; }
+  .co-nav-logo{ display:flex; align-items:center; gap:10px; margin-right:20px; cursor:pointer; }
+  .co-nav-logo__icon{ width:38px; height:38px; flex-shrink:0; border-radius:9px; background:radial-gradient(circle at 30% 30%, #f5c26b, #d4941f); display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--co-navy-900); font-weight:800; }
+  .co-nav-logo__text{ font-family:var(--co-font-display); font-size:25px; font-weight:800; letter-spacing:-.3px; color:#ffffff; white-space:nowrap; }
+  .co-nav-logo__text span{ color:var(--co-amber-500); }
+  .co-nav__menu{ display:flex; align-items:stretch; }
+  .co-nav__item{ position:relative; }
+  .co-nav__link{ display:flex; align-items:center; gap:5px; height:var(--co-header-h-nav); padding:0 18px; color:var(--co-gray-100); font-size:13.5px; font-weight:600; letter-spacing:.3px; cursor:pointer; transition:background var(--co-transition), color var(--co-transition); }
+  .co-nav__link:hover{ background:var(--co-navy-700); color:var(--co-amber-500); }
+  .co-nav__actions{ display:flex; align-items:center; gap:20px; }
+  .co-nav__searchbar{ display:flex; align-items:center; gap:10px; flex:1; max-width:300px; margin:0 28px; height:38px; padding:0 14px; border-radius:20px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); position:relative; transition:background var(--co-transition), border-color var(--co-transition); }
+  .co-nav__searchbar:focus-within{ background:rgba(255,255,255,0.12); border-color:var(--co-amber-500); }
+  .co-nav__searchbar svg{ width:16px; height:16px; color:var(--co-gray-300); flex-shrink:0; }
+  .co-nav__searchbar-input{ flex:1; min-width:0; background:none; border:none; outline:none; color:var(--co-white); font-size:13.5px; }
+  .co-nav__searchbar-input::placeholder{ color:var(--co-gray-500); }
+  .co-btn-subscribe{ background:var(--co-amber-500); color:var(--co-navy-900); font-weight:700; font-size:13px; padding:9px 20px; border-radius:var(--co-radius-sm); transition:background var(--co-transition), transform var(--co-transition); white-space:nowrap; cursor:pointer; }
+  .co-btn-subscribe:hover{ background:#ffb941; transform:translateY(-1px); }
+  .co-nav__hamburger{ display:none; width:34px; height:34px; flex-direction:column; align-items:center; justify-content:center; gap:5px; cursor:pointer; }
+  .co-nav__hamburger-bar{ width:22px; height:2px; background:var(--co-white); border-radius:2px; transition:transform var(--co-transition), opacity var(--co-transition); }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(2){ opacity:0; }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  .co-nav__mobile-panel{ display:none; background:var(--co-navy-800); max-height:0; overflow:hidden; transition:max-height 280ms ease; }
+  .co-nav__mobile-panel.is-open{ max-height:82vh; overflow-y:auto; }
+  .co-nav__mobile-list{ padding:8px 16px 16px; }
+  .co-nav__mobile-item{ border-bottom:1px solid var(--co-navy-600); }
+  .co-nav__mobile-link{ display:flex; align-items:center; justify-content:space-between; padding:13px 4px; color:var(--co-gray-100); font-size:14px; font-weight:600; cursor:pointer; }
+  .co-nav__mobile-search{ display:flex; align-items:center; gap:10px; margin:14px 16px 6px; height:42px; padding:0 14px; border-radius:10px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); position:relative; }
+  .co-nav__mobile-search svg{ width:16px; height:16px; color:var(--co-gray-300); flex-shrink:0; }
+  .co-nav__mobile-search-input{ flex:1; min-width:0; background:none; border:none; outline:none; color:var(--co-white); font-size:14px; }
+  .co-nav__mobile-search-input::placeholder{ color:var(--co-gray-500); }
+  .co-nav__mobile-actions{ display:flex; gap:10px; padding:14px 4px 4px; }
+  .co-nav__mobile-actions .co-btn-subscribe{ flex:1; text-align:center; }
+
+  .co-ticker{ background:var(--co-white); border-bottom:1px solid var(--co-gray-100); }
+  .co-ticker__inner{ max-width:var(--max-width); margin:0 auto; padding:0 24px; display:flex; align-items:center; height:var(--co-header-h-ticker); gap:16px; }
+  .co-ticker__tag{ display:flex; align-items:center; gap:6px; background:var(--co-red-600); color:var(--co-white); font-size:12px; font-weight:700; letter-spacing:.4px; padding:6px 14px; border-radius:var(--co-radius-sm); flex-shrink:0; clip-path:polygon(0 0, 100% 0, 92% 100%, 0% 100%); padding-right:20px; }
+  .co-ticker__bolt{ width:12px; height:12px; }
+  .co-ticker__viewport{ flex:1; overflow:hidden; position:relative; }
+  .co-ticker__track{ display:flex; align-items:center; gap:40px; white-space:nowrap; width:max-content; animation:co-ticker-scroll 28s linear infinite; }
+  .co-ticker__viewport:hover .co-ticker__track{ animation-play-state:paused; }
+  @keyframes co-ticker-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .co-ticker__entry{ display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--co-navy-900); }
+  .co-ticker__entry-icon{ width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--co-white); flex-shrink:0; }
+  .co-ticker__entry-icon--btc{ background:#f7931a; }
+  .co-ticker__entry-icon--bnb{ background:var(--co-navy-900); }
+  .co-ticker__entry-icon--eth{ background:var(--co-violet-500); }
+  .co-ticker__entry-icon--sol{ background:var(--co-teal-500); }
+
+  .co-search-dropdown{ position:absolute; left:0; right:0; top:calc(100% + 8px); background:var(--co-navy-800); border:1px solid rgba(255,255,255,0.14); border-radius:var(--co-radius-md); box-shadow:0 16px 32px rgba(4,8,20,0.45); padding:10px; max-height:360px; overflow-y:auto; z-index:1100; opacity:0; transform:translateY(-4px); pointer-events:none; transition:opacity 160ms ease, transform 160ms ease; }
+  .co-search-dropdown.is-open{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .co-search-dropdown__empty{ padding:16px 10px; text-align:center; font-size:12.5px; color:var(--co-gray-500); }
+
+  @media (max-width:1024px){
+    .co-nav__menu, .co-nav__searchbar, .co-nav__actions .co-btn-subscribe{ display:none; }
+    .co-nav__hamburger{ display:flex; }
+    .co-nav__mobile-panel{ display:block; }
+    .co-nav__inner{ height:56px; }
+    .co-topbar__follow{ display:none; }
+  }
+  @media (max-width:720px){ .co-topbar__breaking-text{ max-width:140px; } .co-topbar__item span.co-topbar__label{ display:none; } }
+  @media (max-width:560px){
+    .co-topbar__inner{ padding:7px 16px; gap:10px; }
+    .co-ticker__inner, .co-nav__inner{ padding:0 16px; }
+    .co-ticker__tag span{ display:none; }
+  }
+
+  /* ============ FOOTER (shared) ============ */
+  .site-footer{ margin-top:40px; background:var(--co-navy-900); color:rgba(255,255,255,0.68); padding-top:48px; }
+  .footer__grid{ max-width:var(--max-width); margin:0 auto; padding:0 32px 28px; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr 1fr 1fr; gap:24px; align-items:start; }
+  .footer-col__heading{ font-family:var(--co-font-display); font-size:13px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#fff; margin:0 0 16px; }
+  .footer-brand__logo{ display:flex; align-items:center; gap:10px; margin-bottom:14px; cursor:pointer; }
+  .footer-brand__logo-icon{ width:34px; height:34px; border-radius:8px; background:radial-gradient(circle at 30% 30%, #f6bd3a, var(--co-amber-600)); display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--co-navy-900); font-weight:800; }
+  .footer-brand__logo-text{ font-family:var(--co-font-display); font-size:19px; font-weight:800; color:#fff; }
+  .footer-brand__logo-text span{ color:var(--co-amber-500); }
+  .footer-brand__desc{ font-size:13px; line-height:1.6; color:rgba(255,255,255,0.62); margin:0 0 18px; max-width:260px; }
+  .footer-social{ display:flex; align-items:center; gap:8px; margin-bottom:20px; }
+  .footer-social__link{ width:28px; height:28px; flex:0 0 28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; color:#fff; cursor:pointer; transition:transform var(--co-transition), background var(--co-transition), color var(--co-transition); }
+  .footer-social__link svg{ width:12px; height:12px; fill:currentColor; display:block; }
+  .footer-social__link--x{ background:#000000; }
+  .footer-social__link--linkedin{ background:#0A66C2; }
+  .footer-social__link--youtube{ background:#FF0000; }
+  .footer-social__link:hover{ background:var(--co-amber-500); color:var(--co-navy-900); transform:scale(1.12) rotate(8deg); }
+  .footer-copyright{ font-size:12px; color:rgba(255,255,255,0.45); }
+  .footer-links{ display:flex; flex-direction:column; gap:11px; }
+  .footer-links__item{ position:relative; display:inline-block; width:fit-content; font-size:13px; color:rgba(255,255,255,0.62); cursor:pointer; transition:color var(--co-transition); }
+  .footer-links__item::after{ content:""; position:absolute; left:0; bottom:-3px; width:0%; height:1px; background:var(--co-amber-500); transition:width var(--co-transition); }
+  .footer-links__item:hover{ color:#fff; }
+  .footer-links__item:hover::after{ width:100%; }
+  .footer-links__item.is-current{ color:var(--co-amber-500); font-weight:600; }
+  .footer-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .footer-tags__item{ font-size:11.5px; padding:6px 12px; border-radius:20px; border:1px solid rgba(255,255,255,0.08); color:rgba(255,255,255,0.62); cursor:pointer; transition:background var(--co-transition), color var(--co-transition), border-color var(--co-transition), transform var(--co-transition); white-space:nowrap; }
+  .footer-tags__item:hover{ background:rgba(240,169,30,0.12); border-color:rgba(240,169,30,0.5); color:#f6bd3a; transform:translateY(-2px); }
+  .footer-bottom{ border-top:1px solid rgba(255,255,255,0.08); }
+  .footer-bottom__inner{ max-width:var(--max-width); margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .footer-bottom__text, .footer-bottom__disclaimer{ font-size:12px; color:rgba(255,255,255,0.45); }
+  .footer-bottom__disclaimer{ font-style:italic; }
+  @media (max-width:1024px){ .footer__grid{ grid-template-columns:repeat(3, 1fr); row-gap:22px; } .footer-brand{ grid-column:1 / -1; } .footer-brand__desc{ max-width:420px; } }
+  @media (max-width:640px){ .footer__grid{ grid-template-columns:repeat(2, 1fr); padding:0 20px 20px; row-gap:24px; } .footer-brand{ grid-column:1 / -1; } .footer-bottom__inner{ flex-direction:column; text-align:center; padding:16px 20px; } }
+
+  /* ============ GLOBAL UTILITIES (shared) ============ */
+  .page-loader{ position:fixed; inset:0; z-index:9999; background:var(--co-navy-900); display:flex; align-items:center; justify-content:center; transition:opacity 500ms ease, visibility 500ms ease; }
+  .page-loader.is-hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+  .page-loader__mark{ width:56px; height:56px; border-radius:50%; border:3px solid rgba(245,166,35,0.2); border-top-color:var(--co-amber-500); animation:co-spin 800ms linear infinite; }
+  @keyframes co-spin{ to{ transform:rotate(360deg); } }
+  .scroll-progress{ position:fixed; top:0; left:0; width:0%; height:3px; background:linear-gradient(90deg, var(--co-amber-500), #ffd27a); z-index:1200; transition:width 80ms linear; }
+  .back-to-top{ position:fixed; right:24px; bottom:24px; width:46px; height:46px; border-radius:50%; background:var(--co-navy-900); color:var(--co-amber-500); border:1px solid rgba(245,166,35,0.35); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 26px rgba(11,23,48,0.3); opacity:0; visibility:hidden; transform:translateY(12px); transition:opacity var(--co-transition), transform var(--co-transition), visibility var(--co-transition), background var(--co-transition); z-index:900; cursor:pointer; }
+  .back-to-top.is-visible{ opacity:1; visibility:visible; transform:translateY(0); }
+  .back-to-top:hover{ background:var(--co-amber-500); color:var(--co-navy-900); }
+  .back-to-top svg{ width:18px; height:18px; }
+  [data-animate]{ opacity:0; transform:translateY(24px); transition:opacity 600ms cubic-bezier(.4,0,.2,1), transform 600ms cubic-bezier(.4,0,.2,1); }
+  [data-animate].is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ============================================================
+     SUPPORT PAGE — page-specific design
+     Signature idea: a "ticket desk" — the four support topics are
+     framed as ticket categories you can open (mono status tags,
+     dashed stubs), and the FAQ section reads like a log of tickets
+     already closed out ("RESOLVED"). Accent is mint/emerald — a
+     color not used elsewhere (teal=Careers, violet=Advertise,
+     sky=Contact, red=Press/Breaking) — signalling "resolved,
+     all clear," distinct from Contact's "get in touch" register.
+     ============================================================ */
+  .support-hero{
+    background:var(--co-navy-900);
+    background-image:
+      radial-gradient(circle at 88% 15%, rgba(34,192,123,0.20), transparent 55%),
+      radial-gradient(circle at 6% 92%, rgba(34,192,123,0.10), transparent 45%);
+    color:#fff;
+    padding:60px 32px 56px;
+  }
+  .support-hero__inner{ max-width:var(--max-width); margin:0 auto; }
+  .support-hero__eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--co-font-mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--co-mint-500); margin-bottom:16px;
+  }
+  .support-hero__eyebrow::before{ content:""; width:26px; height:2px; background:var(--co-mint-500); display:inline-block; }
+  .support-hero__title{
+    font-family:var(--co-font-display); font-weight:700;
+    font-size:clamp(30px, 4.6vw, 46px); line-height:1.1; max-width:19ch;
+  }
+  .support-hero__sub{
+    margin-top:16px; font-size:15.5px; line-height:1.7; color:rgba(255,255,255,0.7); max-width:64ch;
+  }
+  .support-hero__badge{
+    margin-top:24px; display:inline-flex; align-items:center; gap:10px;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); border-radius:999px;
+    padding:9px 18px 9px 14px; font-size:12.5px; color:rgba(255,255,255,0.85);
+  }
+  .support-hero__badge-dot{ width:8px; height:8px; border-radius:50%; background:var(--co-mint-500); box-shadow:0 0 0 3px rgba(34,192,123,0.22); flex-shrink:0; }
+  .support-hero__badge strong{ color:#fff; font-family:var(--co-font-mono); font-weight:500; }
+
+  .ticket-intro{ max-width:var(--max-width); margin:0 auto; padding:52px 32px 0; }
+  .ticket-intro__title{ font-family:var(--co-font-display); font-size:23px; font-weight:700; color:var(--co-navy-900); }
+  .ticket-intro__sub{ margin-top:8px; font-size:13.5px; color:var(--co-gray-700); max-width:60ch; }
+
+  .ticket-grid{
+    max-width:var(--max-width); margin:0 auto; padding:26px 32px 8px;
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:18px;
+  }
+  .ticket-card{
+    position:relative; background:#fff; border:1px solid var(--co-gray-100); border-radius:var(--co-radius-lg);
+    box-shadow:var(--shadow-sm); padding:22px 22px 20px; display:flex; flex-direction:column; gap:12px;
+    transition:box-shadow var(--co-transition), transform var(--co-transition), border-color var(--co-transition);
+  }
+  .ticket-card:hover{ box-shadow:var(--shadow-md); transform:translateY(-2px); border-color:rgba(34,192,123,0.35); }
+  .ticket-card::before{
+    content:""; position:absolute; left:-1px; top:16px; bottom:16px; width:3px; border-radius:0 3px 3px 0;
+    background:var(--co-mint-500); opacity:0; transition:opacity var(--co-transition);
+  }
+  .ticket-card:hover::before{ opacity:1; }
+  .ticket-card__icon{
+    width:38px; height:38px; border-radius:10px; flex-shrink:0; background:rgba(34,192,123,0.1); border:1px solid rgba(34,192,123,0.3);
+    display:flex; align-items:center; justify-content:center; color:var(--co-mint-600);
+  }
+  .ticket-card__icon svg{ width:18px; height:18px; }
+  .ticket-card__tag{
+    align-self:flex-start; font-family:var(--co-font-mono); font-size:10.5px; letter-spacing:.06em; font-weight:500;
+    color:var(--co-mint-600); background:rgba(34,192,123,0.1); border:1px solid rgba(34,192,123,0.28);
+    padding:3px 8px; border-radius:4px;
+  }
+  .ticket-card__title{ font-family:var(--co-font-display); font-size:15.5px; font-weight:700; color:var(--co-navy-900); }
+  .ticket-card__desc{ font-size:13px; line-height:1.6; color:var(--co-gray-700); flex:1; }
+  .ticket-card__cta{
+    margin-top:auto; padding-top:10px; border-top:1px dashed var(--co-gray-100);
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    font-family:var(--co-font-mono); font-size:11.5px; color:var(--co-navy-900); font-weight:500;
+  }
+  .ticket-card__go{ width:26px; height:26px; border-radius:50%; background:var(--co-mint-500); color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform var(--co-transition); }
+  .ticket-card__go svg{ width:12px; height:12px; }
+  .ticket-card:hover .ticket-card__go{ transform:translateX(2px); }
+
+  /* ---- FAQ / resolved-ticket log ---- */
+  .faq-section{ max-width:var(--max-width); margin:0 auto; padding:52px 32px 0; }
+  .faq-intro{ display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:22px; }
+  .faq-intro__title{ font-family:var(--co-font-display); font-size:23px; font-weight:700; color:var(--co-navy-900); }
+  .faq-intro__sub{ margin-top:8px; font-size:13.5px; color:var(--co-gray-700); max-width:60ch; }
+  .faq-intro__count{ font-family:var(--co-font-mono); font-size:12px; color:var(--co-mint-600); background:rgba(34,192,123,0.1); border:1px solid rgba(34,192,123,0.28); padding:6px 12px; border-radius:999px; white-space:nowrap; }
+
+  .faq-list{ display:flex; flex-direction:column; gap:10px; }
+  .faq-item{ background:#fff; border:1px solid var(--co-gray-100); border-radius:var(--co-radius-md); overflow:hidden; transition:border-color var(--co-transition); }
+  .faq-item.is-open{ border-color:rgba(34,192,123,0.35); }
+  .faq-item__q{
+    width:100%; display:flex; align-items:center; gap:14px; padding:16px 20px; text-align:left;
+    font-family:var(--co-font-body); font-size:14px; font-weight:600; color:var(--co-navy-900);
+  }
+  .faq-item__status{ font-family:var(--co-font-mono); font-size:10px; letter-spacing:.05em; color:var(--co-mint-600); background:rgba(34,192,123,0.1); border:1px solid rgba(34,192,123,0.28); padding:3px 8px; border-radius:4px; flex-shrink:0; }
+  .faq-item__q-text{ flex:1; }
+  .faq-item__chevron{ width:18px; height:18px; flex-shrink:0; color:var(--co-gray-500); transition:transform var(--co-transition); }
+  .faq-item.is-open .faq-item__chevron{ transform:rotate(180deg); color:var(--co-mint-600); }
+  .faq-item__a{ max-height:0; overflow:hidden; transition:max-height 260ms ease; }
+  .faq-item__a-inner{ padding:0 20px 18px 52px; font-size:13.5px; line-height:1.65; color:var(--co-gray-700); }
+  .faq-item__a-inner a{ color:var(--co-mint-600); font-weight:600; }
+  .faq-item__a-inner a:hover{ text-decoration:underline; }
+
+  /* ---- escalation strip ---- */
+  .escalation-strip{ max-width:var(--max-width); margin:44px auto 0; padding:0 32px; }
+  .escalation-strip__inner{
+    background:var(--co-navy-900); border-radius:var(--co-radius-lg); padding:30px 32px;
+    display:flex; align-items:center; gap:20px; flex-wrap:wrap; justify-content:space-between; color:#fff;
+    box-shadow:var(--shadow-lg); position:relative; overflow:hidden;
+  }
+  .escalation-strip__inner::before{
+    content:""; position:absolute; right:-60px; top:-60px; width:220px; height:220px; border-radius:50%;
+    background:radial-gradient(circle, rgba(34,192,123,0.24), transparent 70%);
+  }
+  .escalation-strip__text{ position:relative; z-index:1; max-width:56ch; }
+  .escalation-strip__title{ font-family:var(--co-font-display); font-size:18px; font-weight:700; margin-bottom:6px; }
+  .escalation-strip__desc{ font-size:13.5px; line-height:1.6; color:rgba(255,255,255,0.72); }
+  .escalation-strip__desc strong{ color:var(--co-mint-500); font-family:var(--co-font-mono); font-weight:500; }
+  .escalation-strip__desc a{ color:#fff; text-decoration:underline; text-underline-offset:2px; }
+  .escalation-strip__pill{
+    position:relative; z-index:1; flex-shrink:0; font-family:var(--co-font-mono); font-size:12.5px;
+    background:rgba(34,192,123,0.14); border:1px solid rgba(34,192,123,0.4); color:#8fe0bc;
+    padding:9px 16px; border-radius:999px; white-space:nowrap;
+  }
+
+  .support-footer-space{ height:56px; }
+
+  @media (max-width:1024px){
+    .ticket-grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width:640px){
+    .support-hero{ padding:44px 20px 44px; }
+    .ticket-intro{ padding:40px 20px 0; }
+    .ticket-grid{ padding:22px 20px 8px; grid-template-columns:1fr; }
+    .faq-section{ padding:40px 20px 0; }
+    .faq-item__a-inner{ padding-left:20px; }
+    .escalation-strip{ padding:0 20px; }
+    .escalation-strip__inner{ padding:26px 22px; flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-loader" id="pageLoader" aria-hidden="true"><div class="page-loader__mark"></div></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<header class="co-header" id="coHeader">
+  <div class="co-topbar">
+    <div class="co-topbar__inner">
+      <div class="co-topbar__left">
+        <span class="co-topbar__item" id="topbarDate">
+          <svg class="co-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+          <span class="co-topbar__label">Sunday, 19 July 2026</span>
+        </span>
+        <span class="co-topbar__time" id="topbarTime">
+          <svg class="co-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+          <span id="topbarTimeText">9:55:12 PM</span>
+        </span>
+        <span class="co-topbar__breaking">
+          <span class="co-topbar__breaking-tag">BREAKING:</span>
+          <span class="co-topbar__breaking-text">Bitcoin ETF Inflows Surpass $500M as Institutional Demand Continues to Rise</span>
+        </span>
+      </div>
+      <div class="co-topbar__right">
+        <span class="co-topbar__follow">Follow Us</span>
+        <nav class="co-topbar__social" aria-label="Social media links">
+          <a class="co-topbar__social-link" href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#000000"/><path fill="#ffffff" d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/></svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#ffffff" d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/></svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/><path fill="#ffffff" d="M10 8.5v7l6-3.5-6-3.5Z"/></svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="co-nav">
+    <div class="co-nav__inner">
+      <a href="/" class="co-nav-logo" aria-label="CoinOsprey — go to homepage">
+        <span class="co-nav-logo__icon" aria-hidden="true">&#9760;</span>
+        <span class="co-nav-logo__text">Coin<span>Osprey</span></span>
+      </a>
+      <nav class="co-nav__menu" aria-label="Primary navigation">
+        <div class="co-nav__item"><a class="co-nav__link" href="/#news">NEWS</a></div>
+        <div class="co-nav__item"><a class="co-nav__link" href="/#price-predictions">PRICE PREDICTIONS</a></div>
+        <div class="co-nav__item"><a class="co-nav__link" href="/#academy">ACADEMY</a></div>
+        <div class="co-nav__item"><a class="co-nav__link" href="/#research">RESEARCH</a></div>
+        <div class="co-nav__item"><a class="co-nav__link" href="about.html">ABOUT</a></div>
+      </nav>
+
+      <form class="co-nav__searchbar" role="search" action="#" onsubmit="return false;" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" id="headerSearchInput" class="co-nav__searchbar-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey">
+        <div class="co-search-dropdown" id="headerSearchDropdown"></div>
+      </form>
+
+      <div class="co-nav__actions">
+        <a class="co-btn-subscribe" href="#">Subscribe</a>
+        <button class="co-nav__hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobilePanel">
+          <span class="co-nav__hamburger-bar"></span><span class="co-nav__hamburger-bar"></span><span class="co-nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="co-nav__mobile-panel" id="mobilePanel">
+      <form class="co-nav__mobile-search" role="search" action="#" onsubmit="return false;" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" id="mobileSearchInput" class="co-nav__mobile-search-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey">
+        <div class="co-search-dropdown" id="mobileSearchDropdown"></div>
+      </form>
+      <ul class="co-nav__mobile-list">
+        <li class="co-nav__mobile-item"><a class="co-nav__mobile-link" href="/#news">NEWS</a></li>
+        <li class="co-nav__mobile-item"><a class="co-nav__mobile-link" href="/#price-predictions">PRICE PREDICTIONS</a></li>
+        <li class="co-nav__mobile-item"><a class="co-nav__mobile-link" href="/#academy">ACADEMY</a></li>
+        <li class="co-nav__mobile-item"><a class="co-nav__mobile-link" href="/#research">RESEARCH</a></li>
+        <li class="co-nav__mobile-item"><a class="co-nav__mobile-link" href="about.html">ABOUT</a></li>
+      </ul>
+      <div class="co-nav__mobile-actions"><a class="co-btn-subscribe" href="#">Subscribe</a></div>
+    </div>
+  </div>
+
+  <div class="co-ticker">
+    <div class="co-ticker__inner">
+      <span class="co-ticker__tag"><svg class="co-ticker__bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg><span>BREAKING NEWS</span></span>
+      <div class="co-ticker__viewport"><div class="co-ticker__track" id="tickerTrack"></div></div>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <!-- ============ SUPPORT HERO ============ -->
+  <section class="support-hero">
+    <div class="support-hero__inner">
+      <span class="support-hero__eyebrow">Support</span>
+      <h1 class="support-hero__title">Stuck on something? Let's sort it out.</h1>
+      <p class="support-hero__sub">Broken link, newsletter hiccup, a correction to flag, or just feedback on the site — pick the ticket type below and we'll route it to the right fix.</p>
+      <div class="support-hero__badge">
+        <span class="support-hero__badge-dot"></span>
+        A real person reads every ticket — <strong>no bots on this desk</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TICKET INTRO ============ -->
+  <div class="ticket-intro">
+    <h2 class="ticket-intro__title">Open a Ticket</h2>
+    <p class="ticket-intro__sub">Choose the category closest to your issue — it helps us get you a fix faster than a single generic inbox.</p>
+  </div>
+
+  <!-- ============ TICKET GRID ============ -->
+  <section class="ticket-grid">
+    <div class="ticket-card" data-animate>
+      <div class="ticket-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+      </div>
+      <span class="ticket-card__tag">BUG REPORT</span>
+      <div class="ticket-card__title">Broken Links &amp; Bugs</div>
+      <p class="ticket-card__desc">A link 404s, a page won't load, or something on the site just looks broken. Tell us the page and what happened.</p>
+      <div class="ticket-card__cta">
+        <span>support@coinosprey.com</span>
+        <a class="ticket-card__go" href="mailto:support@coinosprey.com?subject=Bug%20Report" aria-label="Report a bug"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    </div>
+
+    <div class="ticket-card" data-animate>
+      <div class="ticket-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      </div>
+      <span class="ticket-card__tag">SUBSCRIPTION</span>
+      <div class="ticket-card__title">Newsletter Issues</div>
+      <p class="ticket-card__desc">Not receiving our emails, want to unsubscribe, or need to update the address on file — we'll handle it directly.</p>
+      <div class="ticket-card__cta">
+        <span>support@coinosprey.com</span>
+        <a class="ticket-card__go" href="mailto:support@coinosprey.com?subject=Newsletter%20Issue" aria-label="Report a newsletter issue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    </div>
+
+    <div class="ticket-card" data-animate>
+      <div class="ticket-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
+      </div>
+      <span class="ticket-card__tag">CORRECTION</span>
+      <div class="ticket-card__title">Content Corrections</div>
+      <p class="ticket-card__desc">Spotted a typo, a stale figure, or a formatting slip on a published page? Flag it here and we'll get it fixed.</p>
+      <div class="ticket-card__cta">
+        <span>support@coinosprey.com</span>
+        <a class="ticket-card__go" href="mailto:support@coinosprey.com?subject=Content%20Correction" aria-label="Report a content correction"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    </div>
+
+    <div class="ticket-card" data-animate>
+      <div class="ticket-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1-5.5a8.5 8.5 0 1 1 17-3Z"></path></svg>
+      </div>
+      <span class="ticket-card__tag">FEEDBACK</span>
+      <div class="ticket-card__title">General Feedback</div>
+      <p class="ticket-card__desc">Ideas for the site, thoughts on a feature, or anything else that doesn't fit a bug or a correction — we read all of it.</p>
+      <div class="ticket-card__cta">
+        <span>support@coinosprey.com</span>
+        <a class="ticket-card__go" href="mailto:support@coinosprey.com?subject=Site%20Feedback" aria-label="Send feedback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ / RESOLVED TICKETS ============ -->
+  <section class="faq-section">
+    <div class="faq-intro" data-animate>
+      <div>
+        <h2 class="faq-intro__title">Common Fixes</h2>
+        <p class="faq-intro__sub">A few things we hear often — worth a quick check before you open a new ticket.</p>
+      </div>
+      <span class="faq-intro__count">5 resolved</span>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item" data-animate>
+        <button class="faq-item__q" aria-expanded="false">
+          <span class="faq-item__status">RESOLVED</span>
+          <span class="faq-item__q-text">How do I unsubscribe from the newsletter?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">Every newsletter email has an unsubscribe link at the bottom — that's the fastest way. If it's not working, email <a href="mailto:support@coinosprey.com?subject=Newsletter%20Issue">support@coinosprey.com</a> with the address you signed up with and we'll remove it manually.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate>
+        <button class="faq-item__q" aria-expanded="false">
+          <span class="faq-item__status">RESOLVED</span>
+          <span class="faq-item__q-text">I found a typo or factual error — what happens next?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">Send us the article link and what looks wrong. Small fixes like typos or broken formatting get corrected quietly; anything that changes the substance of a story is noted at the bottom of the article per our Editorial Policy. For deeper factual disputes or story tips, <a href="contact.html">Editorial Tips &amp; Corrections</a> on our Contact page is the more direct route.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate>
+        <button class="faq-item__q" aria-expanded="false">
+          <span class="faq-item__status">RESOLVED</span>
+          <span class="faq-item__q-text">A link on the site isn't working. What should I include?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">The page URL, what you clicked, and what happened instead (blank page, wrong article, error message). Your browser and device help too, but aren't required — we can usually reproduce it without.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate>
+        <button class="faq-item__q" aria-expanded="false">
+          <span class="faq-item__status">RESOLVED</span>
+          <span class="faq-item__q-text">Where do I send general feedback about the site?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">Right here — email <a href="mailto:support@coinosprey.com?subject=Site%20Feedback">support@coinosprey.com</a>. Whether it's a design gripe or a feature you'd like to see, it goes to the same desk that handles bugs and corrections.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate>
+        <button class="faq-item__q" aria-expanded="false">
+          <span class="faq-item__status">RESOLVED</span>
+          <span class="faq-item__q-text">Is CoinOsprey's content financial advice?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">No. Our news, price predictions, and research are for informational and educational purposes only. Always do your own research and consult a licensed advisor before making investment decisions — see our full Disclaimer for details.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ESCALATION STRIP ============ -->
+  <section class="escalation-strip">
+    <div class="escalation-strip__inner" data-animate>
+      <div class="escalation-strip__text">
+        <div class="escalation-strip__title">Didn't find a fix above?</div>
+        <p class="escalation-strip__desc">Email <strong>support@coinosprey.com</strong> directly, or visit our <a href="contact.html">Contact page</a> if your question is really for Editorial, Advertising, Careers, or Press.</p>
+      </div>
+      <span class="escalation-strip__pill">&#9203; We'll get back to you as soon as possible</span>
+    </div>
+  </section>
+
+  <div class="support-footer-space"></div>
+</main>
+
+<footer class="site-footer" data-animate>
+  <div class="footer__grid">
+    <div class="footer-col footer-brand">
+      <a href="/" class="footer-brand__logo" aria-label="CoinOsprey home">
+        <span class="footer-brand__logo-icon" aria-hidden="true">&#9760;</span>
+        <span class="footer-brand__logo-text">Coin<span>Osprey</span></span>
+      </a>
+      <p class="footer-brand__desc">Your trusted source for crypto news, price predictions, education and market insights.</p>
+      <ul class="footer-social" aria-label="Social media links">
+        <li><a href="https://x.com/CoinOsprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--x" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/></svg></a></li>
+        <li><a href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--linkedin" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/></svg></a></li>
+        <li><a href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--youtube" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2c-.3-.9-1-1.6-1.9-1.9C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.7.4c-.9.3-1.6 1-1.9 1.9C1 8.5 1 12 1 12s0 3.5.4 5.2c.3.9 1 1.6 1.9 1.9 1.8.4 8.7.4 8.7.4s6.9 0 8.7-.4c.9-.3 1.6-1 1.9-1.9.4-1.7.4-5.2.4-5.2ZM9.8 15.5v-7l6 3.5-6 3.5Z"/></svg></a></li>
+      </ul>
+      <p class="footer-copyright">&copy; 2026 CoinOsprey. All Rights Reserved.</p>
+    </div>
+
+    <nav class="footer-col" aria-labelledby="footer-quicklinks">
+      <h3 class="footer-col__heading" id="footer-quicklinks">Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="/#news" class="footer-links__item">News</a></li>
+        <li><a href="/#price-predictions" class="footer-links__item">Price Predictions</a></li>
+        <li><a href="/#academy" class="footer-links__item">Academy</a></li>
+        <li><a href="/#research" class="footer-links__item">Research</a></li>
+        <li><a href="#" class="footer-links__item">Tools</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-labelledby="footer-categories">
+      <h3 class="footer-col__heading" id="footer-categories">Categories</h3>
+      <ul class="footer-links">
+        <li><a href="#" class="footer-links__item">Bitcoin News</a></li>
+        <li><a href="#" class="footer-links__item">Ethereum News</a></li>
+        <li><a href="#" class="footer-links__item">Altcoin News</a></li>
+        <li><a href="#" class="footer-links__item">DeFi</a></li>
+        <li><a href="#" class="footer-links__item">AI Crypto</a></li>
+        <li><a href="#" class="footer-links__item">Regulation</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-labelledby="footer-resources">
+      <h3 class="footer-col__heading" id="footer-resources">About &amp; Contact</h3>
+      <ul class="footer-links">
+        <li><a href="about.html" class="footer-links__item">About CoinOsprey</a></li>
+        <li><a href="mission.html" class="footer-links__item">Our Mission</a></li>
+        <li><a href="authors.html" class="footer-links__item">Authors</a></li>
+        <li><a href="careers.html" class="footer-links__item">Careers</a></li>
+        <li><a href="advertise.html" class="footer-links__item">Advertise</a></li>
+        <li><a href="press.html" class="footer-links__item">Press &amp; Media Kit</a></li>
+        <li><a href="contact.html" class="footer-links__item">Contact Us</a></li>
+        <li><a href="support.html" class="footer-links__item is-current">Support</a></li>
+        <li><a href="#" class="footer-links__item">Sitemap</a></li>
+        <li><a href="#" class="footer-links__item">RSS Feed</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-labelledby="footer-legal">
+      <h3 class="footer-col__heading" id="footer-legal">Legal</h3>
+      <ul class="footer-links">
+        <li><a href="#" class="footer-links__item">Privacy Policy</a></li>
+        <li><a href="#" class="footer-links__item">Terms &amp; Conditions</a></li>
+        <li><a href="#" class="footer-links__item">Editorial Policy</a></li>
+        <li><a href="#" class="footer-links__item">Disclaimer</a></li>
+        <li><a href="#" class="footer-links__item">Cookie Policy</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-labelledby="footer-topics">
+      <h3 class="footer-col__heading" id="footer-topics">Popular Topics</h3>
+      <ul class="footer-tags">
+        <li><a href="#" class="footer-tags__item">Bitcoin ETF</a></li>
+        <li><a href="#" class="footer-tags__item">Ethereum Upgrade</a></li>
+        <li><a href="#" class="footer-tags__item">Solana News</a></li>
+        <li><a href="#" class="footer-tags__item">AI Tokens</a></li>
+        <li><a href="#" class="footer-tags__item">Exchange Listings</a></li>
+        <li><a href="#" class="footer-tags__item">Crypto Regulations</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom__inner">
+      <p class="footer-bottom__text">&copy; 2026 CoinOsprey. All Rights Reserved.</p>
+      <p class="footer-bottom__disclaimer">Not Financial Advice. Do Your Own Research.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path></svg>
+</button>
+
+<script>
+(function(){
+  "use strict";
+  var dateEl = document.querySelector('#topbarDate .co-topbar__label');
+  var timeEl = document.getElementById('topbarTimeText');
+  function pad(n){ return n < 10 ? '0' + n : n; }
+  function renderClock(){
+    var now = new Date();
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    var h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+    var ampm = h >= 12 ? 'PM' : 'AM'; var h12 = h % 12; if (h12 === 0) h12 = 12;
+    timeEl.textContent = h12 + ':' + pad(m) + ':' + pad(s) + ' ' + ampm;
+  }
+  renderClock(); setInterval(renderClock, 1000);
+
+  var tickerItems = [
+    { icon: 'btc', label: 'B', text: 'Bitcoin ETF Inflows Surpass $500M' },
+    { icon: 'bnb', label: '\u25C8', text: 'Binance Lists New AI Token AIOZ' },
+    { icon: 'eth', label: '\u039E', text: 'SEC Delays Decision on Ethereum ETF' },
+    { icon: 'sol', label: 'S', text: 'Solana Network Hits New Milestone' }
+  ];
+  var track = document.getElementById('tickerTrack');
+  function buildEntries(){
+    var html = '';
+    tickerItems.forEach(function(item){
+      html += '<span class="co-ticker__entry"><span class="co-ticker__entry-icon co-ticker__entry-icon--' + item.icon + '">' + item.label + '</span>' + item.text + '</span>';
+    });
+    return html;
+  }
+  track.innerHTML = buildEntries() + buildEntries();
+
+  var header = document.getElementById('coHeader');
+  window.addEventListener('scroll', function(){
+    header.classList.toggle('co-header--scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  var hamburger = document.getElementById('hamburgerBtn');
+  var mobilePanel = document.getElementById('mobilePanel');
+  hamburger.addEventListener('click', function(){
+    var isOpen = mobilePanel.classList.toggle('is-open');
+    hamburger.classList.toggle('is-open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  var loader = document.getElementById('pageLoader');
+  window.addEventListener('load', function(){
+    if (!loader) return;
+    setTimeout(function(){ loader.classList.add('is-hidden'); }, 250);
+  });
+
+  var progressBar = document.getElementById('scrollProgress');
+  function updateProgress(){
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true }); updateProgress();
+
+  var backToTop = document.getElementById('backToTop');
+  function toggleBackToTop(){ backToTop.classList.toggle('is-visible', window.scrollY > 480); }
+  window.addEventListener('scroll', toggleBackToTop, { passive: true }); toggleBackToTop();
+  backToTop.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  var animatedNodes = document.querySelectorAll('[data-animate]');
+  if ('IntersectionObserver' in window) {
+    var animObserver = new IntersectionObserver(function(entries, observer){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    animatedNodes.forEach(function(node){ animObserver.observe(node); });
+  } else {
+    animatedNodes.forEach(function(node){ node.classList.add('is-visible'); });
+  }
+
+  var SEARCH_INDEX = [
+    { title: 'Bitcoin ETF Inflows Hit Record High', cat: 'News' },
+    { title: 'Bitcoin Price Prediction 2026', cat: 'Price Predictions' },
+    { title: 'Ethereum Price Prediction 2026', cat: 'Price Predictions' },
+    { title: 'What Is DeFi? Beginner Guide', cat: 'Academy' },
+    { title: 'Weekly Market Report', cat: 'Research' }
+  ];
+  function escapeHtml(str){ return str.replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+  function initHeaderSearch(inputId, dropdownId){
+    var input = document.getElementById(inputId), dropdown = document.getElementById(dropdownId);
+    if (!input || !dropdown) return;
+    function open(){ dropdown.classList.add('is-open'); }
+    function close(){ dropdown.classList.remove('is-open'); }
+    function renderResults(query){
+      var q = query.trim().toLowerCase();
+      var matches = SEARCH_INDEX.filter(function(item){ return item.title.toLowerCase().indexOf(q) !== -1; }).slice(0,8);
+      if (!matches.length) { dropdown.innerHTML = '<div class="co-search-dropdown__empty">No results. Try a coin name or category.</div>'; return; }
+      dropdown.innerHTML = matches.map(function(item){ return '<div class="co-search-dropdown__empty" style="text-align:left;">' + escapeHtml(item.title) + '</div>'; }).join('');
+    }
+    input.addEventListener('focus', function(){ if (input.value.trim()) renderResults(input.value); open(); });
+    input.addEventListener('input', function(){ renderResults(input.value); open(); });
+    document.addEventListener('click', function(e){ if (!input.contains(e.target) && !dropdown.contains(e.target)) close(); });
+  }
+  initHeaderSearch('headerSearchInput', 'headerSearchDropdown');
+  initHeaderSearch('mobileSearchInput', 'mobileSearchDropdown');
+
+  /* FAQ accordion */
+  var faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(function(item){
+    var btn = item.querySelector('.faq-item__q');
+    var panel = item.querySelector('.faq-item__a');
+    btn.addEventListener('click', function(){
+      var isOpen = item.classList.contains('is-open');
+      faqItems.forEach(function(other){
+        other.classList.remove('is-open');
+        other.querySelector('.faq-item__q').setAttribute('aria-expanded', 'false');
+        other.querySelector('.faq-item__a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
