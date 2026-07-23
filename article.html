@@ -1905,105 +1905,11 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   });
 
 })();
-
 </script>
-
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 19V5"></path>
-    <path d="M5 12l7-7 7 7"></path>
-  </svg>
-</button>
 
 <script>
 (function () {
   'use strict';
-
-  /* ---------- Live date & time in topbar ---------- */
-  var dateEl = document.querySelector('#topbarDate .co-topbar__label');
-  var timeEl = document.getElementById('topbarTimeText');
-  function pad(n) { return n < 10 ? '0' + n : n; }
-  function renderClock() {
-    var now = new Date();
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    if (dateEl) dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-    var h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-    var ampm = h >= 12 ? 'PM' : 'AM';
-    var h12 = h % 12; if (h12 === 0) h12 = 12;
-    if (timeEl) timeEl.textContent = h12 + ':' + pad(m) + ':' + pad(s) + ' ' + ampm;
-  }
-  renderClock();
-  setInterval(renderClock, 1000);
-
-  /* ---------- Breaking news ticker content ---------- */
-  var tickerItems = [
-    { icon: 'btc', label: 'B', text: 'Bitcoin ETF Inflows Surpass $500M' },
-    { icon: 'eth', label: '\u039E', text: 'Ethereum Layer 2 Activity Climbs' },
-    { icon: 'sol', label: 'S', text: 'Solana Network Hits New Milestone' },
-    { icon: 'bnb', label: '\u25C8', text: 'Binance Lists New Token' }
-  ];
-  var track = document.getElementById('tickerTrack');
-  if (track) {
-    function buildEntries() {
-      var html = '';
-      tickerItems.forEach(function (item) {
-        html += '<span class="co-ticker__entry">' +
-                  '<span class="co-ticker__entry-icon co-ticker__entry-icon--' + item.icon + '">' + item.label + '</span>' +
-                  item.text +
-                '</span>';
-      });
-      return html;
-    }
-    track.innerHTML = buildEntries() + buildEntries();
-  }
-
-/* ---------- Desktop mega menu ---------- */
-  var megaNavItems = Array.prototype.slice.call(document.querySelectorAll('.co-nav__menu > .co-nav__item'));
-  function closeAllMegaMenus(exceptItem) {
-    megaNavItems.forEach(function (item) { if (item !== exceptItem) item.classList.remove('is-open'); });
-  }
-  megaNavItems.forEach(function (item) {
-    item.addEventListener('mouseenter', function () { closeAllMegaMenus(item); item.classList.add('is-open'); });
-    item.addEventListener('mouseleave', function () { item.classList.remove('is-open'); });
-  });
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.co-nav__menu')) closeAllMegaMenus(null);
-  });
-
-  /* ---------- Mobile hamburger menu ---------- */
-  var hamburger = document.getElementById('hamburgerBtn');
-  var mobilePanel = document.getElementById('mobilePanel');
-  if (hamburger && mobilePanel) {
-    hamburger.addEventListener('click', function(){
-      var isOpen = mobilePanel.classList.toggle('is-open');
-      hamburger.classList.toggle('is-open', isOpen);
-      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-    var subToggles = mobilePanel.querySelectorAll('[data-submenu]');
-    subToggles.forEach(function(toggle){
-      toggle.addEventListener('click', function(e){
-        e.preventDefault();
-        var target = document.getElementById(toggle.getAttribute('data-submenu'));
-        if (target) target.classList.toggle('is-open');
-      });
-    });
-  }
-
-  /* ---------- Back to top button ---------- */
-  var backToTop = document.getElementById('backToTop');
-  function toggleBackToTop() {
-    if (!backToTop) return;
-    if (window.scrollY > 480) backToTop.classList.add('is-visible');
-    else backToTop.classList.remove('is-visible');
-  }
-  window.addEventListener('scroll', toggleBackToTop, { passive: true });
-  toggleBackToTop();
-  if (backToTop) {
-    backToTop.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
   /* ---------- FAQ accordion interaction ----------
      Delegated listener so it works even though #articleFaqBlock is
      injected dynamically by Part 2's renderMarkdown() after fetch. */
@@ -2017,3 +1923,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
 </script>
 </body>
 </html>
+
+
+
+ 
