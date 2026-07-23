@@ -1883,6 +1883,630 @@
 </button>
 
 <script>
+
+
+(function(){
+  "use strict";
+
+  /* ---------- Live date & time ---------- */
+  var dateEl = document.querySelector('#topbarDate .co-topbar__label');
+  var timeEl = document.getElementById('topbarTimeText');
+
+  function pad(n){ return n < 10 ? '0' + n : n; }
+
+  function renderClock(){
+    var now = new Date();
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12;
+    if (h12 === 0) h12 = 12;
+    timeEl.textContent = h12 + ':' + pad(m) + ':' + pad(s) + ' ' + ampm;
+  }
+  renderClock();
+  setInterval(renderClock, 1000);
+
+  /* ---------- Category filter chips ---------- */
+  var chipsWrap = document.getElementById('categoryChips');
+  if (chipsWrap) {
+    chipsWrap.addEventListener('click', function(e){
+      var chip = e.target.closest('.co-chip');
+      if (!chip) return;
+      // Let the browser handle the actual navigation (smooth-scrolls to the
+      // linked section thanks to html{scroll-behavior:smooth}); we just
+      // update which chip is shown as active.
+      chipsWrap.querySelectorAll('.co-chip').forEach(function(c){
+        c.classList.remove('is-active');
+        c.removeAttribute('aria-current');
+      });
+      chip.classList.add('is-active');
+      chip.setAttribute('aria-current', 'true');
+      // Center the chip within its own scrollable row only — avoid
+      // scrollIntoView here since it can fight with the page-level
+      // vertical scroll already triggered by the anchor navigation.
+      var targetLeft = chip.offsetLeft - (chipsWrap.clientWidth / 2 - chip.clientWidth / 2);
+      chipsWrap.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- Breaking news ticker content ---------- */
+  var tickerItems = [
+    { icon: 'btc', label: 'B', text: 'Bitcoin ETF Inflows Surpass $500M' },
+    { icon: 'bnb', label: '\u25C8', text: 'Binance Lists New AI Token AIOZ' },
+    { icon: 'eth', label: '\u039E', text: 'SEC Delays Decision on Ethereum ETF' },
+    { icon: 'sol', label: 'S', text: 'Solana Network Hits New Milestone' }
+  ];
+
+  var track = document.getElementById('tickerTrack');
+  function buildEntries(){
+    var html = '';
+    tickerItems.forEach(function(item){
+      html += '<span class="co-ticker__entry">' +
+                '<span class="co-ticker__entry-icon co-ticker__entry-icon--' + item.icon + '">' + item.label + '</span>' +
+                item.text +
+              '</span>';
+    });
+    return html;
+  }
+  // duplicate the sequence so the marquee loops seamlessly
+  track.innerHTML = buildEntries() + buildEntries();
+
+  /* ---------- Sticky header shrink on scroll ---------- */
+  var header = document.getElementById('coHeader');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 40) {
+      header.classList.add('co-header--scrolled');
+    } else {
+      header.classList.remove('co-header--scrolled');
+    }
+  }, { passive: true });
+
+  /* ---------- Desktop mega menu: only one open at a time ---------- */
+  var megaNavItems = Array.prototype.slice.call(
+    document.querySelectorAll('.co-nav__menu > .co-nav__item')
+  ).filter(function (item) {
+    return item.querySelector('.co-nav__dropdown');
+  });
+
+  var autoCloseTimer = null;
+
+  function closeAllMegaMenus(exceptItem) {
+    megaNavItems.forEach(function (item) {
+      if (item !== exceptItem) item.classList.remove('is-open');
+    });
+    if (!exceptItem && autoCloseTimer) {
+      clearTimeout(autoCloseTimer);
+      autoCloseTimer = null;
+    }
+  }
+  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  megaNavItems.forEach(function (item) {
+    var link = item.querySelector(':scope > .co-nav__link');
+
+    // Hovering a new item closes whichever menu was open before
+    // opening this one, so only one mega menu is ever visible.
+    // Only bind hover behavior on real mouse/desktop devices — on
+    // touch devices this fires right before "click" and instantly
+    // closes the menu it just opened.
+    if (supportsHover) {
+      item.addEventListener('mouseenter', function () {
+        closeAllMegaMenus(item);
+        item.classList.add('is-open');
+      });
+      item.addEventListener('mouseleave', function () {
+        item.classList.remove('is-open');
+      });
+    }
+
+    // Click toggles the menu (useful for touch/trackpad) and still
+    // guarantees exclusivity.
+    if (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var wasOpen = item.classList.contains('is-open');
+        closeAllMegaMenus(item);
+        item.classList.toggle('is-open', !wasOpen);
+
+        if (autoCloseTimer) clearTimeout(autoCloseTimer);
+        if (!wasOpen) {
+          // just opened this menu — auto-close it after 30s of inactivity
+          autoCloseTimer = setTimeout(function () {
+            item.classList.remove('is-open');
+            autoCloseTimer = null;
+          }, 5000);
+        }
+      });
+    }
+  });
+
+  // Clicking anywhere outside the nav closes any open mega menu.
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.co-nav__menu')) closeAllMegaMenus(null);
+  });
+
+  /* ---------- Mobile hamburger menu ---------- */
+  var hamburger = document.getElementById('hamburgerBtn');
+  var mobilePanel = document.getElementById('mobilePanel');
+
+  hamburger.addEventListener('click', function(){
+    var isOpen = mobilePanel.classList.toggle('is-open');
+    hamburger.classList.toggle('is-open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  /* ---------- Mobile submenu toggles ---------- */
+  var subToggles = mobilePanel.querySelectorAll('[data-submenu]');
+  subToggles.forEach(function(toggle){
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.getElementById(toggle.getAttribute('data-submenu'));
+      if (target) target.classList.toggle('is-open');
+    });
+  });
+
+})();
+
+
+
+/* ==========================================================================
+   Part 2 — Featured News interactions
+   1) Lazy-load images (data-src -> src) with blur-to-sharp reveal
+   2) IntersectionObserver-driven fade/slide-in on first view
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var lazyImages = document.querySelectorAll('img[data-src]');
+
+  // Blur-to-sharp lazy loading
+  var imgObserver = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var img = entry.target;
+      img.src = img.getAttribute('data-src');
+      img.addEventListener('load', function () {
+        // next frame so the browser has painted the blurred state first
+        requestAnimationFrame(function () {
+          img.classList.add('is-loaded');
+        });
+      }, { once: true });
+      observer.unobserve(img);
+    });
+  }, { rootMargin: '150px 0px' });
+
+  lazyImages.forEach(function (img) { imgObserver.observe(img); });
+
+  // Re-trigger entrance animation for cards scrolled into view later
+  // (initial cards animate via CSS on load; this covers slow connections)
+  var cards = document.querySelectorAll('.featured-news__hero, .news-card');
+  var cardObserver = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach(function (card) { cardObserver.observe(card); });
+})();
+
+
+
+(function(){
+  'use strict';
+
+  /* ============================
+     SCROLL REVEAL: fade-up + stagger
+     Uses IntersectionObserver so
+     sections animate in as user
+     scrolls to them.
+  ============================ */
+  var blocks = document.querySelectorAll('[data-animate]');
+
+  if(!('IntersectionObserver' in window)){
+    // Fallback: show everything immediately
+    blocks.forEach(function(block){
+      block.classList.add('is-visible');
+    });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var block = entry.target;
+        block.classList.add('is-visible');
+
+        // Stagger the list items inside this block
+        var items = block.querySelectorAll('.block-list__item');
+        items.forEach(function(item, index){
+          item.style.transitionDelay = (index * 70) + 'ms';
+        });
+
+        observer.unobserve(block);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  blocks.forEach(function(block){
+    observer.observe(block);
+  });
+
+})();
+
+
+
+(function(){
+  'use strict';
+
+  /* ============================
+     FADE-UP ON SCROLL
+  ============================ */
+  var animatedEls = document.querySelectorAll('[data-animate]');
+
+  if('IntersectionObserver' in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    animatedEls.forEach(function(el){ observer.observe(el); });
+  } else {
+    animatedEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+})();
+
+
+(function () {
+  'use strict';
+
+  /* ==========================================================================
+     PART 5 — GLOBAL SITE BEHAVIOR
+     Runs after each section's own script (header ticker/menu, featured lazy
+     load, part3/part4 fade-ups). Everything here is additive and namespaced
+     so it cannot collide with the section-level scripts loaded above it.
+     ========================================================================== */
+
+  /* ---------- 1. Page load animation ---------- */
+  var loader = document.getElementById('pageLoader');
+  window.addEventListener('load', function () {
+    if (!loader) return;
+    setTimeout(function () {
+      loader.classList.add('is-hidden');
+    }, 250);
+  });
+
+  /* ---------- 2. Scroll progress bar ---------- */
+  var progressBar = document.getElementById('scrollProgress');
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* ---------- 3. Back to top button ---------- */
+  var backToTop = document.getElementById('backToTop');
+  function toggleBackToTop() {
+    if (!backToTop) return;
+    if (window.scrollY > 480) {
+      backToTop.classList.add('is-visible');
+    } else {
+      backToTop.classList.remove('is-visible');
+    }
+  }
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  toggleBackToTop();
+
+  if (backToTop) {
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- 4. Header search: inline typing + dropdown suggestions ---------- */
+  // Demo content index. In production this would be populated from the CMS.
+  var SEARCH_INDEX = [
+    { title: 'Bitcoin ETF Inflows Hit Record High', cat: 'News', icon: '₿' },
+    { title: 'Bitcoin Price Prediction 2026', cat: 'Price Predictions', icon: '₿' },
+    { title: 'Ethereum Price Prediction 2026', cat: 'Price Predictions', icon: 'Ξ' },
+    { title: 'Ethereum Layer 2 Roundup', cat: 'News', icon: 'Ξ' },
+    { title: 'Solana Price Prediction', cat: 'Price Predictions', icon: '◎' },
+    { title: 'Solana Network Outage Report', cat: 'News', icon: '◎' },
+    { title: 'XRP Price Prediction', cat: 'Price Predictions', icon: '✕' },
+    { title: 'What Is DeFi? Beginner Guide', cat: 'Academy', icon: '🎓' },
+    { title: 'Understanding Tokenomics', cat: 'Academy', icon: '🎓' },
+    { title: 'Candlestick Patterns Explained', cat: 'Academy', icon: '🎓' },
+    { title: 'Weekly Market Report', cat: 'Research', icon: '📊' },
+    { title: 'On-Chain Analysis: Whale Activity', cat: 'Research', icon: '📊' },
+    { title: 'ETF Analysis: Institutional Flows', cat: 'Research', icon: '📊' },
+    { title: 'DCA Calculator', cat: 'Tools', icon: '🛠' },
+    { title: 'Profit & Loss Calculator', cat: 'Tools', icon: '🛠' },
+    { title: 'Staking Calculator', cat: 'Tools', icon: '🛠' },
+    { title: 'Meme Coin Season: What to Know', cat: 'News', icon: '🐸' },
+    { title: 'Crypto Regulation Tracker', cat: 'News', icon: '⚖' },
+    { title: 'Exchange Hack Post-Mortems', cat: 'Research', icon: '🔒' },
+    { title: 'AI Crypto Tokens to Watch', cat: 'News', icon: '🤖' }
+  ];
+
+  var TRENDING = ['Bitcoin ETF', 'Solana Price Prediction', 'Ethereum Layer 2', 'Meme Coins', 'DeFi Basics', 'Regulation'];
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function highlight(title, query) {
+    if (!query) return escapeHtml(title);
+    var idx = title.toLowerCase().indexOf(query.toLowerCase());
+    if (idx === -1) return escapeHtml(title);
+    var before = escapeHtml(title.slice(0, idx));
+    var match = escapeHtml(title.slice(idx, idx + query.length));
+    var after = escapeHtml(title.slice(idx + query.length));
+    return before + '<mark>' + match + '</mark>' + after;
+  }
+
+  function resultRow(item, query) {
+    return '<button type="button" class="co-search-dropdown__result" data-title="' + escapeHtml(item.title) + '" role="option">' +
+      '<span class="co-search-dropdown__result-icon" aria-hidden="true">' + item.icon + '</span>' +
+      '<span class="co-search-dropdown__result-text">' +
+        '<span class="co-search-dropdown__result-title">' + highlight(item.title, query) + '</span>' +
+        '<span class="co-search-dropdown__result-cat">' + item.cat + '</span>' +
+      '</span>' +
+    '</button>';
+  }
+
+  function chip(label) {
+    return '<button type="button" class="co-search-dropdown__chip" data-query="' + escapeHtml(label) + '">' + escapeHtml(label) + '</button>';
+  }
+
+  /* Each header search field (desktop inline bar + mobile panel field) gets
+     its own small, self-contained dropdown controller so typing works
+     directly in place instead of handing off to a separate popup. */
+function initHeaderSearch(inputId, dropdownId, submitId) {
+    var input = document.getElementById(inputId);
+    var dropdown = document.getElementById(dropdownId);
+    var submitBtn = submitId ? document.getElementById(submitId) : null;
+    if (!input || !dropdown) return;
+
+    function submitSearch() {
+      var firstResult = dropdown.querySelector('.co-search-dropdown__result');
+      if (firstResult) {
+        firstResult.click();
+      }
+    }
+
+    function open() {
+      dropdown.classList.add('is-open');
+      input.setAttribute('aria-expanded', 'true');
+    }
+    function close() {
+      dropdown.classList.remove('is-open');
+      input.setAttribute('aria-expanded', 'false');
+    }
+
+    function renderDefault() {
+      var html = '<div class="co-search-dropdown__section">' +
+        '<div class="co-search-dropdown__title">Trending Searches</div>' +
+        '<div class="co-search-dropdown__chips">' + TRENDING.map(chip).join('') + '</div>' +
+      '</div>';
+      dropdown.innerHTML = html;
+      bindHandlers();
+    }
+
+    function renderResults(query) {
+      var q = query.trim().toLowerCase();
+      var matches = SEARCH_INDEX.filter(function (item) {
+        return item.title.toLowerCase().indexOf(q) !== -1 || item.cat.toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 8);
+
+      if (!matches.length) {
+        dropdown.innerHTML = '<div class="co-search-dropdown__empty">' +
+          '<div class="co-search-dropdown__empty-icon" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path><path d="M9 9l4 4M13 9l-4 4"></path></svg>' +
+          '</div>' +
+          '<div class="co-search-dropdown__empty-title">No results found</div>' +
+          '<div class="co-search-dropdown__empty-text">We couldn\u2019t find anything for &ldquo;' + escapeHtml(query) + '&rdquo;.<br>Try a coin name, category or guide.</div>' +
+        '</div>';
+        return;
+      }
+
+      dropdown.innerHTML = '<div class="co-search-dropdown__section">' +
+        matches.map(function (item) { return resultRow(item, query); }).join('') +
+      '</div>';
+      bindHandlers();
+    }
+
+    function bindHandlers() {
+      dropdown.querySelectorAll('.co-search-dropdown__chip').forEach(function (el) {
+        el.addEventListener('click', function () {
+          var q = el.getAttribute('data-query');
+          input.value = q;
+          renderResults(q);
+          input.focus();
+        });
+      });
+      dropdown.querySelectorAll('.co-search-dropdown__result').forEach(function (el) {
+        el.addEventListener('click', function () {
+          input.value = el.getAttribute('data-title');
+          close();
+        });
+      });
+    }
+
+    input.addEventListener('focus', function () {
+      if (input.value.trim().length === 0) {
+        renderDefault();
+      } else {
+        renderResults(input.value);
+      }
+      open();
+    });
+
+    input.addEventListener('input', function () {
+      if (input.value.trim().length === 0) {
+        renderDefault();
+      } else {
+        renderResults(input.value);
+      }
+      open();
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        close();
+        input.blur();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        submitSearch();
+      }
+    });
+
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        submitSearch();
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      if (!input.contains(e.target) && !dropdown.contains(e.target)) close();
+    });
+  }
+
+  initHeaderSearch('headerSearchInput', 'headerSearchDropdown', 'headerSearchSubmit');
+  initHeaderSearch('mobileSearchInput', 'mobileSearchDropdown', 'mobileSearchSubmit');
+
+  // Cmd/Ctrl+K focuses the header search bar, a common power-user shortcut
+  // for news sites (desktop bar only; it's hidden on mobile).
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      var headerInput = document.getElementById('headerSearchInput');
+      if (headerInput && headerInput.offsetParent !== null) {
+        e.preventDefault();
+        headerInput.focus();
+      }
+    }
+  });
+
+  /* ---------- 5. Active navigation highlight ----------
+     Scroll-spy auto-highlighting removed. The CoinOsprey logo now
+     serves as the home link, per standard news-site navigation. */
+
+  /* ---------- 6. Scroll animation library (fade-up/left/right, scale-in, image-reveal) ---------- */
+  var animatedNodes = document.querySelectorAll('[data-animate]');
+
+  if ('IntersectionObserver' in window) {
+    var animObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    animatedNodes.forEach(function (node) { animObserver.observe(node); });
+  } else {
+    animatedNodes.forEach(function (node) { node.classList.add('in-view'); });
+  }
+
+  /* ---------- 7. Stagger-children groups (generic, reusable) ---------- */
+  var staggerGroups = document.querySelectorAll('[data-stagger]');
+  if ('IntersectionObserver' in window && staggerGroups.length) {
+    var staggerObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var children = entry.target.children;
+        for (var i = 0; i < children.length; i++) {
+          children[i].style.setProperty('--stagger-index', i);
+        }
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+    staggerGroups.forEach(function (group) { staggerObserver.observe(group); });
+  }
+
+  /* ---------- 8. Counter animation utility (opt-in via data-counter="target") ---------- */
+  function animateCounter(el) {
+    var target = parseFloat(el.getAttribute('data-counter')) || 0;
+    var duration = 1200;
+    var start = null;
+    function step(ts) {
+      if (start === null) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target).toLocaleString();
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var counters = document.querySelectorAll('[data-counter]');
+  if ('IntersectionObserver' in window && counters.length) {
+    var counterObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (c) { counterObserver.observe(c); });
+  }
+
+  /* ---------- 9. Lazy image loading + skeleton loader (site-wide fallback) ----------
+     Featured News already lazy-loads its own [data-src] images with a blur
+     reveal. This pass covers any other lazily-markable image on the page and
+     wires the shared skeleton shimmer to real <img> load events. */
+  var allLazyImgs = document.querySelectorAll('img[loading="lazy"]');
+  allLazyImgs.forEach(function (img) {
+    var wrapper = img.closest('.news-thumb, .research-thumb, .featured-news__media, .news-card__media');
+    if (wrapper) wrapper.classList.add('co-skeleton');
+    function markLoaded() {
+      if (wrapper) wrapper.classList.add('is-loaded');
+    }
+    if (img.complete) {
+      markLoaded();
+    } else {
+      img.addEventListener('load', markLoaded, { once: true });
+      img.addEventListener('error', markLoaded, { once: true });
+    }
+  });
+
+})();
+
+</script>
+
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5"></path>
+    <path d="M5 12l7-7 7 7"></path>
+  </svg>
+</button>
+
+<script>
 (function () {
   'use strict';
 
