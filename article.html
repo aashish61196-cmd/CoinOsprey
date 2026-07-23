@@ -425,9 +425,21 @@
     font-weight:700;
     font-family:var(--co-font-display);
   }
-  .article-body em{ color:var(--co-gray-700); }
+.article-body em{ color:var(--co-gray-700); }
   .article-body div{ margin-bottom:2px; }
   .article-body div:has(br:only-child){ height:10px; }
+  .article-body a{
+    color: var(--co-amber-600);
+    text-decoration: underline;
+    text-decoration-color: rgba(226,150,15,0.4);
+    text-underline-offset: 2px;
+    font-weight: 600;
+    transition: color 200ms ease;
+  }
+  .article-body a:hover{
+    color: var(--co-navy-900);
+    text-decoration-color: var(--co-amber-600);
+  }
 
   @media (max-width:640px){
     .article-wrap{ padding:20px 16px 48px; }
