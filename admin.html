@@ -1397,6 +1397,24 @@ document.getElementById('descImgFile').addEventListener('change', async function
 });
   /* ---------------- BOOTSTRAP ---------------- */
 buildPopovers();
+  /* ---------------- AUTO-CONVERT MARKDOWN LINKS ---------------- */
+function markdownLinksToHtml(text){
+  // [Link Text](https://url) → <a href="https://url">Link Text</a>
+  return text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, function(_, label, url){
+    return `<a href="${url}" target="_blank" rel="noopener">${label}</a>`;
+  });
+}
+
+descEditor.addEventListener('paste', function(e){
+  const clip = (e.clipboardData || window.clipboardData);
+  const text = clip.getData('text/plain');
+  if(!text) return; // let default paste happen for non-text (images etc.)
+
+  e.preventDefault();
+  const escaped = escapeHtml(text);
+  const withLinks = markdownLinksToHtml(escaped).replace(/\n/g, '<br>');
+  document.execCommand('insertHTML', false, withLinks);
+});
 checkSession(); // shows login screen, or auto-enters app if a valid token is already saved
 </script>
 </body>
