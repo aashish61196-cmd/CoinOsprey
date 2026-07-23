@@ -457,6 +457,526 @@
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <header class="co-header" id="coHeader">
+
+  <!-- ============================ TOP INFO BAR ============================ -->
+  <div class="co-topbar">
+    <div class="co-topbar__inner">
+      <div class="co-topbar__left">
+        <span class="co-topbar__item" id="topbarDate">
+          <svg class="co-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+          <span class="co-topbar__label">Tuesday, 23 September 2025</span>
+        </span>
+        <span class="co-topbar__time" id="topbarTime">
+          <svg class="co-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+          <span id="topbarTimeText">3:12:17 PM</span>
+        </span>
+        <span class="co-topbar__breaking">
+          <span class="co-topbar__breaking-tag">BREAKING:</span>
+          <span class="co-topbar__breaking-text">Loading latest updates...</span>
+        </span>
+      </div>
+      <div class="co-topbar__right">
+        <span class="co-topbar__follow">Follow Us</span>
+        <nav class="co-topbar__social" aria-label="Social media links">
+          <a class="co-topbar__social-link" href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="6" fill="#000000"/>
+              <path fill="#ffffff" d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/>
+            </svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://www.linkedin.com/in/coinosprey?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+              <path fill="#ffffff" d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/>
+            </svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://youtube.com/@coinosprey?si=kwk40LF-tt-3f6jp" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/>
+              <path fill="#ffffff" d="M10 8.5v7l6-3.5-6-3.5Z"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ BREAKING NEWS TICKER ============================ -->
+  <div class="co-ticker">
+    <div class="co-ticker__inner">
+      <span class="co-ticker__tag">
+        <svg class="co-ticker__bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>
+        <span>BREAKING</span>
+      </span>
+      <div class="co-ticker__viewport">
+        <div class="co-ticker__track" id="tickerTrack">
+          <!-- items injected by JS, duplicated for seamless loop -->
+        </div>
+      </div>
+      <nav class="co-ticker__social" aria-label="Social media links">
+        <a class="co-topbar__social-link" href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="6" fill="#000000"/>
+            <path fill="#ffffff" d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/>
+          </svg>
+        </a>
+        <a class="co-topbar__social-link" href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+            <path fill="#ffffff" d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/>
+          </svg>
+        </a>
+        <a class="co-topbar__social-link" href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/>
+            <path fill="#ffffff" d="M10 8.5v7l6-3.5-6-3.5Z"/>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ============================ NAVIGATION ============================ -->
+  <div class="co-nav">
+    <div class="co-nav__inner">
+      <a href="#" class="co-nav-logo" aria-label="CoinOsprey — go to homepage">
+        <svg width="38" height="38" viewBox="0 0 54 40" style="flex-shrink:0;" aria-label="CoinOsprey logo"><polygon points="27,0 2,38 27,28" fill="#C9A24B"/><polygon points="27,0 52,38 27,28" fill="#E8CD8A"/></svg>
+        <span class="co-nav-logo__col">
+          <span class="co-nav-logo__text" style="font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.3px;">Coin<span style="color:var(--co-amber-500,#f0a91e);">Osprey</span></span>
+          <span class="co-nav-logo__tagline">Sharp Eyes on Crypto Markets</span>
+        </span>
+      </a>
+      <nav class="co-nav__menu" aria-label="Primary navigation">
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">NEWS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega">
+            <div class="co-nav__dropdown-cols cols-3">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Latest News</a>
+                <a class="co-nav__dropdown-link" href="#">Breaking News</a>
+                <a class="co-nav__dropdown-link" href="#">Bitcoin</a>
+                <a class="co-nav__dropdown-link" href="#">Ethereum</a>
+                <a class="co-nav__dropdown-link" href="#">XRP</a>
+                <a class="co-nav__dropdown-link" href="#">Solana</a>
+                <a class="co-nav__dropdown-link" href="#">Altcoins</a>
+                <a class="co-nav__dropdown-link" href="#">Memecoins</a>
+                <a class="co-nav__dropdown-link" href="#">AI Crypto</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">DeFi</a>
+                <a class="co-nav__dropdown-link" href="#">Layer 2</a>
+                <a class="co-nav__dropdown-link" href="#">Web3</a>
+                <a class="co-nav__dropdown-link" href="#">Blockchain</a>
+                <a class="co-nav__dropdown-link" href="#">Stablecoins</a>
+                <a class="co-nav__dropdown-link" href="#">Exchange Listings</a>
+                <a class="co-nav__dropdown-link" href="#">Exchange Delistings</a>
+                <a class="co-nav__dropdown-link" href="#">Exchange Announcements</a>
+                <a class="co-nav__dropdown-link" href="#">ETF News</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Regulation</a>
+                <a class="co-nav__dropdown-link" href="#">Security &amp; Hacks</a>
+                <a class="co-nav__dropdown-link" href="#">Partnerships</a>
+                <a class="co-nav__dropdown-link" href="#">Funding</a>
+                <a class="co-nav__dropdown-link" href="#">Adoption</a>
+                <a class="co-nav__dropdown-link" href="#">Whale Activity</a>
+                <a class="co-nav__dropdown-link" href="#">Market Updates</a>
+                <a class="co-nav__dropdown-link" href="#">Editor's Picks</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">PRICE PREDICTIONS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega">
+            <div class="co-nav__dropdown-cols cols-3">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Featured Predictions</a>
+                <a class="co-nav__dropdown-link" href="#">Bitcoin</a>
+                <a class="co-nav__dropdown-link" href="#">Ethereum</a>
+                <a class="co-nav__dropdown-link" href="#">XRP</a>
+                <a class="co-nav__dropdown-link" href="#">Solana</a>
+                <a class="co-nav__dropdown-link" href="#">BNB</a>
+                <a class="co-nav__dropdown-link" href="#">Dogecoin</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Cardano</a>
+                <a class="co-nav__dropdown-link" href="#">Avalanche</a>
+                <a class="co-nav__dropdown-link" href="#">Sui</a>
+                <a class="co-nav__dropdown-link" href="#">Aptos</a>
+                <a class="co-nav__dropdown-link" href="#">Meme Coins</a>
+                <a class="co-nav__dropdown-link" href="#">AI Coins</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">RWA Tokens</a>
+                <a class="co-nav__dropdown-link" href="#">Gaming Tokens</a>
+                <a class="co-nav__dropdown-link" href="#">DeFi Tokens</a>
+                <a class="co-nav__dropdown-link" href="#">Weekly Outlook</a>
+                <a class="co-nav__dropdown-link" href="#">Monthly Outlook</a>
+                <a class="co-nav__dropdown-link" href="#">Long-Term Predictions</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#blogs">BLOGS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega">
+            <div class="co-nav__dropdown-cols cols-2">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Latest Blogs</a>
+                <a class="co-nav__dropdown-link" href="#">Opinion</a>
+                <a class="co-nav__dropdown-link" href="#">Interviews</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Guest Posts</a>
+                <a class="co-nav__dropdown-link" href="#">Editor's Blog</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">ACADEMY
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega co-nav__dropdown--center">
+            <div class="co-nav__dropdown-cols cols-5">
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">Learning Paths</div>
+                <a class="co-nav__dropdown-link" href="#">Dashboard</a>
+                <a class="co-nav__dropdown-link" href="#">Beginner</a>
+                <a class="co-nav__dropdown-link" href="#">Intermediate</a>
+                <a class="co-nav__dropdown-link" href="#">Advanced</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">Core Topics</div>
+                <a class="co-nav__dropdown-link" href="#">Blockchain</a>
+                <a class="co-nav__dropdown-link" href="#">Bitcoin</a>
+                <a class="co-nav__dropdown-link" href="#">Ethereum</a>
+                <a class="co-nav__dropdown-link" href="#">Altcoins</a>
+                <a class="co-nav__dropdown-link" href="#">Stablecoins</a>
+                <a class="co-nav__dropdown-link" href="#">Web3</a>
+                <a class="co-nav__dropdown-link" href="#">DeFi</a>
+                <a class="co-nav__dropdown-link" href="#">NFTs</a>
+                <a class="co-nav__dropdown-link" href="#">Wallets</a>
+                <a class="co-nav__dropdown-link" href="#">Security</a>
+                <a class="co-nav__dropdown-link" href="#">Trading</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">Technical Analysis</div>
+                <a class="co-nav__dropdown-link" href="#">Basics</a>
+                <a class="co-nav__dropdown-link" href="#">Candlesticks</a>
+                <a class="co-nav__dropdown-link" href="#">Chart Patterns</a>
+                <a class="co-nav__dropdown-link" href="#">Indicators</a>
+                <a class="co-nav__dropdown-link" href="#">Price Action</a>
+                <a class="co-nav__dropdown-link" href="#">Smart Money Concepts</a>
+                <a class="co-nav__dropdown-link" href="#">ICT</a>
+                <a class="co-nav__dropdown-link" href="#">Risk Management</a>
+                <a class="co-nav__dropdown-link" href="#">Trading Psychology</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">Fundamental Analysis</div>
+                <a class="co-nav__dropdown-link" href="#">Tokenomics</a>
+                <a class="co-nav__dropdown-link" href="#">Whitepaper Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Team Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Partnerships</a>
+                <a class="co-nav__dropdown-link" href="#">Roadmap</a>
+                <a class="co-nav__dropdown-link" href="#">TVL</a>
+                <a class="co-nav__dropdown-link" href="#">Developer Activity</a>
+                <a class="co-nav__dropdown-link" href="#">Coin Valuation</a>
+                <a class="co-nav__dropdown-link" href="#">Case Studies</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">More</div>
+                <a class="co-nav__dropdown-link" href="#">On-Chain Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Mining</a>
+                <a class="co-nav__dropdown-link" href="#">Staking</a>
+                <a class="co-nav__dropdown-link" href="#">Yield Farming</a>
+                <a class="co-nav__dropdown-link" href="#">Glossary</a>
+                <a class="co-nav__dropdown-link" href="#">Quizzes</a>
+                <a class="co-nav__dropdown-link" href="#">Practice Tests</a>
+                <a class="co-nav__dropdown-link" href="#">Certificates</a>
+                <a class="co-nav__dropdown-link" href="#">Community</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">RESEARCH
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega co-nav__dropdown--right">
+            <div class="co-nav__dropdown-cols cols-3">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Daily Market Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Weekly Market Report</a>
+                <a class="co-nav__dropdown-link" href="#">Monthly Market Report</a>
+                <a class="co-nav__dropdown-link" href="#">Bitcoin Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Ethereum Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Altcoin Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Sector Analysis</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Technical Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Fundamental Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">On-Chain Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Market Sentiment</a>
+                <a class="co-nav__dropdown-link" href="#">Macro Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">ETF Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Institutional Analysis</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Tokenomics Research</a>
+                <a class="co-nav__dropdown-link" href="#">Project Deep Dives</a>
+                <a class="co-nav__dropdown-link" href="#">Portfolio Strategies</a>
+                <a class="co-nav__dropdown-link" href="#">Risk Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Special Reports</a>
+                <a class="co-nav__dropdown-link" href="#">Research Archive</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">TOOLS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega co-nav__dropdown--right">
+            <div class="co-nav__dropdown-cols cols-2">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Profit Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">DCA Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Position Size Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Risk/Reward Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Compound Interest Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Staking Calculator</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Mining Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Liquidation Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Portfolio Tracker <em>(Future)</em></a>
+                <a class="co-nav__dropdown-link" href="#">Watchlist <em>(Future)</em></a>
+                <a class="co-nav__dropdown-link" href="#">Crypto Tax Calculator <em>(Future)</em></a>
+                <a class="co-nav__dropdown-link" href="#">AI Coin Analyzer <em>(Future)</em></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <form class="co-nav__searchbar" role="search" action="#" onsubmit="return false;" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" id="headerSearchInput" class="co-nav__searchbar-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="headerSearchDropdown" aria-autocomplete="list">
+        <button type="submit" class="co-nav__searchbar-submit" id="headerSearchSubmit" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        </button>
+        <div class="co-search-dropdown" id="headerSearchDropdown"></div>
+      </form>
+
+      <div class="co-nav__actions">
+        <button class="co-nav__hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobilePanel">
+          <span class="co-nav__hamburger-bar"></span>
+          <span class="co-nav__hamburger-bar"></span>
+          <span class="co-nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE NAV PANEL -->
+    <div class="co-nav__mobile-panel" id="mobilePanel">
+      <form class="co-nav__mobile-search" role="search" action="#" onsubmit="return false;" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" id="mobileSearchInput" class="co-nav__mobile-search-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="mobileSearchDropdown" aria-autocomplete="list">
+        <button type="submit" class="co-nav__searchbar-submit" id="mobileSearchSubmit" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        </button>
+        <div class="co-search-dropdown" id="mobileSearchDropdown"></div>
+      </form>
+      <ul class="co-nav__mobile-list">
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-news">NEWS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-news">
+            <a class="co-nav__mobile-submenu-link" href="#">Latest News</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Breaking News</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Bitcoin</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Ethereum</a>
+            <a class="co-nav__mobile-submenu-link" href="#">XRP</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Solana</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Altcoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Memecoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">AI Crypto</a>
+            <a class="co-nav__mobile-submenu-link" href="#">DeFi</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Layer 2</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Web3</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Blockchain</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Stablecoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Exchange Listings</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Exchange Delistings</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Exchange Announcements</a>
+            <a class="co-nav__mobile-submenu-link" href="#">ETF News</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Regulation</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Security &amp; Hacks</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Partnerships</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Funding</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Adoption</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Whale Activity</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Market Updates</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Editor's Picks</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-predictions">PRICE PREDICTIONS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-predictions">
+            <a class="co-nav__mobile-submenu-link" href="#">Featured Predictions</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Bitcoin</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Ethereum</a>
+            <a class="co-nav__mobile-submenu-link" href="#">XRP</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Solana</a>
+            <a class="co-nav__mobile-submenu-link" href="#">BNB</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Dogecoin</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Cardano</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Avalanche</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Sui</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Aptos</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Meme Coins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">AI Coins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">RWA Tokens</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Gaming Tokens</a>
+            <a class="co-nav__mobile-submenu-link" href="#">DeFi Tokens</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Weekly Outlook</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Monthly Outlook</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Long-Term Predictions</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-blogs">BLOGS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-blogs">
+            <a class="co-nav__mobile-submenu-link" href="#">Latest Blogs</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Opinion</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Interviews</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Guest Posts</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Editor's Blog</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-academy">ACADEMY
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-academy">
+            <div class="co-nav__mobile-submenu-heading">Learning Paths</div>
+            <a class="co-nav__mobile-submenu-link" href="#">Dashboard</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Beginner</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Intermediate</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Advanced</a>
+            <div class="co-nav__mobile-submenu-heading">Core Topics</div>
+            <a class="co-nav__mobile-submenu-link" href="#">Blockchain</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Bitcoin</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Ethereum</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Altcoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Stablecoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Web3</a>
+            <a class="co-nav__mobile-submenu-link" href="#">DeFi</a>
+            <a class="co-nav__mobile-submenu-link" href="#">NFTs</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Wallets</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Security</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Trading</a>
+            <div class="co-nav__mobile-submenu-heading">Technical Analysis</div>
+            <a class="co-nav__mobile-submenu-link" href="#">Basics</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Candlesticks</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Chart Patterns</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Indicators</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Price Action</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Smart Money Concepts</a>
+            <a class="co-nav__mobile-submenu-link" href="#">ICT</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Risk Management</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Trading Psychology</a>
+            <div class="co-nav__mobile-submenu-heading">Fundamental Analysis</div>
+            <a class="co-nav__mobile-submenu-link" href="#">Tokenomics</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Whitepaper Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Team Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Partnerships</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Roadmap</a>
+            <a class="co-nav__mobile-submenu-link" href="#">TVL</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Developer Activity</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Coin Valuation</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Case Studies</a>
+            <div class="co-nav__mobile-submenu-heading">More</div>
+            <a class="co-nav__mobile-submenu-link" href="#">On-Chain Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Mining</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Staking</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Yield Farming</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Glossary</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Quizzes</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Practice Tests</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Certificates</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Community</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-research">RESEARCH
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-research">
+            <a class="co-nav__mobile-submenu-link" href="#">Daily Market Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Weekly Market Report</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Monthly Market Report</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Bitcoin Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Ethereum Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Altcoin Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Sector Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Technical Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Fundamental Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">On-Chain Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Market Sentiment</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Macro Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">ETF Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Institutional Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Tokenomics Research</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Project Deep Dives</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Portfolio Strategies</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Risk Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Special Reports</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Research Archive</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-tools">TOOLS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-tools">
+            <a class="co-nav__mobile-submenu-link" href="#">Profit Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">DCA Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Position Size Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Risk/Reward Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Compound Interest Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Staking Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Mining Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Liquidation Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Portfolio Tracker (Future)</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Watchlist (Future)</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Crypto Tax Calculator (Future)</a>
+            <a class="co-nav__mobile-submenu-link" href="#">AI Coin Analyzer (Future)</a>
+          </div>
+        </li>
+      </ul>
+      <div class="co-nav__mobile-actions">
+        <a class="co-btn-subscribe" href="#">Subscribe</a>
+      </div>
+    </div>
+</div>
+
+</header>
+
   <div class="co-topbar">
     <div class="co-topbar__inner">
       <div class="co-topbar__left">
