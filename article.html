@@ -1976,9 +1976,12 @@
   .article-meta__dot{ width:3px; height:3px; border-radius:50%; background:var(--co-gray-300); }
 
   .article-hero-image{
-    width:100%;
-    max-height:420px;
-    object-fit:cover;
+    width:100% !important;
+    max-width:100% !important;
+    height:auto !important;
+    max-height:420px !important;
+    object-fit:cover !important;
+    display:block !important;
     border-radius:var(--co-radius-lg);
     margin-bottom:28px;
     box-shadow:var(--shadow-md);
