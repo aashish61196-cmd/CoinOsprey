@@ -1885,9 +1885,12 @@
      ARTICLE PAGE LAYOUT (new for this page)
      ========================================================================== */
   .article-wrap{
-    max-width:900px;
-    margin:0 auto;
-    padding:32px 24px 64px;
+    max-width:900px !important;
+    width:100% !important;
+    margin:0 auto !important;
+    padding:32px 24px 64px !important;
+    box-sizing:border-box !important;
+    overflow-x:hidden;
   }
 
   /* Loading skeleton state, shown until fetch resolves */
