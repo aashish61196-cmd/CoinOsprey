@@ -246,7 +246,9 @@
     display:flex; align-items:center; gap:40px; white-space:nowrap; width:max-content;
     animation:co-ticker-scroll 28s linear infinite;
   }
-  .co-ticker__viewport:hover .co-ticker__track{ animation-play-state:paused; }
+  @media (hover:hover) and (pointer:fine){
+    .co-ticker__viewport:hover .co-ticker__track{ animation-play-state:paused; }
+  }
   @keyframes co-ticker-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
   .co-ticker__entry{ display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--co-navy-900); }
   .co-ticker__entry-icon{
