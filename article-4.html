@@ -1,0 +1,3725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Loading Article… — CoinOsprey</title>
+<meta name="description" id="pageDescription" content="CoinOsprey crypto news and price prediction article.">
+<meta name="theme-color" content="#0b1730">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================================================
+     MASTER DESIGN SYSTEM + HEADER/FOOTER STYLES (from CoinOsprey header/footer,
+     as of 23 July 2026)
+     ========================================================================== */
+  /* ==========================================================================
+     PART 5 — MASTER DESIGN SYSTEM
+     One canonical set of custom properties feeding every section (header,
+     featured news, content blocks, disclaimer, footer) so Parts 1-4 combine
+     without color/spacing drift. Section-specific stylesheets below keep
+     their original selector names; only the variable *values* are now
+     centralized here.
+     ========================================================================== */
+  :root{
+    /* ---------- Brand color scale (source of truth) ---------- */
+    --co-navy-900:#0b1730;
+    --co-navy-800:#0e1c3a;
+    --co-navy-700:#132449;
+    --co-navy-600:#1a2e58;
+    --co-amber-500:#f5a623;
+    --co-amber-600:#e2960f;
+    --co-red-600:#e0293e;
+    --co-red-700:#c31f32;
+    --co-white:#ffffff;
+    --co-gray-050:#f4f5f8;
+    --co-gray-100:#e9ebf1;
+    --co-gray-300:#c7cbd8;
+    --co-gray-500:#8892a6;
+    --co-gray-700:#4b5468;
+    --co-teal-500:#1fb6a8;
+    --co-violet-500:#7c5cff;
+
+    /* ---------- Typography system ---------- */
+    --co-font-display:'Space Grotesk', sans-serif;
+    --co-font-body:'Inter', sans-serif;
+    --co-font-mono:'IBM Plex Mono', monospace;
+    --font-heading:var(--co-font-display);
+    --font-body:var(--co-font-body);
+
+    --fs-xs:11px;   --fs-sm:12.5px; --fs-base:14px; --fs-md:15px;
+    --fs-lg:19px;   --fs-xl:24px;   --fs-2xl:32px;  --fs-3xl:40px;
+
+    /* ---------- Header-specific layout tokens ---------- */
+    --co-header-h-topbar:35px;
+    --co-header-h-logo:10px;
+    --co-header-h-nav:16px;
+    --co-header-h-ticker:16px;
+
+    /* ---------- Spacing system (4px base scale) ---------- */
+    --space-1:4px;  --space-2:8px;  --space-3:12px; --space-4:16px;
+    --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+    --space-12:48px;--space-16:64px;
+    --gap-lg:18px;  --gap-md:14px;
+
+    /* ---------- Radius system ---------- */
+    --co-radius-sm:4px;
+    --co-radius-md:8px;
+    --co-radius-lg:14px;
+    --radius-sm:6px;
+    --radius-md:10px;
+    --radius-lg:18px;
+
+    /* ---------- Shadow system ---------- */
+    --shadow-sm:0 1px 3px rgba(11,23,48,0.06);
+    --shadow-md:0 6px 18px rgba(11,23,48,0.08);
+    --shadow-lg:0 18px 40px rgba(11,23,48,0.14);
+    --shadow-card:0 4px 18px rgba(12,16,36,0.08);
+    --shadow-card-hover:0 18px 40px rgba(12,16,36,0.22);
+    --shadow-glow:0 0 60px rgba(240,169,30,0.12);
+
+    /* ---------- Motion system ---------- */
+    --co-transition:200ms ease;
+    --transition-base:300ms cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-fast:300ms cubic-bezier(.4,0,.2,1);
+    --transition-med:400ms cubic-bezier(.4,0,.2,1);
+    --ease:cubic-bezier(.4,0,.2,1);
+
+    /* ---------- Layout ---------- */
+    --max-width:1469px;
+    --page-bg:#f4f6fa;
+
+    /* ---------- Aliases: keep Part 1-4 selector code untouched ---------- */
+    --c-navy-900:var(--co-navy-900);
+    --c-navy-800:var(--co-navy-800);
+    --c-navy-700:var(--co-navy-700);
+    --c-white:var(--co-white);
+    --c-gold-500:var(--co-amber-500);
+    --c-gold-600:var(--co-amber-600);
+    --c-gold-400:#f6bd3a;
+    --c-purple-500:var(--co-violet-500);
+    --c-purple-600:#5a3fc0;
+    --c-red-500:var(--co-red-600);
+    --c-bg:var(--page-bg);
+    --c-bg-section:#f3f4f6;
+    --c-text-heading:#111827;
+    --c-text-body:#4b5563;
+    --c-text-muted:#8992a3;
+
+    /* Category tag colors (Academy Highlights) */
+    --cat-blue:#2563eb;        --cat-blue-bg:#e8f0fe;
+    --cat-teal:var(--co-teal-500); --cat-teal-bg:#e3f7f4;
+    --cat-purple:var(--co-violet-500); --cat-purple-bg:#efe6fd;
+    --cat-gold-bg:#fdf1dc;
+
+    /* Section-scoped variables (namespaced to avoid cross-file drift) */
+    --fn-card-bg:#0f1428;                        /* featured-news dark card bg   */
+    --fn-border:rgba(232, 163, 61, 0.35);         /* featured-news gold card edge */
+    --p3-card-bg:#ffffff;                         /* content-block white card bg  */
+    --p3-border:#e7eaf0;                          /* content-block light edge     */
+    --p4-border:rgba(255,255,255,0.08);           /* footer subtle white edge     */
+    --p4-shadow-card:0 20px 50px rgba(4,8,25,0.4);/* card panel shadow            */
+    --p4-radius-lg:16px;                          /* card panel radius            */
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; overflow-x:clip; }
+  body{
+    margin:0;
+    font-family:var(--co-font-body);
+    background:var(--page-bg);
+    color:var(--co-navy-900);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip;
+    max-width:100vw;
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  ul{ list-style:none; margin:0; padding:0; }
+  img{ display:block; max-width:100%; }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* ==========================================================================
+     INTERACTIVITY / CURSOR AUDIT — global safety net
+     Guarantees every clickable element shows a pointer cursor and sits
+     above any decorative overlay, regardless of which part-specific
+     stylesheet below might otherwise leave it unset.
+     ========================================================================== */
+  a[href], button, .btn, [role="button"], [onclick], summary,
+  .co-chip, .co-nav__link, .co-nav__dropdown-link, .co-nav__mobile-link,
+  .co-nav__mobile-submenu-link, .co-nav-logo, .co-topbar__social-link,
+  .co-btn-premium, .co-btn-subscribe, .co-nav__hamburger,
+  .view-all, .block-list__item, .news-card, .featured-news__hero,
+  .footer-links__item, .footer-tags__item, .footer-social__link,
+  .footer-brand__logo, .back-to-top, .co-search-dropdown__result,
+  .co-search-dropdown__chip{
+    cursor:pointer;
+  }
+  /* Decorative overlays must never intercept clicks meant for the
+     element (or link) they sit on top of. */
+  .featured-news__overlay, .news-card__overlay, .co-ad-banner__glow,
+  .co-reveal-mask, .co-chips::after, .co-skeleton::before{
+    pointer-events:none;
+  }
+  /* Text fields keep the normal text-input cursor, never a pointer. */
+  input, textarea{ cursor:text; }
+
+
+
+  /* ==========================================================================
+     CSS VARIABLES
+     ========================================================================== */
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:var(--co-font-body);
+    background:var(--co-gray-050);
+    color:var(--co-navy-900);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+  ul{ list-style:none; }
+  img{ display:block; max-width:100%; }
+
+  .co-sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* ==========================================================================
+     SITE HEADER (smart sticky: only the main nav pins to the top on scroll;
+     the top info bar and breaking-news ticker scroll away with the page and
+     reappear once the user scrolls back to the very top)
+     ========================================================================== */
+  .co-header{
+    position:relative;
+    width:100%;
+  }
+
+  /* ==========================================================================
+     TOP INFO BAR
+     ========================================================================== */
+  .co-topbar{
+    display:none;
+  }
+  .co-topbar__inner{
+    max-width:1440px;
+    margin:0 auto;
+    padding:8px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .co-topbar__left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    min-width:0;
+    flex:1;
+  }
+  .co-topbar__item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+    color:var(--co-gray-300);
+  }
+  .co-topbar__icon{
+    width:13px; height:13px;
+    flex-shrink:0;
+    opacity:.85;
+  }
+  .co-topbar__time{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--co-red-600);
+    color:var(--co-white);
+    font-family:var(--co-font-mono);
+    font-weight:500;
+    padding:3px 10px;
+    border-radius:var(--co-radius-sm);
+    letter-spacing:.2px;
+  }
+  .co-topbar__breaking{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:0;
+    overflow:hidden;
+  }
+  .co-topbar__breaking-tag{
+    background:var(--co-red-600);
+    color:var(--co-white);
+    font-weight:700;
+    letter-spacing:.4px;
+    padding:3px 8px;
+    border-radius:var(--co-radius-sm);
+    flex-shrink:0;
+    font-size:11px;
+  }
+  .co-topbar__breaking-text{
+    color:var(--co-gray-100);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .co-topbar__right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-shrink:0;
+  }
+  .co-topbar__follow{
+    color:var(--co-gray-300);
+    white-space:nowrap;
+  }
+  .co-topbar__social{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .co-topbar__social-link{
+    width:20px; height:20px;
+    flex-shrink:0;
+    display:flex;
+    border-radius:6px;
+    overflow:hidden;
+    transition:transform var(--co-transition), box-shadow var(--co-transition);
+  }
+  .co-topbar__social-link:hover,
+  .co-topbar__social-link:focus-visible{
+    transform:translateY(-2px) scale(1.1);
+    box-shadow:0 4px 10px rgba(0,0,0,0.35);
+  }
+  .co-topbar__social-link:focus-visible{
+    outline:2px solid var(--co-amber-500);
+    outline-offset:2px;
+  }
+  .co-topbar__social-link svg{ width:100%; height:100%; display:block; }
+
+  /* ==========================================================================
+     LOGO SECTION
+     ========================================================================== */
+  .co-header__logo-row{
+    background:var(--co-white);
+    border-bottom:1px solid var(--co-gray-100);
+  }
+  .co-logo-section{
+    max-width:1440px;
+    margin:0 auto;
+    padding:2px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:32px;
+  }
+  .co-logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-shrink:0;
+  }
+  .co-logo__mark{
+    width:28px;
+    height:28px;
+    object-fit:contain;
+    flex-shrink:0;
+  }
+  .co-logo__text{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .co-logo__name{
+    font-family:var(--co-font-display);
+    font-weight:900;
+    font-size:28px;
+    color:#f5a623;
+    letter-spacing:-.3px;
+    line-height:1;
+  }
+  .co-logo__tagline{
+    font-size:11.5px;
+    color:var(--co-gray-700);
+    letter-spacing:.3px;
+  }
+
+  .co-ad-banner{
+    flex:1;
+    max-width:760px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    background:linear-gradient(115deg, var(--co-navy-900) 0%, var(--co-navy-700) 55%, var(--co-navy-600) 100%);
+    border-radius:var(--co-radius-lg);
+    padding:16px 26px;
+    position:relative;
+    overflow:hidden;
+    min-height:78px;
+  }
+  .co-ad-banner__glow{
+    position:absolute;
+    right:150px;
+    top:50%;
+    transform:translateY(-50%);
+    width:120px;
+    height:120px;
+    background:radial-gradient(circle, rgba(245,166,35,.35) 0%, rgba(245,166,35,0) 70%);
+    pointer-events:none;
+  }
+  .co-ad-banner__coin{
+    position:absolute;
+    right:130px;
+    top:50%;
+    transform:translateY(-50%);
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ffd27a, var(--co-amber-500) 55%, var(--co-amber-600) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--co-navy-900);
+    font-family:var(--co-font-display);
+    font-weight:700;
+    font-size:26px;
+    box-shadow:0 4px 18px rgba(245,166,35,.4);
+  }
+  .co-ad-banner__spark{
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:220px;
+    height:60%;
+    opacity:.5;
+  }
+  .co-ad-banner__content{
+    position:relative;
+    z-index:1;
+    color:var(--co-white);
+  }
+  .co-ad-banner__title{
+    font-family:var(--co-font-display);
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:-.2px;
+    margin-bottom:4px;
+  }
+  .co-ad-banner__subtitle{
+    font-size:12.5px;
+    color:var(--co-gray-300);
+  }
+  .co-ad-banner__cta{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    flex-shrink:0;
+  }
+  .co-btn-premium{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+    font-weight:700;
+    font-size:13.5px;
+    padding:10px 22px;
+    border-radius:var(--co-radius-sm);
+    white-space:nowrap;
+    transition:background var(--co-transition), transform var(--co-transition);
+  }
+  .co-btn-premium:hover{
+    background:#ffb941;
+    transform:translateY(-1px);
+  }
+  .co-ad-banner__hint{
+    font-size:10.5px;
+    color:var(--co-gray-500);
+    white-space:nowrap;
+  }
+
+  /* ==========================================================================
+     NAVIGATION
+     ========================================================================== */
+  .co-nav{
+    background:var(--co-navy-900);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    transition:box-shadow var(--co-transition);
+  }
+  .co-header--scrolled .co-nav{
+    box-shadow:0 2px 14px rgba(11,23,48,0.18);
+  }
+  .co-nav__inner{
+    max-width:1440px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:nowrap;
+  }
+.co-nav__menu{
+    display:flex;
+    align-items:stretch;
+    flex-wrap:nowrap;
+    flex-shrink:0;
+  }
+  .co-nav__item{
+    position:relative;
+    flex-shrink:0;
+  }
+  .co-nav__link{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    height:var(--co-header-h-nav);
+    padding:0 18px;
+    color:var(--co-gray-100);
+    font-size:13.5px;
+    font-weight:600;
+    letter-spacing:.3px;
+    white-space:nowrap;
+    transition:background var(--co-transition), color var(--co-transition);
+  }
+  .co-nav__link:hover{
+    background:var(--co-navy-700);
+    color:var(--co-amber-500);
+  }
+  .co-nav__item--active .co-nav__link{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .co-nav__item--active .co-nav__link:hover{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .co-nav__caret{
+    width:9px; height:9px;
+    transition:transform var(--co-transition);
+  }
+  .co-nav__item.is-open .co-nav__caret{
+    transform:rotate(180deg);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__caret{
+      transform:rotate(180deg);
+    }
+  }
+  .co-nav__dropdown{
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:220px;
+    background:var(--co-white);
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(11,23,48,.08), 0 24px 48px rgba(11,23,48,.16);
+    border:1px solid var(--co-gray-100);
+    padding:10px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(4px) scale(.98);
+    transform-origin:top center;
+    transition:opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+    z-index:20;
+    overflow:hidden;
+  }
+  .co-nav__dropdown::before{
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:3px;
+    background:linear-gradient(90deg, var(--co-amber-500), var(--co-amber-600) 60%, var(--co-amber-500));
+  }
+  .co-nav__item.is-open .co-nav__dropdown{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__dropdown{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0) scale(1);
+    }
+  }
+  .co-nav__dropdown-link{
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:10px 14px 10px 16px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--co-navy-700);
+    border-radius:7px;
+    letter-spacing:.1px;
+    transition:background 180ms ease, color 180ms ease, padding-left 180ms ease;
+  }
+  .co-nav__dropdown-link::before{
+    content:'';
+    position:absolute;
+    left:4px; top:50%;
+    width:3px; height:0;
+    border-radius:2px;
+    background:var(--co-amber-500);
+    transform:translateY(-50%);
+    transition:height 180ms ease;
+  }
+  .co-nav__dropdown-link:hover{
+    background:var(--co-gray-050);
+    color:var(--co-amber-600);
+    padding-left:20px;
+  }
+  .co-nav__dropdown-link:hover::before{
+    height:60%;
+  }
+
+  /* Mega-menu variants for dropdowns with many items */
+  .co-nav__dropdown--mega{
+    padding:22px 26px;
+    min-width:280px;
+  }
+  .co-nav__dropdown--right{
+    left:auto;
+    right:0;
+  }
+  .co-nav__dropdown--center{
+    left:50%;
+    transform:translateX(-50%) translateY(4px) scale(.98);
+  }
+  .co-nav__item.is-open .co-nav__dropdown--center{
+    transform:translateX(-50%) translateY(0) scale(1);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__dropdown--center{
+      transform:translateX(-50%) translateY(0) scale(1);
+    }
+  }
+  .co-nav__dropdown-cols{
+    display:grid;
+    gap:2px 30px;
+    align-items:start;
+  }
+  .co-nav__dropdown-cols.cols-2{ grid-template-columns:repeat(2,172px); }
+  .co-nav__dropdown-cols.cols-3{ grid-template-columns:repeat(3,172px); }
+  .co-nav__dropdown-cols.cols-4{ grid-template-columns:repeat(4,164px); }
+  .co-nav__dropdown-cols.cols-5{ grid-template-columns:repeat(5,158px); }
+  .co-nav__dropdown-col{
+    display:flex;
+    flex-direction:column;
+  }
+  .co-nav__dropdown-col + .co-nav__dropdown-col{
+    border-left:1px solid var(--co-gray-100);
+    padding-left:22px;
+  }
+  .co-nav__dropdown-heading{
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+    color:var(--co-navy-700);
+    padding:2px 16px 9px;
+    margin-bottom:6px;
+    border-bottom:1px solid var(--co-gray-100);
+    position:relative;
+  }
+  .co-nav__dropdown-heading::after{
+    content:'';
+    position:absolute;
+    left:16px; bottom:-1px;
+    width:18px; height:2px;
+    background:var(--co-amber-500);
+    border-radius:2px;
+  }
+  .co-nav__dropdown-col:first-child .co-nav__dropdown-heading{ padding-top:0; margin-top:0; }
+  .co-nav__dropdown-cols .co-nav__dropdown-link{
+    padding:8px 12px 8px 14px;
+    font-size:12.5px;
+    white-space:nowrap;
+  }
+  .co-nav__dropdown-cols .co-nav__dropdown-link:hover{
+    padding-left:18px;
+  }
+
+  .co-nav__actions{
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  /* ---------- Inline header search bar (replaces Top Stories/About/Contact) ---------- */
+  .co-nav__searchbar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:1 1 auto;
+    min-width:0;
+    max-width:360px;
+    margin:0 28px;
+    height:38px;
+    padding:0 14px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.14);
+    transition:background var(--co-transition), border-color var(--co-transition);
+  }
+  .co-nav__searchbar:focus-within{
+    background:rgba(255,255,255,0.12);
+    border-color:var(--co-amber-500);
+  }
+  .co-nav__searchbar svg{ width:16px; height:16px; color:var(--co-gray-300); flex-shrink:0; }
+  .co-nav__searchbar-input{
+    flex:1;
+    min-width:0;
+    background:none;
+    border:none;
+    outline:none;
+    color:var(--co-white);
+    font-size:13.5px;
+    font-family:var(--co-font-body);
+  }
+  .co-nav__searchbar-input::placeholder{ color:var(--co-gray-500); }
+  .co-nav__searchbar-submit{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:26px; height:26px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:rgba(255,255,255,0.10);
+    color:var(--co-gray-300);
+    transition:background var(--co-transition), color var(--co-transition);
+  }
+  .co-nav__searchbar-submit:hover,
+  .co-nav__searchbar-submit:focus-visible{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .co-nav__searchbar-submit svg{ width:14px; height:14px; }
+
+  /* ---------- Mobile panel search field ---------- */
+  .co-nav__mobile-search{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:14px 16px 6px;
+    height:42px;
+    padding:0 14px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.14);
+  }
+  .co-nav__mobile-search:focus-within{ border-color:var(--co-amber-500); }
+  .co-nav__mobile-search svg{ width:16px; height:16px; color:var(--co-gray-300); flex-shrink:0; }
+  .co-nav__mobile-search-input{
+    flex:1;
+    min-width:0;
+    background:none;
+    border:none;
+    outline:none;
+    color:var(--co-white);
+    font-size:14px;
+    font-family:var(--co-font-body);
+  }
+  .co-nav__mobile-search-input::placeholder{ color:var(--co-gray-500); }
+  .co-nav__mobile-search .co-nav__searchbar-submit{
+    background:rgba(255,255,255,0.10);
+  }
+
+  .co-btn-subscribe{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+    font-weight:700;
+    font-size:13px;
+    padding:9px 20px;
+    border-radius:var(--co-radius-sm);
+    transition:background var(--co-transition), transform var(--co-transition);
+    white-space:nowrap;
+  }
+  .co-btn-subscribe:hover{
+    background:#ffb941;
+    transform:translateY(-1px);
+  }
+
+  .co-nav__hamburger{
+    display:none;
+    width:34px; height:34px;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+  }
+  .co-nav-logo{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    margin-right: 20px;
+  }
+  .co-nav-logo__icon{
+    width:38px;
+    height:38px;
+    flex-shrink:0;
+    border-radius:9px;
+    background:radial-gradient(circle at 30% 30%, var(--co-amber-400,#f5c26b), var(--co-amber-600,#d4941f));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    color:var(--co-navy-900);
+    font-weight:800;
+  }
+  .co-nav-logo__text{
+    font-family:var(--co-font-display);
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:-.3px;
+    color:#ffffff;
+    white-space:nowrap;
+  }
+.co-nav-logo__text span{
+    color:var(--co-amber-500,#f0a91e);
+  }
+  .co-nav-logo__col{
+    display:flex;
+    flex-direction:column;
+    line-height:1.15;
+  }
+  .co-nav-logo__tagline{
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--co-gray-300);
+    margin-top:2px;
+  }
+  .co-nav__hamburger-bar{
+    width:22px; height:2px;
+    background:var(--co-white);
+    border-radius:2px;
+    transition:transform var(--co-transition), opacity var(--co-transition);
+  }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(1){
+    transform:translateY(7px) rotate(45deg);
+  }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(2){
+    opacity:0;
+  }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg);
+  }
+
+  /* Mobile nav panel */
+  .co-nav__mobile-panel{
+    display:none;
+    background:var(--co-navy-800);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 280ms ease;
+  }
+  .co-nav__mobile-panel.is-open{
+    max-height:82vh;
+    overflow-y:auto;
+  }
+  .co-nav__mobile-list{
+    padding:8px 16px 16px;
+  }
+  .co-nav__mobile-item{
+    border-bottom:1px solid var(--co-navy-600);
+  }
+  .co-nav__mobile-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:13px 4px;
+    color:var(--co-gray-100);
+    font-size:14px;
+    font-weight:600;
+  }
+  .co-nav__mobile-submenu{
+    display:none;
+    padding:10px 8px 14px 12px;
+    margin:4px 0 8px;
+    background:rgba(255,255,255,0.04);
+    border-left:2px solid var(--co-amber-500);
+    border-radius:0 8px 8px 0;
+  }
+  .co-nav__mobile-submenu.is-open{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 10px;
+  }
+  .co-nav__mobile-submenu-link{
+    display:block;
+    padding:8px 8px;
+    font-size:12.5px;
+    color:var(--co-gray-300);
+    border-radius:6px;
+    transition:background var(--co-transition), color var(--co-transition);
+  }
+  .co-nav__mobile-submenu-link:hover,
+  .co-nav__mobile-submenu-link:active{
+    background:var(--co-navy-700);
+    color:var(--co-amber-500);
+  }
+  .co-nav__mobile-submenu-heading{
+    grid-column:1 / -1;
+    padding:10px 6px 3px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--co-amber-500);
+  }
+  .co-nav__mobile-submenu-heading:first-child{ padding-top:2px; }
+  .co-nav__mobile-actions{
+    display:flex;
+    gap:10px;
+    padding:14px 4px 4px;
+  }
+  .co-nav__mobile-actions .co-btn-subscribe{
+    flex:1;
+    text-align:center;
+  }
+
+  /* ==========================================================================
+     CATEGORY FILTER CHIPS (horizontal scroll)
+     ========================================================================== */
+  .co-chips{
+    background:var(--co-navy-900);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    position:relative;
+  }
+  .co-chips::after{
+    content:'';
+    position:absolute;
+    top:0; right:0; bottom:0;
+    width:36px;
+    background:linear-gradient(90deg, rgba(11,23,48,0), var(--co-navy-900) 85%);
+    pointer-events:none;
+  }
+  .co-chips__inner{
+    max-width:1440px;
+    margin:0 auto;
+    padding:12px 24px;
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .co-chips__inner::-webkit-scrollbar{ display:none; }
+  .co-chip{
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    padding:8px 18px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+    white-space:nowrap;
+    background:rgba(255,255,255,0.06);
+    color:var(--co-gray-100);
+    border:1px solid rgba(255,255,255,0.14);
+    cursor:pointer;
+    transition:background var(--co-transition), color var(--co-transition), border-color var(--co-transition), box-shadow var(--co-transition), transform var(--co-transition);
+    user-select:none;
+  }
+  .co-chip:hover{
+    background:rgba(245,166,35,0.10);
+    border-color:var(--co-amber-500);
+    color:var(--co-amber-600);
+    box-shadow:0 4px 10px rgba(245,166,35,0.18);
+    transform:translateY(-1px);
+  }
+  .co-chip:focus-visible{
+    outline:2px solid var(--co-amber-500);
+    outline-offset:2px;
+  }
+  .co-chip.is-active{
+    background:var(--co-amber-500);
+    color:var(--co-white);
+    border-color:var(--co-amber-500);
+    box-shadow:0 4px 10px rgba(245,166,35,0.3);
+  }
+  .co-chip.is-active:hover{
+    background:var(--co-amber-600);
+    border-color:var(--co-amber-600);
+    color:var(--co-white);
+    transform:translateY(-1px);
+  }
+  @media (max-width:640px){
+    .co-chips__inner{ padding:10px 16px; gap:8px; }
+    .co-chip{ padding:7px 14px; font-size:12.5px; }
+  }
+
+  /* Section anchors targeted by the category chips should clear the
+     sticky nav bar rather than land underneath it. */
+  #home, #news, #price-predictions, #academy, #research{
+    scroll-margin-top:96px;
+  }
+
+  /* ==========================================================================
+     BREAKING NEWS TICKER
+     ========================================================================== */
+  .co-ticker{
+    background:var(--co-navy-900);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .co-ticker__inner{
+    max-width:1440px;
+    margin:0 auto;
+    padding:8px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:auto;
+    min-height:var(--co-header-h-ticker);
+    gap:16px;
+  }
+  .co-ticker__social{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+.co-ticker__tag{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--co-red-600);
+    color:var(--co-white);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.4px;
+    padding:6px 14px;
+    border-radius:var(--co-radius-sm);
+    flex-shrink:0;
+    clip-path:none;
+  }
+  .co-ticker__bolt{
+    width:12px; height:12px;
+  }
+  .co-ticker__viewport{
+    flex:1;
+    overflow:hidden;
+    position:relative;
+  }
+  .co-ticker__track{
+    display:flex;
+    align-items:center;
+    gap:40px;
+    white-space:nowrap;
+    width:max-content;
+    animation:co-ticker-scroll 28s linear infinite;
+  }
+  .co-ticker__viewport:hover .co-ticker__track{
+    animation-play-state:paused;
+  }
+  @keyframes co-ticker-scroll{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .co-ticker__entry{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:600;
+    color:#ffffff;
+  }
+  .co-ticker__entry-icon{
+    width:20px; height:20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    font-weight:700;
+    color:var(--co-white);
+    flex-shrink:0;
+  }
+  .co-ticker__entry-icon--btc{ background:#f7931a; }
+  .co-ticker__entry-icon--bnb{ background:var(--co-navy-900); }
+  .co-ticker__entry-icon--eth{ background:var(--co-violet-500); }
+  .co-ticker__entry-icon--sol{ background:var(--co-teal-500); }
+
+  /* ==========================================================================
+     RESPONSIVE
+     ========================================================================== */
+  @media (max-width: 1180px){
+    .co-nav__link{ padding:0 12px; font-size:13px; }
+    .co-nav__searchbar{ max-width:220px; margin:0 14px; }
+  }
+
+  @media (max-width: 1000px){
+    .co-nav__link{ padding:0 9px; font-size:12px; }
+    .co-nav__searchbar{ max-width:160px; margin:0 10px; }
+  }
+
+  @media (max-width: 1024px){
+    .co-topbar__breaking-text{ max-width:220px; }
+    .co-ad-banner{ display:none; }
+    .co-logo-section{ padding:14px 20px; }
+  }
+
+  @media (max-width: 899px){
+    .co-nav__menu,
+    .co-nav__searchbar,
+    .co-nav__actions .co-btn-subscribe{
+      display:none;
+    }
+    .co-nav__hamburger{ display:flex; }
+    .co-nav__mobile-panel{ display:block; }
+    .co-nav__inner{ height:56px; }
+    .co-topbar__follow{ display:none; }
+  }
+
+  @media (max-width: 720px){
+    .co-topbar__breaking-text{ max-width:140px; }
+    .co-topbar__item span.co-topbar__label{ display:none; }
+  }
+
+  @media (max-width: 560px){
+    .co-topbar__inner{ padding:7px 16px; gap:10px; }
+    .co-topbar__breaking{ flex:1; }
+    .co-logo-section{ padding:12px 16px; }
+    .co-logo__mark{ width:42px; height:42px; }
+    .co-logo__name{ font-size:52px;
+    color: #f6bd3a;
+  font-weight: 900; }
+    .co-logo__tagline{ font-size:10px; }
+    .co-ticker__inner{ padding:0 16px; }
+    .co-nav__inner{ padding:0 16px; }
+    .co-ticker__tag span{ display:none; }
+  }
+
+
+
+/* ==========================================================================
+   CoinOsprey — Part 2: Hero Featured News Section
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+
+.featured-news {
+  background: var(--c-bg-section);
+  padding: 22px 24px 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.featured-news__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.024fr;
+  gap: var(--gap-lg);
+}
+
+/* ==========================================================================
+   Shared: category badges
+   ========================================================================== */
+
+.badge-row {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  top: auto;
+  left: auto;
+  z-index: 3;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  color: var(--c-white);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+/* category color variants */
+.badge--bitcoin   { background: var(--c-gold-500); color: var(--c-navy-900); }
+.badge--dark      { background: var(--c-navy-800); }
+.badge--ethereum  { background: var(--c-purple-500); }
+.badge--altcoins  { background: var(--c-purple-500); }
+.badge--exchange  { background: var(--c-red-500); }
+.badge--binance   { background: var(--c-gold-500); color: var(--c-navy-900); }
+.badge--regulation{ background: var(--c-purple-600); }
+.badge--sec       { background: var(--c-navy-800); }
+
+/* glow animation triggered on card hover */
+.news-card:hover .badge,
+.featured-news__hero:hover .badge {
+  box-shadow: 0 0 0 3px rgba(232, 163, 61, 0.25), 0 0 16px rgba(232, 163, 61, 0.55);
+}
+
+
+
+
+
+  
+  
+  
+
+ 
+   
+
+
+  
+  /* ============================
+     FOOTER
+  ============================ */
+  .site-footer{
+    margin-top:40px;
+    background:var(--c-navy-900);
+    color:rgba(255,255,255,0.68);
+    padding-top:48px;
+  }
+.footer__grid{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:0 32px 28px;
+    display:grid;
+    grid-template-columns:1.6fr 1fr 1fr 1fr 1fr 1fr;
+    gap:24px;
+    align-items:start;
+  }
+
+  .footer-col__heading{
+    font-family:var(--font-heading);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--c-white);
+    margin:0 0 16px;
+  }
+
+  /* --- Brand column --- */
+  .footer-brand__logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+
+  .footer-brand__logo-icon{
+    width:34px;
+    height:34px;
+    border-radius:8px;
+    background:radial-gradient(circle at 30% 30%, var(--c-gold-400), var(--c-gold-600));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    color:var(--c-navy-900);
+    font-weight:800;
+    transition:box-shadow var(--transition-med), transform var(--transition-med);
+  }
+  .footer-brand:hover .footer-brand__logo-icon{
+    box-shadow:0 0 18px rgba(240,169,30,0.55);
+    transform:scale(1.05);
+  }
+
+  .footer-brand__logo-text{
+    font-family:var(--font-heading);
+    font-size:19px;
+    font-weight:800;
+    color:var(--c-white);
+    letter-spacing:.01em;
+  }
+  .footer-brand__logo-text span{
+    color:var(--c-gold-500);
+  }
+
+  .footer-brand__desc{
+    font-size:13px;
+    line-height:1.6;
+    color:rgba(255,255,255,0.62);
+    margin:0 0 18px;
+    max-width:260px;
+  }
+
+  .footer-social{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:20px;
+  }
+
+  .footer-social__link{
+    width:28px;
+    height:28px;
+    flex:0 0 28px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    color:#ffffff;
+    transition:transform var(--transition-fast), background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  }
+  .footer-social__link svg{
+    width:12px;
+    height:12px;
+    fill:currentColor;
+    display:block;
+  }
+  .footer-social__link--x{ background:#000000; }
+  .footer-social__link--linkedin{ background:#0A66C2; }
+  .footer-social__link--youtube{ background:#FF0000; }
+  .footer-social__link:hover{
+    background:var(--c-gold-500);
+    color:var(--c-navy-900);
+    transform:scale(1.12) rotate(8deg);
+  }
+
+  .footer-copyright{
+    font-size:12px;
+    color:rgba(255,255,255,0.45);
+  }
+
+  /* --- Link columns --- */
+  .footer-links{
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+  }
+
+  .footer-links__item{
+    position:relative;
+    display:inline-block;
+    width:fit-content;
+    font-size:13px;
+    color:rgba(255,255,255,0.62);
+    transition:color var(--transition-fast);
+  }
+
+  .footer-links__item::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-3px;
+    width:0%;
+    height:1px;
+    background:var(--c-gold-500);
+    transition:width var(--transition-fast);
+  }
+
+  .footer-links__item:hover{
+    color:var(--c-white);
+  }
+  .footer-links__item:hover::after{
+    width:100%;
+  }
+
+  /* --- Popular topics: pill tags instead of plain links --- */
+  .footer-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .footer-tags__item{
+    font-size:11.5px;
+    padding:6px 12px;
+    border-radius:20px;
+    border:1px solid var(--p4-border);
+    color:rgba(255,255,255,0.62);
+    transition:background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    white-space:nowrap;
+  }
+  .footer-tags__item:hover{
+    background:rgba(240,169,30,0.12);
+    border-color:rgba(240,169,30,0.5);
+    color:var(--c-gold-400);
+    transform:translateY(-2px);
+  }
+
+  /* ============================
+     BOTTOM BAR
+  ============================ */
+  .footer-bottom{
+    border-top:1px solid var(--p4-border);
+  }
+
+  .footer-bottom__inner{
+    max-width:1472px;
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  .footer-bottom__text{
+    font-size:12px;
+    color:rgba(255,255,255,0.45);
+  }
+
+  .footer-bottom__disclaimer{
+    font-size:12px;
+    color:rgba(255,255,255,0.45);
+    font-style:italic;
+  }
+
+  /* ============================
+     RESPONSIVE
+  ============================ */
+  @media (max-width:1024px){
+    .footer__grid{
+      grid-template-columns:repeat(3, 1fr);
+      row-gap:22px;
+    }
+    .footer-brand{
+      grid-column:1 / -1;
+    }
+    .footer-brand__desc{max-width:420px;}
+  }
+@media (max-width:640px){
+    .footer__grid{
+      grid-template-columns:repeat(3, 1fr);
+      padding:0 20px 20px;
+      gap:16px 12px;
+      row-gap:24px;
+    }
+    .footer-brand{grid-column:1 / -1;}
+    .footer-links__item, .footer-tags__item{
+      font-size:12px;
+    }
+
+    .footer-bottom__inner{
+      flex-direction:column;
+      text-align:center;
+      padding:16px 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{
+      animation-duration:0.01ms !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+
+  /* ==========================================================================
+     PART 5 — GLOBAL UTILITIES, COMPONENTS & SCROLL ANIMATION LIBRARY
+     ========================================================================== */
+
+  /* ---------- Button system ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:11px 22px;
+    border-radius:var(--co-radius-sm);
+    font-weight:700;
+    font-size:13.5px;
+    border:none;
+    cursor:pointer;
+    transition:background var(--co-transition), transform var(--co-transition), box-shadow var(--co-transition);
+  }
+  .btn--primary{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .btn--primary:hover{
+    background:#ffb941;
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(245,166,35,.35);
+  }
+  .btn--outline{
+    background:transparent;
+    color:var(--co-white);
+    border:1px solid rgba(255,255,255,0.28);
+  }
+  .btn--outline:hover{
+    background:rgba(255,255,255,0.08);
+    border-color:var(--co-amber-500);
+  }
+  /* Shimmer sweep, reusable on any .btn--shimmer */
+  .btn--shimmer{ position:relative; overflow:hidden; }
+  .btn--shimmer::after{
+    content:"";
+    position:absolute; top:0; left:-60%;
+    width:40%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform:skewX(-20deg);
+    animation:co-shimmer 3.4s ease-in-out infinite;
+  }
+  @keyframes co-shimmer{
+    0%{ left:-60%; } 45%{ left:130%; } 100%{ left:130%; }
+  }
+
+  /* ---------- Card system ---------- */
+  .card{
+    background:var(--co-white);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--p3-border);
+    transition:box-shadow var(--transition-med), transform var(--transition-med), border-color var(--transition-med);
+  }
+  .card:hover{
+    box-shadow:var(--shadow-lg);
+    transform:translateY(-4px);
+    border-color:rgba(245,166,35,0.4);
+  }
+  /* Gold glow ring, applied on hover across news/research/prediction cards */
+  .card--glow:hover{
+    box-shadow:var(--shadow-lg), 0 0 0 1px rgba(245,166,35,0.45);
+  }
+
+  /* ---------- Utility classes ---------- */
+  .u-container{ max-width:var(--max-width); margin:0 auto; padding-left:34px; padding-right:34px; }
+  .u-flex{ display:flex; }
+  .u-flex-center{ display:flex; align-items:center; justify-content:center; }
+  .u-hidden{ display:none !important; }
+  .u-mt-1{margin-top:var(--space-1);} .u-mt-2{margin-top:var(--space-2);}
+  .u-mt-4{margin-top:var(--space-4);} .u-mt-8{margin-top:var(--space-8);}
+  .u-mb-1{margin-bottom:var(--space-1);} .u-mb-2{margin-bottom:var(--space-2);}
+  .u-mb-4{margin-bottom:var(--space-4);} .u-mb-8{margin-bottom:var(--space-8);}
+  .u-text-center{ text-align:center; }
+
+  @media (min-width:1920px){
+    .u-container{ max-width:1760px; }
+  }
+
+  /* ==========================================================================
+     SCROLL-TRIGGERED ANIMATION LIBRARY
+     Applied once via IntersectionObserver (see script). Elements start in a
+     hidden state defined by [data-animate], then transition to [.in-view].
+     GPU-accelerated: only opacity + transform are animated.
+     ========================================================================== */
+  [data-animate]{
+    opacity:0;
+    will-change:opacity, transform;
+    transition:opacity 700ms var(--ease), transform 700ms var(--ease);
+  }
+  [data-animate="fade-up"]{ transform:translate3d(0, 32px, 0); }
+  [data-animate="fade-left"]{ transform:translate3d(-40px, 0, 0); }
+  [data-animate="fade-right"]{ transform:translate3d(40px, 0, 0); }
+  [data-animate="scale-in"]{ transform:scale3d(0.92, 0.92, 1); }
+  [data-animate="image-reveal"]{ transform:none; opacity:1; }
+
+  [data-animate].in-view{
+    opacity:1;
+    transform:translate3d(0,0,0) scale3d(1,1,1);
+  }
+
+  /* Image reveal: a clip-path wipe instead of opacity, used on hero/thumb media */
+  [data-animate="image-reveal"] .co-reveal-mask{
+    position:absolute; inset:0;
+    background:var(--co-navy-900);
+    transform-origin:right;
+    transform:scaleX(1);
+    transition:transform 800ms var(--ease);
+    z-index:2;
+  }
+  [data-animate="image-reveal"].in-view .co-reveal-mask{
+    transform:scaleX(0);
+  }
+
+  /* Stagger children: direct children animate with incrementing delay,
+     delay value is set inline by JS via --stagger-index */
+  [data-stagger] > *{
+    opacity:0;
+    transform:translate3d(0, 18px, 0);
+    transition:opacity 500ms var(--ease), transform 500ms var(--ease);
+    transition-delay:calc(var(--stagger-index, 0) * 70ms);
+  }
+  [data-stagger].in-view > *{
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+
+  /* Counter animation target */
+  [data-counter]{ font-variant-numeric:tabular-nums; }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-animate], [data-stagger] > *, [data-animate="image-reveal"] .co-reveal-mask{
+      transition-duration:1ms !important;
+      animation-duration:1ms !important;
+    }
+  }
+
+  /* ==========================================================================
+     PAGE LOAD ANIMATION
+     ========================================================================== */
+  .page-loader{
+    position:fixed; inset:0;
+    z-index:9999;
+    background:var(--co-navy-900);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:opacity 500ms var(--ease), visibility 500ms var(--ease);
+  }
+  .page-loader.is-hidden{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+  .page-loader__mark{
+    width:56px; height:56px;
+    border-radius:50%;
+    border:3px solid rgba(245,166,35,0.2);
+    border-top-color:var(--co-amber-500);
+    animation:co-spin 800ms linear infinite;
+  }
+  @keyframes co-spin{ to{ transform:rotate(360deg); } }
+
+  /* ==========================================================================
+     SCROLL PROGRESS BAR
+     ========================================================================== */
+  .scroll-progress{
+    position:fixed;
+    top:0; left:0;
+    width:0%;
+    height:3px;
+    background:linear-gradient(90deg, var(--co-amber-500), #ffd27a);
+    z-index:1200;
+    transition:width 80ms linear;
+  }
+
+  /* ==========================================================================
+     BACK TO TOP BUTTON
+     ========================================================================== */
+  .back-to-top{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    width:46px; height:46px;
+    border-radius:50%;
+    background:var(--co-navy-900);
+    color:var(--co-amber-500);
+    border:1px solid rgba(245,166,35,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 26px rgba(11,23,48,0.3);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(12px);
+    transition:opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast), background var(--transition-fast);
+    z-index:900;
+  }
+  .back-to-top.is-visible{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+  .back-to-top:hover{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .back-to-top svg{ width:18px; height:18px; }
+
+  /* ==========================================================================
+     HEADER SEARCH DROPDOWN
+     Lightweight suggestions dropdown anchored directly under the header
+     search bar (desktop) / mobile panel search field. Replaces the old
+     centered full-screen search popup.
+     ========================================================================== */
+  .co-nav__searchbar,
+  .co-nav__mobile-search{
+    position:relative;
+  }
+  .co-search-dropdown{
+    position:absolute;
+    left:0; right:0;
+    top:calc(100% + 8px);
+    background:var(--co-navy-800);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:var(--co-radius-md);
+    box-shadow:0 16px 32px rgba(4,8,20,0.45);
+    padding:10px;
+    max-height:360px;
+    overflow-y:auto;
+    z-index:1100;
+    opacity:0;
+    transform:translateY(-4px);
+    pointer-events:none;
+    transition:opacity 160ms ease, transform 160ms ease;
+  }
+  .co-search-dropdown.is-open{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .co-search-dropdown__section + .co-search-dropdown__section{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .co-search-dropdown__title{
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--co-gray-500);
+    padding:4px 8px 6px;
+  }
+  .co-search-dropdown__chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding:0 4px;
+  }
+  .co-search-dropdown__chip{
+    font-size:12px;
+    font-weight:600;
+    color:var(--co-gray-300);
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:20px;
+    padding:6px 12px;
+    transition:background var(--co-transition), color var(--co-transition), border-color var(--co-transition);
+  }
+  .co-search-dropdown__chip:hover{
+    background:rgba(245,166,35,0.14);
+    color:var(--co-amber-500);
+    border-color:var(--co-amber-500);
+  }
+  .co-search-dropdown__result{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    padding:8px;
+    border-radius:var(--co-radius-sm);
+    text-align:left;
+    transition:background var(--co-transition);
+  }
+  .co-search-dropdown__result:hover,
+  .co-search-dropdown__result.is-active{
+    background:rgba(255,255,255,0.08);
+  }
+  .co-search-dropdown__result-icon{
+    width:28px; height:28px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    font-size:13px;
+  }
+  .co-search-dropdown__result-text{ min-width:0; flex:1; }
+  .co-search-dropdown__result-title{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--co-white);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .co-search-dropdown__result-title mark{
+    background:none;
+    color:var(--co-amber-500);
+  }
+  .co-search-dropdown__result-cat{
+    display:block;
+    font-size:11px;
+    color:var(--co-gray-500);
+    margin-top:1px;
+  }
+  .co-search-dropdown__empty{
+    padding:28px 16px;
+    text-align:center;
+  }
+  .co-search-dropdown__empty-icon{
+    width:36px; height:36px;
+    margin:0 auto 10px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.06);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--co-gray-500);
+  }
+  .co-search-dropdown__empty-icon svg{ width:18px; height:18px; }
+  .co-search-dropdown__empty-title{
+    font-size:13px;
+    font-weight:700;
+    color:var(--co-white);
+    margin-bottom:4px;
+  }
+  .co-search-dropdown__empty-text{
+    font-size:12px;
+    color:var(--co-gray-500);
+    line-height:1.5;
+  }
+
+  @media (max-width:640px){
+    .co-search-dropdown{ max-height:50vh; }
+  }
+
+  /* ==========================================================================
+     SKELETON LOADER (used behind lazy images before they load)
+     ========================================================================== */
+  .co-skeleton{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(90deg, #e9ebf1 25%, #f4f5f8 37%, #e9ebf1 63%);
+    background-size:400% 100%;
+    animation:co-skeleton-sweep 1.4s ease-in-out infinite;
+  }
+  @keyframes co-skeleton-sweep{
+    0%{ background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+  }
+  .co-skeleton.is-loaded{
+    animation:none;
+    background:none;
+  }
+
+
+  /* ==========================================================================
+     PART 5 — FINAL NORMALIZATION LAYER
+     Placed last on purpose: single-class selectors here override the
+     equally-specific single-class rules shipped inside each individual
+     part, bringing every section onto one consistent 1440px rail.
+     ========================================================================== */
+  .co-topbar__inner, .co-logo-section, .co-nav__inner,
+  .featured-news__container, .content-sections, .disclaimer,
+  .footer__grid, .footer-bottom__inner{
+    max-width:var(--max-width);
+  }
+
+  /* Keep the sticky nav above the scroll-progress bar and the header
+     search dropdown correctly layered without touching each part's own
+     z-index scale. */
+  .co-nav{ z-index:1000; }
+  .scroll-progress{ z-index:1200; }
+  .co-search-dropdown{ z-index:1300; }
+
+  /* ==========================================================================
+     FINAL HARD OVERRIDE — guarantees mobile hamburger vs desktop menu
+     switch works regardless of any earlier conflicting/duplicate rules.
+     ========================================================================== */
+  @media (max-width: 899px){
+    .co-nav__menu{ display:none !important; }
+    .co-nav__searchbar{ display:none !important; }
+    .co-nav__actions .co-btn-subscribe{ display:none !important; }
+    .co-nav__hamburger{ display:flex !important; }
+    .co-nav__mobile-panel{ display:block !important; }
+  }
+  @media (min-width: 900px){
+    .co-nav__menu{ display:flex !important; }
+    .co-nav__searchbar{ display:flex !important; }
+    .co-nav__hamburger{ display:none !important; }
+    .co-nav__mobile-panel{ display:none !important; }
+  }
+/* ==========================================================================
+     ABSOLUTE FINAL FIX — forces horizontal nav row, no matter what
+     ========================================================================== */
+  @media (min-width: 900px){
+    .co-nav__inner{
+      display:flex !important;
+      flex-direction:row !important;
+      flex-wrap:nowrap !important;
+      align-items:center !important;
+    }
+    .co-nav__menu{
+      display:flex !important;
+      flex-direction:row !important;
+      flex-wrap:nowrap !important;
+      align-items:stretch !important;
+    }
+    .co-nav__item{
+      display:flex !important;
+      flex-direction:row !important;
+      position:relative !important;
+    }
+    .co-nav__link{
+      display:flex !important;
+      flex-direction:row !important;
+      align-items:center !important;
+      white-space:nowrap !important;
+    }
+    .co-nav__searchbar{
+      display:flex !important;
+      flex-direction:row !important;
+    }
+  }
+
+.co-nav-logo__tagline{
+    display:block !important;
+    font-size:8px;
+    font-weight:600;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    color:var(--co-gray-300);
+    margin-top:2px;
+    white-space:nowrap;
+  }
+
+  /* FINAL FORCE — breaking news ticker text must always be white */
+  .co-ticker__entry,
+  .co-ticker__entry *,
+  .co-ticker__track,
+  .co-ticker__track *,
+  .co-ticker__viewport,
+  .co-ticker__inner{
+    color:#ffffff !important;
+  }
+
+     ARTICLE PAGE LAYOUT (new for this page)
+     ========================================================================== */
+  .article-wrap{
+    max-width:900px;
+    margin:0 auto;
+    padding:32px 24px 64px;
+  }
+
+  /* Loading skeleton state, shown until fetch resolves */
+  .article-skeleton{ display:block; }
+  .article-skeleton .sk-line{
+    height:16px; border-radius:6px; margin-bottom:12px;
+    background:linear-gradient(90deg, #e9ebf1 25%, #f4f5f8 37%, #e9ebf1 63%);
+    background-size:400% 100%;
+    animation:co-skeleton-sweep 1.4s ease-in-out infinite;
+  }
+  @keyframes co-skeleton-sweep{ 0%{ background-position:100% 50%; } 100%{ background-position:0% 50%; } }
+  .sk-title{ height:34px; width:85%; margin-bottom:20px; }
+  .sk-meta{ width:40%; }
+  .sk-image{ height:280px; border-radius:var(--co-radius-lg); margin:20px 0; }
+  .sk-para{ width:100%; }
+  .sk-para.short{ width:70%; }
+
+  /* Error state, shown if fetch fails or slug missing */
+  .article-error{
+    display:none;
+    text-align:center;
+    padding:80px 20px;
+  }
+  .article-error h1{
+    font-family:var(--co-font-display);
+    font-size:24px;
+    margin:0 0 10px;
+  }
+  .article-error p{
+    color:var(--co-gray-700);
+    margin:0 0 20px;
+  }
+  .article-error a{
+    display:inline-flex;
+    padding:11px 22px;
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+    font-weight:700;
+    border-radius:var(--co-radius-sm);
+  }
+
+  /* Actual article content, hidden until populated */
+  .article-content{ display:none; }
+
+  .article-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--co-navy-900);
+    background:var(--co-amber-500);
+    padding:5px 12px;
+    border-radius:var(--co-radius-sm);
+    margin-bottom:16px;
+  }
+
+  .article-title{
+    font-family:var(--co-font-display);
+    font-size:32px;
+    line-height:1.25;
+    font-weight:800;
+    margin:0 0 16px;
+    color:var(--co-navy-900);
+  }
+
+  .article-meta{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:13px;
+    color:var(--co-gray-700);
+    margin-bottom:24px;
+    padding-bottom:20px;
+    border-bottom:1px solid var(--co-gray-100);
+  }
+  .article-meta__author-icon{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--co-amber-500);
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:13px; flex-shrink:0;
+  }
+  .article-meta__dot{ width:3px; height:3px; border-radius:50%; background:var(--co-gray-300); }
+
+  .article-hero-image{
+    width:100%;
+    max-height:420px;
+    object-fit:cover;
+    border-radius:var(--co-radius-lg);
+    margin-bottom:28px;
+    box-shadow:var(--shadow-md);
+  }
+
+  .article-body{
+    font-size:16px;
+    line-height:1.75;
+    color:#2c3446;
+  }
+  .article-body h2, .article-body h3{
+    font-family:var(--co-font-display);
+    color:var(--co-navy-900);
+    margin:32px 0 12px;
+    line-height:1.35;
+  }
+  .article-body h2{ font-size:22px; }
+  .article-body h3{ font-size:18px; }
+  .article-body p{ margin:0 0 16px; }
+  .article-body table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+    font-size:14px;
+  }
+  .article-body th, .article-body td{
+    border:1px solid var(--co-gray-100);
+    padding:10px 12px;
+    text-align:left;
+  }
+  .article-body th{
+    background:var(--co-gray-050);
+    font-weight:700;
+    font-family:var(--co-font-display);
+  }
+.article-body em{ color:var(--co-gray-700); }
+  .article-body div{ margin-bottom:2px; }
+  .article-body div:has(br:only-child){ height:10px; }
+  .article-body a{
+    color: var(--co-amber-600);
+    text-decoration: underline;
+    text-decoration-color: rgba(226,150,15,0.4);
+    text-underline-offset: 2px;
+    font-weight: 600;
+    transition: color 200ms ease;
+  }
+  .article-body a:hover{
+    color: var(--co-navy-900);
+    text-decoration-color: var(--co-amber-600);
+  }
+
+  @media (max-width:640px){
+    .article-wrap{ padding:20px 16px 48px; }
+    .article-title{ font-size:23px; }
+    .article-hero-image{ max-height:220px; }
+    .article-body{ font-size:15px; }
+  }
+
+  /* ---------- FAQ accordion (generated by Part 2's renderMarkdown) ---------- */
+  .article-faq{
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid var(--co-gray-100);
+  }
+  .article-faq h2{
+    font-family:var(--co-font-display);
+    font-size:22px;
+    color:var(--co-navy-900);
+    margin:0 0 16px;
+  }
+  .faq-item{
+    border:1px solid var(--co-gray-100);
+    border-radius:var(--co-radius-md);
+    margin-bottom:10px;
+    overflow:hidden;
+    background:var(--co-white);
+    transition:border-color var(--co-transition), box-shadow var(--co-transition);
+  }
+  .faq-item:hover{
+    border-color:rgba(245,166,35,0.4);
+    box-shadow:var(--shadow-sm);
+  }
+  .faq-question{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:14px 18px;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--co-navy-900);
+    cursor:pointer;
+    user-select:none;
+  }
+  .faq-question::after{
+    content:'+';
+    flex-shrink:0;
+    font-size:20px;
+    font-weight:400;
+    color:var(--co-amber-600);
+    transition:transform var(--co-transition);
+    line-height:1;
+  }
+  .faq-item.is-open .faq-question::after{ transform:rotate(45deg); }
+  .faq-answer{
+    max-height:0;
+    overflow:hidden;
+    padding:0 18px;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--co-gray-700);
+    transition:max-height 280ms var(--ease), padding 280ms var(--ease);
+  }
+  .faq-item.is-open .faq-answer{
+    max-height:400px;
+    padding:0 18px 16px;
+  }
+
+  /* ---------- Disclaimer block (rendered inline if present in content) ---------- */
+  .article-body h2 + p em,
+  .article-disclaimer{
+    display:block;
+    margin-top:28px;
+    padding:16px 18px;
+    background:var(--co-gray-050);
+    border-left:3px solid var(--co-amber-500);
+    border-radius:var(--co-radius-sm);
+    font-size:13px;
+    color:var(--co-gray-700);
+    line-height:1.6;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-loader" id="pageLoader" aria-hidden="true">
+  <div class="page-loader__mark"></div>
+</div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<header class="co-header" id="coHeader">
+
+  <!-- ============================ TOP INFO BAR ============================ -->
+  <div class="co-topbar">
+    <div class="co-topbar__inner">
+      <div class="co-topbar__left">
+        <span class="co-topbar__item" id="topbarDate">
+          <svg class="co-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+          <span class="co-topbar__label">Tuesday, 23 September 2025</span>
+        </span>
+        <span class="co-topbar__time" id="topbarTime">
+          <svg class="co-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+          <span id="topbarTimeText">3:12:17 PM</span>
+        </span>
+        <span class="co-topbar__breaking">
+          <span class="co-topbar__breaking-tag">BREAKING:</span>
+          <span class="co-topbar__breaking-text">Loading latest updates...</span>
+        </span>
+      </div>
+      <div class="co-topbar__right">
+        <span class="co-topbar__follow">Follow Us</span>
+        <nav class="co-topbar__social" aria-label="Social media links">
+          <a class="co-topbar__social-link" href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="6" fill="#000000"/>
+              <path fill="#ffffff" d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/>
+            </svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://www.linkedin.com/in/coinosprey?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+              <path fill="#ffffff" d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/>
+            </svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://youtube.com/@coinosprey?si=kwk40LF-tt-3f6jp" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/>
+              <path fill="#ffffff" d="M10 8.5v7l6-3.5-6-3.5Z"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ BREAKING NEWS TICKER ============================ -->
+  <div class="co-ticker">
+    <div class="co-ticker__inner">
+      <span class="co-ticker__tag">
+        <svg class="co-ticker__bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>
+        <span>BREAKING</span>
+      </span>
+      <div class="co-ticker__viewport">
+        <div class="co-ticker__track" id="tickerTrack">
+          <!-- items injected by JS, duplicated for seamless loop -->
+        </div>
+      </div>
+      <nav class="co-ticker__social" aria-label="Social media links">
+        <a class="co-topbar__social-link" href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="6" fill="#000000"/>
+            <path fill="#ffffff" d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/>
+          </svg>
+        </a>
+        <a class="co-topbar__social-link" href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+            <path fill="#ffffff" d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/>
+          </svg>
+        </a>
+        <a class="co-topbar__social-link" href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/>
+            <path fill="#ffffff" d="M10 8.5v7l6-3.5-6-3.5Z"/>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ============================ NAVIGATION ============================ -->
+  <div class="co-nav">
+    <div class="co-nav__inner">
+      <a href="/" class="co-nav-logo" aria-label="CoinOsprey — go to homepage">
+        <svg width="38" height="38" viewBox="0 0 54 40" style="flex-shrink:0;" aria-label="CoinOsprey logo"><polygon points="27,0 2,38 27,28" fill="#C9A24B"/><polygon points="27,0 52,38 27,28" fill="#E8CD8A"/></svg>
+        <span class="co-nav-logo__col">
+          <span class="co-nav-logo__text" style="font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.3px;">Coin<span style="color:var(--co-amber-500,#f0a91e);">Osprey</span></span>
+          <span class="co-nav-logo__tagline">Sharp Eyes on Crypto Markets</span>
+        </span>
+      </a>
+      <nav class="co-nav__menu" aria-label="Primary navigation">
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">NEWS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega">
+            <div class="co-nav__dropdown-cols cols-3">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Latest News</a>
+                <a class="co-nav__dropdown-link" href="#">Breaking News</a>
+                <a class="co-nav__dropdown-link" href="#">Bitcoin</a>
+                <a class="co-nav__dropdown-link" href="#">Ethereum</a>
+                <a class="co-nav__dropdown-link" href="#">XRP</a>
+                <a class="co-nav__dropdown-link" href="#">Solana</a>
+                <a class="co-nav__dropdown-link" href="#">Altcoins</a>
+                <a class="co-nav__dropdown-link" href="#">Memecoins</a>
+                <a class="co-nav__dropdown-link" href="#">AI Crypto</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">DeFi</a>
+                <a class="co-nav__dropdown-link" href="#">Layer 2</a>
+                <a class="co-nav__dropdown-link" href="#">Web3</a>
+                <a class="co-nav__dropdown-link" href="#">Blockchain</a>
+                <a class="co-nav__dropdown-link" href="#">Stablecoins</a>
+                <a class="co-nav__dropdown-link" href="#">Exchange Listings</a>
+                <a class="co-nav__dropdown-link" href="#">Exchange Delistings</a>
+                <a class="co-nav__dropdown-link" href="#">Exchange Announcements</a>
+                <a class="co-nav__dropdown-link" href="#">ETF News</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Regulation</a>
+                <a class="co-nav__dropdown-link" href="#">Security &amp; Hacks</a>
+                <a class="co-nav__dropdown-link" href="#">Partnerships</a>
+                <a class="co-nav__dropdown-link" href="#">Funding</a>
+                <a class="co-nav__dropdown-link" href="#">Adoption</a>
+                <a class="co-nav__dropdown-link" href="#">Whale Activity</a>
+                <a class="co-nav__dropdown-link" href="#">Market Updates</a>
+                <a class="co-nav__dropdown-link" href="#">Editor's Picks</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">PRICE PREDICTIONS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega">
+            <div class="co-nav__dropdown-cols cols-3">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Featured Predictions</a>
+                <a class="co-nav__dropdown-link" href="#">Bitcoin</a>
+                <a class="co-nav__dropdown-link" href="#">Ethereum</a>
+                <a class="co-nav__dropdown-link" href="#">XRP</a>
+                <a class="co-nav__dropdown-link" href="#">Solana</a>
+                <a class="co-nav__dropdown-link" href="#">BNB</a>
+                <a class="co-nav__dropdown-link" href="#">Dogecoin</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Cardano</a>
+                <a class="co-nav__dropdown-link" href="#">Avalanche</a>
+                <a class="co-nav__dropdown-link" href="#">Sui</a>
+                <a class="co-nav__dropdown-link" href="#">Aptos</a>
+                <a class="co-nav__dropdown-link" href="#">Meme Coins</a>
+                <a class="co-nav__dropdown-link" href="#">AI Coins</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">RWA Tokens</a>
+                <a class="co-nav__dropdown-link" href="#">Gaming Tokens</a>
+                <a class="co-nav__dropdown-link" href="#">DeFi Tokens</a>
+                <a class="co-nav__dropdown-link" href="#">Weekly Outlook</a>
+                <a class="co-nav__dropdown-link" href="#">Monthly Outlook</a>
+                <a class="co-nav__dropdown-link" href="#">Long-Term Predictions</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="/#blogs">BLOGS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega">
+            <div class="co-nav__dropdown-cols cols-2">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Latest Blogs</a>
+                <a class="co-nav__dropdown-link" href="#">Opinion</a>
+                <a class="co-nav__dropdown-link" href="#">Interviews</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Guest Posts</a>
+                <a class="co-nav__dropdown-link" href="#">Editor's Blog</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">ACADEMY
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega co-nav__dropdown--center">
+            <div class="co-nav__dropdown-cols cols-5">
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">Learning Paths</div>
+                <a class="co-nav__dropdown-link" href="#">Dashboard</a>
+                <a class="co-nav__dropdown-link" href="#">Beginner</a>
+                <a class="co-nav__dropdown-link" href="#">Intermediate</a>
+                <a class="co-nav__dropdown-link" href="#">Advanced</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">Core Topics</div>
+                <a class="co-nav__dropdown-link" href="#">Blockchain</a>
+                <a class="co-nav__dropdown-link" href="#">Bitcoin</a>
+                <a class="co-nav__dropdown-link" href="#">Ethereum</a>
+                <a class="co-nav__dropdown-link" href="#">Altcoins</a>
+                <a class="co-nav__dropdown-link" href="#">Stablecoins</a>
+                <a class="co-nav__dropdown-link" href="#">Web3</a>
+                <a class="co-nav__dropdown-link" href="#">DeFi</a>
+                <a class="co-nav__dropdown-link" href="#">NFTs</a>
+                <a class="co-nav__dropdown-link" href="#">Wallets</a>
+                <a class="co-nav__dropdown-link" href="#">Security</a>
+                <a class="co-nav__dropdown-link" href="#">Trading</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">Technical Analysis</div>
+                <a class="co-nav__dropdown-link" href="#">Basics</a>
+                <a class="co-nav__dropdown-link" href="#">Candlesticks</a>
+                <a class="co-nav__dropdown-link" href="#">Chart Patterns</a>
+                <a class="co-nav__dropdown-link" href="#">Indicators</a>
+                <a class="co-nav__dropdown-link" href="#">Price Action</a>
+                <a class="co-nav__dropdown-link" href="#">Smart Money Concepts</a>
+                <a class="co-nav__dropdown-link" href="#">ICT</a>
+                <a class="co-nav__dropdown-link" href="#">Risk Management</a>
+                <a class="co-nav__dropdown-link" href="#">Trading Psychology</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">Fundamental Analysis</div>
+                <a class="co-nav__dropdown-link" href="#">Tokenomics</a>
+                <a class="co-nav__dropdown-link" href="#">Whitepaper Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Team Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Partnerships</a>
+                <a class="co-nav__dropdown-link" href="#">Roadmap</a>
+                <a class="co-nav__dropdown-link" href="#">TVL</a>
+                <a class="co-nav__dropdown-link" href="#">Developer Activity</a>
+                <a class="co-nav__dropdown-link" href="#">Coin Valuation</a>
+                <a class="co-nav__dropdown-link" href="#">Case Studies</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <div class="co-nav__dropdown-heading">More</div>
+                <a class="co-nav__dropdown-link" href="#">On-Chain Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Mining</a>
+                <a class="co-nav__dropdown-link" href="#">Staking</a>
+                <a class="co-nav__dropdown-link" href="#">Yield Farming</a>
+                <a class="co-nav__dropdown-link" href="#">Glossary</a>
+                <a class="co-nav__dropdown-link" href="#">Quizzes</a>
+                <a class="co-nav__dropdown-link" href="#">Practice Tests</a>
+                <a class="co-nav__dropdown-link" href="#">Certificates</a>
+                <a class="co-nav__dropdown-link" href="#">Community</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">RESEARCH
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega co-nav__dropdown--right">
+            <div class="co-nav__dropdown-cols cols-3">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Daily Market Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Weekly Market Report</a>
+                <a class="co-nav__dropdown-link" href="#">Monthly Market Report</a>
+                <a class="co-nav__dropdown-link" href="#">Bitcoin Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Ethereum Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Altcoin Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Sector Analysis</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Technical Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Fundamental Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">On-Chain Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Market Sentiment</a>
+                <a class="co-nav__dropdown-link" href="#">Macro Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">ETF Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Institutional Analysis</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Tokenomics Research</a>
+                <a class="co-nav__dropdown-link" href="#">Project Deep Dives</a>
+                <a class="co-nav__dropdown-link" href="#">Portfolio Strategies</a>
+                <a class="co-nav__dropdown-link" href="#">Risk Analysis</a>
+                <a class="co-nav__dropdown-link" href="#">Special Reports</a>
+                <a class="co-nav__dropdown-link" href="#">Research Archive</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="#">TOOLS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__dropdown co-nav__dropdown--mega co-nav__dropdown--right">
+            <div class="co-nav__dropdown-cols cols-2">
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Profit Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">DCA Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Position Size Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Risk/Reward Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Compound Interest Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Staking Calculator</a>
+              </div>
+              <div class="co-nav__dropdown-col">
+                <a class="co-nav__dropdown-link" href="#">Mining Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Liquidation Calculator</a>
+                <a class="co-nav__dropdown-link" href="#">Portfolio Tracker <em>(Future)</em></a>
+                <a class="co-nav__dropdown-link" href="#">Watchlist <em>(Future)</em></a>
+                <a class="co-nav__dropdown-link" href="#">Crypto Tax Calculator <em>(Future)</em></a>
+                <a class="co-nav__dropdown-link" href="#">AI Coin Analyzer <em>(Future)</em></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <form class="co-nav__searchbar" role="search" action="#" onsubmit="return false;" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" id="headerSearchInput" class="co-nav__searchbar-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="headerSearchDropdown" aria-autocomplete="list">
+        <button type="submit" class="co-nav__searchbar-submit" id="headerSearchSubmit" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        </button>
+        <div class="co-search-dropdown" id="headerSearchDropdown"></div>
+      </form>
+
+      <div class="co-nav__actions">
+        <button class="co-nav__hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobilePanel">
+          <span class="co-nav__hamburger-bar"></span>
+          <span class="co-nav__hamburger-bar"></span>
+          <span class="co-nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE NAV PANEL -->
+    <div class="co-nav__mobile-panel" id="mobilePanel">
+      <form class="co-nav__mobile-search" role="search" action="#" onsubmit="return false;" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" id="mobileSearchInput" class="co-nav__mobile-search-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="mobileSearchDropdown" aria-autocomplete="list">
+        <button type="submit" class="co-nav__searchbar-submit" id="mobileSearchSubmit" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        </button>
+        <div class="co-search-dropdown" id="mobileSearchDropdown"></div>
+      </form>
+      <ul class="co-nav__mobile-list">
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-news">NEWS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-news">
+            <a class="co-nav__mobile-submenu-link" href="#">Latest News</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Breaking News</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Bitcoin</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Ethereum</a>
+            <a class="co-nav__mobile-submenu-link" href="#">XRP</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Solana</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Altcoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Memecoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">AI Crypto</a>
+            <a class="co-nav__mobile-submenu-link" href="#">DeFi</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Layer 2</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Web3</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Blockchain</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Stablecoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Exchange Listings</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Exchange Delistings</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Exchange Announcements</a>
+            <a class="co-nav__mobile-submenu-link" href="#">ETF News</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Regulation</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Security &amp; Hacks</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Partnerships</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Funding</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Adoption</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Whale Activity</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Market Updates</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Editor's Picks</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-predictions">PRICE PREDICTIONS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-predictions">
+            <a class="co-nav__mobile-submenu-link" href="#">Featured Predictions</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Bitcoin</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Ethereum</a>
+            <a class="co-nav__mobile-submenu-link" href="#">XRP</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Solana</a>
+            <a class="co-nav__mobile-submenu-link" href="#">BNB</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Dogecoin</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Cardano</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Avalanche</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Sui</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Aptos</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Meme Coins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">AI Coins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">RWA Tokens</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Gaming Tokens</a>
+            <a class="co-nav__mobile-submenu-link" href="#">DeFi Tokens</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Weekly Outlook</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Monthly Outlook</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Long-Term Predictions</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-blogs">BLOGS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-blogs">
+            <a class="co-nav__mobile-submenu-link" href="#">Latest Blogs</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Opinion</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Interviews</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Guest Posts</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Editor's Blog</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-academy">ACADEMY
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-academy">
+            <div class="co-nav__mobile-submenu-heading">Learning Paths</div>
+            <a class="co-nav__mobile-submenu-link" href="#">Dashboard</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Beginner</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Intermediate</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Advanced</a>
+            <div class="co-nav__mobile-submenu-heading">Core Topics</div>
+            <a class="co-nav__mobile-submenu-link" href="#">Blockchain</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Bitcoin</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Ethereum</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Altcoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Stablecoins</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Web3</a>
+            <a class="co-nav__mobile-submenu-link" href="#">DeFi</a>
+            <a class="co-nav__mobile-submenu-link" href="#">NFTs</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Wallets</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Security</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Trading</a>
+            <div class="co-nav__mobile-submenu-heading">Technical Analysis</div>
+            <a class="co-nav__mobile-submenu-link" href="#">Basics</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Candlesticks</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Chart Patterns</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Indicators</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Price Action</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Smart Money Concepts</a>
+            <a class="co-nav__mobile-submenu-link" href="#">ICT</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Risk Management</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Trading Psychology</a>
+            <div class="co-nav__mobile-submenu-heading">Fundamental Analysis</div>
+            <a class="co-nav__mobile-submenu-link" href="#">Tokenomics</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Whitepaper Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Team Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Partnerships</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Roadmap</a>
+            <a class="co-nav__mobile-submenu-link" href="#">TVL</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Developer Activity</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Coin Valuation</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Case Studies</a>
+            <div class="co-nav__mobile-submenu-heading">More</div>
+            <a class="co-nav__mobile-submenu-link" href="#">On-Chain Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Mining</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Staking</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Yield Farming</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Glossary</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Quizzes</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Practice Tests</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Certificates</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Community</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-research">RESEARCH
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-research">
+            <a class="co-nav__mobile-submenu-link" href="#">Daily Market Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Weekly Market Report</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Monthly Market Report</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Bitcoin Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Ethereum Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Altcoin Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Sector Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Technical Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Fundamental Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">On-Chain Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Market Sentiment</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Macro Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">ETF Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Institutional Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Tokenomics Research</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Project Deep Dives</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Portfolio Strategies</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Risk Analysis</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Special Reports</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Research Archive</a>
+          </div>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="#" data-submenu="sub-tools">TOOLS
+            <svg class="co-nav__caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
+          </a>
+          <div class="co-nav__mobile-submenu" id="sub-tools">
+            <a class="co-nav__mobile-submenu-link" href="#">Profit Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">DCA Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Position Size Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Risk/Reward Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Compound Interest Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Staking Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Mining Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Liquidation Calculator</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Portfolio Tracker (Future)</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Watchlist (Future)</a>
+            <a class="co-nav__mobile-submenu-link" href="#">Crypto Tax Calculator (Future)</a>
+            <a class="co-nav__mobile-submenu-link" href="#">AI Coin Analyzer (Future)</a>
+          </div>
+        </li>
+      </ul>
+      <div class="co-nav__mobile-actions">
+        <a class="co-btn-subscribe" href="#">Subscribe</a>
+      </div>
+    </div>
+</div>
+
+</header>
+
+<nav class="co-chips" aria-label="Category filters">
+  <div class="co-chips__inner" id="categoryChips">
+    <a class="co-chip is-active" href="/#news" data-category="all" aria-current="true">All</a>
+    <a class="co-chip" href="/#home" data-category="bitcoin">Bitcoin</a>
+    <a class="co-chip" href="/#home" data-category="ethereum">Ethereum</a>
+    <a class="co-chip" href="/#home" data-category="altcoins">Altcoins</a>
+    <a class="co-chip" href="/#academy" data-category="defi">DeFi</a>
+    <a class="co-chip" href="/#academy" data-category="nfts">NFTs</a>
+    <a class="co-chip" href="/#academy" data-category="web3">Web3</a>
+    <a class="co-chip" href="/#home" data-category="regulation">Regulation</a>
+    <a class="co-chip" href="/#home" data-category="exchanges">Exchanges</a>
+    <a class="co-chip" href="/#research" data-category="etf">ETF News</a>
+    <a class="co-chip" href="/#research" data-category="market-analysis">Market Analysis</a>
+    <a class="co-chip" href="/#price-predictions" data-category="price-predictions">Price Predictions</a>
+    <a class="co-chip" href="/#blogs" data-category="blogs">Blogs</a>
+  </div>
+</nav>
+
+
+<main id="main-content">
+  <div class="article-wrap">
+
+    <!-- Loading skeleton: shown by default, hidden once article loads -->
+    <div class="article-skeleton" id="articleSkeleton">
+      <div class="sk-line sk-title"></div>
+      <div class="sk-line sk-meta"></div>
+      <div class="sk-line sk-image"></div>
+      <div class="sk-line sk-para"></div>
+      <div class="sk-line sk-para"></div>
+      <div class="sk-line sk-para short"></div>
+    </div>
+
+    <!-- Error state: shown if no slug in URL or article not found -->
+    <div class="article-error" id="articleError">
+      <h1>Article Not Found</h1>
+      <p>This article may have been moved, unpublished, or the link is incorrect.</p>
+      <a href="/">Back to Homepage</a>
+    </div>
+
+    <!-- Populated article content -->
+    <article class="article-content" id="articleContent">
+      <span class="article-eyebrow" id="articleCategory">Altcoin</span>
+      <h1 class="article-title" id="articleTitle"></h1>
+      <div class="article-meta">
+        <span class="article-meta__author-icon" aria-hidden="true">🦅</span>
+        <span id="articleAuthor">CoinOsprey Team</span>
+        <span class="article-meta__dot"></span>
+        <span id="articleDate"></span>
+        <span class="article-meta__dot"></span>
+        <span id="articleViews">0 views</span>
+      </div>
+      <img class="article-hero-image" id="articleImage" style="display:none;" alt="">
+      <div class="article-body" id="articleBody"></div>
+      <!-- Part 2 will populate #articleBody, and Part 3 adds FAQ + footer + closing scripts -->
+    </article>
+
+  </div>
+</main>
+
+<!-- PART 1 END — continue in Part 2 -->
+<!-- ==========================================================================
+     PART 2 — ARTICLE FETCH + RENDER LOGIC
+     This is a standalone <script> block. When merging: paste this directly
+     after the closing </main> tag from Part 1 (before Part 3's footer).
+     ========================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  var API_BASE = '/api';
+
+  function getSlugFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var slug = params.get('slug');
+    if (slug) return slug.trim();
+
+    var parts = window.location.pathname.split('/').filter(Boolean);
+    var last = parts[parts.length - 1];
+    if (last && last !== 'article.html' && last !== 'article') return decodeURIComponent(last);
+
+    return null;
+}
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function inlineFormat(text) {
+    var out = escapeHtml(text);
+    out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    return out;
+  }
+
+  function isTableRow(line) {
+    return /^\s*\|.*\|\s*$/.test(line);
+  }
+
+  function isTableDivider(line) {
+    return /^\s*\|?[\s:|-]+\|?\s*$/.test(line) && line.indexOf('-') !== -1;
+  }
+
+  function renderTable(lines) {
+    var rows = lines.map(function (line) {
+      return line.trim().replace(/^\||\|$/g, '').split('|').map(function (cell) {
+        return cell.trim();
+      });
+    });
+
+    var header = rows[0];
+    var body = rows.slice(2);
+
+    var html = '<table><thead><tr>';
+    header.forEach(function (cell) {
+      html += '<th>' + inlineFormat(cell) + '</th>';
+    });
+    html += '</tr></thead><tbody>';
+    body.forEach(function (row) {
+      html += '<tr>';
+      row.forEach(function (cell) {
+        html += '<td>' + inlineFormat(cell) + '</td>';
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    return html;
+  }
+
+  function tryRenderFaqJson(jsonText) {
+    try {
+      var data = JSON.parse(jsonText);
+      if (!Array.isArray(data) || !data.length) return null;
+
+      var html = '<div class="article-faq" id="articleFaqBlock">';
+      html += '<h2>Frequently Asked Questions</h2>';
+      data.forEach(function (item) {
+        if (!item.question || !item.answer) return;
+        html += '<div class="faq-item">' +
+                  '<div class="faq-question">' + inlineFormat(item.question) + '</div>' +
+                  '<div class="faq-answer">' + inlineFormat(item.answer) + '</div>' +
+                '</div>';
+      });
+      html += '</div>';
+      return html;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function parseFaqsString(str) {
+    if (!str || typeof str !== 'string') return [];
+    var items = [];
+    var regex = /Q:\s*([\s\S]*?)\s*A:\s*([\s\S]*?)(?=(?:\s*Q:)|$)/gi;
+    var match;
+    while ((match = regex.exec(str)) !== null) {
+      var q = match[1].trim();
+      var a = match[2].trim();
+      if (q && a) items.push({ question: q, answer: a });
+    }
+    return items;
+  }
+
+  function renderFaqsField(faqs) {
+    var items = typeof faqs === 'string' ? parseFaqsString(faqs) : faqs;
+    if (!Array.isArray(items) || !items.length) return '';
+    var html = '<div class="article-faq" id="articleFaqBlock"><h2>Frequently Asked Questions</h2>';
+    items.forEach(function (item) {
+      var q = item.question || item.q;
+      var a = item.answer || item.a;
+      if (!q || !a) return;
+      html += '<div class="faq-item">' +
+                '<div class="faq-question">' + inlineFormat(q) + '</div>' +
+                '<div class="faq-answer">' + inlineFormat(a) + '</div>' +
+              '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderMarkdown(md) {
+    if (!md) return '';
+
+    if (/<\/?(div|p|br|table|h[1-6]|strong|em|b|i)[\s>]/i.test(md)) {
+      return md;
+    }
+
+    var lines = md.replace(/\r\n/g, '\n').split('\n');
+    var html = '';
+    var i = 0;
+
+    while (i < lines.length) {
+      var line = lines[i];
+
+      if (line.trim() === '') { i++; continue; }
+
+      if (/^```/.test(line.trim())) {
+        var lang = line.trim().replace(/```/g, '');
+        var codeLines = [];
+        i++;
+        while (i < lines.length && !/^```/.test(lines[i].trim())) {
+          codeLines.push(lines[i]);
+          i++;
+        }
+        i++;
+        var codeText = codeLines.join('\n');
+        if (lang.toLowerCase() === 'json') {
+          var faqHtml = tryRenderFaqJson(codeText);
+          html += faqHtml || ('<pre>' + escapeHtml(codeText) + '</pre>');
+        } else {
+          html += '<pre>' + escapeHtml(codeText) + '</pre>';
+        }
+        continue;
+      }
+
+      if (isTableRow(line) && lines[i + 1] && isTableDivider(lines[i + 1])) {
+        var tableLines = [];
+        while (i < lines.length && isTableRow(lines[i])) {
+          tableLines.push(lines[i]);
+          i++;
+        }
+        html += renderTable(tableLines);
+        continue;
+      }
+
+      if (/^###\s+/.test(line)) {
+        html += '<h3>' + inlineFormat(line.replace(/^###\s+/, '')) + '</h3>';
+        i++; continue;
+      }
+      if (/^##\s+/.test(line)) {
+        html += '<h2>' + inlineFormat(line.replace(/^##\s+/, '')) + '</h2>';
+        i++; continue;
+      }
+
+      var boldOnly = line.trim().match(/^\*\*(.+)\*\*$/);
+      if (boldOnly && boldOnly[1].length < 90) {
+        html += '<h2>' + inlineFormat(boldOnly[1]) + '</h2>';
+        i++; continue;
+      }
+
+      var paraLines = [];
+      while (i < lines.length && lines[i].trim() !== '' &&
+             !isTableRow(lines[i]) && !/^```/.test(lines[i].trim()) &&
+             !/^##\s+/.test(lines[i]) && !/^###\s+/.test(lines[i])) {
+        paraLines.push(lines[i]);
+        i++;
+      }
+      html += '<p>' + inlineFormat(paraLines.join(' ')) + '</p>';
+    }
+
+    return html;
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    var d = new Date(dateStr);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function populateArticle(article) {
+    var seoTitle = article.seoTitle || article.title || 'CoinOsprey';
+    document.title = seoTitle + ' — CoinOsprey';
+
+    var pathParts = window.location.pathname.split('/').filter(Boolean);
+    var lang = pathParts[0] || 'en';
+    var section = pathParts[1] || 'news';
+    var basePath = '/' + section + '/' + (article.slug || '');
+
+    var linkEn = document.createElement('link');
+    linkEn.rel = 'alternate'; linkEn.hreflang = 'en';
+    linkEn.href = 'https://www.coinosprey.com/en' + basePath;
+    document.head.appendChild(linkEn);
+
+    var linkHi = document.createElement('link');
+    linkHi.rel = 'alternate'; linkHi.hreflang = 'hi';
+    linkHi.href = 'https://www.coinosprey.com/hi' + basePath;
+    document.head.appendChild(linkHi);
+
+    var titleTag = document.getElementById('pageTitle');
+    if (titleTag) titleTag.textContent = seoTitle + ' — CoinOsprey';
+
+    var descTag = document.getElementById('pageDescription');
+    if (descTag) descTag.setAttribute('content', article.metaDescription || article.description || '');
+
+    if (article.metaKeywords) {
+      var kwTag = document.querySelector('meta[name="keywords"]');
+      if (!kwTag) {
+        kwTag = document.createElement('meta');
+        kwTag.setAttribute('name', 'keywords');
+        document.head.appendChild(kwTag);
+      }
+      kwTag.setAttribute('content', article.metaKeywords);
+    }
+
+    document.getElementById('articleCategory').textContent = article.category || article.type || 'Crypto';
+    document.getElementById('articleTitle').textContent = article.title || '';
+    document.getElementById('articleAuthor').textContent = article.author || 'CoinOsprey Team';
+    document.getElementById('articleDate').textContent = formatDate(article.publishedAt || article.createdAt);
+    document.getElementById('articleViews').textContent = (article.views || 0).toLocaleString() + ' views';
+
+    var imageEl = document.getElementById('articleImage');
+    if (article.image) {
+      imageEl.src = article.image;
+      imageEl.alt = article.imageAlt || article.title || '';
+      imageEl.style.display = 'block';
+    }
+
+    document.getElementById('articleBody').innerHTML = renderMarkdown(article.content || article.description || '');
+
+    // FIX: admin panel's FAQ textarea saves into article.faqs, but the
+    // markdown parser above only picks up FAQs embedded as fenced JSON
+    // inside content. Render article.faqs separately here as a fallback,
+    // skipping it if a FAQ block was already produced from content.
+    if (article.faqs && (typeof article.faqs === 'string' ? article.faqs.trim().length : article.faqs.length) && !document.getElementById('articleFaqBlock')) {
+      document.getElementById('articleBody').insertAdjacentHTML('beforeend', renderFaqsField(article.faqs));
+    }
+
+    document.getElementById('articleSkeleton').style.display = 'none';
+    document.getElementById('articleContent').style.display = 'block';
+  }
+
+  function showError() {
+    document.getElementById('articleSkeleton').style.display = 'none';
+    document.getElementById('articleContent').style.display = 'none';
+    document.getElementById('articleError').style.display = 'block';
+  }
+
+  function loadArticle() {
+    var slug = getSlugFromUrl();
+    if (!slug) { showError(); return; }
+
+    fetch(API_BASE + '/articles/' + encodeURIComponent(slug))
+      .then(function (res) {
+        if (!res.ok) throw new Error('Not found');
+        return res.json();
+      })
+      .then(function (article) {
+        if (!article || !article.title) throw new Error('Empty article');
+        populateArticle(article);
+      })
+      .catch(function () {
+        showError();
+      });
+  }
+
+  loadArticle();
+})();
+
+</script>
+<!-- PART 2 END — footer, back-to-top and site-chrome scripts follow -->
+
+
+<footer class="site-footer">
+  <div class="footer__grid">
+    <div class="footer-col footer-brand">
+      <a href="/" class="footer-brand__logo" aria-label="CoinOsprey home">
+        <svg width="34" height="34" viewBox="0 0 54 40" style="flex-shrink:0;" aria-label="CoinOsprey logo"><polygon points="27,0 2,38 27,28" fill="#C9A24B"/><polygon points="27,0 52,38 27,28" fill="#E8CD8A"/></svg>
+        <span class="footer-brand__logo-text" style="font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.3px;">Coin<span style="color:var(--c-gold-500);">Osprey</span></span>
+      </a>
+      <p class="footer-brand__desc">Your trusted source for crypto news, price predictions, education and market insights.</p>
+      <ul class="footer-social" aria-label="Social media links">
+        <li><a href="https://x.com/CoinOsprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--x" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/></svg>
+        </a></li>
+        <li><a href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--linkedin" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/></svg>
+        </a></li>
+        <li><a href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--youtube" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2c-.3-.9-1-1.6-1.9-1.9C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.7.4c-.9.3-1.6 1-1.9 1.9C1 8.5 1 12 1 12s0 3.5.4 5.2c.3.9 1 1.6 1.9 1.9 1.8.4 8.7.4 8.7.4s6.9 0 8.7-.4c.9-.3 1.6-1 1.9-1.9.4-1.7.4-5.2.4-5.2ZM9.8 15.5v-7l6 3.5-6 3.5Z"/></svg>
+        </a></li>
+      </ul>
+      <p class="footer-copyright">&copy; 2026 CoinOsprey. All Rights Reserved.</p>
+    </div>
+    <nav class="footer-col" aria-labelledby="footer-quicklinks">
+      <h3 class="footer-col__heading" id="footer-quicklinks">Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="/#news" class="footer-links__item">News</a></li>
+        <li><a href="/#price-predictions" class="footer-links__item">Price Predictions</a></li>
+        <li><a href="/#academy" class="footer-links__item">Academy</a></li>
+        <li><a href="/#research" class="footer-links__item">Research</a></li>
+        <li><a href="#" class="footer-links__item">Tools</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="footer-categories">
+      <h3 class="footer-col__heading" id="footer-categories">Categories</h3>
+      <ul class="footer-links">
+        <li><a href="/#news" class="footer-links__item">Bitcoin News</a></li>
+        <li><a href="/#news" class="footer-links__item">Ethereum News</a></li>
+        <li><a href="/#news" class="footer-links__item">Altcoin News</a></li>
+        <li><a href="/#news" class="footer-links__item">DeFi</a></li>
+        <li><a href="#" class="footer-links__item">AI Crypto</a></li>
+        <li><a href="/#news" class="footer-links__item">Regulation</a></li>
+      </ul>
+    </nav>
+<nav class="footer-col" aria-labelledby="footer-resources">
+  <h3 class="footer-col__heading" id="footer-resources">About &amp; Contact</h3>
+  <ul class="footer-links">
+    <li><a href="about.html" class="footer-links__item">About CoinOsprey</a></li>
+    <li><a href="mission.html" class="footer-links__item">Our Mission</a></li>
+    <li><a href="authors.html" class="footer-links__item">Authors</a></li>
+    <li><a href="careers.html" class="footer-links__item">Careers</a></li>
+    <li><a href="advertise.html" class="footer-links__item">Advertise</a></li>
+    <li><a href="press.html" class="footer-links__item">Press &amp; Media Kit</a></li>
+    <li><a href="contact.html" class="footer-links__item">Contact Us</a></li>
+    <li><a href="support.html" class="footer-links__item">Support</a></li>
+    <li><a href="sitemap.html" class="footer-links__item">Sitemap</a></li>
+    <li><a href="rss.xml" class="footer-links__item">RSS Feed</a></li>
+  </ul>
+</nav>
+    <nav class="footer-col" aria-labelledby="footer-legal">
+      <h3 class="footer-col__heading" id="footer-legal">Legal</h3>
+      <ul class="footer-links">
+        <li><a href="#" class="footer-links__item">Privacy Policy</a></li>
+        <li><a href="#" class="footer-links__item">Terms &amp; Conditions</a></li>
+        <li><a href="#" class="footer-links__item">Editorial Policy</a></li>
+        <li><a href="#" class="footer-links__item">Disclaimer</a></li>
+        <li><a href="#" class="footer-links__item">Cookie Policy</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="footer-topics">
+      <h3 class="footer-col__heading" id="footer-topics">Popular Topics</h3>
+      <ul class="footer-tags">
+        <li><a href="#" class="footer-tags__item">Bitcoin ETF</a></li>
+        <li><a href="#" class="footer-tags__item">Ethereum Upgrade</a></li>
+        <li><a href="#" class="footer-tags__item">Solana News</a></li>
+        <li><a href="#" class="footer-tags__item">AI Tokens</a></li>
+        <li><a href="#" class="footer-tags__item">Exchange Listings</a></li>
+        <li><a href="#" class="footer-tags__item">Crypto Regulations</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom__inner">
+      <p class="footer-bottom__text">&copy; 2026 CoinOsprey. All Rights Reserved.</p>
+      <p class="footer-bottom__disclaimer">Not Financial Advice. Do Your Own Research.</p>
+    </div>
+  </div>
+    </footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5"></path>
+    <path d="M5 12l7-7 7 7"></path>
+  </svg>
+</button>
+
+<script>
+
+
+(function(){
+  "use strict";
+
+  /* ---------- Live date & time ---------- */
+  var dateEl = document.querySelector('#topbarDate .co-topbar__label');
+  var timeEl = document.getElementById('topbarTimeText');
+
+  function pad(n){ return n < 10 ? '0' + n : n; }
+
+  function renderClock(){
+    var now = new Date();
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12;
+    if (h12 === 0) h12 = 12;
+    timeEl.textContent = h12 + ':' + pad(m) + ':' + pad(s) + ' ' + ampm;
+  }
+  renderClock();
+  setInterval(renderClock, 1000);
+
+  /* ---------- Category filter chips ---------- */
+  var chipsWrap = document.getElementById('categoryChips');
+  if (chipsWrap) {
+    chipsWrap.addEventListener('click', function(e){
+      var chip = e.target.closest('.co-chip');
+      if (!chip) return;
+      // Let the browser handle the actual navigation (smooth-scrolls to the
+      // linked section thanks to html{scroll-behavior:smooth}); we just
+      // update which chip is shown as active.
+      chipsWrap.querySelectorAll('.co-chip').forEach(function(c){
+        c.classList.remove('is-active');
+        c.removeAttribute('aria-current');
+      });
+      chip.classList.add('is-active');
+      chip.setAttribute('aria-current', 'true');
+      // Center the chip within its own scrollable row only — avoid
+      // scrollIntoView here since it can fight with the page-level
+      // vertical scroll already triggered by the anchor navigation.
+      var targetLeft = chip.offsetLeft - (chipsWrap.clientWidth / 2 - chip.clientWidth / 2);
+      chipsWrap.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- Breaking news ticker content ---------- */
+  var tickerItems = [
+    { icon: 'btc', label: 'B', text: 'Bitcoin ETF Inflows Surpass $500M' },
+    { icon: 'bnb', label: '\u25C8', text: 'Binance Lists New AI Token AIOZ' },
+    { icon: 'eth', label: '\u039E', text: 'SEC Delays Decision on Ethereum ETF' },
+    { icon: 'sol', label: 'S', text: 'Solana Network Hits New Milestone' }
+  ];
+
+  var track = document.getElementById('tickerTrack');
+  function buildEntries(){
+    var html = '';
+    tickerItems.forEach(function(item){
+      html += '<span class="co-ticker__entry">' +
+                '<span class="co-ticker__entry-icon co-ticker__entry-icon--' + item.icon + '">' + item.label + '</span>' +
+                item.text +
+              '</span>';
+    });
+    return html;
+  }
+  // duplicate the sequence so the marquee loops seamlessly
+  track.innerHTML = buildEntries() + buildEntries();
+
+  /* ---------- Sticky header shrink on scroll ---------- */
+  var header = document.getElementById('coHeader');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 40) {
+      header.classList.add('co-header--scrolled');
+    } else {
+      header.classList.remove('co-header--scrolled');
+    }
+  }, { passive: true });
+
+  /* ---------- Desktop mega menu: only one open at a time ---------- */
+  var megaNavItems = Array.prototype.slice.call(
+    document.querySelectorAll('.co-nav__menu > .co-nav__item')
+  ).filter(function (item) {
+    return item.querySelector('.co-nav__dropdown');
+  });
+
+  var autoCloseTimer = null;
+
+  function closeAllMegaMenus(exceptItem) {
+    megaNavItems.forEach(function (item) {
+      if (item !== exceptItem) item.classList.remove('is-open');
+    });
+    if (!exceptItem && autoCloseTimer) {
+      clearTimeout(autoCloseTimer);
+      autoCloseTimer = null;
+    }
+  }
+  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  megaNavItems.forEach(function (item) {
+    var link = item.querySelector(':scope > .co-nav__link');
+
+    // Hovering a new item closes whichever menu was open before
+    // opening this one, so only one mega menu is ever visible.
+    // Only bind hover behavior on real mouse/desktop devices — on
+    // touch devices this fires right before "click" and instantly
+    // closes the menu it just opened.
+    if (supportsHover) {
+      item.addEventListener('mouseenter', function () {
+        closeAllMegaMenus(item);
+        item.classList.add('is-open');
+      });
+      item.addEventListener('mouseleave', function () {
+        item.classList.remove('is-open');
+      });
+    }
+
+    // Click toggles the menu (useful for touch/trackpad) and still
+    // guarantees exclusivity.
+    if (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var wasOpen = item.classList.contains('is-open');
+        closeAllMegaMenus(item);
+        item.classList.toggle('is-open', !wasOpen);
+
+        if (autoCloseTimer) clearTimeout(autoCloseTimer);
+        if (!wasOpen) {
+          // just opened this menu — auto-close it after 30s of inactivity
+          autoCloseTimer = setTimeout(function () {
+            item.classList.remove('is-open');
+            autoCloseTimer = null;
+          }, 5000);
+        }
+      });
+    }
+  });
+
+  // Clicking anywhere outside the nav closes any open mega menu.
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.co-nav__menu')) closeAllMegaMenus(null);
+  });
+
+  /* ---------- Mobile hamburger menu ---------- */
+  var hamburger = document.getElementById('hamburgerBtn');
+  var mobilePanel = document.getElementById('mobilePanel');
+
+  hamburger.addEventListener('click', function(){
+    var isOpen = mobilePanel.classList.toggle('is-open');
+    hamburger.classList.toggle('is-open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  /* ---------- Mobile submenu toggles ---------- */
+  var subToggles = mobilePanel.querySelectorAll('[data-submenu]');
+  subToggles.forEach(function(toggle){
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.getElementById(toggle.getAttribute('data-submenu'));
+      if (target) target.classList.toggle('is-open');
+    });
+  });
+
+})();
+
+
+
+/* ==========================================================================
+   Part 2 — Featured News interactions
+   1) Lazy-load images (data-src -> src) with blur-to-sharp reveal
+   2) IntersectionObserver-driven fade/slide-in on first view
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var lazyImages = document.querySelectorAll('img[data-src]');
+
+  // Blur-to-sharp lazy loading
+  var imgObserver = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var img = entry.target;
+      img.src = img.getAttribute('data-src');
+      img.addEventListener('load', function () {
+        // next frame so the browser has painted the blurred state first
+        requestAnimationFrame(function () {
+          img.classList.add('is-loaded');
+        });
+      }, { once: true });
+      observer.unobserve(img);
+    });
+  }, { rootMargin: '150px 0px' });
+
+  lazyImages.forEach(function (img) { imgObserver.observe(img); });
+
+  // Re-trigger entrance animation for cards scrolled into view later
+  // (initial cards animate via CSS on load; this covers slow connections)
+  var cards = document.querySelectorAll('.featured-news__hero, .news-card');
+  var cardObserver = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach(function (card) { cardObserver.observe(card); });
+})();
+
+
+
+(function(){
+  'use strict';
+
+  /* ============================
+     SCROLL REVEAL: fade-up + stagger
+     Uses IntersectionObserver so
+     sections animate in as user
+     scrolls to them.
+  ============================ */
+  var blocks = document.querySelectorAll('[data-animate]');
+
+  if(!('IntersectionObserver' in window)){
+    // Fallback: show everything immediately
+    blocks.forEach(function(block){
+      block.classList.add('is-visible');
+    });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var block = entry.target;
+        block.classList.add('is-visible');
+
+        // Stagger the list items inside this block
+        var items = block.querySelectorAll('.block-list__item');
+        items.forEach(function(item, index){
+          item.style.transitionDelay = (index * 70) + 'ms';
+        });
+
+        observer.unobserve(block);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  blocks.forEach(function(block){
+    observer.observe(block);
+  });
+
+})();
+
+
+
+(function(){
+  'use strict';
+
+  /* ============================
+     FADE-UP ON SCROLL
+  ============================ */
+  var animatedEls = document.querySelectorAll('[data-animate]');
+
+  if('IntersectionObserver' in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    animatedEls.forEach(function(el){ observer.observe(el); });
+  } else {
+    animatedEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+})();
+
+
+(function () {
+  'use strict';
+
+  /* ==========================================================================
+     PART 5 — GLOBAL SITE BEHAVIOR
+     Runs after each section's own script (header ticker/menu, featured lazy
+     load, part3/part4 fade-ups). Everything here is additive and namespaced
+     so it cannot collide with the section-level scripts loaded above it.
+     ========================================================================== */
+
+  /* ---------- 1. Page load animation ---------- */
+  var loader = document.getElementById('pageLoader');
+  window.addEventListener('load', function () {
+    if (!loader) return;
+    setTimeout(function () {
+      loader.classList.add('is-hidden');
+    }, 250);
+  });
+
+  /* ---------- 2. Scroll progress bar ---------- */
+  var progressBar = document.getElementById('scrollProgress');
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* ---------- 3. Back to top button ---------- */
+  var backToTop = document.getElementById('backToTop');
+  function toggleBackToTop() {
+    if (!backToTop) return;
+    if (window.scrollY > 480) {
+      backToTop.classList.add('is-visible');
+    } else {
+      backToTop.classList.remove('is-visible');
+    }
+  }
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  toggleBackToTop();
+
+  if (backToTop) {
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- 4. Header search: inline typing + dropdown suggestions ---------- */
+  // Demo content index. In production this would be populated from the CMS.
+  var SEARCH_INDEX = [
+    { title: 'Bitcoin ETF Inflows Hit Record High', cat: 'News', icon: '₿' },
+    { title: 'Bitcoin Price Prediction 2026', cat: 'Price Predictions', icon: '₿' },
+    { title: 'Ethereum Price Prediction 2026', cat: 'Price Predictions', icon: 'Ξ' },
+    { title: 'Ethereum Layer 2 Roundup', cat: 'News', icon: 'Ξ' },
+    { title: 'Solana Price Prediction', cat: 'Price Predictions', icon: '◎' },
+    { title: 'Solana Network Outage Report', cat: 'News', icon: '◎' },
+    { title: 'XRP Price Prediction', cat: 'Price Predictions', icon: '✕' },
+    { title: 'What Is DeFi? Beginner Guide', cat: 'Academy', icon: '🎓' },
+    { title: 'Understanding Tokenomics', cat: 'Academy', icon: '🎓' },
+    { title: 'Candlestick Patterns Explained', cat: 'Academy', icon: '🎓' },
+    { title: 'Weekly Market Report', cat: 'Research', icon: '📊' },
+    { title: 'On-Chain Analysis: Whale Activity', cat: 'Research', icon: '📊' },
+    { title: 'ETF Analysis: Institutional Flows', cat: 'Research', icon: '📊' },
+    { title: 'DCA Calculator', cat: 'Tools', icon: '🛠' },
+    { title: 'Profit & Loss Calculator', cat: 'Tools', icon: '🛠' },
+    { title: 'Staking Calculator', cat: 'Tools', icon: '🛠' },
+    { title: 'Meme Coin Season: What to Know', cat: 'News', icon: '🐸' },
+    { title: 'Crypto Regulation Tracker', cat: 'News', icon: '⚖' },
+    { title: 'Exchange Hack Post-Mortems', cat: 'Research', icon: '🔒' },
+    { title: 'AI Crypto Tokens to Watch', cat: 'News', icon: '🤖' }
+  ];
+
+  var TRENDING = ['Bitcoin ETF', 'Solana Price Prediction', 'Ethereum Layer 2', 'Meme Coins', 'DeFi Basics', 'Regulation'];
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function highlight(title, query) {
+    if (!query) return escapeHtml(title);
+    var idx = title.toLowerCase().indexOf(query.toLowerCase());
+    if (idx === -1) return escapeHtml(title);
+    var before = escapeHtml(title.slice(0, idx));
+    var match = escapeHtml(title.slice(idx, idx + query.length));
+    var after = escapeHtml(title.slice(idx + query.length));
+    return before + '<mark>' + match + '</mark>' + after;
+  }
+
+  function resultRow(item, query) {
+    return '<button type="button" class="co-search-dropdown__result" data-title="' + escapeHtml(item.title) + '" role="option">' +
+      '<span class="co-search-dropdown__result-icon" aria-hidden="true">' + item.icon + '</span>' +
+      '<span class="co-search-dropdown__result-text">' +
+        '<span class="co-search-dropdown__result-title">' + highlight(item.title, query) + '</span>' +
+        '<span class="co-search-dropdown__result-cat">' + item.cat + '</span>' +
+      '</span>' +
+    '</button>';
+  }
+
+  function chip(label) {
+    return '<button type="button" class="co-search-dropdown__chip" data-query="' + escapeHtml(label) + '">' + escapeHtml(label) + '</button>';
+  }
+
+  /* Each header search field (desktop inline bar + mobile panel field) gets
+     its own small, self-contained dropdown controller so typing works
+     directly in place instead of handing off to a separate popup. */
+function initHeaderSearch(inputId, dropdownId, submitId) {
+    var input = document.getElementById(inputId);
+    var dropdown = document.getElementById(dropdownId);
+    var submitBtn = submitId ? document.getElementById(submitId) : null;
+    if (!input || !dropdown) return;
+
+    function submitSearch() {
+      var firstResult = dropdown.querySelector('.co-search-dropdown__result');
+      if (firstResult) {
+        firstResult.click();
+      }
+    }
+
+    function open() {
+      dropdown.classList.add('is-open');
+      input.setAttribute('aria-expanded', 'true');
+    }
+    function close() {
+      dropdown.classList.remove('is-open');
+      input.setAttribute('aria-expanded', 'false');
+    }
+
+    function renderDefault() {
+      var html = '<div class="co-search-dropdown__section">' +
+        '<div class="co-search-dropdown__title">Trending Searches</div>' +
+        '<div class="co-search-dropdown__chips">' + TRENDING.map(chip).join('') + '</div>' +
+      '</div>';
+      dropdown.innerHTML = html;
+      bindHandlers();
+    }
+
+    function renderResults(query) {
+      var q = query.trim().toLowerCase();
+      var matches = SEARCH_INDEX.filter(function (item) {
+        return item.title.toLowerCase().indexOf(q) !== -1 || item.cat.toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 8);
+
+      if (!matches.length) {
+        dropdown.innerHTML = '<div class="co-search-dropdown__empty">' +
+          '<div class="co-search-dropdown__empty-icon" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path><path d="M9 9l4 4M13 9l-4 4"></path></svg>' +
+          '</div>' +
+          '<div class="co-search-dropdown__empty-title">No results found</div>' +
+          '<div class="co-search-dropdown__empty-text">We couldn\u2019t find anything for &ldquo;' + escapeHtml(query) + '&rdquo;.<br>Try a coin name, category or guide.</div>' +
+        '</div>';
+        return;
+      }
+
+      dropdown.innerHTML = '<div class="co-search-dropdown__section">' +
+        matches.map(function (item) { return resultRow(item, query); }).join('') +
+      '</div>';
+      bindHandlers();
+    }
+
+    function bindHandlers() {
+      dropdown.querySelectorAll('.co-search-dropdown__chip').forEach(function (el) {
+        el.addEventListener('click', function () {
+          var q = el.getAttribute('data-query');
+          input.value = q;
+          renderResults(q);
+          input.focus();
+        });
+      });
+      dropdown.querySelectorAll('.co-search-dropdown__result').forEach(function (el) {
+        el.addEventListener('click', function () {
+          input.value = el.getAttribute('data-title');
+          close();
+        });
+      });
+    }
+
+    input.addEventListener('focus', function () {
+      if (input.value.trim().length === 0) {
+        renderDefault();
+      } else {
+        renderResults(input.value);
+      }
+      open();
+    });
+
+    input.addEventListener('input', function () {
+      if (input.value.trim().length === 0) {
+        renderDefault();
+      } else {
+        renderResults(input.value);
+      }
+      open();
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        close();
+        input.blur();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        submitSearch();
+      }
+    });
+
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        submitSearch();
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      if (!input.contains(e.target) && !dropdown.contains(e.target)) close();
+    });
+  }
+
+  initHeaderSearch('headerSearchInput', 'headerSearchDropdown', 'headerSearchSubmit');
+  initHeaderSearch('mobileSearchInput', 'mobileSearchDropdown', 'mobileSearchSubmit');
+
+  // Cmd/Ctrl+K focuses the header search bar, a common power-user shortcut
+  // for news sites (desktop bar only; it's hidden on mobile).
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      var headerInput = document.getElementById('headerSearchInput');
+      if (headerInput && headerInput.offsetParent !== null) {
+        e.preventDefault();
+        headerInput.focus();
+      }
+    }
+  });
+
+  /* ---------- 5. Active navigation highlight ----------
+     Scroll-spy auto-highlighting removed. The CoinOsprey logo now
+     serves as the home link, per standard news-site navigation. */
+
+  /* ---------- 6. Scroll animation library (fade-up/left/right, scale-in, image-reveal) ---------- */
+  var animatedNodes = document.querySelectorAll('[data-animate]');
+
+  if ('IntersectionObserver' in window) {
+    var animObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    animatedNodes.forEach(function (node) { animObserver.observe(node); });
+  } else {
+    animatedNodes.forEach(function (node) { node.classList.add('in-view'); });
+  }
+
+  /* ---------- 7. Stagger-children groups (generic, reusable) ---------- */
+  var staggerGroups = document.querySelectorAll('[data-stagger]');
+  if ('IntersectionObserver' in window && staggerGroups.length) {
+    var staggerObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var children = entry.target.children;
+        for (var i = 0; i < children.length; i++) {
+          children[i].style.setProperty('--stagger-index', i);
+        }
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+    staggerGroups.forEach(function (group) { staggerObserver.observe(group); });
+  }
+
+  /* ---------- 8. Counter animation utility (opt-in via data-counter="target") ---------- */
+  function animateCounter(el) {
+    var target = parseFloat(el.getAttribute('data-counter')) || 0;
+    var duration = 1200;
+    var start = null;
+    function step(ts) {
+      if (start === null) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target).toLocaleString();
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var counters = document.querySelectorAll('[data-counter]');
+  if ('IntersectionObserver' in window && counters.length) {
+    var counterObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (c) { counterObserver.observe(c); });
+  }
+
+  /* ---------- 9. Lazy image loading + skeleton loader (site-wide fallback) ----------
+     Featured News already lazy-loads its own [data-src] images with a blur
+     reveal. This pass covers any other lazily-markable image on the page and
+     wires the shared skeleton shimmer to real <img> load events. */
+  var allLazyImgs = document.querySelectorAll('img[loading="lazy"]');
+  allLazyImgs.forEach(function (img) {
+    var wrapper = img.closest('.news-thumb, .research-thumb, .featured-news__media, .news-card__media');
+    if (wrapper) wrapper.classList.add('co-skeleton');
+    function markLoaded() {
+      if (wrapper) wrapper.classList.add('is-loaded');
+    }
+    if (img.complete) {
+      markLoaded();
+    } else {
+      img.addEventListener('load', markLoaded, { once: true });
+      img.addEventListener('error', markLoaded, { once: true });
+    }
+  });
+
+})();
+
+</script>
+
+<script>
+(function () {
+  'use strict';
+  /* ---------- FAQ accordion interaction ----------
+     Delegated listener so it works even though #articleFaqBlock is
+     injected dynamically by Part 2's renderMarkdown() after fetch. */
+  document.addEventListener('click', function (e) {
+    var question = e.target.closest('.faq-question');
+    if (!question) return;
+    var item = question.closest('.faq-item');
+    if (item) item.classList.toggle('is-open');
+  });
+})();
+</script>
+</body>
+</html>
