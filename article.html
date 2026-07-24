@@ -147,10 +147,12 @@
   }
 .co-nav-logo__text span{ color:var(--co-amber-500); }
 .co-nav-logo__col{ display:flex; flex-direction:column; line-height:1.15; min-width:0; }
-  .co-nav-logo__tagline{
+.co-nav-logo__tagline{
     font-size:9.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
     color:var(--co-gray-500); margin-top:1px;
-  }/* tagline ab har screen size par dikhegi */
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;
+  }
+  /* tagline ab har screen size par dikhegi */
   .co-nav__back{
     display:flex; align-items:center; gap:6px;
     color:var(--co-gray-100); font-size:13.5px; font-weight:600;
