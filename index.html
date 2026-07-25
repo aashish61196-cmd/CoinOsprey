@@ -1322,15 +1322,16 @@
 }
 
 .news-card {
+.news-card {
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background: var(--fn-card-bg);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-card);
   border: 1px solid transparent;
-  min-height: 130px;
+  min-height: auto;
   text-decoration: none;
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   opacity: 0;
