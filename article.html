@@ -1892,10 +1892,17 @@
     box-sizing:border-box !important;
     overflow-x:hidden;
   }
+  #main-content{
+    display:block !important;
+    width:100% !important;
+  }
+
   /* ---------- Desktop-only: compact article size ---------- */
 @media (min-width:641px){
   .article-wrap{
-    max-width:760px !important;   /* pehle 900px tha, ab chhota */
+    max-width:760px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
   }
   .article-title{
     font-size:26px;                /* pehle 32px tha */
