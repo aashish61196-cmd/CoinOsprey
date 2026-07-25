@@ -1892,6 +1892,21 @@
     box-sizing:border-box !important;
     overflow-x:hidden;
   }
+  /* ---------- Desktop-only: compact article size ---------- */
+@media (min-width:641px){
+  .article-wrap{
+    max-width:760px !important;   /* pehle 900px tha, ab chhota */
+  }
+  .article-title{
+    font-size:26px;                /* pehle 32px tha */
+  }
+  .article-hero-image{
+    max-height:320px !important;   /* pehle 420px tha */
+  }
+  .article-body{
+    font-size:15px;                /* pehle 16px tha */
+  }
+}
 
   /* Loading skeleton state, shown until fetch resolves */
   .article-skeleton{ display:block; }
