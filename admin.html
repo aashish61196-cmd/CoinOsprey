@@ -519,7 +519,7 @@
               <select id="inType"><option value="">Select News Type</option><option>Price Prediction</option><option>Market Update</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option></select>
             </div>
             <div class="field"><label>Section <em>*</em></label>
-              <select id="inSection">
+              <select id="inSection" onchange="populateCategoryOptions()">
                 <option value="news">News</option>
                 <option value="price-prediction">Price Prediction</option>
                 <option value="blog">Blog</option>
