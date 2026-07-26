@@ -1399,8 +1399,9 @@ document.getElementById('loginEmail').addEventListener('keydown', (e)=>{
 function tickClock(){
   document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-IN',{hour12:true});
 }
+
 setInterval(tickClock,1000); tickClock();
-document.getElementById('descImgFile').addEventListener('change', async function(){
+
 function makeImageResizable(img){
   if(!img || (img.parentElement && img.parentElement.classList.contains('img-resize-wrap'))) return;
   const wrap = document.createElement('span');
@@ -1489,21 +1490,7 @@ document.getElementById('descImgFile').addEventListener('change', async function
     this.value = '';
   }
 });
-    const data = await res.json();
-    if(!data.success){
-      throw new Error((data.error && data.error.message) || 'ImgBB upload failed');
-    }
-    const uploadedUrl = data.data.url;
 
-    descEditor.focus();
-    document.execCommand('insertImage', false, uploadedUrl);
-    showToast('Image inserted ✓');
-  }catch(err){
-    showToast(err.message || 'Image upload failed', true);
-  }finally{
-    this.value = '';
-  }
-});
 /* ---------------- BOOTSTRAP ---------------- */
 buildPopovers();
 descEditor.addEventListener('input', scheduleAutosave);
