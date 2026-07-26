@@ -1156,14 +1156,13 @@ function parseFaqHtml(html){
     faqItems.push({ id: 'f'+Date.now()+Math.random().toString(36).slice(2,6), q: q?q.textContent.trim():'', a: a?a.textContent.trim():'' });
   });
   if(!faqItems.length && html.trim()) faqItems.push({ id:'f'+Date.now(), q:'Imported FAQ text (edit me)', a: html.trim() });
-  }
+}
 function slugify(str){
-  function slugify(str){
   return (str||'').toLowerCase().trim()
     .replace(/[^a-z0-9\s-]/g,'')
     .replace(/\s+/g,'-')
     .replace(/-+/g,'-');
-}
+    }
 /* ---------------- AUTOSAVE (saves as a real Draft on the server) ---------------- */
 let autosaveTimer = null;
 let autosaveInFlight = false;
