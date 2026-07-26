@@ -631,11 +631,20 @@
               <label>FAQs</label>
               <div class="tablewrap" style="padding:14px;">
                 <div id="faqBuilderList" style="display:flex;flex-direction:column;gap:10px;"></div>
-                <button type="button" class="btn btn-sm" style="margin-top:10px;" onclick="addFaqRow()">＋ Add FAQ</button>
+                <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+                  <button type="button" class="btn btn-sm" onclick="addFaqRow()">＋ Add FAQ</button>
+                  <button type="button" class="btn btn-sm" onclick="toggleFaqBulk()">📥 Bulk Import (Q:/A: or JSON)</button>
+                </div>
+                <div id="faqBulkWrap" style="display:none;margin-top:10px;">
+                  <textarea id="faqBulkInput" placeholder="Q: Question one?&#10;A: Answer one.&#10;&#10;Q: Question two?&#10;A: Answer two.&#10;&#10;— ya JSON paste karo: [{&quot;q&quot;:&quot;...&quot;,&quot;a&quot;:&quot;...&quot;}]" style="width:100%;min-height:120px;background:var(--navy-900);border:1px solid var(--line);color:var(--text-hi);padding:10px 12px;border-radius:8px;font-size:13px;font-family:var(--mono);"></textarea>
+                  <div style="display:flex;gap:8px;margin-top:8px;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="importFaqBulk()">Import & Append</button>
+                    <button type="button" class="btn btn-ghost btn-sm" onclick="toggleFaqBulk()">Cancel</button>
+                  </div>
+                </div>
               </div>
               <textarea id="inFaqs" style="display:none;"></textarea>
             </div>
-          </div>
 
           <div class="form-actions">
             <button class="btn btn-primary" id="btnSaveDraft" onclick="saveArticle(false)">✓ Save</button>
