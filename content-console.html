@@ -1207,8 +1207,7 @@ function checkAutosaveRestore(){
 function buildArticlePayload(){
   const title = document.getElementById('inTitle').value.trim();
   const type = document.getElementById('inType').value;
-  let author = document.getElementById('inAuthor').value;
-  if (author === '__custom__') author = document.getElementById('inAuthorCustom').value.trim();
+  const author = document.getElementById('inAuthor').value;
   const aliasRaw = document.getElementById('inAlias').value.trim();
   const contentHtml = document.getElementById('inDesc').style.display==='none'
     ? document.getElementById('inDescSource').value
