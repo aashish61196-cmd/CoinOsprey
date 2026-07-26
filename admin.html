@@ -1783,6 +1783,7 @@ document.getElementById('descImgFile').addEventListener('change', async function
 
 /* ---------------- BOOTSTRAP ---------------- */
 buildPopovers();
+renderAuthorSelect();
 descEditor.addEventListener('input', scheduleAutosave);
 descSource.addEventListener('input', scheduleAutosave);
 ['inTitle','inAlias','inKeyword','inProject','inCategory','inImgUrl','inAlt','inSeoTitle','inMetaKw'].forEach(id=>{
