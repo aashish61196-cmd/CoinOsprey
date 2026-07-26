@@ -1386,6 +1386,7 @@ function editArticle(id){
 }
 
 async function saveArticle(publish){
+  consumeFaqBulk();
   const title = document.getElementById('inTitle').value.trim();
   const type = document.getElementById('inType').value;
   const author = document.getElementById('inAuthor').value;
