@@ -1218,6 +1218,7 @@ function buildArticlePayload(){
     slug: aliasRaw ? slugify(aliasRaw) : slugify(title),
     section: document.getElementById('inSection').value,
     category: document.getElementById('inCategory').value.trim(),
+    tag: document.getElementById('inTag').value.trim(),
     image: document.getElementById('inImgUrl').value.trim(),
     content: contentHtml,
     description: contentHtml,
