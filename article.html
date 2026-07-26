@@ -2825,6 +2825,27 @@
 
   function parseFaqsString(str) {
     if (!str || typeof str !== 'string') return [];
+    var trimmed = str.trim();
+    if (!trimmed) return [];
+
+    // Content Console (admin panel) saves FAQs as rendered HTML using
+    // .faq-item__q-text / .faq-item__a-inner markup — parse that first.
+    if (/<[a-z][\s\S]*>/i.test(trimmed)) {
+      var htmlItems = [];
+      try {
+        var doc = new DOMParser().parseFromString(trimmed, 'text/html');
+        var nodes = doc.querySelectorAll('.faq-item');
+        nodes.forEach(function (node) {
+          var qEl = node.querySelector('.faq-item__q-text, .faq-question, dt, h3, h4');
+          var aEl = node.querySelector('.faq-item__a-inner, .faq-answer, dd, p');
+          var q = qEl ? qEl.textContent.trim() : '';
+          var a = aEl ? aEl.textContent.trim() : '';
+          if (q && a) htmlItems.push({ question: q, answer: a });
+        });
+      } catch (e) { /* fall through to Q:/A: parsing below */ }
+      if (htmlItems.length) return htmlItems;
+    }
+
     var items = [];
     var regex = /Q:\s*([\s\S]*?)\s*A:\s*([\s\S]*?)(?=(?:\s*Q:)|$)/gi;
     var match;
