@@ -712,7 +712,45 @@ let currentUser = null;
 try { currentUser = JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch(e){ currentUser = null; }
 
 let articlesCache = []; // full admin list from GET /api/articles/admin/all
-
+const AUTHORS_KEY = 'co_authors_list';
+function loadAuthorsList(){
+  let list;
+  try{ list = JSON.parse(localStorage.getItem(AUTHORS_KEY) || 'null'); }catch(e){ list = null; }
+  if(!Array.isArray(list) || !list.length){
+    list = ['M2','Aashish Vishwakarma'];
+    localStorage.setItem(AUTHORS_KEY, JSON.stringify(list));
+  }
+  return list;
+}
+function saveAuthorsList(list){ localStorage.setItem(AUTHORS_KEY, JSON.stringify(list)); }
+function renderAuthorSelect(selected){
+  const sel = document.getElementById('inAuthor');
+  const list = loadAuthorsList();
+  const current = selected !== undefined ? selected : sel.value;
+  sel.innerHTML = list.map(a=>`<option>${escapeHtml(a)}</option>`).join('') + `<option value="__custom__">+ Add New Author...</option>`;
+  if(current && list.includes(current)) sel.value = current;
+}
+function handleAuthorChange(sel){
+  if(sel.value === '__custom__'){
+    const name = (prompt('Enter new author name:','') || '').trim();
+    if(!name){ renderAuthorSelect(); return; }
+    const list = loadAuthorsList();
+    if(!list.includes(name)){ list.push(name); saveAuthorsList(list); }
+    renderAuthorSelect(name);
+    scheduleAutosave();
+  }
+}
+function deleteSelectedAuthor(){
+  const sel = document.getElementById('inAuthor');
+  const name = sel.value;
+  if(!name || name === '__custom__'){ showToast('Select an author to delete first', true); return; }
+  if(!confirm(`Remove "${name}" from the author list?`)) return;
+  let list = loadAuthorsList().filter(a => a !== name);
+  if(!list.length) list = ['M2'];
+  saveAuthorsList(list);
+  renderAuthorSelect();
+  showToast('Author removed from list');
+}
 /* ---------------- API HELPER ---------------- */
 async function apiFetch(path, options = {}) {
   const headers = Object.assign({}, options.headers || {});
