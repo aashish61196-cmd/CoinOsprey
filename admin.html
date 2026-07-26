@@ -1499,6 +1499,8 @@ function tickClock(){
 }
 
 setInterval(tickClock,1000); tickClock();
+const footerYearEl = document.getElementById('footerYear');
+if(footerYearEl) footerYearEl.textContent = new Date().getFullYear();
 
 function makeImageResizable(img){
   if(!img || (img.parentElement && img.parentElement.classList.contains('img-resize-wrap'))) return;
