@@ -1286,18 +1286,20 @@ function resetCreateForm(){
   document.querySelectorAll('#page-create input[type=text], #page-create input[type=datetime-local]').forEach(el=>el.value='');
   document.querySelectorAll('#page-create select').forEach(el=>el.selectedIndex=0);
   document.querySelectorAll('#page-create textarea').forEach(el=>el.value='');
+  faqItems = [];
+  renderFaqBuilder();
   document.getElementById('inDesc').innerHTML = '';
   document.getElementById('inDescSource').value = '';
   document.getElementById('inDesc').style.display='block';
   document.getElementById('inDescSource').style.display='none';
   document.getElementById('imgPreview').src = 'https://placehold.co/64x40/2DD4BF/06090D?text=IMG';
   document.getElementById('inPublished').value = new Date().toISOString().slice(0,16);
+  populateCategoryOptions();
+  renderAuthorSelect();
   document.getElementById('btnSaveDraft').style.display='inline-flex';
   document.getElementById('btnSavePublish').textContent = '✓ Save & Publish';
-  document.getElementById('inAuthorCustom').style.display = 'none';
   checkAutosaveRestore();
 }
-
 function editArticle(id){
   const a = articlesCache.find(x => x._id === id);
   if (!a) { showToast('Article not found', true); return; }
