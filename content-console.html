@@ -1784,11 +1784,11 @@ buildPopovers();
 renderAuthorSelect();
 descEditor.addEventListener('input', scheduleAutosave);
 descSource.addEventListener('input', scheduleAutosave);
-['inTitle','inAlias','inKeyword','inProject','inCategory','inImgUrl','inAlt','inSeoTitle','inMetaKw'].forEach(id=>{
+['inTitle','inAlias','inKeyword','inProject','inImgUrl','inAlt','inSeoTitle','inMetaKw'].forEach(id=>{
   const el = document.getElementById(id);
   if(el) el.addEventListener('input', scheduleAutosave);
 });
-['inType','inSection','inAuthor'].forEach(id=>{
+['inType','inSection','inAuthor','inCategory','inTag'].forEach(id=>{
   const el = document.getElementById(id);
   if(el) el.addEventListener('change', scheduleAutosave);
 });
