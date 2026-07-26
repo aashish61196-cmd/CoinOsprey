@@ -1166,12 +1166,48 @@ function parseFaqHtml(html){
   });
   if(!faqItems.length && html.trim()) faqItems.push({ id:'f'+Date.now(), q:'Imported FAQ text (edit me)', a: html.trim() });
 }
+function toggleFaqBulk(){
+  const wrap = document.getElementById('faqBulkWrap');
+  wrap.style.display = wrap.style.display==='none' ? 'block' : 'none';
+  if(wrap.style.display==='block') document.getElementById('faqBulkInput').focus();
+}
+function importFaqBulk(){
+  const raw = document.getElementById('faqBulkInput').value.trim();
+  if(!raw){ showToast('Pehle kuch FAQ paste karo', true); return; }
+  let added = 0;
+
+  try{
+    const parsed = JSON.parse(raw);
+    if(Array.isArray(parsed)){
+      parsed.forEach(item=>{
+        const q = (item.q || item.question || '').toString().trim();
+        const a = (item.a || item.answer || '').toString().trim();
+        if(q){ faqItems.push({ id:'f'+Date.now()+Math.random().toString(36).slice(2,6), q, a }); added++; }
+      });
+    }
+  }catch(e){
+    const blocks = raw.split(/\n(?=Q\s*:)/i);
+    blocks.forEach(block=>{
+      const qMatch = block.match(/Q\s*:\s*([\s\S]*?)(?=\nA\s*:|$)/i);
+      const aMatch = block.match(/A\s*:\s*([\s\S]*)/i);
+      const q = qMatch ? qMatch[1].trim() : '';
+      const a = aMatch ? aMatch[1].trim() : '';
+      if(q){ faqItems.push({ id:'f'+Date.now()+Math.random().toString(36).slice(2,6), q, a }); added++; }
+    });
+  }
+
+  if(!added){ showToast('Format samajh nahi aaya — Q:/A: ya JSON array use karo', true); return; }
+  renderFaqBuilder();
+  document.getElementById('faqBulkInput').value = '';
+  toggleFaqBulk();
+  showToast(added + ' FAQ(s) import ho gaye ✓');
+}
 function slugify(str){
   return (str||'').toLowerCase().trim()
     .replace(/[^a-z0-9\s-]/g,'')
     .replace(/\s+/g,'-')
     .replace(/-+/g,'-');
-    }
+}
 /* ---------------- AUTOSAVE (saves as a real Draft on the server) ---------------- */
 let autosaveTimer = null;
 let autosaveInFlight = false;
