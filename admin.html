@@ -1034,7 +1034,36 @@ function renderDraft(){
 }
 
 /* ---------------- CREATE / EDIT / DELETE / PUBLISH ---------------- */
+const TAXONOMY = {
+  news: { "News": ["Latest News","Breaking News","Bitcoin","Ethereum","XRP","Solana","Altcoins","Memecoins","AI Crypto","DeFi","Layer 2","Web3","Blockchain","Stablecoins","Exchange Listings","Exchange Delistings","Exchange Announcements","ETF News","Regulation","Security & Hacks","Partnerships","Funding","Adoption","Whale Activity","Market Updates","Editor's Picks"] },
+  'price-prediction': { "Price Predictions": ["Featured Predictions","Bitcoin","Ethereum","XRP","Solana","BNB","Dogecoin","Cardano","Avalanche","Sui","Aptos","Meme Coins","AI Coins","RWA Tokens","Gaming Tokens","DeFi Tokens","Weekly Outlook","Monthly Outlook","Long-Term Predictions"] },
+  academy: {
+    "Learning Paths": ["Dashboard","Beginner","Intermediate","Advanced"],
+    "Core Topics": ["Blockchain","Bitcoin","Ethereum","Altcoins","Stablecoins","Web3","DeFi","NFTs","Wallets","Security","Trading"],
+    "Technical Analysis": ["Basics","Candlesticks","Chart Patterns","Indicators","Price Action","Smart Money Concepts","ICT","Risk Management","Trading Psychology"],
+    "Fundamental Analysis": ["Tokenomics","Whitepaper Analysis","Team Analysis","Partnerships","Roadmap","TVL","Developer Activity","Coin Valuation","Case Studies"],
+    "More": ["On-Chain Analysis","Mining","Staking","Yield Farming","Glossary","Quizzes","Practice Tests","Certificates","Community"]
+  },
+  research: { "Research": ["Daily Market Analysis","Weekly Market Report","Monthly Market Report","Bitcoin Analysis","Ethereum Analysis","Altcoin Analysis","Sector Analysis","Technical Analysis","Fundamental Analysis","On-Chain Analysis","Market Sentiment","Macro Analysis","ETF Analysis","Institutional Analysis","Tokenomics Research","Project Deep Dives","Portfolio Strategies","Risk Analysis","Special Reports","Research Archive"] },
+  blog: { "Blogs": ["General"] },
+  tools: { "Tools": ["General"] }
+};
+function populateCategoryOptions(){
+  const sec = document.getElementById('inSection').value;
+  const groups = TAXONOMY[sec] || {};
+  const catSel = document.getElementById('inCategory');
+  catSel.innerHTML = Object.keys(groups).map(g=>`<option>${g}</option>`).join('') || '<option value="">—</option>';
+  populateTagOptions();
+}
+function populateTagOptions(){
+  const sec = document.getElementById('inSection').value;
+  const cat = document.getElementById('inCategory').value;
+  const tags = (TAXONOMY[sec] || {})[cat] || [];
+  document.getElementById('inTag').innerHTML = tags.map(t=>`<option>${t}</option>`).join('') || '<option value="">—</option>';
+}
+
 function slugify(str){
+  function slugify(str){
   return (str||'').toLowerCase().trim()
     .replace(/[^a-z0-9\s-]/g,'')
     .replace(/\s+/g,'-')
