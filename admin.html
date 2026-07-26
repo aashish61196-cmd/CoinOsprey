@@ -961,6 +961,45 @@ function slugify(str){
     .replace(/\s+/g,'-')
     .replace(/-+/g,'-');
 }
+/* ---------------- AUTOSAVE (Description editor) ---------------- */
+let autosaveTimer = null;
+function autosaveKey(){
+  const id = document.getElementById('editingId').value;
+  return 'co_autosave_' + (id || 'new');
+}
+function scheduleAutosave(){
+  clearTimeout(autosaveTimer);
+  const statusEl = document.getElementById('autosaveStatus');
+  if(statusEl) statusEl.textContent = 'Saving…';
+  autosaveTimer = setTimeout(()=>{
+    try{
+      const html = document.getElementById('inDesc').style.display==='none'
+        ? document.getElementById('inDescSource').value
+        : document.getElementById('inDesc').innerHTML;
+      localStorage.setItem(autosaveKey(), JSON.stringify({ html, ts: Date.now() }));
+      if(statusEl) statusEl.textContent = 'Saved ' + new Date().toLocaleTimeString('en-IN',{hour12:true,hour:'2-digit',minute:'2-digit'});
+    }catch(e){ /* storage full or blocked — ignore silently */ }
+  }, 700);
+}
+function clearAutosave(id){
+  try{ localStorage.removeItem('co_autosave_' + (id || 'new')); }catch(e){}
+}
+function checkAutosaveRestore(){
+  const statusEl = document.getElementById('autosaveStatus');
+  if(statusEl) statusEl.textContent = '';
+  let saved = null;
+  try{ saved = JSON.parse(localStorage.getItem(autosaveKey()) || 'null'); }catch(e){}
+  if(saved && saved.html && saved.html.trim()){
+    const currentHtml = document.getElementById('inDesc').innerHTML.trim();
+    // only offer restore if autosave differs from what's already loaded
+    if(saved.html.trim() !== currentHtml){
+      if(confirm('An unsaved draft of this description was found (autosaved earlier). Restore it?')){
+        document.getElementById('inDesc').innerHTML = saved.html;
+        if(statusEl) statusEl.textContent = 'Restored from autosave';
+      }
+    }
+  }
+}
 
 function resetCreateForm(){
   document.getElementById('editingId').value = '';
