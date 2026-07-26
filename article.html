@@ -2839,18 +2839,18 @@
   function renderFaqsField(faqs) {
     var items = typeof faqs === 'string' ? parseFaqsString(faqs) : faqs;
     if (!Array.isArray(items) || !items.length) return '';
-    var html = '<div class="article-faq" id="articleFaqBlock"><h2>Frequently Asked Questions</h2>';
+    var rows = '';
     items.forEach(function (item) {
-      var q = item.question || item.q;
-      var a = item.answer || item.a;
+      var q = item.question || item.q || item.Question || item.ques || item.title;
+      var a = item.answer || item.a || item.Answer || item.ans || item.description;
       if (!q || !a) return;
-      html += '<div class="faq-item">' +
+      rows += '<div class="faq-item">' +
                 '<div class="faq-question">' + inlineFormat(q) + '</div>' +
                 '<div class="faq-answer">' + inlineFormat(a) + '</div>' +
               '</div>';
     });
-    html += '</div>';
-    return html;
+    if (!rows) return '';
+    return '<div class="article-faq" id="articleFaqBlock"><h2>Frequently Asked Questions</h2>' + rows + '</div>';
   }
 
   function renderMarkdown(md) {
