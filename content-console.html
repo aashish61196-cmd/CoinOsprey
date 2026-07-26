@@ -1697,7 +1697,12 @@ document.querySelectorAll('#descToolbar select[data-cmd]').forEach(sel=>{
     if(!sel.value) return;
     if(cmd === 'textCase'){ applyTextCase(sel.value); sel.value=''; return; }
     document.execCommand(cmd, false, sel.value);
-    sel.value = cmd==='formatBlock' ? sel.value : '';
+    // Reset back to "Paragraph" / placeholder right after applying, so the
+    // dropdown doesn't stay stuck showing "Heading 2" — this also makes
+    // sure picking the SAME heading again on a different line still fires
+    // the change event (browsers don't fire change if the value doesn't
+    // actually change).
+    sel.value = cmd==='formatBlock' ? 'P' : '';
   });
 });
 
