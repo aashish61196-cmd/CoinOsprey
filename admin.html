@@ -539,7 +539,8 @@
             <div class="field"><label>Published At</label><input type="datetime-local" id="inPublished"></div>
 
             <div class="field"><label>Project / Token</label><input type="text" id="inProject" placeholder="e.g. BTC"></div>
-            <div class="field"><label>Category</label><input type="text" id="inCategory" placeholder="e.g. Bitcoin"></div>
+            <div class="field"><label>Category <em>*</em></label><select id="inCategory" onchange="populateTagOptions()"></select></div>
+            <div class="field"><label>Tag / Sub-category</label><select id="inTag"></select></div>
 
             <div class="field full">
   <label>Coin / Token Image URL <em>*</em></label>
