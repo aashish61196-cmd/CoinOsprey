@@ -228,6 +228,62 @@
     .shell.ready{grid-template-columns:1fr;}
     .sidebar{position:relative;height:auto;}
   }
+
+  /* ===== MOBILE (phones) ===== */
+  @media(max-width:640px){
+    .content{padding:14px 14px 40px;}
+
+    /* Sidebar becomes a compact top block instead of a tall side panel */
+    .sidebar{padding:14px 12px;gap:12px;}
+    .user-card{flex-direction:row;justify-content:flex-start;text-align:left;padding:10px 12px;}
+    .user-card .avatar{width:38px;height:38px;font-size:14px;}
+    .navgroup{max-height:260px;overflow-y:auto;}
+
+    /* Topbar: stack + shrink so it doesn't overflow small screens */
+    .topbar{padding:10px 14px;flex-wrap:wrap;gap:8px;}
+    .crumb-path .crumb-top{display:none;}
+    .crumb-icon{width:26px;height:26px;font-size:12px;}
+    .topbar-right{gap:6px;flex-wrap:wrap;}
+    .clock{display:none;}
+    .topbar-divider{display:none;}
+    .topbar-profile-meta{display:none;}
+
+    /* Page headers: stack title + action buttons, buttons full width */
+    .page-head{flex-direction:column;align-items:stretch;}
+    .btnrow{width:100%;}
+    .btnrow .btn{flex:1;justify-content:center;}
+
+    /* Stat cards: single column so numbers don't get squeezed */
+    .statgrid{grid-template-columns:1fr;gap:10px;}
+
+    /* Filters: single column, full width */
+    .filterbar{grid-template-columns:1fr;}
+
+    /* Tables: let them scroll horizontally instead of squashing columns */
+    .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    table{min-width:640px;}
+
+    /* Form card: tighter padding on small screens */
+    .formcard{padding:16px;}
+    .formgrid{gap:14px;}
+
+    /* Toolbar: allow it to wrap and not stick oddly under a wrapped topbar */
+    .toolbar{position:static;}
+
+    /* Editor: shorter on mobile so keyboard doesn't push everything off-screen */
+    .editor{height:220px;max-height:220px;}
+
+    /* Form action buttons: stack full-width for easy tapping */
+    .form-actions{flex-direction:column;align-items:stretch;}
+    .form-actions .btn{width:100%;justify-content:center;}
+
+    /* Footer: center everything and stack on narrow screens */
+    .console-footer{flex-direction:column;text-align:center;padding:14px;}
+
+    /* Modal: use more of the viewport width, and inner tables scroll too */
+    .modal-box{max-width:100%;max-height:92vh;}
+    .pv-html table{display:block;overflow-x:auto;}
+  }
   .modal-overlay{position:fixed;inset:0;background:rgba(10,14,19,.55);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
   .modal-overlay.open{display:flex;}
   .modal-box{background:#fff;border-radius:14px;max-width:720px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 30px 80px rgba(16,24,40,.25);}
