@@ -1571,6 +1571,16 @@ document.getElementById('descImgFile').addEventListener('change', async function
 buildPopovers();
 descEditor.addEventListener('input', scheduleAutosave);
 descSource.addEventListener('input', scheduleAutosave);
+['inTitle','inAlias','inKeyword','inProject','inCategory','inImgUrl','inAlt','inSeoTitle','inMetaKw'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('input', scheduleAutosave);
+});
+['inType','inSection','inAuthor'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('change', scheduleAutosave);
+});
+document.getElementById('inMetaDesc').addEventListener('input', scheduleAutosave);
+document.getElementById('inFaqs').addEventListener('input', scheduleAutosave);
   /* ---------------- AUTO-CONVERT MARKDOWN → HTML ON PASTE ---------------- */
 function markdownToHtml(raw){
   const escapeInline = s => escapeHtml(s)
