@@ -1108,7 +1108,55 @@ function populateTagOptions(){
   const tags = (TAXONOMY[sec] || {})[cat] || [];
   document.getElementById('inTag').innerHTML = tags.map(t=>`<option>${t}</option>`).join('') || '<option value="">—</option>';
 }
-
+let faqItems = [];
+function addFaqRow(q, a){
+  faqItems.push({ id: 'f'+Date.now()+Math.random().toString(36).slice(2,6), q: q||'', a: a||'' });
+  renderFaqBuilder();
+}
+function removeFaqRow(id){ faqItems = faqItems.filter(f => f.id !== id); renderFaqBuilder(); }
+function updateFaqRow(id, field, value){
+  const item = faqItems.find(f => f.id === id);
+  if(item){ item[field] = value; syncFaqHidden(); }
+}
+function renderFaqBuilder(){
+  const wrap = document.getElementById('faqBuilderList');
+  wrap.innerHTML = !faqItems.length ? `<div class="hint">No FAQs yet — click "＋ Add FAQ".</div>` :
+    faqItems.map(f => `
+      <div style="border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--navy-900);">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+          <input type="text" value="${escapeHtml(f.q)}" placeholder="Question" style="flex:1;background:var(--navy-900);border:1px solid var(--line);color:var(--text-hi);padding:8px 10px;border-radius:6px;font-size:13px;" oninput="updateFaqRow('${f.id}','q',this.value)">
+          <button type="button" class="btn btn-icon btn-sm btn-danger" title="Remove" onclick="removeFaqRow('${f.id}')">🗑</button>
+        </div>
+        <textarea placeholder="Answer" style="width:100%;min-height:50px;background:var(--navy-900);border:1px solid var(--line);color:var(--text-hi);padding:8px 10px;border-radius:6px;font-size:13px;font-family:var(--sans);" oninput="updateFaqRow('${f.id}','a',this.value)">${escapeHtml(f.a)}</textarea>
+      </div>`).join('');
+  syncFaqHidden();
+}
+function syncFaqHidden(){ document.getElementById('inFaqs').value = buildFaqHtml(); scheduleAutosave(); }
+function buildFaqHtml(){
+  const valid = faqItems.filter(f => f.q.trim());
+  if(!valid.length) return '';
+  const icon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>`;
+  return `<div class="faq">\n` + valid.map(f => `  <div class="faq-item" data-reveal-child>
+    <button class="faq-item__q" type="button" aria-expanded="false">
+      <span class="faq-item__icon" aria-hidden="true">${icon}</span>
+      <span class="faq-item__q-text">${escapeHtml(f.q)}</span>
+      <span class="faq-item__plus" aria-hidden="true"></span>
+    </button>
+    <div class="faq-item__a"><div class="faq-item__a-inner">${escapeHtml(f.a)}</div></div>
+  </div>`).join('\n') + `\n</div>`;
+}
+function parseFaqHtml(html){
+  faqItems = [];
+  if(!html) return;
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  div.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-item__q-text');
+    const a = item.querySelector('.faq-item__a-inner');
+    faqItems.push({ id: 'f'+Date.now()+Math.random().toString(36).slice(2,6), q: q?q.textContent.trim():'', a: a?a.textContent.trim():'' });
+  });
+  if(!faqItems.length && html.trim()) faqItems.push({ id:'f'+Date.now(), q:'Imported FAQ text (edit me)', a: html.trim() });
+  }
 function slugify(str){
   function slugify(str){
   return (str||'').toLowerCase().trim()
