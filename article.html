@@ -2987,8 +2987,9 @@
     // markdown parser above only picks up FAQs embedded as fenced JSON
     // inside content. Render article.faqs separately here as a fallback,
     // skipping it if a FAQ block was already produced from content.
-    if (article.faqs && (typeof article.faqs === 'string' ? article.faqs.trim().length : article.faqs.length) && !document.getElementById('articleFaqBlock')) {
-      document.getElementById('articleBody').insertAdjacentHTML('beforeend', renderFaqsField(article.faqs));
+var faqsData = article.faqs || article.faq || article.FAQs || article.faqList || null;
+    if (faqsData && (typeof faqsData === 'string' ? faqsData.trim().length : faqsData.length) && !document.getElementById('articleFaqBlock')) {
+      document.getElementById('articleBody').insertAdjacentHTML('beforeend', renderFaqsField(faqsData));
     }
 
     document.getElementById('articleSkeleton').style.display = 'none';
