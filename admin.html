@@ -627,7 +627,14 @@
             <div class="field"><label>SEO Title</label><input type="text" id="inSeoTitle"></div>
             <div class="field"><label>Meta Keywords</label><input type="text" id="inMetaKw"></div>
             <div class="field full"><label>Meta Description</label><textarea id="inMetaDesc" style="min-height:50px"></textarea></div>
-            <div class="field full"><label>FAQs</label><textarea id="inFaqs" style="min-height:50px" placeholder="Q: ... A: ..."></textarea></div>
+             <div class="field full">
+              <label>FAQs</label>
+              <div class="tablewrap" style="padding:14px;">
+                <div id="faqBuilderList" style="display:flex;flex-direction:column;gap:10px;"></div>
+                <button type="button" class="btn btn-sm" style="margin-top:10px;" onclick="addFaqRow()">＋ Add FAQ</button>
+              </div>
+              <textarea id="inFaqs" style="display:none;"></textarea>
+            </div>
           </div>
 
           <div class="form-actions">
