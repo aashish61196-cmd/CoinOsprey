@@ -1047,6 +1047,7 @@ document.getElementById('inType').value = a.type || '';
   }
   document.getElementById('btnSavePublish').textContent = a.status==='published' ? '✓ Update' : '✓ Save & Publish';
   go('create');
+  checkAutosaveRestore();
 }
 
 async function saveArticle(publish){
