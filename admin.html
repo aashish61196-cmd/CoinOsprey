@@ -180,7 +180,7 @@
   .emoji-grid button{font-size:15px;}
   .icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:180px;}
   .icon-grid button{font-size:14px;}
-  .editor{min-height:220px;border-top:none;border-radius:0 0 8px 8px;background:#ffffff;border:1px solid var(--line);color:#1a1a1a;padding:16px;overflow-y:auto;font-size:14px;line-height:1.7;}
+.editor{height:320px;max-height:320px;border-top:none;border-radius:0 0 8px 8px;background:#ffffff;border:1px solid var(--line);color:#1a1a1a;padding:16px;overflow-y:auto;overscroll-behavior:contain;font-size:14px;line-height:1.7;}
   .editor:focus{outline:none;border-color:var(--teal);}
   .editor[contenteditable]:empty::before{content:attr(data-placeholder);color:#9aa4ad;}
   .editor h1{font-size:1.7em;margin:.5em 0;color:#0b1626;}
