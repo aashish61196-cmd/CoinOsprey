@@ -961,29 +961,30 @@ function slugify(str){
     .replace(/\s+/g,'-')
     .replace(/-+/g,'-');
 }
-/* ---------------- AUTOSAVE (Description editor) ---------------- */
+/* ---------------- AUTOSAVE (saves as a real Draft on the server) ---------------- */
 let autosaveTimer = null;
+let autosaveInFlight = false;
+let autosavePending = false;
+
 function autosaveKey(){
   const id = document.getElementById('editingId').value;
   return 'co_autosave_' + (id || 'new');
 }
-function scheduleAutosave(){
-  clearTimeout(autosaveTimer);
-  const statusEl = document.getElementById('autosaveStatus');
-  if(statusEl) statusEl.textContent = 'Saving…';
-  autosaveTimer = setTimeout(()=>{
-    try{
-      const html = document.getElementById('inDesc').style.display==='none'
-        ? document.getElementById('inDescSource').value
-        : document.getElementById('inDesc').innerHTML;
-      localStorage.setItem(autosaveKey(), JSON.stringify({ html, ts: Date.now() }));
-      if(statusEl) statusEl.textContent = 'Saved ' + new Date().toLocaleTimeString('en-IN',{hour12:true,hour:'2-digit',minute:'2-digit'});
-    }catch(e){ /* storage full or blocked — ignore silently */ }
-  }, 700);
+
+// local backup too, in case the network call fails or user is offline
+function saveLocalBackup(){
+  try{
+    const html = document.getElementById('inDesc').style.display==='none'
+      ? document.getElementById('inDescSource').value
+      : document.getElementById('inDesc').innerHTML;
+    localStorage.setItem(autosaveKey(), JSON.stringify({ html, ts: Date.now() }));
+  }catch(e){ /* storage full or blocked — ignore silently */ }
 }
+
 function clearAutosave(id){
   try{ localStorage.removeItem('co_autosave_' + (id || 'new')); }catch(e){}
 }
+
 function checkAutosaveRestore(){
   const statusEl = document.getElementById('autosaveStatus');
   if(statusEl) statusEl.textContent = '';
@@ -991,13 +992,88 @@ function checkAutosaveRestore(){
   try{ saved = JSON.parse(localStorage.getItem(autosaveKey()) || 'null'); }catch(e){}
   if(saved && saved.html && saved.html.trim()){
     const currentHtml = document.getElementById('inDesc').innerHTML.trim();
-    // only offer restore if autosave differs from what's already loaded
     if(saved.html.trim() !== currentHtml){
       if(confirm('An unsaved draft of this description was found (autosaved earlier). Restore it?')){
         document.getElementById('inDesc').innerHTML = saved.html;
         if(statusEl) statusEl.textContent = 'Restored from autosave';
       }
     }
+  }
+}
+
+// builds the same payload saveArticle() sends, reused here for autosave
+function buildArticlePayload(){
+  const title = document.getElementById('inTitle').value.trim();
+  const type = document.getElementById('inType').value;
+  let author = document.getElementById('inAuthor').value;
+  if (author === '__custom__') author = document.getElementById('inAuthorCustom').value.trim();
+  const aliasRaw = document.getElementById('inAlias').value.trim();
+  const contentHtml = document.getElementById('inDesc').style.display==='none'
+    ? document.getElementById('inDescSource').value
+    : document.getElementById('inDesc').innerHTML;
+
+  return {
+    title, type, author,
+    slug: aliasRaw ? slugify(aliasRaw) : slugify(title),
+    section: document.getElementById('inSection').value,
+    category: document.getElementById('inCategory').value.trim(),
+    image: document.getElementById('inImgUrl').value.trim(),
+    content: contentHtml,
+    description: contentHtml,
+    seoTitle: document.getElementById('inSeoTitle').value.trim(),
+    metaKeywords: document.getElementById('inMetaKw').value.trim(),
+    metaDescription: document.getElementById('inMetaDesc').value.trim(),
+    faqs: document.getElementById('inFaqs').value.trim(),
+    focusKeyword: document.getElementById('inKeyword').value.trim(),
+    project: document.getElementById('inProject').value.trim(),
+    imageAlt: document.getElementById('inAlt').value.trim(),
+    publish: false
+  };
+}
+
+function scheduleAutosave(){
+  clearTimeout(autosaveTimer);
+  const statusEl = document.getElementById('autosaveStatus');
+  if(statusEl) statusEl.textContent = 'Saving…';
+  saveLocalBackup();
+  autosaveTimer = setTimeout(runServerAutosave, 1200);
+}
+
+async function runServerAutosave(){
+  const statusEl = document.getElementById('autosaveStatus');
+  const title = document.getElementById('inTitle').value.trim();
+  const type = document.getElementById('inType').value;
+
+  // backend requires at least Title + News Type — until both are filled,
+  // keep it as a local-only backup and let the user know why
+  if(!title || !type){
+    if(statusEl) statusEl.textContent = 'Saved locally (add Title & News Type to save as Draft)';
+    return;
+  }
+
+  if(autosaveInFlight){ autosavePending = true; return; }
+  autosaveInFlight = true;
+
+  const payload = buildArticlePayload();
+  const editingId = document.getElementById('editingId').value;
+
+  try{
+    let saved;
+    if(editingId){
+      saved = await apiFetch('/api/articles/' + editingId, { method: 'PUT', body: JSON.stringify(payload) });
+    } else {
+      saved = await apiFetch('/api/articles', { method: 'POST', body: JSON.stringify(payload) });
+      const newId = saved && (saved._id || (saved.article && saved.article._id));
+      if(newId) document.getElementById('editingId').value = newId; // so next autosave updates, not duplicates
+    }
+    clearAutosave(editingId); // server now has it, local backup no longer needed
+    await loadArticles(); // refreshes Draft News list so it shows up there
+    if(statusEl) statusEl.textContent = 'Draft saved ' + new Date().toLocaleTimeString('en-IN',{hour12:true,hour:'2-digit',minute:'2-digit'});
+  }catch(err){
+    if(statusEl) statusEl.textContent = 'Autosave failed (saved locally) — ' + (err.message || '');
+  }finally{
+    autosaveInFlight = false;
+    if(autosavePending){ autosavePending = false; runServerAutosave(); }
   }
 }
 
