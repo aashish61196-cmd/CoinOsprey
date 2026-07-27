@@ -260,9 +260,25 @@
     /* Filters: single column, full width */
     .filterbar{grid-template-columns:1fr;}
 
-    /* Tables: let them scroll horizontally instead of squashing columns */
-    .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-    table{min-width:640px;}
+    /* Tables: fit to screen, no horizontal scroll — wrap text, drop low-priority columns */
+    .tablewrap{overflow-x:hidden;}
+    table{min-width:0;width:100%;table-layout:fixed;}
+    table td, table th{white-space:normal;word-break:break-word;font-size:10.5px;padding:8px 6px;}
+    .thumb{width:34px;height:24px;}
+
+    /* Home dashboard table: keep Title, Type, SEO — drop Author/Published */
+    #homeRecent td:nth-child(3), #homeRecent td:nth-child(4),
+    #page-home thead th:nth-child(3), #page-home thead th:nth-child(4){display:none;}
+
+    /* Crypto News table: keep Thumb, Title, Type, SEO, Action — drop the rest */
+    #newsBody td:nth-child(3), #newsBody td:nth-child(4), #newsBody td:nth-child(5),
+    #newsBody td:nth-child(6), #newsBody td:nth-child(7), #newsBody td:nth-child(9),
+    #page-news thead th:nth-child(3), #page-news thead th:nth-child(4), #page-news thead th:nth-child(5),
+    #page-news thead th:nth-child(6), #page-news thead th:nth-child(7), #page-news thead th:nth-child(9){display:none;}
+
+    /* Draft News table: keep Thumb, Title, Type, SEO, Action — drop Author/Uploaded */
+    #draftBody td:nth-child(3), #draftBody td:nth-child(4),
+    #page-draft thead th:nth-child(3), #page-draft thead th:nth-child(4){display:none;}
 
     /* Form card: tighter padding on small screens */
     .formcard{padding:16px;}
