@@ -3029,9 +3029,29 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
     document.getElementById('articleError').style.display = 'block';
   }
 
+  // Static/reserved pages that are NOT blog articles — if the slug matches
+  // one of these, redirect straight to its real page instead of trying
+  // (and failing) to fetch it from the articles API.
+  var RESERVED_SLUGS = {
+    'about': '/about.html',
+    'mission': '/mission.html',
+    'authors': '/authors.html',
+    'careers': '/careers.html',
+    'advertise': '/advertise.html',
+    'press': '/press.html',
+    'contact': '/contact.html',
+    'support': '/support.html',
+    'sitemap': '/sitemap.html'
+  };
+
   function loadArticle() {
     var slug = getSlugFromUrl();
     if (!slug) { showError(); return; }
+
+    if (RESERVED_SLUGS[slug.toLowerCase()]) {
+      window.location.replace(RESERVED_SLUGS[slug.toLowerCase()]);
+      return;
+    }
 
     fetch(API_BASE + '/articles/' + encodeURIComponent(slug))
       .then(function (res) {
