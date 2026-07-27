@@ -4664,7 +4664,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
       research: articles.filter(a => a.section === 'research')
     };
 
-    renderFeaturedNews(bySection.news);
+    renderFeaturedNews(articles);
     renderLatestNews(bySection.news);
     renderSimpleList('price-predictions', bySection.predictions, predictionItemTemplate, 4);
     renderSimpleList('blogs', bySection.blogs, listItemTemplate, 4);
