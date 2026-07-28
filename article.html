@@ -3189,18 +3189,19 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
     });
   }
 
-  /* ---------- Breaking news ticker content ---------- */
-  var tickerItems = [
+/* ---------- Breaking news ticker content (dynamic, from API) ---------- */
+  var track = document.getElementById('tickerTrack');
+
+  var STATIC_TICKER_ITEMS = [
     { icon: 'btc', label: 'B', text: 'Bitcoin ETF Inflows Surpass $500M' },
     { icon: 'bnb', label: '\u25C8', text: 'Binance Lists New AI Token AIOZ' },
     { icon: 'eth', label: '\u039E', text: 'SEC Delays Decision on Ethereum ETF' },
     { icon: 'sol', label: 'S', text: 'Solana Network Hits New Milestone' }
   ];
 
-  var track = document.getElementById('tickerTrack');
-  function buildEntries(){
+  function buildStaticEntries(){
     var html = '';
-    tickerItems.forEach(function(item){
+    STATIC_TICKER_ITEMS.forEach(function(item){
       html += '<span class="co-ticker__entry">' +
                 '<span class="co-ticker__entry-icon co-ticker__entry-icon--' + item.icon + '">' + item.label + '</span>' +
                 item.text +
@@ -3208,8 +3209,52 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
     });
     return html;
   }
-  // duplicate the sequence so the marquee loops seamlessly
-  track.innerHTML = buildEntries() + buildEntries();
+  // Show static fallback immediately, then replace with live data
+  track.innerHTML = buildStaticEntries() + buildStaticEntries();
+
+  var TICKER_ICON_MAP = {
+    bitcoin: { cls: 'co-ticker__entry-icon--btc', label: 'B' },
+    ethereum: { cls: 'co-ticker__entry-icon--eth', label: '\u039E' },
+    altcoins: { cls: 'co-ticker__entry-icon--sol', label: 'S' },
+    exchange: { cls: 'co-ticker__entry-icon--bnb', label: '\u25C8' }
+  };
+
+  function colorFromStr(str){
+    str = str || '?';
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    var hue = Math.abs(hash) % 360;
+    return 'hsl(' + hue + ', 55%, 42%)';
+  }
+
+  function tickerHref(a){
+    var section = a.section || 'news';
+    return '/en/' + encodeURIComponent(section) + '/' + encodeURIComponent(a.slug || '');
+  }
+
+  function buildLiveEntries(articles){
+    return articles.slice(0, 6).map(function(a){
+      var key = (a.category || '').toLowerCase();
+      var icon = TICKER_ICON_MAP[key] || { cls: '', label: (a.category || a.title || '?').charAt(0).toUpperCase() };
+      var style = icon.cls ? '' : ' style="background:' + colorFromStr(a.category || a.title) + '"';
+      return '<a class="co-ticker__entry" href="' + tickerHref(a) + '" style="text-decoration:none;color:inherit;">' +
+               '<span class="co-ticker__entry-icon ' + icon.cls + '"' + style + '>' + icon.label + '</span>' +
+               (a.title || '') +
+             '</a>';
+    }).join('');
+  }
+
+  fetch('/api/articles')
+    .then(function(res){ if (!res.ok) throw new Error('fetch failed'); return res.json(); })
+    .then(function(data){
+      var articles = Array.isArray(data) ? data : (data.articles || []);
+      if (!articles.length) return;
+      var entries = buildLiveEntries(articles);
+      track.innerHTML = entries + entries;
+    })
+    .catch(function(err){
+      console.warn('Ticker: could not load live articles, keeping static list:', err.message);
+    });
 
   /* ---------- Sticky header shrink on scroll ---------- */
   var header = document.getElementById('coHeader');
