@@ -3027,6 +3027,12 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
     document.getElementById('articleSkeleton').style.display = 'none';
     document.getElementById('articleContent').style.display = 'none';
     document.getElementById('articleError').style.display = 'block';
+
+    document.title = 'Article Not Found — CoinOsprey';
+    var titleTag = document.getElementById('pageTitle');
+    if (titleTag) titleTag.textContent = 'Article Not Found — CoinOsprey';
+    var descTag = document.getElementById('pageDescription');
+    if (descTag) descTag.setAttribute('content', 'This article may have been moved, unpublished, or the link is incorrect.');
   }
 
   // Static/reserved pages that are NOT blog articles — if the slug matches
