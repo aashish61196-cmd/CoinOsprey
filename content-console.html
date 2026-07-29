@@ -263,8 +263,11 @@
 
     /* Tables: fit to screen, no horizontal scroll — wrap text, drop low-priority columns */
     .tablewrap{overflow-x:hidden;}
-    table{min-width:0;width:100%;table-layout:fixed;}
-    table td, table th{white-space:normal;word-break:break-word;font-size:10.5px;padding:8px 6px;}
+table{min-width:0;width:100%;table-layout:auto;}
+table td, table th{white-space:normal;word-break:break-word;font-size:10.5px;padding:6px 4px;}
+.actioncell{gap:4px;}
+.actioncell .btn-icon{width:26px;height:26px;font-size:10.5px;}
+.actioncell .btn-primary{padding:4px 6px;font-size:9.5px;}
     .thumb{width:34px;height:24px;}
 
     /* Home dashboard table: keep Title, Type, SEO — drop Author/Published */
