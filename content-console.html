@@ -972,13 +972,13 @@ function renderHome(){
   const recent = [...articlesCache].sort((a,b)=> new Date(b.publishedAt||b.createdAt||0) - new Date(a.publishedAt||a.createdAt||0)).slice(0,5);
   const body = document.getElementById('homeRecent');
   if (!recent.length) { body.innerHTML = `<tr><td colspan="5"><div class="empty"><b>No articles yet</b>Create your first article to see it here.</div></td></tr>`; return; }
-  body.innerHTML = recent.map(a => `
+body.innerHTML = recent.map(a => `
     <tr>
-      <td class="title-cell"><b>${escapeHtml(a.title)}</b></td>
-      <td><span class="tag ${a.type==='Price Prediction'?'tag-pred':'tag-news'}">${escapeHtml(a.type||'—')}</span></td>
-      <td>${escapeHtml(a.author||'—')}</td>
-      <td>${a.status==='published' ? fmtDate(a.publishedAt) : '—'}</td>
-      <td>${(a.seoTitle && a.metaDescription) ? '<span class="yes">Yes</span>' : '<span class="no">No</span>'}</td>
+      <td class="title-cell" data-label="Title"><b>${escapeHtml(a.title)}</b></td>
+      <td data-label="Type"><span class="tag ${a.type==='Price Prediction'?'tag-pred':'tag-news'}">${escapeHtml(a.type||'—')}</span></td>
+      <td data-label="Author">${escapeHtml(a.author||'—')}</td>
+      <td data-label="Published">${a.status==='published' ? fmtDate(a.publishedAt) : '—'}</td>
+      <td data-label="SEO">${(a.seoTitle && a.metaDescription) ? '<span class="yes">Yes</span>' : '<span class="no">No</span>'}</td>
     </tr>`).join('');
 }
 
