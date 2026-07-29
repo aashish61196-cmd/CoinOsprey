@@ -1917,6 +1917,7 @@ descEditor.addEventListener('paste', function(e){
   e.preventDefault();
   document.execCommand('insertHTML', false, markdownToHtml(text));
 });
+if(!history.state) history.replaceState({ cop: 'home' }, '', '#home'); // starting point for the Back/Forward stack
 checkSession(); // shows login screen, or auto-enters app if a valid token is already saved
 </script>
 </body>
