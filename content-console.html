@@ -1856,17 +1856,24 @@ document.getElementById('descImgFile').addEventListener('change', async function
 /* ---------------- BOOTSTRAP ---------------- */
 buildPopovers();
 renderAuthorSelect();
-descEditor.addEventListener('input', scheduleAutosave);
-descSource.addEventListener('input', scheduleAutosave);
-['inTitle','inAlias','inKeyword','inProject','inImgUrl','inAlt','inSeoTitle','inMetaKw'].forEach(id=>{
-  const el = document.getElementById(id);
-  if(el) el.addEventListener('input', scheduleAutosave);
-});
-['inType','inSection','inAuthor','inCategory','inTag'].forEach(id=>{
-  const el = document.getElementById(id);
-  if(el) el.addEventListener('change', scheduleAutosave);
-});
-document.getElementById('inMetaDesc').addEventListener('input', scheduleAutosave);
+// Delegated autosave — Add/Edit Article form ke andar KISI BHI field me
+// 1 letter/word type hote hi ya koi dropdown change hote hi autosave chalega.
+// Naye fields future me add ho, unke liye bhi alag se wire karne ki zaroorat nahi.
+const createFormEl = document.querySelector('#page-create .formcard');
+if(createFormEl){
+  createFormEl.addEventListener('input', function(e){
+    const t = e.target;
+    if(t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)){
+      scheduleAutosave();
+    }
+  });
+  createFormEl.addEventListener('change', function(e){
+    const t = e.target;
+    if(t && (t.tagName === 'SELECT' || t.tagName === 'INPUT')){
+      scheduleAutosave();
+    }
+  });
+}
 
   /* ---------------- AUTO-CONVERT MARKDOWN → HTML ON PASTE ---------------- */
 function markdownToHtml(raw){
