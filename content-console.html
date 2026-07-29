@@ -916,21 +916,7 @@ function enterApp() {
 }
 
 /* ---------------- NAV ---------------- */
-const titles = {home:"Dashboard",news:"Crypto News",draft:"Draft News",create:"Add New Article",authors:"Author Models",events:"Fetch Data Event List",gsc:"Google Search Console",keywords:"Keyword Dashboard",fetchkw:"Fetch Keyword Data"};
-function go(p){
-  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  document.querySelectorAll('.navitem').forEach(el=>el.classList.toggle('active', el.dataset.page===p));
-  document.getElementById('crumbCurrent').textContent = titles[p] || p;
-  if(p==='news') renderNews();
-  if(p==='draft') renderDraft();
-  if(p==='home') renderHome();
-  if(p==='create' && !document.getElementById('editingId').value){
-    resetCreateForm(); // fresh "Add New" unless we're mid-edit (editArticle sets editingId first)
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-document.querySelectorAll('.navitem').forEach(el=>el.addEventListener('click',()=>go(el.dataset.page)));
+https://github.com/aashish61196-cmd/CoinOsprey/blob/main/content-console.html
 function filterNav(q){
   q=q.toLowerCase();
   document.querySelectorAll('.navitem').forEach(el=>{
