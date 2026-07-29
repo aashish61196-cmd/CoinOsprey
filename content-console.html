@@ -916,7 +916,45 @@ function enterApp() {
 }
 
 /* ---------------- NAV ---------------- */
-https://github.com/aashish61196-cmd/CoinOsprey/blob/main/content-console.html
+const titles = {home:"Dashboard",news:"Crypto News",draft:"Draft News",create:"Add New Article",authors:"Author Models",events:"Fetch Data Event List",gsc:"Google Search Console",keywords:"Keyword Dashboard",fetchkw:"Fetch Keyword Data"};
+
+/* ---------------- IN-APP BACK / FORWARD (SPA history) ----------------
+   Pehle history.pushState kabhi call nahi hota tha, isliye browser ke
+   history stack me is console ka koi entry hi nahi tha — Back dabate hi
+   seedha page/tab close ho jata tha. Ab har go() call par ek state push
+   hoti hai; popstate event sunke wahi page wapas dikha dete hain (bina
+   dobara push kiye). Isse browser ka Back/Forward aur naye header
+   buttons dono seamlessly console ke andar hi navigate karenge.
+------------------------------------------------------------------------ */
+function go(p, pushState){
+  if(pushState === undefined) pushState = true;
+  const target = document.getElementById('page-'+p);
+  if(!target) return;
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  target.classList.add('active');
+  document.querySelectorAll('.navitem').forEach(el=>el.classList.toggle('active', el.dataset.page===p));
+  document.getElementById('crumbCurrent').textContent = titles[p] || p;
+  if(p==='news') renderNews();
+  if(p==='draft') renderDraft();
+  if(p==='home') renderHome();
+  if(p==='create' && !document.getElementById('editingId').value){
+    resetCreateForm(); // fresh "Add New" unless we're mid-edit (editArticle sets editingId first)
+  }
+  if(pushState) history.pushState({ cop: p }, '', '#' + p);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.navitem').forEach(el=>el.addEventListener('click',()=>go(el.dataset.page)));
+
+// Browser ka apna Back/Forward button dabane par ye chalega
+window.addEventListener('popstate', (e)=>{
+  const p = (e.state && e.state.cop) ? e.state.cop : 'home';
+  go(p, false); // false = ye ek reaction hai, dobara push mat karo
+});
+
+// Header ke naye ← / → buttons
+function goBack(){ history.back(); }
+function goForward(){ history.forward(); }
+
 function filterNav(q){
   q=q.toLowerCase();
   document.querySelectorAll('.navitem').forEach(el=>{
