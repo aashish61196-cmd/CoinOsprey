@@ -261,31 +261,30 @@
     /* Filters: single column, full width */
     .filterbar{grid-template-columns:minmax(0,1fr);}
 
-    /* Tables → mobile "cards": har row ko stacked block bana do, columns
-       side-by-side rakhne ki koshish mat karo — ye overflow ko 100% khatam
-       karta hai chahe columns kitne bhi ho. */
-    .tablewrap{overflow-x:hidden;}
-    table{width:100%;border-collapse:collapse;}
+/* Tables → mobile "cards": label upar, value neeche (stacked) — side by
+       side flex NAHI, kyunki plain text flex-item wrap nahi karta aur
+       screen se bahar chala jaata hai. Block stacking se width hamesha
+       container tak hi limited rehti hai, koi overflow possible nahi. */
+    .tablewrap{overflow-x:hidden;width:100%;}
+    table{width:100%;max-width:100%;border-collapse:collapse;table-layout:fixed;}
     thead{display:none;}
-    table, tbody, tr{display:block;width:100%;}
+    table, tbody, tr{display:block;width:100%;max-width:100%;}
     tbody tr{border-bottom:1px solid var(--line);padding:10px 12px;}
     tbody tr:last-child{border-bottom:none;}
-    table td{display:flex;align-items:center;justify-content:space-between;gap:10px;
-      border:none;padding:5px 0;font-size:12px;text-align:right;
-      white-space:normal;word-break:break-word;overflow-wrap:break-word;}
-    table td::before{content:attr(data-label);font-size:10px;text-transform:uppercase;
-      letter-spacing:.5px;color:var(--text-low);font-weight:700;text-align:left;flex-shrink:0;}
-    table td[colspan]{display:block;padding:0;}
+    table td{display:block;width:100%;max-width:100%;box-sizing:border-box;
+      border:none;padding:6px 0;font-size:12.5px;text-align:left;color:var(--text-mid);
+      white-space:normal;word-break:break-word;overflow-wrap:anywhere;}
+    table td::before{content:attr(data-label);display:block;font-size:10px;
+      text-transform:uppercase;letter-spacing:.5px;color:var(--text-low);
+      font-weight:700;margin-bottom:2px;}
+    table td[colspan]{padding:0;}
     table td[colspan]::before{display:none;}
-    .title-cell{display:block !important;text-align:left;max-width:none;width:auto;}
-    .title-cell::before{display:block;margin-bottom:4px;}
-    .title-cell span{word-break:break-all;font-size:10px;}
-    .thumb-cell{display:block !important;text-align:left;}
-    .thumb-cell::before{display:block;margin-bottom:4px;}
-    .actioncell{gap:6px;justify-content:flex-end;flex-wrap:wrap;}
-    .actioncell .btn-icon{width:28px;height:28px;font-size:11px;}
-    .actioncell .btn-primary{padding:5px 8px;font-size:10.5px;}
-    .thumb{width:72px;height:48px;}
+    .title-cell b{display:block;overflow-wrap:anywhere;}
+    .title-cell span{display:block;margin-top:2px;overflow-wrap:anywhere;font-size:10px;}
+    .actioncell{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-start;}
+    .actioncell .btn-icon{width:30px;height:30px;font-size:12px;}
+    .actioncell .btn-primary{padding:6px 10px;font-size:11px;}
+    .thumb{width:88px;height:56px;max-width:100%;}
 
     /* Form card: tighter padding on small screens */
     .formcard{padding:16px;}
