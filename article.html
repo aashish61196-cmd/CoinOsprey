@@ -3023,6 +3023,16 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
     document.getElementById('articleContent').style.display = 'block';
   }
 
+  function setRobotsMeta(content) {
+    var tag = document.querySelector('meta[name="robots"]');
+    if (!tag) {
+      tag = document.createElement('meta');
+      tag.setAttribute('name', 'robots');
+      document.head.appendChild(tag);
+    }
+    tag.setAttribute('content', content);
+  }
+
   function showError() {
     document.getElementById('articleSkeleton').style.display = 'none';
     document.getElementById('articleContent').style.display = 'none';
@@ -3033,6 +3043,9 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
     if (titleTag) titleTag.textContent = 'Article Not Found — CoinOsprey';
     var descTag = document.getElementById('pageDescription');
     if (descTag) descTag.setAttribute('content', 'This article may have been moved, unpublished, or the link is incorrect.');
+
+    // Tell search engines this specific URL/state is not a real page
+    setRobotsMeta('noindex, nofollow');
   }
 
   // Static/reserved pages that are NOT blog articles — if the slug matches
