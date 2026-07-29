@@ -1096,15 +1096,15 @@ function renderDraft(){
   document.getElementById('draftCount').textContent = rows.length;
   const body=document.getElementById('draftBody');
   if(rows.length===0){ body.innerHTML=`<tr><td colspan="7"><div class="empty"><b>No drafts</b>Everything is published 🎉</div></td></tr>`; return; }
-  body.innerHTML = rows.map(a=>`
+body.innerHTML = rows.map(a=>`
     <tr>
-      <td><img class="thumb" src="${a.image||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'}" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'"></td>
-      <td class="title-cell"><b>${escapeHtml(a.title)}</b></td>
-      <td>${escapeHtml(a.author||'—')}</td>
-      <td>${fmtDate(a.createdAt)}</td>
-      <td><span class="tag tag-pred">${escapeHtml(a.type||'—')}</span></td>
-      <td>${(a.seoTitle && a.metaDescription)?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
-      <td class="actioncell">
+      <td class="thumb-cell" data-label="Thumb"><img class="thumb" src="${a.image||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'}" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'"></td>
+      <td class="title-cell" data-label="Title"><b>${escapeHtml(a.title)}</b></td>
+      <td data-label="Author">${escapeHtml(a.author||'—')}</td>
+      <td data-label="Uploaded">${fmtDate(a.createdAt)}</td>
+      <td data-label="Type"><span class="tag tag-pred">${escapeHtml(a.type||'—')}</span></td>
+      <td data-label="SEO">${(a.seoTitle && a.metaDescription)?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
+      <td class="actioncell" data-label="Action">
       <button class="btn btn-icon btn-sm" title="Preview" onclick="previewArticle('${a._id}')">👁</button>
       <button class="btn btn-icon btn-sm" title="Edit" onclick="editArticle('${a._id}')">✎</button>
       <button class="btn btn-primary btn-sm" onclick="publishArticle('${a._id}')">⤴ Publish</button>
