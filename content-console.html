@@ -1055,19 +1055,19 @@ function renderNews(){
   const body=document.getElementById('newsBody');
   if(rows.length===0){ body.innerHTML=`<tr><td colspan="11"><div class="empty"><b>No articles match these filters</b>Try resetting filters or add a new article.</div></td></tr>`; return; }
 
-  body.innerHTML = rows.map(a=>`
+body.innerHTML = rows.map(a=>`
     <tr>
-      <td><img class="thumb" src="${a.image||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'}" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'"></td>
-      <td class="title-cell"><b>${escapeHtml(a.title)}</b><span>${escapeHtml(a.slug||'')}</span></td>
-      <td>${escapeHtml(a.author||'—')}</td>
-      <td>${escapeHtml(a.author||'—')}</td>
-      <td>${fmtDate(a.createdAt)}</td>
-      <td>${fmtDate(a.publishedAt)}</td>
-      <td>EN</td>
-      <td><span class="tag ${a.type==='Price Prediction'?'tag-pred':'tag-news'}">${escapeHtml(a.type||'—')}</span></td>
-      <td>News</td>
-      <td>${(a.seoTitle && a.metaDescription)?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
-      <td>${actionCell(a)}</td>
+      <td class="thumb-cell" data-label="Thumb"><img class="thumb" src="${a.image||'https://placehold.co/64x40/1a1f26/F3F5F7?text=?'}" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'"></td>
+      <td class="title-cell" data-label="Title"><b>${escapeHtml(a.title)}</b><span>${escapeHtml(a.slug||'')}</span></td>
+      <td data-label="Author">${escapeHtml(a.author||'—')}</td>
+      <td data-label="Created By">${escapeHtml(a.author||'—')}</td>
+      <td data-label="Uploaded">${fmtDate(a.createdAt)}</td>
+      <td data-label="Published">${fmtDate(a.publishedAt)}</td>
+      <td data-label="Lan">EN</td>
+      <td data-label="Type"><span class="tag ${a.type==='Price Prediction'?'tag-pred':'tag-news'}">${escapeHtml(a.type||'—')}</span></td>
+      <td data-label="News/Blog">News</td>
+      <td data-label="SEO">${(a.seoTitle && a.metaDescription)?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
+      <td data-label="Action">${actionCell(a)}</td>
     </tr>`).join('');
 }
 
