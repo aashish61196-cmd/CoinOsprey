@@ -4675,14 +4675,17 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   }
 
   // ---------------- boot: cache-first, then revalidate in background ----------------
-  const CACHE_KEY = 'co_articles_cache_v1';
+  const CACHE_KEY = 'co_articles_cache_v2';
+  const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
   function loadFromCache() {
     try {
       const raw = localStorage.getItem(CACHE_KEY);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
-      return (parsed && Array.isArray(parsed.articles)) ? parsed.articles : null;
+      if (!parsed || !Array.isArray(parsed.articles)) return null;
+      if (!parsed.ts || (Date.now() - parsed.ts) > CACHE_TTL_MS) return null; // expired
+      return parsed.articles;
     } catch (e) {
       return null;
     }
@@ -4697,12 +4700,14 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   async function fetchAndRender() {
     let articles;
     try {
-      const res = await fetch(ENDPOINT);
+      const res = await fetch(ENDPOINT, { cache: 'no-store' });
       if (!res.ok) throw new Error('Request failed: ' + res.status);
       const data = await res.json();
       articles = Array.isArray(data) ? data : (data.articles || []);
     } catch (err) {
-      console.warn('Could not load articles, static placeholders stay visible:', err.message);
+      console.warn('Live fetch failed, falling back to cache if available:', err.message);
+      const cached = loadFromCache();
+      if (cached) renderAll(cached); // fallback ONLY on failure, not on every load
       return;
     }
     if (!articles.length) return;
@@ -4711,11 +4716,9 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   }
 
   function loadAllSections() {
-    // Agar cache me pehle se data hai, turant dikha do — koi loading flash nahi
-    const cached = loadFromCache();
-    if (cached) renderAll(cached);
-
-    // Fresh data hamesha background me fetch karo aur update ho jaye to re-render
+    // Always fetch live data first. Cache is only used as an offline/error
+    // fallback inside fetchAndRender(), so users never see stale content
+    // flash before the real content loads.
     fetchAndRender();
   }
 
