@@ -261,43 +261,31 @@
     /* Filters: single column, full width */
     .filterbar{grid-template-columns:minmax(0,1fr);}
 
-    /* Tables: fit to screen, no horizontal scroll — wrap text, drop low-priority columns */
+    /* Tables → mobile "cards": har row ko stacked block bana do, columns
+       side-by-side rakhne ki koshish mat karo — ye overflow ko 100% khatam
+       karta hai chahe columns kitne bhi ho. */
     .tablewrap{overflow-x:hidden;}
-table{min-width:0;width:100%;table-layout:fixed;}
-table td, table th{white-space:normal;word-break:break-word;overflow-wrap:break-word;font-size:10.5px;padding:6px 4px;}
-.title-cell{max-width:none;width:auto;}
-.title-cell span{word-break:break-all;font-size:10px;}
-.actioncell{gap:4px;}
-.actioncell .btn-icon{width:26px;height:26px;font-size:10.5px;}
-.actioncell .btn-primary{padding:4px 6px;font-size:9.5px;}
-    .thumb{width:34px;height:24px;}
-
-    /* Home dashboard table: keep Title, Type, SEO — drop Author/Published */
-    #homeRecent td:nth-child(3), #homeRecent td:nth-child(4),
-    #page-home thead th:nth-child(3), #page-home thead th:nth-child(4){display:none;width:0;padding:0;border:0;}
-    #homeRecent td:nth-child(2), #page-home thead th:nth-child(2){width:60px;}
-    #homeRecent td:nth-child(5), #page-home thead th:nth-child(5){width:36px;}
-    #homeRecent td:nth-child(1), #page-home thead th:nth-child(1){width:auto;}
-
-    /* Crypto News table: keep Thumb, Title, Type, SEO, Action — drop the rest */
-    #newsBody td:nth-child(3), #newsBody td:nth-child(4), #newsBody td:nth-child(5),
-    #newsBody td:nth-child(6), #newsBody td:nth-child(7), #newsBody td:nth-child(9),
-    #page-news thead th:nth-child(3), #page-news thead th:nth-child(4), #page-news thead th:nth-child(5),
-    #page-news thead th:nth-child(6), #page-news thead th:nth-child(7), #page-news thead th:nth-child(9){display:none;width:0;padding:0;border:0;}
-    #newsBody td:nth-child(1), #page-news thead th:nth-child(1){width:40px;}
-    #newsBody td:nth-child(8), #page-news thead th:nth-child(8){width:58px;}
-    #newsBody td:nth-child(10), #page-news thead th:nth-child(10){width:32px;}
-    #newsBody td:nth-child(11), #page-news thead th:nth-child(11){width:80px;}
-    #newsBody td:nth-child(2), #page-news thead th:nth-child(2){width:auto;}
-
-    /* Draft News table: keep Thumb, Title, Type, SEO, Action — drop Author/Uploaded */
-    #draftBody td:nth-child(3), #draftBody td:nth-child(4),
-    #page-draft thead th:nth-child(3), #page-draft thead th:nth-child(4){display:none;width:0;padding:0;border:0;}
-    #draftBody td:nth-child(1), #page-draft thead th:nth-child(1){width:40px;}
-    #draftBody td:nth-child(5), #page-draft thead th:nth-child(5){width:58px;}
-    #draftBody td:nth-child(6), #page-draft thead th:nth-child(6){width:32px;}
-    #draftBody td:nth-child(7), #page-draft thead th:nth-child(7){width:80px;}
-    #draftBody td:nth-child(2), #page-draft thead th:nth-child(2){width:auto;}
+    table{width:100%;border-collapse:collapse;}
+    thead{display:none;}
+    table, tbody, tr{display:block;width:100%;}
+    tbody tr{border-bottom:1px solid var(--line);padding:10px 12px;}
+    tbody tr:last-child{border-bottom:none;}
+    table td{display:flex;align-items:center;justify-content:space-between;gap:10px;
+      border:none;padding:5px 0;font-size:12px;text-align:right;
+      white-space:normal;word-break:break-word;overflow-wrap:break-word;}
+    table td::before{content:attr(data-label);font-size:10px;text-transform:uppercase;
+      letter-spacing:.5px;color:var(--text-low);font-weight:700;text-align:left;flex-shrink:0;}
+    table td[colspan]{display:block;padding:0;}
+    table td[colspan]::before{display:none;}
+    .title-cell{display:block !important;text-align:left;max-width:none;width:auto;}
+    .title-cell::before{display:block;margin-bottom:4px;}
+    .title-cell span{word-break:break-all;font-size:10px;}
+    .thumb-cell{display:block !important;text-align:left;}
+    .thumb-cell::before{display:block;margin-bottom:4px;}
+    .actioncell{gap:6px;justify-content:flex-end;flex-wrap:wrap;}
+    .actioncell .btn-icon{width:28px;height:28px;font-size:11px;}
+    .actioncell .btn-primary{padding:5px 8px;font-size:10.5px;}
+    .thumb{width:72px;height:48px;}
 
     /* Form card: tighter padding on small screens */
     .formcard{padding:16px;}
