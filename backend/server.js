@@ -23,11 +23,23 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-let isConnected = false;
+let cached = global._mongooseConn;
+if (!cached) {
+  cached = global._mongooseConn = { conn: null, promise: null };
+}
+
 async function connectDB() {
-  if (isConnected) return;
-  await mongoose.connect(process.env.MONGO_URI);
-  isConnected = true;
+  if (cached.conn) return cached.conn;
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(process.env.MONGO_URI, {
+      maxPoolSize: 5,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 10000,
+      bufferCommands: false,
+    });
+  }
+  cached.conn = await cached.promise;
+  return cached.conn;
 }
 
 app.use(async (req, res, next) => {
