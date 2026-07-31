@@ -3634,9 +3634,12 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
       </a>`;
   }
 
-  async function load() {
+async function load() {
     const section = getParam('section');
-    const label = SECTION_LABELS[section] || 'All Articles';
+    const category = getParam('category');
+    const label = category
+      ? category.charAt(0).toUpperCase() + category.slice(1) + ' News'
+      : (SECTION_LABELS[section] || 'All Articles');
     document.getElementById('sectionTitle').textContent = label;
     document.title = label + ' — CoinOsprey';
 
@@ -3647,6 +3650,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
       let articles = Array.isArray(data) ? data : (data.articles || []);
 
       if (section) articles = articles.filter(a => a.section === section);
+      if (category) articles = articles.filter(a => (a.category || '').toLowerCase() === category.toLowerCase());
 
       document.getElementById('skeleton').style.display = 'none';
 
