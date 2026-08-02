@@ -3701,5 +3701,16 @@ async function load() {
 </script>
 
 
+<div id="debugWidthBadge" style="position:fixed;bottom:70px;left:10px;background:red;color:white;font-size:16px;font-weight:bold;padding:8px 14px;border-radius:8px;z-index:99999;">width: --</div>
+<script>
+(function(){
+  var badge = document.getElementById('debugWidthBadge');
+  function updateWidth(){
+    if(badge) badge.textContent = 'width: ' + window.innerWidth + 'px';
+  }
+  updateWidth();
+  window.addEventListener('resize', updateWidth);
+})();
+</script>
 </body>
 </html>
