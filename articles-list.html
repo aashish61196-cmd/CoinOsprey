@@ -2739,6 +2739,14 @@
     // guarantees exclusivity.
     if (link) {
       link.addEventListener('click', function (e) {
+        // If this nav item's main link has a real destination (not "#"),
+        // let the browser navigate there instead of just toggling the
+        // dropdown. The dropdown itself still opens on hover for desktop.
+        var href = link.getAttribute('href');
+        if (href && href !== '#') {
+          return; // allow normal navigation
+        }
+
         e.preventDefault();
         var wasOpen = item.classList.contains('is-open');
         closeAllMegaMenus(item);
