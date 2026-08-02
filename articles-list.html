@@ -2571,20 +2571,8 @@
 <script>
 (function(){
   "use strict";
-  /* Directly forces nav layout via inline styles (with !important priority
-     set through JS), which beats every CSS rule regardless of specificity
-     or cascade order — no media query guessing needed. */
-  function applyForceMobile(){
-    var isMobile = window.innerWidth <= 899;
-    var menu = document.querySelector('.co-nav__menu');
-    var searchbar = document.querySelector('.co-nav__searchbar');
-    var hamburger = document.querySelector('.co-nav__hamburger');
-    if (menu) menu.style.setProperty('display', isMobile ? 'none' : 'flex', 'important');
-    if (searchbar) searchbar.style.setProperty('display', isMobile ? 'none' : 'flex', 'important');
-    if (hamburger) hamburger.style.setProperty('display', isMobile ? 'flex' : 'none', 'important');
-  }
-  applyForceMobile();
-  window.addEventListener('resize', applyForceMobile);
+  // Removed: CSS media queries already handle this reliably.
+  // (JS version was running before DOM was ready and conflicting.)
 })();
 
 (function(){
