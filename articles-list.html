@@ -3650,7 +3650,7 @@ async function load() {
       let articles = Array.isArray(data) ? data : (data.articles || []);
 
       if (section) articles = articles.filter(a => a.section === section);
-      if (category) articles = articles.filter(a => (a.category || '').toLowerCase() === category.toLowerCase());
+      if (category) articles = articles.filter(a => (a.category || '').toLowerCase() === category.toLowerCase() || (a.tag || '').toLowerCase() === category.toLowerCase());
 
       document.getElementById('skeleton').style.display = 'none';
 
