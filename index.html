@@ -4733,5 +4733,66 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
 </script>
 
 
+<script>
+(function () {
+  'use strict';
+
+  var chipsInner = document.getElementById('categoryChips');
+  var newsDropdown = document.querySelector('.co-nav__dropdown--chips');
+  if (!chipsInner || !newsDropdown) return;
+
+  var navItem = newsDropdown.closest('.co-nav__item');
+  if (!navItem) return;
+
+  var defaultChipsHTML = chipsInner.innerHTML;
+  var newsChipsHTML = null;
+
+  function buildNewsChips() {
+    if (newsChipsHTML) return newsChipsHTML;
+    var links = newsDropdown.querySelectorAll('.co-nav__dropdown-link');
+    var html = '';
+    links.forEach(function (link) {
+      html += '<a class="co-chip" href="' + link.getAttribute('href') + '">' +
+                link.textContent.trim() +
+              '</a>';
+    });
+    newsChipsHTML = html;
+    return html;
+  }
+
+  function showNewsChips() {
+    chipsInner.innerHTML = buildNewsChips();
+  }
+
+  function showDefaultChips() {
+    chipsInner.innerHTML = defaultChipsHTML;
+  }
+
+  // Desktop hover
+  navItem.addEventListener('mouseenter', showNewsChips);
+  navItem.addEventListener('mouseleave', function () {
+    if (!navItem.classList.contains('is-open')) showDefaultChips();
+  });
+
+  // Touch / click
+  var link = navItem.querySelector(':scope > .co-nav__link');
+  if (link) {
+    link.addEventListener('click', function () {
+      setTimeout(function () {
+        if (navItem.classList.contains('is-open')) {
+          showNewsChips();
+        } else {
+          showDefaultChips();
+        }
+      }, 0);
+    });
+  }
+
+  // Clicking anywhere else resets back to default chips
+  document.addEventListener('click', function (e) {
+    if (!navItem.contains(e.target)) showDefaultChips();
+  });
+})();
+</script>
 </body>
 </html>
