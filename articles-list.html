@@ -1900,13 +1900,18 @@
   .empty-state{text-align:center;padding:70px 20px;color:var(--co-gray-700);}
   .empty-state h2{font-family:var(--co-font-display);font-size:20px;margin:0 0 8px;color:var(--co-navy-900);}
 .empty-state a{display:inline-flex;margin-top:14px;padding:10px 20px;background:var(--co-amber-500);color:var(--co-navy-900);font-weight:700;border-radius:var(--co-radius-sm);}
-  /* ===== HARD FIX: mobile nav must always collapse correctly ===== */
+/* ===== HARD FIX: mobile nav must always collapse correctly ===== */
   @media (max-width: 899px){
     .co-nav__inner .co-nav__menu{ display:none !important; }
     .co-nav__inner .co-nav__searchbar{ display:none !important; }
     .co-nav__actions .co-nav__hamburger{ display:flex !important; }
   }
-
+  /* JS-forced fallback: kicks in even if the browser mis-measures the
+     media query width (e.g. "Desktop site" mode or overflow-forced zoom) */
+  html.co-force-mobile .co-nav__menu{ display:none !important; }
+  html.co-force-mobile .co-nav__searchbar{ display:none !important; }
+  html.co-force-mobile .co-nav__hamburger{ display:flex !important; }
+  html.co-force-mobile .co-nav__mobile-panel{ display:block !important; }
 
 </style>
   <script type="application/ld+json">
