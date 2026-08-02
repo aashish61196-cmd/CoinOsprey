@@ -2574,6 +2574,20 @@
 </button>
 
 <script>
+(function(){
+  "use strict";
+  /* Forces true mobile nav layout based on real window width, bypassing
+     any browser "Desktop site" mode or media-query mis-detection. */
+  function applyForceMobile(){
+    if (window.innerWidth <= 899) {
+      document.documentElement.classList.add('co-force-mobile');
+    } else {
+      document.documentElement.classList.remove('co-force-mobile');
+    }
+  }
+  applyForceMobile();
+  window.addEventListener('resize', applyForceMobile);
+})();
 
 
 (function(){
