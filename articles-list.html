@@ -2576,19 +2576,21 @@
 <script>
 (function(){
   "use strict";
-  /* Forces true mobile nav layout based on real window width, bypassing
-     any browser "Desktop site" mode or media-query mis-detection. */
+  /* Directly forces nav layout via inline styles (with !important priority
+     set through JS), which beats every CSS rule regardless of specificity
+     or cascade order — no media query guessing needed. */
   function applyForceMobile(){
-    if (window.innerWidth <= 899) {
-      document.documentElement.classList.add('co-force-mobile');
-    } else {
-      document.documentElement.classList.remove('co-force-mobile');
-    }
+    var isMobile = window.innerWidth <= 899;
+    var menu = document.querySelector('.co-nav__menu');
+    var searchbar = document.querySelector('.co-nav__searchbar');
+    var hamburger = document.querySelector('.co-nav__hamburger');
+    if (menu) menu.style.setProperty('display', isMobile ? 'none' : 'flex', 'important');
+    if (searchbar) searchbar.style.setProperty('display', isMobile ? 'none' : 'flex', 'important');
+    if (hamburger) hamburger.style.setProperty('display', isMobile ? 'flex' : 'none', 'important');
   }
   applyForceMobile();
   window.addEventListener('resize', applyForceMobile);
 })();
-
 
 (function(){
   "use strict";
