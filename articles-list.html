@@ -3134,18 +3134,7 @@ initHeaderSearch('headerSearchInput', 'headerSearchDropdown', 'headerSearchSubmi
      Forces correct show/hide via inline styles (with !important),
      which always wins over any conflicting CSS rule anywhere in the
      file, no matter the cascade order. */
-  function forceNavState() {
-    var menu = document.querySelector('.co-nav__menu');
-    var hamburger = document.getElementById('hamburgerBtn');
-    var searchbar = document.querySelector('.co-nav__searchbar');
-    var isMobile = window.innerWidth <= 899.98;
-
-    if (menu) menu.style.setProperty('display', isMobile ? 'none' : 'flex', 'important');
-    if (searchbar) searchbar.style.setProperty('display', isMobile ? 'none' : 'flex', 'important');
-    if (hamburger) hamburger.style.setProperty('display', isMobile ? 'flex' : 'none', 'important');
-  }
-  forceNavState();
-  window.addEventListener('resize', forceNavState);
+  
 
   // Cmd/Ctrl+K focuses the header search bar, a common power-user shortcut
   // for news sites (desktop bar only; it's hidden on mobile).
