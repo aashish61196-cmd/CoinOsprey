@@ -645,13 +645,45 @@
     border-radius:2px;
   }
   .co-nav__dropdown-col:first-child .co-nav__dropdown-heading{ padding-top:0; margin-top:0; }
-  .co-nav__dropdown-cols .co-nav__dropdown-link{
+.co-nav__dropdown-cols .co-nav__dropdown-link{
     padding:8px 12px 8px 14px;
     font-size:12.5px;
     white-space:nowrap;
   }
   .co-nav__dropdown-cols .co-nav__dropdown-link:hover{
     padding-left:18px;
+  }
+
+  /* Horizontal chip/pill style dropdown — used for NEWS */
+  .co-nav__dropdown--chips{
+    min-width:320px;
+    max-width:560px;
+    padding:16px 18px;
+  }
+  .co-nav__dropdown--chips .co-nav__dropdown-cols{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .co-nav__dropdown--chips .co-nav__dropdown-col{
+    display:contents;
+  }
+  .co-nav__dropdown--chips .co-nav__dropdown-link{
+    padding:8px 16px !important;
+    font-size:12.5px;
+    white-space:nowrap;
+    border-radius:999px;
+    background:var(--co-gray-050);
+    border:1px solid var(--co-gray-100);
+  }
+  .co-nav__dropdown--chips .co-nav__dropdown-link::before{
+    display:none;
+  }
+  .co-nav__dropdown--chips .co-nav__dropdown-link:hover{
+    padding-left:16px !important;
+    background:rgba(245,166,35,0.10);
+    border-color:var(--co-amber-500);
+    color:var(--co-amber-600);
   }
 
   .co-nav__actions{
