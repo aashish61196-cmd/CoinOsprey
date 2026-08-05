@@ -4913,20 +4913,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
       if (!navItem.classList.contains('is-open')) showDefaultChips();
     });
 
-    var link = navItem.querySelector(':scope > .co-nav__link');
-    if (link) {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        setTimeout(function () {
-          if (navItem.classList.contains('is-open')) showNewsChips();
-          else showDefaultChips();
-        }, 0);
-      });
-    }
-
-    document.addEventListener('click', function (e) {
-      if (!navItem.contains(e.target)) showDefaultChips();
-    });
+  
   }
 
   var mobileNewsLink = document.querySelector('.co-nav__mobile-link[data-submenu="sub-news"]');
