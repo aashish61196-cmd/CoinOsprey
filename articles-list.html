@@ -3701,6 +3701,143 @@ async function load() {
   load();
 })();
 </script>
+<script>
+(function () {
+  'use strict';
 
+  var chipsInner = document.getElementById('categoryChips');
+  if (!chipsInner) return;
+
+  // ---- figure out which section this listing page is showing ----
+  var params = new URLSearchParams(window.location.search);
+  var currentSection = params.get('section') || 'news';
+  var currentCategory = params.get('category') || '';
+
+  // ---- pull the matching links straight from the NEWS/PRICE PREDICTIONS/etc mega-dropdown ----
+  var navLinks = document.querySelectorAll('.co-nav__dropdown-link[href*="section=' + currentSection + '"]');
+  var items = Array.prototype.map.call(navLinks, function (a) {
+    return { label: a.textContent.trim(), href: a.getAttribute('href') };
+  });
+
+  // Always add an "All <Section>" chip at the front
+  var sectionLabels = {
+    'news': 'News', 'price-prediction': 'Price Predictions',
+    'blog': 'Blogs', 'academy': 'Academy', 'research': 'Research'
+  };
+  items.unshift({
+    label: 'All ' + (sectionLabels[currentSection] || currentSection),
+    href: '/articles-list.html?section=' + currentSection
+  });
+
+  if (!items.length) return;
+
+  var activeLabel = items[0].label;
+  if (currentCategory) {
+    var match = items.find(function (it) {
+      return it.href.toLowerCase().indexOf('category=' + currentCategory.toLowerCase()) !== -1;
+    });
+    if (match) activeLabel = match.label;
+  }
+
+  function renderChips() {
+    chipsInner.innerHTML = '';
+
+    var chipEls = items.map(function (item) {
+      var a = document.createElement('a');
+      a.className = 'co-chip';
+      a.href = item.href;
+      a.textContent = item.label;
+      return a;
+    });
+
+    var moreProbe = document.createElement('button');
+    moreProbe.className = 'co-chip co-chip--more';
+    moreProbe.textContent = 'More';
+    chipEls.forEach(function (el) { chipsInner.appendChild(el); });
+    chipsInner.appendChild(moreProbe);
+
+    var containerWidth = chipsInner.clientWidth;
+    var gap = 10;
+    var moreWidth = moreProbe.getBoundingClientRect().width;
+    var usedWidth = 0;
+    var visible = [];
+    var overflow = [];
+
+    chipEls.forEach(function (el, i) {
+      var w = el.getBoundingClientRect().width;
+      var remainingAfter = items.length - 1 - i;
+      var budget = containerWidth - (remainingAfter > 0 ? moreWidth + gap : 0);
+      if (visible.length === 0 || usedWidth + gap + w <= budget) {
+        usedWidth += (visible.length ? gap : 0) + w;
+        visible.push(items[i]);
+      } else {
+        overflow.push(items[i]);
+      }
+    });
+
+    chipsInner.innerHTML = '';
+    visible.forEach(function (item) {
+      var a = document.createElement('a');
+      a.className = 'co-chip';
+      a.href = item.href;
+      a.textContent = item.label;
+      if (item.label === activeLabel) {
+        a.classList.add('is-active');
+        a.setAttribute('aria-current', 'true');
+      }
+      chipsInner.appendChild(a);
+    });
+
+    if (overflow.length) {
+      var wrap = document.createElement('div');
+      wrap.className = 'co-chip--more-wrap';
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'co-chip co-chip--more';
+      btn.textContent = 'More (' + overflow.length + ')';
+      btn.setAttribute('aria-haspopup', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+
+      var panel = document.createElement('div');
+      panel.className = 'co-chips__more-panel';
+      overflow.forEach(function (item) {
+        var a = document.createElement('a');
+        a.className = 'co-chip';
+        a.href = item.href;
+        a.textContent = item.label;
+        if (item.label === activeLabel) a.classList.add('is-active');
+        panel.appendChild(a);
+      });
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = panel.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      wrap.appendChild(btn);
+      wrap.appendChild(panel);
+      chipsInner.appendChild(wrap);
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!chipsInner.contains(e.target)) {
+      chipsInner.querySelectorAll('.co-chips__more-panel.is-open').forEach(function (p) {
+        p.classList.remove('is-open');
+      });
+    }
+  });
+
+  renderChips();
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderChips, 150);
+  });
+})();
+</script>
 </body>
 </html>
