@@ -3890,7 +3890,7 @@
   var megaNavItems = Array.prototype.slice.call(
     document.querySelectorAll('.co-nav__menu > .co-nav__item')
   ).filter(function (item) {
-    return item.querySelector('.co-nav__dropdown');
+    return item.querySelector('.co-nav__dropdown') && !item.querySelector('.co-nav__dropdown--chips');
   });
 
   var autoCloseTimer = null;
