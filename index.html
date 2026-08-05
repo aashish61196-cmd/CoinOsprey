@@ -4767,6 +4767,181 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
 (function () {
   'use strict';
 
+  var chipsNav = document.querySelector('.co-chips');
+  var chipsInner = document.getElementById('categoryChips');
+  var newsDropdown = document.querySelector('.co-nav__dropdown--chips');
+  if (!chipsInner) return;
+
+  function chipsFromContainer(container) {
+    return Array.prototype.map.call(container.querySelectorAll('.co-chip'), function (el) {
+      return { label: el.textContent.trim(), href: el.getAttribute('href') || '#' };
+    });
+  }
+
+  var defaultChips = chipsFromContainer(chipsInner);
+  var newsChips = null;
+  if (newsDropdown) {
+    newsChips = Array.prototype.map.call(newsDropdown.querySelectorAll('.co-nav__dropdown-link'), function (link) {
+      return { label: link.textContent.trim(), href: link.getAttribute('href') || '#' };
+    });
+  }
+
+  var activeCategory = defaultChips.length ? defaultChips[0].label : null;
+  var currentChipsSet = defaultChips;
+
+  function renderChips(items) {
+    if (!items || !items.length) return;
+    chipsInner.innerHTML = '';
+
+    var chipEls = items.map(function (item) {
+      var a = document.createElement('a');
+      a.className = 'co-chip';
+      a.href = item.href;
+      a.textContent = item.label;
+      return a;
+    });
+
+    var moreProbe = document.createElement('button');
+    moreProbe.className = 'co-chip co-chip--more';
+    moreProbe.textContent = 'More';
+    chipEls.forEach(function (el) { chipsInner.appendChild(el); });
+    chipsInner.appendChild(moreProbe);
+
+    var containerWidth = chipsInner.clientWidth;
+    var gap = 10;
+    var moreWidth = moreProbe.getBoundingClientRect().width;
+    var usedWidth = 0;
+    var visible = [];
+    var overflow = [];
+
+    chipEls.forEach(function (el, i) {
+      var w = el.getBoundingClientRect().width;
+      var remainingAfter = items.length - 1 - i;
+      var budget = containerWidth - (remainingAfter > 0 ? moreWidth + gap : 0);
+      if (visible.length === 0 || usedWidth + gap + w <= budget) {
+        usedWidth += (visible.length ? gap : 0) + w;
+        visible.push(items[i]);
+      } else {
+        overflow.push(items[i]);
+      }
+    });
+
+    chipsInner.innerHTML = '';
+    visible.forEach(function (item) {
+      var a = document.createElement('a');
+      a.className = 'co-chip';
+      a.href = item.href;
+      a.textContent = item.label;
+      if (item.label === activeCategory) {
+        a.classList.add('is-active');
+        a.setAttribute('aria-current', 'true');
+      }
+      a.addEventListener('click', function () { activeCategory = item.label; });
+      chipsInner.appendChild(a);
+    });
+
+    if (overflow.length) {
+      var wrap = document.createElement('div');
+      wrap.className = 'co-chip--more-wrap';
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'co-chip co-chip--more';
+      btn.textContent = 'More (' + overflow.length + ')';
+      btn.setAttribute('aria-haspopup', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+
+      var panel = document.createElement('div');
+      panel.className = 'co-chips__more-panel';
+      overflow.forEach(function (item) {
+        var a = document.createElement('a');
+        a.className = 'co-chip';
+        a.href = item.href;
+        a.textContent = item.label;
+        if (item.label === activeCategory) a.classList.add('is-active');
+        a.addEventListener('click', function () {
+          activeCategory = item.label;
+          panel.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+        panel.appendChild(a);
+      });
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = panel.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      wrap.appendChild(btn);
+      wrap.appendChild(panel);
+      chipsInner.appendChild(wrap);
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!chipsInner.contains(e.target)) {
+      chipsInner.querySelectorAll('.co-chips__more-panel.is-open').forEach(function (p) {
+        p.classList.remove('is-open');
+      });
+    }
+  });
+
+  renderChips(defaultChips);
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { renderChips(currentChipsSet); }, 150);
+  });
+
+  var navItem = newsDropdown ? newsDropdown.closest('.co-nav__item') : null;
+
+  function showNewsChips() {
+    if (!newsChips) return;
+    currentChipsSet = newsChips;
+    renderChips(newsChips);
+  }
+  function showDefaultChips() {
+    currentChipsSet = defaultChips;
+    renderChips(defaultChips);
+  }
+
+  if (navItem) {
+    navItem.addEventListener('mouseenter', showNewsChips);
+    navItem.addEventListener('mouseleave', function () {
+      if (!navItem.classList.contains('is-open')) showDefaultChips();
+    });
+
+    var link = navItem.querySelector(':scope > .co-nav__link');
+    if (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        setTimeout(function () {
+          if (navItem.classList.contains('is-open')) showNewsChips();
+          else showDefaultChips();
+        }, 0);
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      if (!navItem.contains(e.target)) showDefaultChips();
+    });
+  }
+
+  var mobileNewsLink = document.querySelector('.co-nav__mobile-link[data-submenu="sub-news"]');
+  if (mobileNewsLink) {
+    mobileNewsLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      showNewsChips();
+      if (chipsNav) chipsNav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+})();
+</script>
+(function () {
+  'use strict';
+
   var chipsInner = document.getElementById('categoryChips');
   var newsDropdown = document.querySelector('.co-nav__dropdown--chips');
   if (!chipsInner || !newsDropdown) return;
