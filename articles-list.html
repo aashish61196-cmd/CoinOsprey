@@ -1841,7 +1841,6 @@
      FINAL HARD OVERRIDE — guarantees mobile hamburger vs desktop menu
      switch works regardless of any earlier conflicting/duplicate rules.
      ========================================================================== */
-
 /* ==========================================================================
      ABSOLUTE FINAL FIX — forces horizontal nav row, no matter what
      ========================================================================== */
@@ -1851,17 +1850,25 @@
       flex-direction:row !important;
       flex-wrap:nowrap !important;
       align-items:center !important;
+      overflow-x:auto !important;
+      overflow-y:hidden !important;
     }
     .co-nav__menu{
       display:flex !important;
       flex-direction:row !important;
       flex-wrap:nowrap !important;
       align-items:stretch !important;
+      flex-shrink:0 !important;
+    }
+    .co-nav-logo{
+      flex-shrink:0 !important;
+      white-space:nowrap !important;
     }
     .co-nav__item{
       display:flex !important;
       flex-direction:row !important;
       position:relative !important;
+      flex-shrink:0 !important;
     }
     .co-nav__link{
       display:flex !important;
@@ -1872,7 +1879,12 @@
     .co-nav__searchbar{
       display:flex !important;
       flex-direction:row !important;
+      flex-shrink:1 !important;
+      min-width:0 !important;
     }
+  }
+  @media (min-width: 900px) and (max-width: 1140px){
+    .co-nav__searchbar{ display:none !important; }
   }
 
 .co-nav-logo__tagline{
