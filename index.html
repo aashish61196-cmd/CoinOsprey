@@ -920,12 +920,11 @@
     margin:0 auto;
     padding:12px 24px;
     display:flex;
+    flex-wrap:nowrap;
     gap:10px;
-    overflow-x:auto;
-    scrollbar-width:none;
-    -ms-overflow-style:none;
+    overflow-x:hidden;
+    position:relative;
   }
-  .co-chips__inner::-webkit-scrollbar{ display:none; }
   .co-chip{
     flex:0 0 auto;
     display:inline-flex;
