@@ -1846,14 +1846,19 @@
      Unconditional now (no min-width gate) so it works at every viewport
      width the browser might report, including "Desktop site" mode.
      ========================================================================== */
-  .co-nav__inner{
+.co-nav__inner{
     display:flex !important;
     flex-direction:row !important;
     flex-wrap:nowrap !important;
     align-items:center !important;
+    justify-content:flex-start !important;
     overflow-x:auto !important;
     overflow-y:hidden !important;
     -webkit-overflow-scrolling:touch !important;
+  }
+  .co-nav__actions{
+    margin-left:auto !important;
+    flex-shrink:0 !important;
   }
   .co-nav__menu{
     display:flex !important;
