@@ -2736,7 +2736,7 @@
       autoCloseTimer = null;
     }
   }
-  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches && !('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
   megaNavItems.forEach(function (item) {
     var link = item.querySelector(':scope > .co-nav__link');
