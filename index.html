@@ -4892,8 +4892,16 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   var resizeTimer;
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () { renderChips(currentChipsSet); }, 150);
+    resizeTimer = setTimeout(renderChips, 150);
   });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 
   var navItem = newsDropdown ? newsDropdown.closest('.co-nav__item') : null;
 
