@@ -4979,5 +4979,18 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   });
 })();
 </script>
+  <script>
+(function () {
+  'use strict';
+  // Force real navigation for every NEWS link, no matter what other
+  // click handlers try to do (bypasses any preventDefault elsewhere).
+  document.querySelectorAll('a[href*="section=news"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.stopImmediatePropagation();
+      window.location.href = a.getAttribute('href');
+    }, true); // "true" = capture phase, runs before other click handlers
+  });
+})();
+  </script>
 </body>
 </html>
