@@ -3097,6 +3097,13 @@
   window.addEventListener('scroll', toggleBackToTop, { passive: true });
   toggleBackToTop();
 
+  /* ---------- Force mobile nav mode on actual measured width ---------- */
+  function syncMobileClass(){
+    document.documentElement.classList.toggle('co-force-mobile', window.innerWidth < 900);
+  }
+  syncMobileClass();
+  window.addEventListener('resize', syncMobileClass);
+
   if (backToTop) {
     backToTop.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
