@@ -1429,6 +1429,9 @@ function editArticle(id){
   document.getElementById('inSeoTitle').value = a.seoTitle || '';
   document.getElementById('inMetaKw').value = a.metaKeywords || '';
   document.getElementById('inMetaDesc').value = a.metaDescription || '';
+  document.getElementById('inCanonical').value = a.canonicalUrl || '';
+  document.getElementById('inOgTitle').value = a.ogTitle || '';
+  document.getElementById('inOgDesc').value = a.ogDescription || '';
   parseFaqHtml(a.faqs || '');
   renderFaqBuilder();
   document.getElementById('inDesc').innerHTML = a.content || a.description || '';
