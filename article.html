@@ -2994,18 +2994,36 @@
     var titleTag = document.getElementById('pageTitle');
     if (titleTag) titleTag.textContent = seoTitle + ' — CoinOsprey';
 
+    var finalDesc = article.metaDescription || article.description || '';
     var descTag = document.getElementById('pageDescription');
-    if (descTag) descTag.setAttribute('content', article.metaDescription || article.description || '');
+    if (descTag) descTag.setAttribute('content', finalDesc);
 
-    if (article.metaKeywords) {
-      var kwTag = document.querySelector('meta[name="keywords"]');
-      if (!kwTag) {
-        kwTag = document.createElement('meta');
-        kwTag.setAttribute('name', 'keywords');
-        document.head.appendChild(kwTag);
-      }
-      kwTag.setAttribute('content', article.metaKeywords);
-    }
+    var kwTag = document.getElementById('pageKeywords');
+    if (kwTag) kwTag.setAttribute('content', article.metaKeywords || '');
+
+    var canonicalTag = document.getElementById('pageCanonical');
+    if (canonicalTag) canonicalTag.setAttribute('href', article.canonicalUrl || window.location.href);
+
+    var ogTitleTag = document.getElementById('ogTitle');
+    if (ogTitleTag) ogTitleTag.setAttribute('content', article.ogTitle || seoTitle);
+
+    var ogDescTag = document.getElementById('ogDescription');
+    if (ogDescTag) ogDescTag.setAttribute('content', article.ogDescription || finalDesc);
+
+    var ogImageTag = document.getElementById('ogImage');
+    if (ogImageTag && article.image) ogImageTag.setAttribute('content', article.image);
+
+    var ogUrlTag = document.getElementById('ogUrl');
+    if (ogUrlTag) ogUrlTag.setAttribute('content', window.location.href);
+
+    var twTitleTag = document.getElementById('twitterTitle');
+    if (twTitleTag) twTitleTag.setAttribute('content', article.ogTitle || seoTitle);
+
+    var twDescTag = document.getElementById('twitterDescription');
+    if (twDescTag) twDescTag.setAttribute('content', article.ogDescription || finalDesc);
+
+    var twImageTag = document.getElementById('twitterImage');
+    if (twImageTag && article.image) twImageTag.setAttribute('content', article.image);
 
     setRobotsMeta('index, follow');
     document.getElementById('articleCategory').textContent = article.category || article.type || 'Crypto';
