@@ -2738,9 +2738,32 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "CoinOsprey",
-  "url": "https://www.coinosprey.com"
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.coinosprey.com/#organization",
+      "name": "CoinOsprey",
+      "alternateName": "Coin Osprey",
+      "url": "https://www.coinosprey.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.coinosprey.com/apple-touch-icon.png"
+      },
+      "sameAs": [
+        "https://x.com/CoinOsprey",
+        "https://www.linkedin.com/in/coinosprey",
+        "https://youtube.com/@coinosprey"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.coinosprey.com/#website",
+      "name": "CoinOsprey",
+      "alternateName": "Coin Osprey",
+      "url": "https://www.coinosprey.com/",
+      "publisher": { "@id": "https://www.coinosprey.com/#organization" }
+    }
+  ]
 }
   </script>
 </head>
