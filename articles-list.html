@@ -3874,7 +3874,12 @@ async function load() {
   var currentCategory = params.get('category') || '';
 
   // ---- pull the matching links straight from the NEWS/PRICE PREDICTIONS/etc mega-dropdown ----
-  var navLinks = document.querySelectorAll('.co-nav__dropdown-link[href*="section=' + currentSection + '"]');
+  // Prefer the explicit chip-source column (guarantees Latest News / Breaking News
+  // are included alongside all the category links, e.g. Bitcoin, Ethereum, etc).
+  var sourceCol = document.querySelector('.co-nav__dropdown-col[data-chip-source="' + currentSection + '"]');
+  var navLinks = sourceCol
+    ? sourceCol.querySelectorAll('.co-nav__dropdown-link')
+    : document.querySelectorAll('.co-nav__dropdown-link[href*="section=' + currentSection + '"]');
   var items = Array.prototype.map.call(navLinks, function (a) {
     return { label: a.textContent.trim(), href: a.getAttribute('href') };
   });
