@@ -3905,8 +3905,10 @@ async function load() {
 
   // ---- collect remaining categories from the other mega-menu columns ----
   // These always go inside the "More" panel, regardless of overflow.
+  // (Blogs is excluded — its "extra" column only has 2 minor links and
+  // doesn't need a More panel per product decision.)
   var extraItems = [];
-  if (sourceCol && sourceCol.parentElement) {
+  if (currentSection !== 'blog' && sourceCol && sourceCol.parentElement) {
     var otherCols = sourceCol.parentElement.querySelectorAll('.co-nav__dropdown-col');
     Array.prototype.forEach.call(otherCols, function (col) {
       if (col === sourceCol) return;
