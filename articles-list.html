@@ -4033,14 +4033,6 @@ async function load() {
     }
   }
 
-  document.addEventListener('click', function (e) {
-    if (!chipsInner.contains(e.target)) {
-      chipsInner.querySelectorAll('.co-chips__more-panel.is-open').forEach(function (p) {
-        p.classList.remove('is-open');
-      });
-    }
-  });
-
   renderChips();
 
   var resizeTimer;
