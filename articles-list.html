@@ -3987,14 +3987,48 @@ async function load() {
         panel.appendChild(a);
       });
 
+      // Panel ko body par rakho taaki chips row ka overflow-x:hidden ise clip na kare
+      document.body.appendChild(panel);
+
+      function closeMorePanel() {
+        panel.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+
+      function positionPanel() {
+        var r = btn.getBoundingClientRect();
+        panel.style.top = (r.bottom + 8) + 'px';
+        var left = r.right - panel.offsetWidth;
+        if (left < 8) left = 8;
+        panel.style.left = left + 'px';
+      }
+
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
-        var open = panel.classList.toggle('is-open');
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        var willOpen = !panel.classList.contains('is-open');
+        if (willOpen) {
+          panel.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+          positionPanel();
+        } else {
+          closeMorePanel();
+        }
+      });
+
+      panel.addEventListener('click', function (e) { e.stopPropagation(); });
+
+      window.addEventListener('scroll', function () {
+        if (panel.classList.contains('is-open')) positionPanel();
+      }, true);
+      window.addEventListener('resize', function () {
+        if (panel.classList.contains('is-open')) positionPanel();
+      });
+
+      document.addEventListener('click', function (e) {
+        if (e.target !== btn && !panel.contains(e.target)) closeMorePanel();
       });
 
       wrap.appendChild(btn);
-      wrap.appendChild(panel);
       chipsInner.appendChild(wrap);
     }
   }
