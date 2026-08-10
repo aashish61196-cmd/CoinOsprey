@@ -3965,20 +3965,22 @@ async function load() {
       chipsInner.appendChild(a);
     });
 
-    if (overflow.length) {
+    var allMoreItems = overflow.concat(extraItems);
+
+    if (allMoreItems.length) {
       var wrap = document.createElement('div');
       wrap.className = 'co-chip--more-wrap';
 
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'co-chip co-chip--more';
-      btn.textContent = 'More (' + overflow.length + ')';
+      btn.textContent = 'More';
       btn.setAttribute('aria-haspopup', 'true');
       btn.setAttribute('aria-expanded', 'false');
 
       var panel = document.createElement('div');
       panel.className = 'co-chips__more-panel';
-      overflow.forEach(function (item) {
+      allMoreItems.forEach(function (item) {
         var a = document.createElement('a');
         a.className = 'co-chip';
         a.href = item.href;
