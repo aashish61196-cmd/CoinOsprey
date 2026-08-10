@@ -3882,6 +3882,20 @@ async function load() {
     return { label: a.textContent.trim(), href: a.getAttribute('href') };
   });
 
+  // ---- collect remaining categories from the other mega-menu columns ----
+  // These always go inside the "More" panel, regardless of overflow.
+  var extraItems = [];
+  if (sourceCol && sourceCol.parentElement) {
+    var otherCols = sourceCol.parentElement.querySelectorAll('.co-nav__dropdown-col');
+    Array.prototype.forEach.call(otherCols, function (col) {
+      if (col === sourceCol) return;
+      var links = col.querySelectorAll('.co-nav__dropdown-link');
+      Array.prototype.forEach.call(links, function (a) {
+        extraItems.push({ label: a.textContent.trim(), href: a.getAttribute('href') });
+      });
+    });
+  }
+
   // Always add an "All <Section>" chip at the front
   var sectionLabels = {
     'news': 'News', 'price-prediction': 'Price Predictions',
