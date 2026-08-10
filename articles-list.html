@@ -3964,10 +3964,20 @@ async function load() {
     var visible = [];
     var overflow = [];
 
+    // A "More" chip is mandatory whenever extraItems exist (every section
+    // except Blog), even if every own-category chip technically fits —
+    // because the mega-menu's other columns always land in the More panel.
+    // So the LAST chip must also reserve room for it, not just chips that
+    // still have siblings after them. Skipping this reservation on the
+    // last chip was why it swallowed the full row width and pushed
+    // "More" off-screen (or clipped the last chip itself).
+    var alwaysNeedsMore = extraItems.length > 0;
+
     chipEls.forEach(function (el, i) {
       var w = el.getBoundingClientRect().width;
       var remainingAfter = items.length - 1 - i;
-      var budget = containerWidth - (remainingAfter > 0 ? moreWidth + gap : 0);
+      var needsMoreReserve = remainingAfter > 0 || alwaysNeedsMore;
+      var budget = containerWidth - (needsMoreReserve ? moreWidth + gap : 0);
       if (visible.length === 0 || usedWidth + gap + w <= budget) {
         usedWidth += (visible.length ? gap : 0) + w;
         visible.push(items[i]);
