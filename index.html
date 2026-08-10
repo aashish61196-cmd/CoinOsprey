@@ -3093,29 +3093,6 @@
         </div>
       </nav>
 
-      <script>
-      (function () {
-        'use strict';
-        // Highlight the active top-nav item (e.g. NEWS) based on the
-        // current page's ?section= query param. The CSS class
-        // .co-nav__item--active already exists in the stylesheet above
-        // but nothing was ever adding it — that's why NEWS never lit up.
-        var params = new URLSearchParams(window.location.search);
-        var currentSection = params.get('section') || 'news';
-
-        document.querySelectorAll('.co-nav__menu > .co-nav__item').forEach(function (item) {
-          item.classList.remove('co-nav__item--active');
-        });
-
-        var activeLink = document.querySelector(
-          '.co-nav__menu > .co-nav__item > .co-nav__link[href*="section=' + currentSection + '"]'
-        );
-        if (activeLink) {
-          activeLink.closest('.co-nav__item').classList.add('co-nav__item--active');
-        }
-      })();
-      </script>
-
       <form class="co-nav__searchbar"
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
         <input type="text" id="headerSearchInput" class="co-nav__searchbar-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="headerSearchDropdown" aria-autocomplete="list">
