@@ -4059,7 +4059,15 @@ async function load() {
     }
   }
 
-  renderChips();
+renderChips();
+
+  // Re-measure once the custom webfont has actually finished loading —
+  // otherwise chip widths are calculated against the fallback font,
+  // and the row can overflow (last chip gets clipped) once the real
+  // font swaps in and text gets a bit wider.
+  if (window.document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { renderChips(); });
+  }
 
   var resizeTimer;
   window.addEventListener('resize', function () {
