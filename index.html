@@ -4760,20 +4760,45 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
     } catch (e) { /* storage unavailable — ignore silently */ }
   }
 
+  function showFetchError(message) {
+    console.error('[CoinOsprey] Homepage data fetch failed:', message);
+    document.querySelectorAll(
+      '.featured-news__title, .news-item__headline, .prediction-item__title, .academy-item__title, .research-item__title'
+    ).forEach(function (el) {
+      if (/^Loading/.test(el.textContent.trim())) {
+        el.textContent = 'Content temporarily unavailable';
+      }
+    });
+    var desc = document.querySelector('.featured-news__desc');
+    if (desc && /^Loading/.test(desc.textContent.trim())) {
+      desc.textContent = 'We could not load the latest updates. Please check back shortly.';
+    }
+  }
+
   async function fetchAndRender() {
     let articles;
     try {
       const res = await fetch(ENDPOINT, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Request failed: ' + res.status);
+      if (!res.ok) {
+        const bodyText = await res.text().catch(function () { return ''; });
+        throw new Error('HTTP ' + res.status + ' from ' + ENDPOINT + (bodyText ? ' — ' + bodyText.slice(0, 200) : ''));
+      }
       const data = await res.json();
       articles = Array.isArray(data) ? data : (data.articles || []);
     } catch (err) {
-      console.warn('Live fetch failed, falling back to cache if available:', err.message);
       const cached = loadFromCache();
-      if (cached) renderAll(cached); // fallback ONLY on failure, not on every load
+      if (cached && cached.length) {
+        console.warn('[CoinOsprey] Live fetch failed, using cache:', err.message);
+        renderAll(cached);
+      } else {
+        showFetchError(err.message);
+      }
       return;
     }
-    if (!articles.length) return;
+    if (!articles.length) {
+      showFetchError('API returned 0 articles from ' + ENDPOINT);
+      return;
+    }
     renderAll(articles);
     saveToCache(articles);
   }
