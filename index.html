@@ -3896,26 +3896,17 @@
   }
 
   /* ---------- Breaking news ticker content ---------- */
-  var tickerItems = [
-    { icon: 'btc', label: 'B', text: 'Bitcoin ETF Inflows Surpass $500M' },
-    { icon: 'bnb', label: '\u25C8', text: 'Binance Lists New AI Token AIOZ' },
-    { icon: 'eth', label: '\u039E', text: 'SEC Delays Decision on Ethereum ETF' },
-    { icon: 'sol', label: 'S', text: 'Solana Network Hits New Milestone' }
-  ];
-
-  var track = document.getElementById('tickerTrack');
-  function buildEntries(){
+var track = document.getElementById('tickerTrack');
+  function buildSkeletonEntries(){
+    // Neutral shimmer placeholder (no fake headlines) — replaced by real
+    // data once renderTicker() runs further down the page.
     var html = '';
-    tickerItems.forEach(function(item){
-      html += '<span class="co-ticker__entry">' +
-                '<span class="co-ticker__entry-icon co-ticker__entry-icon--' + item.icon + '">' + item.label + '</span>' +
-                item.text +
-              '</span>';
-    });
+    for (var i = 0; i < 4; i++) {
+      html += '<span class="co-skeleton" style="display:inline-block;width:180px;height:14px;border-radius:4px;"></span>';
+    }
     return html;
   }
-  // duplicate the sequence so the marquee loops seamlessly
-  track.innerHTML = buildEntries() + buildEntries();
+  track.innerHTML = buildSkeletonEntries() + buildSkeletonEntries();
 
   /* ---------- Sticky header shrink on scroll ---------- */
   var header = document.getElementById('coHeader');
