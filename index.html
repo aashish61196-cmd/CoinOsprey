@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  /* Kick off the articles fetch immediately, before CSS/JS below parses,
+     so the network round-trip overlaps with page load instead of only
+     starting after the whole DOM has parsed. Reused by fetchAndRender(). */
+  window.__coArticlesFetch = fetch('/api/articles', { cache: 'no-store' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('Request failed: ' + r.status);
+      return r.json();
+    })
+    .catch(function (err) {
+      console.warn('Early articles fetch failed:', err.message);
+      return null;
+    });
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CoinOsprey: Crypto News, Price Predictions &amp; Insights</title>
