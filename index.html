@@ -4744,24 +4744,9 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   const CACHE_KEY = null;
 const CACHE_TTL_MS = 0;
 
-  function loadFromCache() {
-    try {
-      const raw = localStorage.getItem(CACHE_KEY);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (!parsed || !Array.isArray(parsed.articles)) return null;
-      if (!parsed.ts || (Date.now() - parsed.ts) > CACHE_TTL_MS) return null; // expired
-      return parsed.articles;
-    } catch (e) {
-      return null;
-    }
-  }
+  
 
-  function saveToCache(articles) {
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ articles: articles, ts: Date.now() }));
-    } catch (e) { /* storage unavailable — ignore silently */ }
-  }
+  
 
   function showFetchError(message) {
     console.error('[CoinOsprey] Homepage data fetch failed:', message);
