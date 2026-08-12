@@ -4741,8 +4741,8 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   }
 
   // ---------------- boot: cache-first, then revalidate in background ----------------
-  const CACHE_KEY = 'co_articles_cache_v2';
-  const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+  const CACHE_KEY = null;
+const CACHE_TTL_MS = 0;
 
   function loadFromCache() {
     try {
