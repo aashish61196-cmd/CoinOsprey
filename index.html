@@ -4647,8 +4647,12 @@ const CACHE_TTL_MS = 0;
   showFetchError(err.message);
   return;
 }
-    if (!articles.length) return;
-    renderAll(articles);
+    if (!articles.length) {
+  showFetchError('No published articles were returned by the API.');
+  return;
+}
+
+renderAll(articles);
     saveToCache(articles);
   }
 
