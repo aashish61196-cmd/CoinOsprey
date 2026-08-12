@@ -4793,11 +4793,11 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
       if (!data) throw new Error('Early fetch failed');
       articles = Array.isArray(data) ? data : (data.articles || []);
     } catch (err) {
-      console.warn('Live fetch failed, falling back to cache if available:', err.message);
-      const cached = loadFromCache();
-      if (cached) renderAll(cached); // fallback ONLY on failure, not on every load
-      return;
-    }
+  console.error('[CoinOsprey] Live homepage data fetch failed:', err.message);
+
+  showFetchError(err.message);
+  return;
+}
     if (!articles.length) return;
     renderAll(articles);
     saveToCache(articles);
