@@ -5156,19 +5156,16 @@ function initToolsHub() {
     chipMoreBtn.style.display = "inline-flex";
     const availWidth = containerWidth - (chipMoreBtn.offsetWidth + gap);
     let usedWidth = 0;
-    const overflowChips = [];
     chips.forEach((c, i) => {
       const w = c.offsetWidth + (usedWidth > 0 ? gap : 0);
       if (usedWidth + w <= availWidth) {
         usedWidth += w;
       } else {
+        const clone = c.cloneNode(true);
+        clone.style.display = "";
+        chipDropdown.appendChild(clone);
         c.style.display = "none";
-        overflowChips.push(c);
       }
-    });
-    overflowChips.forEach((orig) => {
-      const clone = orig.cloneNode(true);
-      chipDropdown.appendChild(clone);
     });
   }
 
