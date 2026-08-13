@@ -5090,16 +5090,27 @@ function initToolsHub() {
   const chipBar = document.getElementById("filterChips");
   const chipBarWrap = document.getElementById("filterChipsWrap");
   const chipMoreBtn = document.getElementById("chipMoreBtn");
+  const chipDropdown = document.getElementById("chipDropdown");
   const searchInputs = [document.getElementById("heroSearch"), document.getElementById("headerSearch")].filter(Boolean);
   const resultsCount = document.getElementById("resultsCount");
   const resultsTitle = document.getElementById("resultsTitle");
   const sortSelect = document.getElementById("sortSelect");
 
+  function closeChipDropdown() {
+    if (!chipBarWrap) return;
+    chipBarWrap.classList.remove("expanded");
+    if (chipMoreBtn) chipMoreBtn.setAttribute("aria-expanded", "false");
+  }
+
   if (chipMoreBtn && chipBarWrap) {
     chipMoreBtn.addEventListener("click", () => {
       const expanded = chipBarWrap.classList.toggle("expanded");
       chipMoreBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
-      chipMoreBtn.querySelector(".chip-more-btn__label").textContent = expanded ? "Less" : "More";
+    });
+    document.addEventListener("click", (e) => {
+      if (chipBarWrap.classList.contains("expanded") && !chipBarWrap.contains(e.target)) {
+        closeChipDropdown();
+      }
     });
   }
 
@@ -5129,6 +5140,38 @@ function initToolsHub() {
 
   // Filter chips
   const chipCats = ["all", ...CATEGORIES];
+  function layoutChips() {
+    if (!chipBar || !chipMoreBtn || !chipDropdown) return;
+    const chips = Array.from(chipBar.querySelectorAll(".chip[data-cat]"));
+    chips.forEach((c) => { c.style.display = ""; });
+    chipMoreBtn.style.display = "none";
+    chipDropdown.innerHTML = "";
+
+    const containerWidth = chipBar.clientWidth;
+    const gap = 8;
+    let totalWidth = 0;
+    chips.forEach((c, i) => { totalWidth += c.offsetWidth + (i > 0 ? gap : 0); });
+    if (totalWidth <= containerWidth || !containerWidth) return;
+
+    chipMoreBtn.style.display = "inline-flex";
+    const availWidth = containerWidth - (chipMoreBtn.offsetWidth + gap);
+    let usedWidth = 0;
+    const overflowChips = [];
+    chips.forEach((c, i) => {
+      const w = c.offsetWidth + (usedWidth > 0 ? gap : 0);
+      if (usedWidth + w <= availWidth) {
+        usedWidth += w;
+      } else {
+        c.style.display = "none";
+        overflowChips.push(c);
+      }
+    });
+    overflowChips.forEach((orig) => {
+      const clone = orig.cloneNode(true);
+      chipDropdown.appendChild(clone);
+    });
+  }
+
   function renderChips() {
     chipBar.querySelectorAll(".chip[data-cat]").forEach((el) => el.remove());
     chipCats.forEach((c) => {
@@ -5136,10 +5179,12 @@ function initToolsHub() {
       btn.className = "chip" + (state.category === c ? " active" : "");
       btn.textContent = c === "all" ? "All" : CATEGORY_META[c].label;
       btn.dataset.cat = c;
-      chipBar.insertBefore(btn, chipBar.querySelector(".chip-fav"));
+      chipBar.appendChild(btn);
     });
+    requestAnimationFrame(layoutChips);
   }
   renderChips();
+  window.addEventListener("resize", () => { requestAnimationFrame(layoutChips); });
 
   function setCategory(cat) {
     state.category = cat;
@@ -5148,11 +5193,7 @@ function initToolsHub() {
     document.querySelectorAll("[data-cat]").forEach((el) => {
       el.classList.toggle("active", el.dataset.cat === cat);
     });
-    if (chipBarWrap && chipBarWrap.classList.contains("expanded")) {
-      chipBarWrap.classList.remove("expanded");
-      chipMoreBtn.setAttribute("aria-expanded", "false");
-      chipMoreBtn.querySelector(".chip-more-btn__label").textContent = "More";
-    }
+    closeChipDropdown();
     render();
   }
   hubSetCategory = setCategory;
@@ -5176,6 +5217,9 @@ function initToolsHub() {
   });
 
   searchInputs.forEach((input) => {
+
+
+  
     input.addEventListener("input", (e) => {
       state.query = e.target.value;
       searchInputs.forEach((i) => { if (i !== e.target) i.value = state.query; });
