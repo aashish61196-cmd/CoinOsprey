@@ -2879,17 +2879,23 @@ input, select { font-family: inherit; }
   </aside>
 
 <main class="main-col">
-    <section class="hero">
-      <h2>Crypto Tools &amp;<br><span class="accent">Calculators</span></h2>
-      <p>Powerful tools for trading, investing, portfolio management and crypto research.</p>
-    </section>
-
-    <div class="filter-bar" id="filterChips">
-      <button class="chip chip-fav">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Favorites
+    <div class="filter-bar-wrap" id="filterChipsWrap">
+      <div class="filter-bar" id="filterChips">
+        <button class="chip chip-fav">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Favorites
+        </button>
+      </div>
+      <button class="chip-more-btn" id="chipMoreBtn" type="button" aria-expanded="false">
+        <span class="chip-more-btn__label">More</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"></path></svg>
       </button>
     </div>
+
+    <section class="hero">
+      <h1>Crypto Tools &amp;<br><span class="accent">Calculators</span></h1>
+      <p>Powerful tools for trading, investing, portfolio management and crypto research.</p>
+    </section>
 
     <div class="results-header">
       <div><h2 id="resultsTitle" style="display:inline">All Tools</h2><span class="count" id="resultsCount"></span></div>
