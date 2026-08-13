@@ -5140,6 +5140,11 @@ function initToolsHub() {
     document.querySelectorAll("[data-cat]").forEach((el) => {
       el.classList.toggle("active", el.dataset.cat === cat);
     });
+    if (chipBarWrap && chipBarWrap.classList.contains("expanded")) {
+      chipBarWrap.classList.remove("expanded");
+      chipMoreBtn.setAttribute("aria-expanded", "false");
+      chipMoreBtn.querySelector(".chip-more-btn__label").textContent = "More";
+    }
     render();
   }
   hubSetCategory = setCategory;
