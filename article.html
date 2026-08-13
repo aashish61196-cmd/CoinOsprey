@@ -2755,27 +2755,172 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
   };
 
   function loadArticle() {
-    var slug = getSlugFromUrl();
-    if (!slug) { showError(); return; }
+  var slug = getSlugFromUrl();
 
-    if (RESERVED_SLUGS[slug.toLowerCase()]) {
-      window.location.replace(RESERVED_SLUGS[slug.toLowerCase()]);
-      return;
+  if (!slug) {
+    showError();
+    return;
+  }
+
+  slug = decodeURIComponent(String(slug)).trim();
+
+  if (RESERVED_SLUGS[slug.toLowerCase()]) {
+    window.location.replace(RESERVED_SLUGS[slug.toLowerCase()]);
+    return;
+  }
+
+  /*
+   * ARTICLE LOADER
+   * 1. Try direct API: /api/articles/{slug}
+   * 2. If that fails, fallback to /api/articles
+   * 3. Find article by slug
+   * 4. Supports both:
+   *    - direct article object
+   *    - { article: {...} }
+   *    - article array
+   *    - { articles: [...] }
+   */
+
+  function normalizeArticle(data) {
+    if (!data) return null;
+
+    if (data.article && typeof data.article === 'object') {
+      return data.article;
     }
 
-    fetch(API_BASE + '/articles/' + encodeURIComponent(slug))
-      .then(function (res) {
-        if (!res.ok) throw new Error('Not found');
-        return res.json();
-      })
-      .then(function (article) {
-        if (!article || !article.title) throw new Error('Empty article');
-        populateArticle(article);
-      })
-      .catch(function () {
-        showError();
-      });
+    if (data.data && data.data.article && typeof data.data.article === 'object') {
+      return data.data.article;
+    }
+
+    if (data.data && typeof data.data === 'object' && !Array.isArray(data.data)) {
+      if (data.data.title || data.data.slug) {
+        return data.data;
+      }
+    }
+
+    if (data.title || data.slug) {
+      return data;
+    }
+
+    return null;
   }
+
+  function findArticleInList(data) {
+    var articles = [];
+
+    if (Array.isArray(data)) {
+      articles = data;
+    } else if (data && Array.isArray(data.articles)) {
+      articles = data.articles;
+    } else if (data && data.data && Array.isArray(data.data)) {
+      articles = data.data;
+    } else if (data && data.data && Array.isArray(data.data.articles)) {
+      articles = data.data.articles;
+    }
+
+    var target = slug.toLowerCase();
+
+    return articles.find(function (article) {
+      if (!article) return false;
+
+      var articleSlug = String(article.slug || '').trim().toLowerCase();
+
+      return articleSlug === target;
+    }) || null;
+  }
+
+  function renderArticle(article) {
+    if (!article || !article.title) {
+      throw new Error('Article data is empty');
+    }
+
+    populateArticle(article);
+  }
+
+  /*
+   * STEP 1: Direct slug API
+   */
+  fetch(API_BASE + '/articles/' + encodeURIComponent(slug), {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json'
+    },
+    cache: 'no-store'
+  })
+    .then(function (res) {
+      if (!res.ok) {
+        throw new Error('Direct article API failed: ' + res.status);
+      }
+
+      return res.json();
+    })
+    .then(function (data) {
+      var article = normalizeArticle(data);
+
+      if (!article) {
+        throw new Error('Direct API returned invalid article');
+      }
+
+      renderArticle(article);
+    })
+
+    /*
+     * STEP 2: Fallback to complete article list
+     */
+    .catch(function (directError) {
+
+      console.warn(
+        'Direct article API failed for slug:',
+        slug,
+        directError.message
+      );
+
+      return fetch(API_BASE + '/articles', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        },
+        cache: 'no-store'
+      })
+        .then(function (res) {
+          if (!res.ok) {
+            throw new Error('Article list API failed: ' + res.status);
+          }
+
+          return res.json();
+        })
+        .then(function (data) {
+
+          var article = findArticleInList(data);
+
+          if (!article) {
+            console.error(
+              'Article slug not found in /api/articles:',
+              slug
+            );
+
+            throw new Error(
+              'No article found for slug: ' + slug
+            );
+          }
+
+          renderArticle(article);
+        });
+    })
+
+    /*
+     * FINAL ERROR
+     */
+    .catch(function (error) {
+
+      console.error(
+        'CoinOsprey article loading failed:',
+        error
+      );
+
+      showError();
+    });
+}
 
   loadArticle();
 })();
