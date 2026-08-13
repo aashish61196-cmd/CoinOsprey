@@ -2688,7 +2688,16 @@
   /* ==========================================================================
      SKELETON LOADER (used behind lazy images before they load)
      ========================================================================== */
-  .co-skeleton{
+/* =========================================================
+   HOMEPAGE LIVE DATA
+   Do not show hard-coded loading placeholders on first paint
+   ========================================================= */
+
+.featured-news-loading {
+  display: none !important;
+}
+
+.co-skeleton{
     position:relative;
     overflow:hidden;
     background:linear-gradient(90deg, #e9ebf1 25%, #f4f5f8 37%, #e9ebf1 63%);
