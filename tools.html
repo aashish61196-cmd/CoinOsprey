@@ -5080,10 +5080,20 @@ function initToolsHub() {
 
   const sidebarCounts = document.getElementById("sidebarCategoryList");
   const chipBar = document.getElementById("filterChips");
+  const chipBarWrap = document.getElementById("filterChipsWrap");
+  const chipMoreBtn = document.getElementById("chipMoreBtn");
   const searchInputs = [document.getElementById("heroSearch"), document.getElementById("headerSearch")].filter(Boolean);
   const resultsCount = document.getElementById("resultsCount");
   const resultsTitle = document.getElementById("resultsTitle");
   const sortSelect = document.getElementById("sortSelect");
+
+  if (chipMoreBtn && chipBarWrap) {
+    chipMoreBtn.addEventListener("click", () => {
+      const expanded = chipBarWrap.classList.toggle("expanded");
+      chipMoreBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+      chipMoreBtn.querySelector(".chip-more-btn__label").textContent = expanded ? "Less" : "More";
+    });
+  }
 
   let state = {
     category: "all",
