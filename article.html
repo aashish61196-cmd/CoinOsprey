@@ -3380,14 +3380,13 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
      ========================================================================== */
 
   /* ---------- 1. Page load animation ---------- */
-  var loader = document.getElementById('pageLoader');
-  window.addEventListener('load', function () {
-    if (!loader) return;
-    setTimeout(function () {
-      loader.classList.add('is-hidden');
-    }, 250);
-  });
-
+var loader = document.getElementById('pageLoader');
+  function hideLoader() {
+    if (!loader || loader.classList.contains('is-hidden')) return;
+    loader.classList.add('is-hidden');
+  }
+  window.addEventListener('load', function () { setTimeout(hideLoader, 250); });
+  setTimeout(hideLoader, 4000); // safety net — never block clicks longer than 4s
   /* ---------- 2. Scroll progress bar ---------- */
   var progressBar = document.getElementById('scrollProgress');
   function updateProgress() {
