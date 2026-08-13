@@ -2416,15 +2416,46 @@
   var API_BASE = '/api';
 
   function getSlugFromUrl() {
-    var params = new URLSearchParams(window.location.search);
-    var slug = params.get('slug');
-    if (slug) return slug.trim();
+  var params = new URLSearchParams(window.location.search);
 
-    var parts = window.location.pathname.split('/').filter(Boolean);
-    var last = parts[parts.length - 1];
-    if (last && last !== 'article.html' && last !== 'article') return decodeURIComponent(last);
+  /* Support:
+     /article.html?slug=abc
+     /en/news/abc
+     /en/blogs/abc
+     /en/price-predictions/abc
+  */
 
+  var querySlug = params.get('slug');
+
+  if (querySlug) {
+    return decodeURIComponent(querySlug).trim();
+  }
+
+  var path = window.location.pathname
+    .replace(/\/+$/, '');
+
+  var parts = path.split('/').filter(Boolean);
+
+  if (!parts.length) {
     return null;
+  }
+
+  var last = parts[parts.length - 1];
+
+  /* Never treat the article template itself as a slug */
+  if (
+    last.toLowerCase() === 'article.html' ||
+    last.toLowerCase() === 'article' ||
+    last.toLowerCase() === 'index.html'
+  ) {
+    return null;
+  }
+
+  try {
+    return decodeURIComponent(last).trim();
+  } catch (error) {
+    return last.trim();
+  }
 }
 
   function escapeHtml(str) {
