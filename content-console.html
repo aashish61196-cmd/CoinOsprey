@@ -546,6 +546,19 @@
             <div class="field"><label>News Type <em>*</em></label>
               <select id="inType"><option value="">Select News Type</option><option>Price Prediction</option><option>Market Update</option><option>Press Release</option><option>Sponsored</option><option>Guest News</option></select>
             </div>
+            <div class="field">
+  <label>Language <em>*</em></label>
+
+  <select id="inLanguage">
+    <option value="en">English</option>
+    <option value="hi">Hindi (हिंदी)</option>
+  </select>
+
+  <span class="hint">
+    Hindi articles are published under /hi/
+    and appear only on the Hindi edition.
+  </span>
+</div>
             <div class="field"><label>Section <em>*</em></label>
               <select id="inSection" onchange="populateCategoryOptions()">
                 <option value="news">News</option>
