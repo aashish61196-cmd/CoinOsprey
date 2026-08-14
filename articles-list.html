@@ -3770,5 +3770,43 @@ renderChips();
   });
 })();
 </script>
+  <script>
+(function () {
+  'use strict';
+
+  var path =
+    window.location.pathname
+      .split('/')
+      .filter(Boolean);
+
+  var isHindi =
+    path[0] === 'hi';
+
+  if (!isHindi) return;
+
+  document.querySelectorAll(
+    'a[href*="articles-list.html"]'
+  ).forEach(function (link) {
+
+    var href =
+      link.getAttribute('href');
+
+    if (!href) return;
+
+    if (href.indexOf('/hi/') === 0) {
+      return;
+    }
+
+    href = href.replace(
+      /^\/?articles-list\.html/,
+      '/hi/articles-list.html'
+    );
+
+    link.setAttribute('href', href);
+
+  });
+
+})();
+</script>
 </body>
 </html>
