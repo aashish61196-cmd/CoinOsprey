@@ -1114,7 +1114,9 @@ body.innerHTML = rows.map(a=>`
       <td data-label="Created By">${escapeHtml(a.author||'—')}</td>
       <td data-label="Uploaded">${fmtDate(a.createdAt)}</td>
       <td data-label="Published">${fmtDate(a.publishedAt)}</td>
-      <td data-label="Lan">EN</td>
+      <td data-label="Lan">
+  ${(a.language || 'en') === 'hi' ? 'HI' : 'EN'}
+</td>
       <td data-label="Type"><span class="tag ${a.type==='Price Prediction'?'tag-pred':'tag-news'}">${escapeHtml(a.type||'—')}</span></td>
       <td data-label="News/Blog">News</td>
       <td data-label="SEO">${(a.seoTitle && a.metaDescription)?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
