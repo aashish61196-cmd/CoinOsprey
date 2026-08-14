@@ -2561,7 +2561,7 @@
     }).join('');
   }
 
-  fetch('/api/articles')
+fetch('/api/articles?language=hi')
     .then(function(res){ if (!res.ok) throw new Error('fetch failed'); return res.json(); })
     .then(function(data){
       var articles = Array.isArray(data) ? data : (data.articles || []);
