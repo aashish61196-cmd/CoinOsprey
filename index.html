@@ -4483,10 +4483,17 @@ renderAll(articles);
     });
   }
 
-  // Clicking anywhere else resets back to default chips
+// Clicking anywhere else resets back to default chips
   document.addEventListener('click', function (e) {
     if (!navItem.contains(e.target)) showDefaultChips();
   });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 </script>
   <script>
