@@ -2423,8 +2423,11 @@ var PATH_PARTS =
     .split('/')
     .filter(Boolean);
 
+var params = new URLSearchParams(window.location.search);
+
 var PAGE_LANGUAGE =
-  (PATH_PARTS[0] === 'hi')
+  (PATH_PARTS[0] === 'hi' ||
+   params.get('language') === 'hi')
     ? 'hi'
     : 'en';
 
