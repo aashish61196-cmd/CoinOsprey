@@ -2884,7 +2884,13 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
   /*
    * STEP 1: Direct slug API
    */
-  fetch(API_BASE + '/articles/' + encodeURIComponent(slug), {
+fetch(
+  API_BASE +
+  '/articles/' +
+  encodeURIComponent(slug) +
+  '?language=' +
+  PAGE_LANGUAGE,
+  {
     method: 'GET',
     headers: {
       'Accept': 'application/json'
