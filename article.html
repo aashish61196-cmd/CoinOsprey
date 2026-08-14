@@ -2925,7 +2925,11 @@ fetch(
         directError.message
       );
 
-      return fetch(API_BASE + '/articles', {
+      fetch(
+  API_BASE +
+  '/articles?language=' +
+  PAGE_LANGUAGE,
+  {
         method: 'GET',
         headers: {
           'Accept': 'application/json'
