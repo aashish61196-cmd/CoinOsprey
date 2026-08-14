@@ -2684,19 +2684,54 @@ var PAGE_LANGUAGE =
     document.title = seoTitle + ' — CoinOsprey';
 
     var pathParts = window.location.pathname.split('/').filter(Boolean);
-    var lang = pathParts[0] || 'en';
-    var section = pathParts[1] || 'news';
-    var basePath = '/' + section + '/' + (article.slug || '');
 
-    var linkEn = document.createElement('link');
-    linkEn.rel = 'alternate'; linkEn.hreflang = 'en';
-    linkEn.href = 'https://www.coinosprey.com/en' + basePath;
-    document.head.appendChild(linkEn);
+var lang = PAGE_LANGUAGE;
 
-    var linkHi = document.createElement('link');
-    linkHi.rel = 'alternate'; linkHi.hreflang = 'hi';
-    linkHi.href = 'https://www.coinosprey.com/hi' + basePath;
-    document.head.appendChild(linkHi);
+var section =
+  (pathParts[0] === 'hi' || pathParts[0] === 'en')
+    ? (pathParts[1] || 'news')
+    : (pathParts[0] || 'news');
+
+var basePath =
+  '/' +
+  encodeURIComponent(section) +
+  '/' +
+  encodeURIComponent(article.slug || '');
+
+var linkEn = document.createElement('link');
+
+linkEn.rel = 'alternate';
+linkEn.hreflang = 'en';
+
+linkEn.href =
+  'https://www.coinosprey.com/en' +
+  basePath;
+
+document.head.appendChild(linkEn);
+
+
+var linkHi = document.createElement('link');
+
+linkHi.rel = 'alternate';
+linkHi.hreflang = 'hi';
+
+linkHi.href =
+  'https://www.coinosprey.com/hi' +
+  basePath;
+
+document.head.appendChild(linkHi);
+
+
+var linkDefault = document.createElement('link');
+
+linkDefault.rel = 'alternate';
+linkDefault.hreflang = 'x-default';
+
+linkDefault.href =
+  'https://www.coinosprey.com/en' +
+  basePath;
+
+document.head.appendChild(linkDefault);
 
     var titleTag = document.getElementById('pageTitle');
     if (titleTag) titleTag.textContent = seoTitle + ' — CoinOsprey';
