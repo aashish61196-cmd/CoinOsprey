@@ -3,10 +3,27 @@ const slugify = require('slugify');
 
 exports.getPublished = async (req, res) => {
   try {
-    const articles = await Article.find({ status: 'published' }).sort({ publishedAt: -1 });
+    const requestedLanguage = String(
+      req.query.language || 'en'
+    ).toLowerCase();
+
+    const filter = {
+      status: 'published'
+    };
+
+    filter.language =
+      requestedLanguage === 'hi' ? 'hi' : 'en';
+
+    const articles = await Article
+      .find(filter)
+      .sort({ publishedAt: -1 });
+
     res.json(articles);
+
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({
+      message: err.message
+    });
   }
 };
 
