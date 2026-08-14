@@ -3155,7 +3155,7 @@ const PAGE_LANGUAGE =
 const ENDPOINT = '/api/articles?language=hi';
 
 const ARTICLE_URL_PREFIX =
-  '/' + PAGE_LANGUAGE + '/'; // -> /en/{section}/{slug}
+  '/' + PAGE_LANGUAGE + '/'; /hi/{section}/{slug}
   const PLACEHOLDER_IMG = 'https://placehold.co/128x128/1a1f26/F3F5F7?text=%3F';
 
   // ---------------- shared helpers ----------------
@@ -3497,7 +3497,7 @@ const PAGE_LANGUAGE =
     : 'en';
 
 const ARTICLE_URL_PREFIX =
-  '/' + PAGE_LANGUAGE + '/';
+  '/' + PAGE_LANGUAGE + '/';/hi/{section}/{slug}
   function getParam(name) {
     return new URLSearchParams(window.location.search).get(name) || '';
   }
