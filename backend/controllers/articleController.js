@@ -38,7 +38,38 @@ exports.getAllForAdmin = async (req, res) => {
 
 exports.getBySlug = async (req, res) => {
   try {
-    const article = await Article.findOne({ slug: req.params.slug, status: 'published' });
+
+    const requestedLanguage =
+      String(req.query.language || 'en').toLowerCase();
+
+    const language =
+      requestedLanguage === 'hi' ? 'hi' : 'en';
+
+    const article = await Article.findOne({
+      slug: req.params.slug,
+      status: 'published',
+      language: language
+    });
+
+    if (!article) {
+      return res.status(404).json({
+        message: 'Article not found'
+      });
+    }
+
+    article.views += 1;
+    await article.save();
+
+    res.json(article);
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
+};
     if (!article) return res.status(404).json({ message: 'Article not found' });
     article.views += 1;
     await article.save();
