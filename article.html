@@ -3881,5 +3881,54 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   });
 })();
 </script>
+<script>
+(function () {
+  'use strict';
+
+  var path =
+    window.location.pathname
+      .split('/')
+      .filter(Boolean);
+
+  var isHindi =
+    path[0] === 'hi';
+
+  var section =
+    isHindi
+      ? (path[1] || 'news')
+      : (path[0] === 'en'
+          ? (path[1] || 'news')
+          : 'news');
+
+  var slug =
+    path[path.length - 1] || '';
+
+  document.querySelectorAll(
+    '[data-language]'
+  ).forEach(function (link) {
+
+    var lang =
+      link.getAttribute('data-language');
+
+    link.href =
+      '/' +
+      lang +
+      '/' +
+      encodeURIComponent(section) +
+      '/' +
+      encodeURIComponent(slug);
+
+    if (
+      (lang === 'hi' && isHindi) ||
+      (lang === 'en' && !isHindi)
+    ) {
+      link.classList.add('is-active');
+    }
+
+  });
+
+})();
+</script>
+
 </body>
 </html>
