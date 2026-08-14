@@ -3122,8 +3122,22 @@ initHeaderSearch('headerSearchInput', 'headerSearchDropdown', 'headerSearchSubmi
 (function () {
   'use strict';
 
-  const ENDPOINT = '/api/articles';
-  const ARTICLE_URL_PREFIX = '/en/'; // -> /en/{section}/{slug}
+  const PATH_PARTS =
+  window.location.pathname
+    .split('/')
+    .filter(Boolean);
+
+const PAGE_LANGUAGE =
+  PATH_PARTS[0] === 'hi'
+    ? 'hi'
+    : 'en';
+
+const ENDPOINT =
+  '/api/articles?language=' +
+  PAGE_LANGUAGE;
+
+const ARTICLE_URL_PREFIX =
+  '/' + PAGE_LANGUAGE + '/'; // -> /en/{section}/{slug}
   const PLACEHOLDER_IMG = 'https://placehold.co/128x128/1a1f26/F3F5F7?text=%3F';
 
   // ---------------- shared helpers ----------------
