@@ -4426,31 +4426,7 @@ renderAll(articles);
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
-  }
-})();
-
-  var navItem = newsDropdown ? newsDropdown.closest('.co-nav__item') : null;
-
-  function showNewsChips() {
-    if (!newsChips) return;
-    currentChipsSet = newsChips;
-    renderChips(newsChips);
-  }
-  function showDefaultChips() {
-    currentChipsSet = defaultChips;
-    renderChips(defaultChips);
-  }
-
-  if (navItem) {
-    navItem.addEventListener('mouseenter', showNewsChips);
-    navItem.addEventListener('mouseleave', function () {
-      if (!navItem.classList.contains('is-open')) showDefaultChips();
-    });
-
-  
-  }
-
-  
+}
 })();
 (function () {
   'use strict';
