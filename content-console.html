@@ -1494,7 +1494,11 @@ async function saveArticle(publish){
     slug: aliasRaw ? slugify(aliasRaw) : slugify(title),
     type,
     author,
-    section: document.getElementById('inSection').value,
+
+section: document.getElementById('inSection').value,
+
+language:
+  document.getElementById('inLanguage').value,
     category: document.getElementById('inCategory').value.trim(),
     tag: document.getElementById('inTag').value.trim(),
     image: document.getElementById('inImgUrl').value.trim(),
