@@ -2333,7 +2333,27 @@
   <div class="empty-state" id="emptyState" style="display:none;">
     <h2>No articles yet</h2>
     <p>Check back soon — new content is on the way.</p>
-    <a href="/">Back to Homepage</a>
+    <a href="#" id="listingHomeLink">Back to Homepage</a>
+
+<script>
+(function () {
+
+  var path =
+    window.location.pathname
+      .split('/')
+      .filter(Boolean);
+
+  var link =
+    document.getElementById('listingHomeLink');
+
+  if (link && path[0] === 'hi') {
+    link.href = '/hi/';
+  } else if (link) {
+    link.href = '/';
+  }
+
+})();
+</script>
   </div>
 </div>
 
