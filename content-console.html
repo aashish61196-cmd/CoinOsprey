@@ -1438,7 +1438,10 @@ function editArticle(id){
   document.getElementById('createTitle').textContent = 'Edit Article';
   document.getElementById('inTitle').value = a.title || '';
   document.getElementById('inAlias').value = a.slug || '';
-  document.getElementById('inType').value = a.type || '';
+document.getElementById('inType').value = a.type || '';
+
+document.getElementById('inLanguage').value =
+  a.language || 'en';
   document.getElementById('inSection').value = a.section || 'news';
   populateCategoryOptions();
   document.getElementById('inCategory').value = a.category || '';
