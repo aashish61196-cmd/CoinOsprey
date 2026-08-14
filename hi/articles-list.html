@@ -3549,8 +3549,7 @@ async function load() {
     document.title = label + ' — CoinOsprey';
 
     try {
-      const res = await fetch(
-  '/api/articles?language=' +
+      const res = await fetch('/api/articles?language=hi');
   PAGE_LANGUAGE
 );
       if (!res.ok) throw new Error('Request failed: ' + res.status);
