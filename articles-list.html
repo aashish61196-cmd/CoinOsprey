@@ -3468,8 +3468,18 @@ const ARTICLE_URL_PREFIX =
     'research': 'Research & Analysis',
     'tools': 'Tools'
   };
-  const ARTICLE_URL_PREFIX = '/en/'; // -> /en/{section}/{slug}, matches article.html pattern
+const PATH_PARTS =
+  window.location.pathname
+    .split('/')
+    .filter(Boolean);
 
+const PAGE_LANGUAGE =
+  PATH_PARTS[0] === 'hi'
+    ? 'hi'
+    : 'en';
+
+const ARTICLE_URL_PREFIX =
+  '/' + PAGE_LANGUAGE + '/';
   function getParam(name) {
     return new URLSearchParams(window.location.search).get(name) || '';
   }
