@@ -3446,8 +3446,7 @@ const ARTICLE_URL_PREFIX =
 
   // ---------------- boot: cache-first, then revalidate in background ----------------
   const CACHE_KEY =
-  'co_articles_cache_v1_hi';
-  PAGE_LANGUAGE;
+  'co_articles_cache_v1_' + PAGE_LANGUAGE;
   function loadFromCache() {
     try {
       const raw = localStorage.getItem(CACHE_KEY);
