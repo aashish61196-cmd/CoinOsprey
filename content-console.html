@@ -1341,7 +1341,10 @@ function buildArticlePayload(){
   return {
     title, type, author,
     slug: aliasRaw ? slugify(aliasRaw) : slugify(title),
-    section: document.getElementById('inSection').value,
+
+section: document.getElementById('inSection').value,
+
+language: document.getElementById('inLanguage').value,
     category: document.getElementById('inCategory').value.trim(),
     tag: document.getElementById('inTag').value.trim(),
     image: document.getElementById('inImgUrl').value.trim(),
