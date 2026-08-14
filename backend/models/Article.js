@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
   title: { type: String, required: true },
+
+  language: {
+    type: String,
+    enum: ['en', 'hi'],
+    default: 'en',
+    index: true
+  },
   slug: { type: String, required: true, unique: true },
   description: { type: String, default: '' },
   content: { type: String, default: '' },
