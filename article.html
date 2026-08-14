@@ -3159,9 +3159,15 @@ fetch(
   }
 
   function tickerHref(a){
-    var section = a.section || 'news';
-    return '/en/' + encodeURIComponent(section) + '/' + encodeURIComponent(a.slug || '');
-  }
+  var section = a.section || 'news';
+
+  return '/' +
+    (PAGE_LANGUAGE === 'hi' ? 'hi' : 'en') +
+    '/' +
+    encodeURIComponent(section) +
+    '/' +
+    encodeURIComponent(a.slug || '');
+}
 
   function buildLiveEntries(articles){
     return articles.slice(0, 6).map(function(a){
