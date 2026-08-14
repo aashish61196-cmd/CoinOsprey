@@ -2418,6 +2418,16 @@
 
   var API_BASE = '/api';
 
+var PATH_PARTS =
+  window.location.pathname
+    .split('/')
+    .filter(Boolean);
+
+var PAGE_LANGUAGE =
+  (PATH_PARTS[0] === 'hi')
+    ? 'hi'
+    : 'en';
+
   function getSlugFromUrl() {
   var params = new URLSearchParams(window.location.search);
 
