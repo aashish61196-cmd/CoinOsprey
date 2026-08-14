@@ -1089,7 +1089,14 @@ function renderNews(){
     (!cb || a.author===cb) &&
     (!au || a.author===au) &&
     (!ty || a.type===ty) &&
-    (!sec || a.section===sec)
+    (!sec || a.section===sec) &&
+(!document.getElementById('fLang').value ||
+  (a.language || 'en') ===
+  ({
+    English: 'en',
+    Hindi: 'hi'
+  }[document.getElementById('fLang').value] || '')
+)
   );
   if(ord==='az') rows=[...rows].sort((a,b)=>(a.title||'').localeCompare(b.title||''));
   else if(ord==='old') rows=[...rows].sort((a,b)=> new Date(a.publishedAt||0) - new Date(b.publishedAt||0));
