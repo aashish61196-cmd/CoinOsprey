@@ -2164,6 +2164,50 @@
 
 
 
+<style>
+.co-language-switcher{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-width:92px;
+  height:36px;
+  padding:0 9px;
+  border:1px solid rgba(240,169,30,.45);
+  border-radius:8px;
+  background:#0b1730;
+  flex-shrink:0;
+}
+
+.co-language-switcher__link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:28px;
+  padding:0 6px;
+  color:#c7cbd8;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:700;
+  border-radius:5px;
+}
+
+.co-language-switcher__link.is-active{
+  color:#0b1730;
+  background:#f0a91e;
+}
+
+.co-language-switcher__divider{
+  color:#667085;
+}
+
+@media(max-width:900px){
+  .co-language-switcher{
+    display:none;
+  }
+}
+</style>
+
 </head>
 <body>
 
