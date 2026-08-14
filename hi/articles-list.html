@@ -3200,9 +3200,20 @@ const ARTICLE_URL_PREFIX =
   }
 
   function href(a) {
-    const section = a.section || 'news';
-    return ARTICLE_URL_PREFIX + encodeURIComponent(section) + '/' + encodeURIComponent(a.slug || '');
+  const section = a.section || 'news';
+  const slug = String(a.slug || '').trim();
+
+  /* Slug नहीं है तो article URL मत बनाओ */
+  if (!slug) {
+    return '/hi/articles-list.html?section=' +
+      encodeURIComponent(section);
   }
+
+  return ARTICLE_URL_PREFIX +
+    encodeURIComponent(section) +
+    '/' +
+    encodeURIComponent(slug);
+}
 
   function img(a) {
     return a.image || PLACEHOLDER_IMG;
@@ -3539,9 +3550,20 @@ const ARTICLE_URL_PREFIX =
   }
 
   function href(a) {
-    const section = a.section || 'news';
-    return ARTICLE_URL_PREFIX + encodeURIComponent(section) + '/' + encodeURIComponent(a.slug || '');
+  const section = a.section || 'news';
+  const slug = String(a.slug || '').trim();
+
+  /* Slug नहीं है तो article URL मत बनाओ */
+  if (!slug) {
+    return '/hi/articles-list.html?section=' +
+      encodeURIComponent(section);
   }
+
+  return ARTICLE_URL_PREFIX +
+    encodeURIComponent(section) +
+    '/' +
+    encodeURIComponent(slug);
+}
 
   function cardTemplate(a) {
     const img = a.image || 'https://placehold.co/500x300/1a1f26/F3F5F7?text=CoinOsprey';
