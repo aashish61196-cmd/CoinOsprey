@@ -2875,7 +2875,29 @@ document.head.appendChild(linkDefault);
       imageEl.style.display = 'block';
     }
 
-    document.getElementById('articleBody').innerHTML = renderMarkdown(article.content || article.description || '');
+    function stripDuplicateLeadingTitle(html, title) {
+      if (!html || !title) return html;
+      try {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var heading = doc.body.querySelector('h1, h2, h3');
+        if (!heading) return html;
+
+        var normalize = function (s) {
+          return (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
+        };
+
+        if (normalize(heading.textContent) === normalize(title)) {
+          heading.remove();
+          return doc.body.innerHTML;
+        }
+      } catch (e) { /* fall through and use original html */ }
+      return html;
+    }
+
+    document.getElementById('articleBody').innerHTML = stripDuplicateLeadingTitle(
+      renderMarkdown(article.content || article.description || ''),
+      article.title
+    );
 
     // FIX: admin panel's FAQ textarea saves into article.faqs, but the
     // markdown parser above only picks up FAQs embedded as fenced JSON
