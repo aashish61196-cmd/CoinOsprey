@@ -116,7 +116,34 @@ exports.getBySlug = async (req, res) => {
 
     }
 
-    const article = await Article.findOne(filter);
+    // Primary lookup: article matching this slug AND the requested
+    // language edition (this is the normal, correct path for
+    // properly-tagged articles).
+    let article = await Article.findOne(filter);
+
+    // Fallback 1: `slug` is globally unique in the schema, so a given
+    // slug can only ever belong to ONE article regardless of language.
+    // If the strict language-scoped lookup above found nothing, the
+    // article may still genuinely exist but simply have the wrong (or
+    // missing) `language` field saved on it — e.g. it was authored for
+    // the /hi/ edition but the admin form's Language dropdown was left
+    // on its default "English" value. In that case we should still
+    // serve the article instead of incorrectly reporting "Not Found".
+    if (!article) {
+      article = await Article.findOne({
+        slug: req.params.slug,
+        status: 'published'
+      });
+    }
+
+    // Fallback 2: last-resort case-insensitive slug match, to guard
+    // against any casing mismatch between the URL and the stored slug.
+    if (!article) {
+      article = await Article.findOne({
+        slug: new RegExp('^' + req.params.slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$', 'i'),
+        status: 'published'
+      });
+    }
 
     if (!article) {
 
@@ -145,6 +172,7 @@ exports.getBySlug = async (req, res) => {
 
   }
 };
+
 
 
 /* =========================================================
