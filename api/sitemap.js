@@ -14,6 +14,10 @@ async function connectDB() {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
+    if (!process.env.MONGO_URI) {
+      throw new Error('MONGO_URI is not configured');
+    }
+
     cached.promise = mongoose.connect(process.env.MONGO_URI, {
       maxPoolSize: 5,
       serverSelectionTimeoutMS: 5000,
@@ -30,15 +34,12 @@ module.exports = async function handler(req, res) {
   try {
     await connectDB();
 
-    const articles = await Article.find(
-      { status: 'published' },
-      {
-        slug: 1,
-        section: 1,
-        language: 1,
-        updatedAt: 1
-      }
-    ).lean();
+    const articles = await Article.find({
+      status: 'published',
+      slug: { $exists: true, $ne: '' }
+    })
+      .select('slug section language updatedAt')
+      .lean();
 
     const urls = [
       'https://coinosprey.com/',
@@ -56,19 +57,16 @@ module.exports = async function handler(req, res) {
       'https://coinosprey.com/disclaimer.html',
       'https://coinosprey.com/editorial-policy.html',
       'https://coinosprey.com/terms-and-conditions.html'
-    ].map(url => ({
-      loc: url
-    }));
+    ].map(loc => ({ loc }));
 
     for (const article of articles) {
       const language = article.language === 'hi' ? 'hi' : 'en';
       const section = article.section || 'news';
 
+      const loc = `https://coinosprey.com/${language}/${section}/${encodeURIComponent(article.slug)}`;
+
       urls.push({
-        loc:
-          language === 'hi'
-            ? `https://coinosprey.com/hi/${section}/${article.slug}`
-            : `https://coinosprey.com/en/${section}/${article.slug}`,
+        loc,
         lastmod: article.updatedAt
           ? new Date(article.updatedAt).toISOString()
           : undefined
@@ -95,8 +93,9 @@ ${urls.map(url => `
   } catch (error) {
     console.error('Sitemap error:', error);
 
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     return res.status(500).send(
-      'Sitemap generation failed'
+      'Sitemap generation failed: ' + error.message
     );
   }
 };
