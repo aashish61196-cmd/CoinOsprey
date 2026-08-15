@@ -3528,7 +3528,7 @@ const PAGE_LANGUAGE =
     : 'en';
 
 const ARTICLE_URL_PREFIX =
-  '/' + PAGE_LANGUAGE + '/';/hi/{section}/{slug}
+  '/' + PAGE_LANGUAGE + '/'; // format: /hi/{section}/{slug}
   function getParam(name) {
     return new URLSearchParams(window.location.search).get(name) || '';
   }
