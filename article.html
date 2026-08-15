@@ -2865,7 +2865,7 @@ canonicalTag.setAttribute('href', canonicalUrl);
     if (ogImageTag && article.image) ogImageTag.setAttribute('content', article.image);
 
     var ogUrlTag = document.getElementById('ogUrl');
-    if (ogUrlTag) ogUrlTag.setAttribute('content', window.location.href);
+    if (ogUrlTag) ogUrlTag.setAttribute('content', canonicalUrl);
 
     var twTitleTag = document.getElementById('twitterTitle');
     if (twTitleTag) twTitleTag.setAttribute('content', article.ogTitle || seoTitle);
