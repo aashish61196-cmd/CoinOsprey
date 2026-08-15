@@ -1509,8 +1509,9 @@ async function saveArticle(publish){
 
 section: document.getElementById('inSection').value,
 
-language:
-  document.getElementById('inLanguage').value,
+language: (
+  document.getElementById('inLanguage').value || 'en'
+).toLowerCase() === 'hi' ? 'hi' : 'en',
     category: document.getElementById('inCategory').value.trim(),
     tag: document.getElementById('inTag').value.trim(),
     image: document.getElementById('inImgUrl').value.trim(),
