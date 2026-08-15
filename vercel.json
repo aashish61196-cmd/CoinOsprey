@@ -11,21 +11,7 @@
       ]
     }
   ],
-
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.coinosprey.com"
-        }
-      ],
-      "destination": "https://coinosprey.com/$1",
-      "permanent": true
-    }
-  ],
-  "rewrites":[
+  "rewrites": [
     {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
