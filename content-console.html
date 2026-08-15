@@ -837,10 +837,22 @@ async function apiFetch(path, options = {}) {
   }
 
   if (!res.ok) {
-    const msg = (data && data.message) ? data.message : ('Request failed (' + res.status + ')');
-    throw new Error(msg);
-  }
-  return data;
+  console.error('CoinOsprey API ERROR:', {
+    url: API_BASE + path,
+    status: res.status,
+    response: data
+  });
+
+  const msg = (data && data.message)
+    ? data.message
+    : ('Request failed (' + res.status + ')');
+
+  throw new Error(
+    msg + ' | API: ' + API_BASE + path + ' | HTTP: ' + res.status
+  );
+}
+
+return data;
 }
 
 /* ---------------- LOGIN / LOGOUT ---------------- */
