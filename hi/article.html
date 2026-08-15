@@ -3185,6 +3185,8 @@ fetch(
 (function(){
   "use strict";
 
+  var PAGE_LANGUAGE = (window.location.pathname.split('/').filter(Boolean)[0] === 'hi' || new URLSearchParams(window.location.search).get('language') === 'hi') ? 'hi' : 'en';
+
   /* ---------- Mobile hamburger menu (bound first so it never gets
      skipped if something below throws) ---------- */
   try {
