@@ -4,20 +4,41 @@
     {
       "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     }
   ],
   "rewrites": [
     {
-  "source": "/sitemap.xml",
-  "destination": "/api/sitemap"
-}
-    { "source": "/api/(.*)", "destination": "/api/index?path=$1" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/en/:section", "destination": "/articles-list?section=:section&language=en" },
-    { "source": "/hi/:section", "destination": "/hi/articles-list?section=:section&language=hi" },
-    { "source": "/en/:section/:slug", "destination": "/article?slug=:slug&section=:section&language=en" },
-    { "source": "/hi/:section/:slug", "destination": "/hi/article?slug=:slug&section=:section&language=hi" }
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index?path=$1"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/en/:section",
+      "destination": "/articles-list?section=:section&language=en"
+    },
+    {
+      "source": "/hi/:section",
+      "destination": "/hi/articles-list?section=:section&language=hi"
+    },
+    {
+      "source": "/en/:section/:slug",
+      "destination": "/article?slug=:slug&section=:section&language=en"
+    },
+    {
+      "source": "/hi/:section/:slug",
+      "destination": "/hi/article?slug=:slug&section=:section&language=hi"
+    }
   ]
 }
