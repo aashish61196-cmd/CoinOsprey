@@ -2231,12 +2231,12 @@
           <span id="topbarTimeText">3:12:17 PM</span>
         </span>
         <span class="co-topbar__breaking">
-          <span class="co-topbar__breaking-tag">BREAKING:</span>
-          <span class="co-topbar__breaking-text">Loading latest updates...</span>
+          <span class="co-topbar__breaking-tag">ब्रेकिंग:</span>
+          <span class="co-topbar__breaking-text">ताज़ा अपडेट लोड हो रहे हैं...</span>
         </span>
       </div>
       <div class="co-topbar__right">
-        <span class="co-topbar__follow">Follow Us</span>
+        <span class="co-topbar__follow">हमें फॉलो करें</span>
         <nav class="co-topbar__social" aria-label="Social media links">
           <a class="co-topbar__social-link" href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -2306,89 +2306,56 @@
           <span class="co-nav-logo__tagline">Sharp Eyes on Crypto Markets</span>
         </span>
       </a>
-      <nav class="co-nav__menu" aria-label="मुख्य नेविगेशन">
+      <nav class="co-nav__menu" aria-label="Primary navigation">
 
-  <div class="co-nav__item">
-    <a class="co-nav__link"
-       href="/hi/articles-list.html?section=news">
-       न्यूज़
-    </a>
-  </div>
-
-  <div class="co-nav__item">
-    <a class="co-nav__link"
-       href="/hi/articles-list.html?section=price-prediction">
-       प्राइस प्रेडिक्शन
-    </a>
-  </div>
-
-  <div class="co-nav__item">
-    <a class="co-nav__link"
-       href="/hi/articles-list.html?section=blog">
-       ब्लॉग
-    </a>
-  </div>
-
-  <div class="co-nav__item">
-    <a class="co-nav__link"
-       href="/hi/articles-list.html?section=academy">
-       अकादमी
-    </a>
-  </div>
-
-  <div class="co-nav__item">
-    <a class="co-nav__link"
-       href="/hi/articles-list.html?section=research">
-       रिसर्च
-    </a>
-  </div>
-
-  <div class="co-nav__item">
-    <a class="co-nav__link"
-       href="/tools.html">
-       टूल्स
-    </a>
-  </div>
-
-</nav>
-              
-              
-              
-              
-              
+              <div class="co-nav__item">
+               <a class="co-nav__link" href="/hi/articles-list.html?section=news">न्यूज़</a>
+        </div>
+        <div class="co-nav__item">
+              <a class="co-nav__link" href="/hi/articles-list.html?section=price-prediction">प्राइस प्रेडिक्शन</a>
+        </div>
+        <div class="co-nav__item">
+               <a class="co-nav__link" href="/hi/articles-list.html?section=blog">ब्लॉग्स</a>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="/hi/articles-list.html?section=academy">अकादमी</a>
+        </div>
+        <div class="co-nav__item">
+                  <a class="co-nav__link" href="/hi/articles-list.html?section=research">रिसर्च</a>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="/tools.html">टूल्स</a>
+        </div>
+      </nav>
 
       <form class="co-nav__searchbar" role="search" action="#" onsubmit="return false;" autocomplete="off">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
-        <input type="text" id="headerSearchInput" class="co-nav__searchbar-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="headerSearchDropdown" aria-autocomplete="list">
+        <input type="text" id="headerSearchInput" class="co-nav__searchbar-input" placeholder="न्यूज़, कॉइन और गाइड खोजें..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="headerSearchDropdown" aria-autocomplete="list">
         <button type="submit" class="co-nav__searchbar-submit" id="headerSearchSubmit" aria-label="Search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
         </button>
         <div class="co-search-dropdown" id="headerSearchDropdown"></div>
       </form>
 
-<div class="co-language-switcher"
-     role="group"
-     aria-label="Language selector">
-
-  <a
-    class="co-language-switcher__link"
-    href="#"
-    data-language="en">
+        <div class="co-language-switcher" role="group" aria-label="Language selector">
+  <a class="co-language-switcher__link"
+     href="#"
+     lang="en"
+     data-language="en">
     EN
   </a>
 
-  <span class="co-language-switcher__divider">|</span>
+  <span class="co-language-switcher__divider" aria-hidden="true">|</span>
 
-  <a
-    class="co-language-switcher__link"
-    href="#"
-    data-language="hi">
+  <a class="co-language-switcher__link is-active"
+     href="#"
+     lang="hi"
+     data-language="hi">
     हिंदी
   </a>
-
 </div>
 
-<div class="co-nav__actions">
+      <div class="co-nav__actions">
         <button class="co-nav__hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobilePanel">
           <span class="co-nav__hamburger-bar"></span>
           <span class="co-nav__hamburger-bar"></span>
@@ -2401,106 +2368,79 @@
     <div class="co-nav__mobile-panel" id="mobilePanel">
       <form class="co-nav__mobile-search" role="search" action="#" onsubmit="return false;" autocomplete="off">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
-        <input type="text" id="mobileSearchInput" class="co-nav__mobile-search-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="mobileSearchDropdown" aria-autocomplete="list">
+        <input type="text" id="mobileSearchInput" class="co-nav__mobile-search-input" placeholder="न्यूज़, कॉइन और गाइड खोजें..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="mobileSearchDropdown" aria-autocomplete="list">
         <button type="submit" class="co-nav__searchbar-submit" id="mobileSearchSubmit" aria-label="Search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
         </button>
         <div class="co-search-dropdown" id="mobileSearchDropdown"></div>
       </form>
-      
-        
-        <ul class="co-nav__mobile-list">
+<ul class="co-nav__mobile-list">
+        <li class="co-nav__mobile-item">
+             <a class="co-nav__mobile-link" href="/hi/articles-list.html?section=news">न्यूज़</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="/hi/articles-list.html?section=price-prediction">प्राइस प्रेडिक्शन</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="/hi/articles-list.html?section=blog">ब्लॉग्स</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="/hi/articles-list.html?section=academy">अकादमी</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="/hi/articles-list.html?section=research">रिसर्च</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="/tools.html">टूल्स</a>
+        </li>
+      </ul>
+      <div class="co-nav__mobile-language">
+        <span class="co-nav__mobile-language-label">Language</span>
+        <div class="co-language-switcher co-language-switcher--mobile"
+     role="group"
+     aria-label="Language selector">
 
-  <li class="co-nav__mobile-item">
-    <a class="co-nav__mobile-link"
-       href="/hi/articles-list.html?section=news">
-       न्यूज़
-    </a>
-  </li>
+  <a class="co-language-switcher__link"
+     href="#"
+     lang="en"
+     data-language="en">
+    EN
+  </a>
 
-  <li class="co-nav__mobile-item">
-    <a class="co-nav__mobile-link"
-       href="/hi/articles-list.html?section=price-prediction">
-       प्राइस प्रेडिक्शन
-    </a>
-  </li>
+  <span class="co-language-switcher__divider" aria-hidden="true">|</span>
 
-  <li class="co-nav__mobile-item">
-    <a class="co-nav__mobile-link"
-       href="/hi/articles-list.html?section=blog">
-       ब्लॉग
-    </a>
-  </li>
+  <a class="co-language-switcher__link is-active"
+     href="#"
+     lang="hi"
+     data-language="hi">
+    हिंदी
+  </a>
 
-  <li class="co-nav__mobile-item">
-    <a class="co-nav__mobile-link"
-       href="/hi/articles-list.html?section=academy">
-       अकादमी
-    </a>
-  </li>
-
-  <li class="co-nav__mobile-item">
-    <a class="co-nav__mobile-link"
-       href="/hi/articles-list.html?section=research">
-       रिसर्च
-    </a>
-  </li>
-
-  <li class="co-nav__mobile-item">
-    <a class="co-nav__mobile-link"
-       href="/tools.html">
-       टूल्स
-    </a>
-  </li>
-
-</ul>
-        
+</div>
+      </div>
       <div class="co-nav__mobile-actions">
-        <a class="co-btn-subscribe" href="#">Subscribe</a>
+        <a class="co-btn-subscribe" href="#">सब्सक्राइब</a>
       </div>
     </div>
 </div>
 
-<script>
-(function () {
-  'use strict';
-
-  var isHindi =
-    window.location.pathname.split('/').filter(Boolean)[0] === 'hi';
-
-  if (!isHindi) return;
-
-  document.querySelectorAll(
-    'a[href*="articles-list.html"]'
-  ).forEach(function (link) {
-
-    var href = link.getAttribute('href');
-
-    if (!href) return;
-
-    if (href.charAt(0) === '/') {
-      href = href.substring(1);
-    }
-
-    if (href.indexOf('articles-list.html') === 0) {
-      link.setAttribute(
-        'href',
-        '/hi/' + href
-      );
-    }
-
-  });
-
-  document.querySelectorAll(
-    'a[href="/"]'
-  ).forEach(function (link) {
-    link.setAttribute('href', '/hi/');
-  });
-
-})();
-</script>
-
 </header>
+         
+
+      
+              
+              
+              
+              
+
+      
+      
+        
+       
+        
+      
+
+
 
 <nav class="co-chips" aria-label="Category filters">
   <div class="co-chips__inner" id="categoryChips">
