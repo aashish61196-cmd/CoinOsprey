@@ -9,6 +9,10 @@
     }
   ],
   "rewrites": [
+    {
+  "source": "/sitemap.xml",
+  "destination": "/api/sitemap"
+}
     { "source": "/api/(.*)", "destination": "/api/index?path=$1" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/en/:section", "destination": "/articles-list?section=:section&language=en" },
