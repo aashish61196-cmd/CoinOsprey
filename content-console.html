@@ -1295,10 +1295,15 @@ function consumeFaqBulk(){
   if(added){ renderFaqBuilder(); showToast(added + ' FAQ(s) added from bulk text ✓'); }
 }
 function slugify(str){
-  return (str||'').toLowerCase().trim()
-    .replace(/[^a-z0-9\s-]/g,'')
+  let s = (str||'').toLowerCase().trim()
+    .replace(/[^\p{L}\p{N}\s-]/gu,'')
     .replace(/\s+/g,'-')
-    .replace(/-+/g,'-');
+    .replace(/-+/g,'-')
+    .replace(/^-+|-+$/g,'');
+  if(!s){
+    s = 'article-' + Date.now();
+  }
+  return s;
 }
 /* ---------------- AUTOSAVE (saves as a real Draft on the server) ---------------- */
 let autosaveTimer = null;
