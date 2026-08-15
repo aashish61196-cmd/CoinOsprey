@@ -2849,14 +2849,19 @@ document.head.appendChild(linkDefault);
     if (kwTag) kwTag.setAttribute('content', article.metaKeywords || '');
 
     var canonicalTag = document.getElementById('pageCanonical');
-    if (canonicalTag) const canonicalUrl =
+
+var canonicalUrl =
   article.canonicalUrl ||
   ('https://coinosprey.com' + window.location.pathname);
 
-canonicalTag.setAttribute('href', canonicalUrl);
+if (canonicalTag) {
+  canonicalTag.setAttribute('href', canonicalUrl);
+}
 
-    var ogTitleTag = document.getElementById('ogTitle');
-    if (ogTitleTag) ogTitleTag.setAttribute('content', article.ogTitle || seoTitle);
+var ogUrlTag = document.getElementById('ogUrl');
+if (ogUrlTag) {
+  ogUrlTag.setAttribute('content', canonicalUrl);
+}
 
     var ogDescTag = document.getElementById('ogDescription');
     if (ogDescTag) ogDescTag.setAttribute('content', article.ogDescription || finalDesc);
