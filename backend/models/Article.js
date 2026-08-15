@@ -38,4 +38,9 @@ const articleSchema = new mongoose.Schema({
   publishedAt: { type: Date }
 }, { timestamps: true });
 
+articleSchema.index(
+  { title: 'text', content: 'text' },
+  { language_override: 'textIndexLanguage', default_language: 'none' }
+);
+
 module.exports = mongoose.model('Article', articleSchema);
