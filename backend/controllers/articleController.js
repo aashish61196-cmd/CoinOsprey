@@ -240,12 +240,18 @@ exports.update = async (req, res) => {
 
     }
 
-    Object.assign(article, req.body);
+Object.assign(article, req.body);
 
-    if (
-      req.body.publish &&
-      article.status !== 'published'
-    ) {
+if (req.body.language === 'hi') {
+  article.language = 'hi';
+} else if (req.body.language === 'en') {
+  article.language = 'en';
+}
+
+if (
+  req.body.publish &&
+  article.status !== 'published'
+) {
 
       article.status = 'published';
       article.publishedAt = new Date();
