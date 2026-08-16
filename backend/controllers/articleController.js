@@ -144,6 +144,23 @@ exports.getBySlug = async (req, res) => {
         status: 'published'
       });
     }
+     // Fallback 3: handle duplicate-slug suffix generated during article creation.
+// Example:
+// requested: stable-token-unlock-888-million-august-8
+// stored:    stable-token-unlock-888-million-august-8-12345
+if (!article) {
+  const baseSlug = String(req.params.slug || '').trim();
+
+  const escapedBaseSlug = baseSlug.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    '\\$&'
+  );
+
+  article = await Article.findOne({
+    slug: new RegExp('^' + escapedBaseSlug + '-[0-9]{5}$', 'i'),
+    status: 'published'
+  });
+}
 
     if (!article) {
 
