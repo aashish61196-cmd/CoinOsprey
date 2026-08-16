@@ -3069,7 +3069,8 @@ fetch(
     /*
      * STEP 2: Fallback to complete article list
      */
-    .catch(function (directError) {
+
+               .catch(function (directError) {
 
       console.warn(
         'Direct article API failed for slug:',
@@ -3077,20 +3078,24 @@ fetch(
         directError.message
       );
 
-      fetch(
-  API_BASE +
-  '/articles?language=' +
-  PAGE_LANGUAGE,
-  {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json'
-        },
-        cache: 'no-store'
-      })
+      return fetch(
+        API_BASE +
+        '/articles?language=' +
+        PAGE_LANGUAGE,
+        {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          },
+          cache: 'no-store'
+        }
+      )
         .then(function (res) {
+
           if (!res.ok) {
-            throw new Error('Article list API failed: ' + res.status);
+            throw new Error(
+              'Article list API failed: ' + res.status
+            );
           }
 
           return res.json();
@@ -3100,6 +3105,7 @@ fetch(
           var article = findArticleInList(data);
 
           if (!article) {
+
             console.error(
               'Article slug not found in /api/articles:',
               slug
@@ -3112,7 +3118,7 @@ fetch(
 
           renderArticle(article);
         });
-    })
+    }) 
 
     /*
      * FINAL ERROR
