@@ -3117,7 +3117,7 @@ fetch(
     /*
      * FINAL ERROR
      */
-    .catch(function (error) {
+
 .catch(function (error) {
 
   console.error(
@@ -3125,53 +3125,7 @@ fetch(
     error
   );
 
-  // One final direct retry with a fresh request
-  fetch(
-    API_BASE +
-    '/articles/' +
-    encodeURIComponent(slug) +
-    '?language=' +
-    PAGE_LANGUAGE +
-    '&_=' +
-    Date.now(),
-    {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Cache-Control': 'no-cache'
-      },
-      cache: 'no-store'
-    }
-  )
-    .then(function (res) {
-      if (!res.ok) {
-        throw new Error('Final article API failed: ' + res.status);
-      }
-
-      return res.json();
-    })
-    .then(function (data) {
-
-      var article = normalizeArticle(data);
-
-      if (!article) {
-        throw new Error('Final API returned no article');
-      }
-
-      renderArticle(article);
-
-    })
-    .catch(function (finalError) {
-
-      console.error(
-        'Final CoinOsprey article retry failed:',
-        finalError
-      );
-
-      showError();
-
-    });
-
+  showError();
 });
 
 </script>
