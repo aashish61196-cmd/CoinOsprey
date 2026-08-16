@@ -2698,8 +2698,28 @@ var PAGE_LANGUAGE =
     return '<div class="article-faq" id="articleFaqBlock"><h2>Frequently Asked Questions</h2>' + rows + '</div>';
   }
 
+  function stripEmbeddedDocument(raw) {
+    if (!raw) return raw;
+    var cleaned = String(raw);
+    // Remove any embedded <style>...</style> blocks — these leak global
+    // CSS/theme variables into the page and break its own layout.
+    cleaned = cleaned.replace(/<style[\s\S]*?<\/style>/gi, '');
+    // Remove stray <meta> and <title> tags that shouldn't be inside a
+    // rendered article body.
+    cleaned = cleaned.replace(/<meta[^>]*>/gi, '');
+    cleaned = cleaned.replace(/<title[\s\S]*?<\/title>/gi, '');
+    // Remove any accidental full-document wrapper tags.
+    cleaned = cleaned.replace(/<!DOCTYPE[^>]*>/gi, '');
+    cleaned = cleaned.replace(/<\/?html[^>]*>/gi, '');
+    cleaned = cleaned.replace(/<\/?head[^>]*>/gi, '');
+    cleaned = cleaned.replace(/<\/?body[^>]*>/gi, '');
+    return cleaned.trim();
+  }
+
   function renderMarkdown(md) {
     if (!md) return '';
+
+    md = stripEmbeddedDocument(md);
 
     if (/<\/?(div|p|br|table|h[1-6]|strong|em|b|i)[\s>]/i.test(md)) {
       // HTML content: still try to pull out a fenced ```json FAQ block if present
