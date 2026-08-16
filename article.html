@@ -3195,133 +3195,201 @@ var PAGE_LANGUAGE =
     'sitemap': '/sitemap.html'
   };
 
-  function loadArticle() {
-  var slug = getSlugFromUrl();
+    function loadArticle() {
+    var slug = getSlugFromUrl();
 
-  if (!slug) {
-    showError();
-    return;
-  }
-
-  slug = decodeURIComponent(String(slug)).trim();
-
-  if (RESERVED_SLUGS[slug.toLowerCase()]) {
-    window.location.replace(RESERVED_SLUGS[slug.toLowerCase()]);
-    return;
-  }
-
-  /*
-   * ARTICLE LOADER
-   * 1. Try direct API: /api/articles/{slug}
-   * 2. If that fails, fallback to /api/articles
-   * 3. Find article by slug
-   * 4. Supports both:
-   *    - direct article object
-   *    - { article: {...} }
-   *    - article array
-   *    - { articles: [...] }
-   */
-
-  function normalizeArticle(data) {
-    if (!data) return null;
-
-    if (data.article && typeof data.article === 'object') {
-      return data.article;
+    if (!slug) {
+      showError();
+      return;
     }
 
-    if (data.data && data.data.article && typeof data.data.article === 'object') {
-      return data.data.article;
+    try {
+      slug = decodeURIComponent(String(slug)).trim();
+    } catch (e) {
+      slug = String(slug).trim();
     }
 
-    if (data.data && typeof data.data === 'object' && !Array.isArray(data.data)) {
-      if (data.data.title || data.data.slug) {
-        return data.data;
-      }
+    if (!slug) {
+      showError();
+      return;
     }
 
-    if (data.title || data.slug) {
-      return data;
+    if (RESERVED_SLUGS[slug.toLowerCase()]) {
+      window.location.replace(
+        RESERVED_SLUGS[slug.toLowerCase()]
+      );
+      return;
     }
 
-    return null;
-  }
+    var directUrl =
+      API_BASE +
+      '/articles/' +
+      encodeURIComponent(slug) +
+      '?language=' +
+      PAGE_LANGUAGE;
 
-  function findArticleInList(data) {
-    var articles = [];
+    console.log(
+      'CoinOsprey: Loading article:',
+      slug
+    );
 
-    if (Array.isArray(data)) {
-      articles = data;
-    } else if (data && Array.isArray(data.articles)) {
-      articles = data.articles;
-    } else if (data && data.data && Array.isArray(data.data)) {
-      articles = data.data;
-    } else if (data && data.data && Array.isArray(data.data.articles)) {
-      articles = data.data.articles;
-    }
-
-    var target = slug.toLowerCase();
-
-    return articles.find(function (article) {
-      if (!article) return false;
-
-      var articleSlug = String(article.slug || '').trim().toLowerCase();
-
-      return articleSlug === target;
-    }) || null;
-  }
-
-  function renderArticle(article) {
-    if (!article || !article.title) {
-      throw new Error('Article data is empty');
-    }
-
-    populateArticle(article);
-  }
-
-  /*
-   * STEP 1: Direct slug API
-   */
-fetch(
-  API_BASE +
-  '/articles/' +
-  encodeURIComponent(slug) +
-  '?language=' +
-  PAGE_LANGUAGE,
-  {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
-    },
-    cache: 'no-store'
-  })
+    /*
+     * DIRECT API
+     */
+    fetch(directUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      },
+      cache: 'no-store'
+    })
     .then(function (res) {
+
       if (!res.ok) {
-        throw new Error('Direct article API failed: ' + res.status);
+        throw new Error(
+          'Direct API HTTP ' + res.status
+        );
       }
 
       return res.json();
     })
     .then(function (data) {
-      var article = normalizeArticle(data);
+
+      var article =
+        normalizeArticle(data);
 
       if (!article) {
-        throw new Error('Direct API returned invalid article');
+        throw new Error(
+          'Direct API returned no article'
+        );
       }
 
-      renderArticle(article);
+      /*
+       * IMPORTANT:
+       * Article exists.
+       * Rendering errors must NOT become
+       * Article Not Found.
+       */
+      try {
+
+        renderArticle(article);
+
+        console.log(
+          'CoinOsprey: Article rendered:',
+          article.slug || slug
+        );
+
+      } catch (renderError) {
+
+        console.error(
+          'CoinOsprey: Article render error:',
+          renderError
+        );
+
+        /*
+         * Emergency fallback renderer.
+         * The article is known to exist, so
+         * never call showError() here.
+         */
+
+        var titleEl =
+          document.getElementById('articleTitle');
+
+        var bodyEl =
+          document.getElementById('articleBody');
+
+        var articleContent =
+          document.getElementById('articleContent');
+
+        var articleError =
+          document.getElementById('articleError');
+
+        var skeleton =
+          document.getElementById('articleSkeleton');
+
+        if (titleEl) {
+          titleEl.textContent =
+            String(
+              article.title ||
+              article.seoTitle ||
+              'CoinOsprey'
+            );
+        }
+
+        if (bodyEl) {
+
+          var content =
+            article.content != null
+              ? String(article.content)
+              : String(
+                  article.description || ''
+                );
+
+          try {
+
+            bodyEl.innerHTML =
+              renderMarkdown(content);
+
+          } catch (bodyError) {
+
+            console.warn(
+              'CoinOsprey: Markdown fallback:',
+              bodyError
+            );
+
+            bodyEl.textContent =
+              content;
+          }
+        }
+
+        if (skeleton) {
+          skeleton.style.display = 'none';
+        }
+
+        if (articleError) {
+          articleError.style.display = 'none';
+        }
+
+        if (articleContent) {
+          articleContent.style.display =
+            'block';
+        }
+
+        document.title =
+          String(
+            article.title ||
+            article.seoTitle ||
+            'CoinOsprey'
+          ) +
+          ' — CoinOsprey';
+
+        setRobotsMeta(
+          'index, follow'
+        );
+      }
+
+      /*
+       * IMPORTANT:
+       * Stop here.
+       * Do NOT run fallback API after a valid
+       * article has already been received.
+       */
+      return {
+        success: true,
+        article: article
+      };
     })
-
-    /*
-     * STEP 2: Fallback to complete article list
-     */
-
-               .catch(function (directError) {
+    .catch(function (directError) {
 
       console.warn(
-        'Direct article API failed for slug:',
-        slug,
-        directError.message
+        'CoinOsprey: Direct API failed:',
+        directError
       );
+
+      /*
+       * FALLBACK API
+       * Only used when direct API genuinely fails.
+       */
 
       return fetch(
         API_BASE +
@@ -3335,52 +3403,160 @@ fetch(
           cache: 'no-store'
         }
       )
-        .then(function (res) {
+      .then(function (res) {
 
-          if (!res.ok) {
-            throw new Error(
-              'Article list API failed: ' + res.status
-            );
-          }
+        if (!res.ok) {
+          throw new Error(
+            'Article list API HTTP ' +
+            res.status
+          );
+        }
 
-          return res.json();
-        })
-        .then(function (data) {
+        return res.json();
+      })
+      .then(function (data) {
 
-          var article = findArticleInList(data);
+        var article =
+          findArticleInList(data);
 
-          if (!article) {
+        if (!article) {
 
-            console.error(
-              'Article slug not found in /api/articles:',
-              slug
-            );
+          throw new Error(
+            'No article found for slug: ' +
+            slug
+          );
+        }
 
-            throw new Error(
-              'No article found for slug: ' + slug
-            );
-          }
+        /*
+         * Article exists in fallback list.
+         */
+
+        try {
 
           renderArticle(article);
-        });
-    }) 
 
-    /*
-     * FINAL ERROR
-     */
+        } catch (renderError) {
 
-.catch(function (error) {
+          console.error(
+            'CoinOsprey: Fallback render error:',
+            renderError
+          );
 
-  console.error(
-    'CoinOsprey article loading failed:',
-    error
-  );
+          var titleEl =
+            document.getElementById(
+              'articleTitle'
+            );
 
-  showError();
-});
-}
-loadArticle();
+          var bodyEl =
+            document.getElementById(
+              'articleBody'
+            );
+
+          var articleContent =
+            document.getElementById(
+              'articleContent'
+            );
+
+          var articleError =
+            document.getElementById(
+              'articleError'
+            );
+
+          var skeleton =
+            document.getElementById(
+              'articleSkeleton'
+            );
+
+          if (titleEl) {
+            titleEl.textContent =
+              String(
+                article.title ||
+                article.seoTitle ||
+                'CoinOsprey'
+              );
+          }
+
+          if (bodyEl) {
+
+            var content =
+              article.content != null
+                ? String(article.content)
+                : String(
+                    article.description || ''
+                  );
+
+            try {
+
+              bodyEl.innerHTML =
+                renderMarkdown(content);
+
+            } catch (e) {
+
+              bodyEl.textContent =
+                content;
+            }
+          }
+
+          if (skeleton) {
+            skeleton.style.display = 'none';
+          }
+
+          if (articleError) {
+            articleError.style.display = 'none';
+          }
+
+          if (articleContent) {
+            articleContent.style.display =
+              'block';
+          }
+
+          document.title =
+            String(
+              article.title ||
+              article.seoTitle ||
+              'CoinOsprey'
+            ) +
+            ' — CoinOsprey';
+
+          setRobotsMeta(
+            'index, follow'
+          );
+        }
+
+        console.log(
+          'CoinOsprey: Fallback article rendered:',
+          article.slug || slug
+        );
+
+        return {
+          success: true,
+          article: article
+        };
+      });
+    })
+    .catch(function (error) {
+
+      /*
+       * Article Not Found is shown ONLY when
+       * BOTH API methods failed to find the article.
+       */
+
+      console.error(
+        'CoinOsprey: Article genuinely unavailable:',
+        error
+      );
+
+      showError();
+    });
+  }
+
+  loadArticle();
 })();
+
+  
+
+
+    
 </script>
 <!-- PART 2 END — footer, back-to-top and site-chrome scripts follow -->
 
