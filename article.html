@@ -3630,15 +3630,74 @@ var PAGE_LANGUAGE =
      * नहीं आएगी क्योंकि उसे ऊपर catch किया गया है.
      */
 
-    .catch(function (error) {
+.catch(function (error) {
+  console.error(
+    'CoinOsprey article loading failed:',
+    error
+  );
 
-      console.error(
-        'CoinOsprey: Article genuinely unavailable:',
-        error
-      );
+  /*
+   * IMPORTANT:
+   * API से article मिल चुका हो और articleContent
+   * render हो चुका हो तो Article Not Found मत दिखाओ.
+   */
 
-      showError();
-    });
+  var articleContent =
+    document.getElementById('articleContent');
+
+  var articleTitle =
+    document.getElementById('articleTitle');
+
+  var articleBody =
+    document.getElementById('articleBody');
+
+  var articleError =
+    document.getElementById('articleError');
+
+  var articleSkeleton =
+    document.getElementById('articleSkeleton');
+
+  /*
+   * अगर articleContent में actual article मौजूद है,
+   * तो error screen को hide करके article दिखाओ.
+   */
+
+  if (
+    articleContent &&
+    (
+      (articleTitle &&
+       articleTitle.textContent.trim() !== '') ||
+      (articleBody &&
+       articleBody.textContent.trim() !== '')
+    )
+  ) {
+
+    console.warn(
+      'CoinOsprey: Article data rendered. Suppressing false Article Not Found.'
+    );
+
+    if (articleSkeleton) {
+      articleSkeleton.style.display = 'none';
+    }
+
+    if (articleError) {
+      articleError.style.display = 'none';
+    }
+
+    articleContent.style.display = 'block';
+
+    setRobotsMeta('index, follow');
+
+    return;
+  }
+
+  /*
+   * केवल तब Article Not Found दिखाओ जब
+   * article वास्तव में render नहीं हुआ.
+   */
+
+  showError();
+});
   }
 
   loadArticle();
