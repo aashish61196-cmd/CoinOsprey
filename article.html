@@ -2785,130 +2785,379 @@ var PAGE_LANGUAGE =
   }
 
   function populateArticle(article) {
-    var seoTitle = article.seoTitle || article.title || 'CoinOsprey';
-    document.title = seoTitle + ' — CoinOsprey';
-
-    var pathParts = window.location.pathname.split('/').filter(Boolean);
-
-var lang = PAGE_LANGUAGE;
-
-var section =
-  (pathParts[0] === 'hi' || pathParts[0] === 'en')
-    ? (pathParts[1] || 'news')
-    : (pathParts[0] || 'news');
-
-var basePath =
-  '/' +
-  encodeURIComponent(section) +
-  '/' +
-  encodeURIComponent(article.slug || '');
-
-var linkEn = document.createElement('link');
-
-linkEn.rel = 'alternate';
-linkEn.hreflang = 'en';
-
-linkEn.href =
-  'https://coinosprey.com/en' +
-  basePath;
-
-document.head.appendChild(linkEn);
-
-
-var linkHi = document.createElement('link');
-
-linkHi.rel = 'alternate';
-linkHi.hreflang = 'hi';
-
-linkHi.href =
-  'https://coinosprey.com/hi' +
-  basePath;
-
-document.head.appendChild(linkHi);
-
-
-var linkDefault = document.createElement('link');
-
-linkDefault.rel = 'alternate';
-linkDefault.hreflang = 'x-default';
-
-linkDefault.href =
-  'https://coinosprey.com/en' +
-  basePath;
-
-document.head.appendChild(linkDefault);
-
-    var titleTag = document.getElementById('pageTitle');
-    if (titleTag) titleTag.textContent = seoTitle + ' — CoinOsprey';
-
-    var finalDesc = article.metaDescription || article.description || '';
-    var descTag = document.getElementById('pageDescription');
-    if (descTag) descTag.setAttribute('content', finalDesc);
-
-    var kwTag = document.getElementById('pageKeywords');
-    if (kwTag) kwTag.setAttribute('content', article.metaKeywords || '');
-
-    var canonicalTag = document.getElementById('pageCanonical');
-
-var canonicalUrl =
-  article.canonicalUrl ||
-  ('https://coinosprey.com' + window.location.pathname);
-
-if (canonicalTag) {
-  canonicalTag.setAttribute('href', canonicalUrl);
-}
-
-var ogUrlTag = document.getElementById('ogUrl');
-if (ogUrlTag) {
-  ogUrlTag.setAttribute('content', canonicalUrl);
-}
-
-var ogDescTag = document.getElementById('ogDescription');
-    if (ogDescTag) ogDescTag.setAttribute('content', article.ogDescription || finalDesc);
-
-    var ogImageTag = document.getElementById('ogImage');
-    if (ogImageTag && article.image) ogImageTag.setAttribute('content', article.image);
-
-    var ogUrlTag = document.getElementById('ogUrl');
-    if (ogUrlTag) ogUrlTag.setAttribute('content', canonicalUrl);
-
-    var twTitleTag = document.getElementById('twitterTitle');
-    if (twTitleTag) twTitleTag.setAttribute('content', article.ogTitle || seoTitle);
-
-    var twDescTag = document.getElementById('twitterDescription');
-    if (twDescTag) twDescTag.setAttribute('content', article.ogDescription || finalDesc);
-
-    var twImageTag = document.getElementById('twitterImage');
-    if (twImageTag && article.image) twImageTag.setAttribute('content', article.image);
-
-    setRobotsMeta('index, follow');
-    document.getElementById('articleCategory').textContent = article.category || article.type || 'Crypto';
-    document.getElementById('articleTitle').textContent = article.title || '';
-    document.getElementById('articleAuthor').textContent = article.author || 'CoinOsprey Team';
-    document.getElementById('articleDate').textContent = formatDate(article.publishedAt || article.createdAt);
-    document.getElementById('articleViews').textContent = (article.views || 0).toLocaleString() + ' views';
-
-    var imageEl = document.getElementById('articleImage');
-    if (article.image) {
-      imageEl.src = article.image;
-      imageEl.alt = article.imageAlt || article.title || '';
-      imageEl.style.display = 'block';
-    }
-
-    document.getElementById('articleBody').innerHTML = renderMarkdown(article.content || article.description || '');
-
-    // FIX: admin panel's FAQ textarea saves into article.faqs, but the
-    // markdown parser above only picks up FAQs embedded as fenced JSON
-    // inside content. Render article.faqs separately here as a fallback,
-    // skipping it if a FAQ block was already produced from content.
-var faqsData = article.faqs || article.faq || article.FAQs || article.faqList || null;
-    if (faqsData && (typeof faqsData === 'string' ? faqsData.trim().length : faqsData.length) && !document.getElementById('articleFaqBlock')) {
-      document.getElementById('articleBody').insertAdjacentHTML('beforeend', renderFaqsField(faqsData));
-    }
-
-    document.getElementById('articleSkeleton').style.display = 'none';
-    document.getElementById('articleContent').style.display = 'block';
+  if (!article || typeof article !== 'object') {
+    throw new Error('Invalid article data');
   }
+
+  /*
+   * IMPORTANT:
+   * Article content must be rendered even if an optional
+   * SEO/meta field is missing or malformed.
+   */
+
+  var title =
+    String(article.title || article.seoTitle || 'CoinOsprey').trim();
+
+  var content =
+    article.content != null
+      ? String(article.content)
+      : (article.description != null ? String(article.description) : '');
+
+  var slug =
+    String(article.slug || '').trim();
+
+  /* -----------------------------------------
+     1. Show the actual article FIRST
+     ----------------------------------------- */
+
+  var titleEl = document.getElementById('articleTitle');
+  if (titleEl) {
+    titleEl.textContent = title;
+  }
+
+  var categoryEl = document.getElementById('articleCategory');
+  if (categoryEl) {
+    categoryEl.textContent =
+      String(article.category || article.type || 'Crypto');
+  }
+
+  var authorEl = document.getElementById('articleAuthor');
+  if (authorEl) {
+    authorEl.textContent =
+      String(article.author || 'CoinOsprey Team');
+  }
+
+  var dateEl = document.getElementById('articleDate');
+  if (dateEl) {
+    dateEl.textContent =
+      formatDate(article.publishedAt || article.createdAt);
+  }
+
+  var viewsEl = document.getElementById('articleViews');
+  if (viewsEl) {
+    var viewsNumber = Number(article.views);
+    if (!Number.isFinite(viewsNumber)) {
+      viewsNumber = 0;
+    }
+
+    viewsEl.textContent =
+      viewsNumber.toLocaleString() + ' views';
+  }
+
+  /* -----------------------------------------
+     2. Render image safely
+     ----------------------------------------- */
+
+  var imageEl = document.getElementById('articleImage');
+
+  if (imageEl && article.image) {
+    imageEl.src = String(article.image);
+    imageEl.alt =
+      String(article.imageAlt || title);
+    imageEl.style.display = 'block';
+  }
+
+  /* -----------------------------------------
+     3. Render article body safely
+     ----------------------------------------- */
+
+  var bodyEl = document.getElementById('articleBody');
+
+  if (bodyEl) {
+    try {
+      bodyEl.innerHTML = renderMarkdown(content);
+    } catch (bodyError) {
+      console.error(
+        'Article body renderer failed:',
+        bodyError
+      );
+
+      /* Never show Article Not Found because
+         the markdown renderer failed. */
+      bodyEl.textContent = content;
+    }
+  }
+
+  /* -----------------------------------------
+     4. FAQ is optional
+     ----------------------------------------- */
+
+  try {
+    var faqsData =
+      article.faqs ||
+      article.faq ||
+      article.FAQs ||
+      article.faqList ||
+      null;
+
+    if (
+      faqsData &&
+      bodyEl &&
+      (
+        typeof faqsData === 'string'
+          ? faqsData.trim().length
+          : Array.isArray(faqsData) && faqsData.length
+      ) &&
+      !document.getElementById('articleFaqBlock')
+    ) {
+      var faqHtml = renderFaqsField(faqsData);
+
+      if (faqHtml) {
+        bodyEl.insertAdjacentHTML(
+          'beforeend',
+          faqHtml
+        );
+      }
+    }
+  } catch (faqError) {
+    console.warn(
+      'FAQ rendering skipped:',
+      faqError
+    );
+  }
+
+  /* -----------------------------------------
+     5. SEO metadata — optional
+     ----------------------------------------- */
+
+  try {
+    var seoTitle =
+      String(article.seoTitle || title);
+
+    var finalDesc =
+      String(
+        article.metaDescription ||
+        article.description ||
+        ''
+      );
+
+    document.title =
+      seoTitle + ' — CoinOsprey';
+
+    var titleTag =
+      document.getElementById('pageTitle');
+
+    if (titleTag) {
+      titleTag.textContent =
+        seoTitle + ' — CoinOsprey';
+    }
+
+    var descTag =
+      document.getElementById('pageDescription');
+
+    if (descTag) {
+      descTag.setAttribute(
+        'content',
+        finalDesc
+      );
+    }
+
+    var kwTag =
+      document.getElementById('pageKeywords');
+
+    if (kwTag) {
+      kwTag.setAttribute(
+        'content',
+        String(article.metaKeywords || '')
+      );
+    }
+
+    var pathParts =
+      window.location.pathname
+        .split('/')
+        .filter(Boolean);
+
+    var lang = PAGE_LANGUAGE;
+
+    var section =
+      (
+        pathParts[0] === 'hi' ||
+        pathParts[0] === 'en'
+      )
+        ? (pathParts[1] || 'news')
+        : (pathParts[0] || 'news');
+
+    var safeSlug =
+      slug ||
+      String(
+        window.location.pathname
+          .split('/')
+          .filter(Boolean)
+          .pop() || ''
+      );
+
+    var basePath =
+      '/' +
+      encodeURIComponent(section) +
+      '/' +
+      encodeURIComponent(safeSlug);
+
+    /* hreflang EN */
+    var linkEn =
+      document.createElement('link');
+
+    linkEn.rel = 'alternate';
+    linkEn.hreflang = 'en';
+    linkEn.href =
+      'https://coinosprey.com/en' +
+      basePath;
+
+    document.head.appendChild(linkEn);
+
+    /* hreflang HI */
+    var linkHi =
+      document.createElement('link');
+
+    linkHi.rel = 'alternate';
+    linkHi.hreflang = 'hi';
+    linkHi.href =
+      'https://coinosprey.com/hi' +
+      basePath;
+
+    document.head.appendChild(linkHi);
+
+    /* x-default */
+    var linkDefault =
+      document.createElement('link');
+
+    linkDefault.rel = 'alternate';
+    linkDefault.hreflang = 'x-default';
+    linkDefault.href =
+      'https://coinosprey.com/en' +
+      basePath;
+
+    document.head.appendChild(linkDefault);
+
+    var canonicalUrl =
+      article.canonicalUrl ||
+      (
+        'https://www.coinosprey.com' +
+        window.location.pathname
+      );
+
+    var canonicalTag =
+      document.getElementById('pageCanonical');
+
+    if (canonicalTag) {
+      canonicalTag.setAttribute(
+        'href',
+        canonicalUrl
+      );
+    }
+
+    var ogTitleTag =
+      document.getElementById('ogTitle');
+
+    if (ogTitleTag) {
+      ogTitleTag.setAttribute(
+        'content',
+        String(article.ogTitle || seoTitle)
+      );
+    }
+
+    var ogDescTag =
+      document.getElementById('ogDescription');
+
+    if (ogDescTag) {
+      ogDescTag.setAttribute(
+        'content',
+        String(article.ogDescription || finalDesc)
+      );
+    }
+
+    var ogImageTag =
+      document.getElementById('ogImage');
+
+    if (ogImageTag && article.image) {
+      ogImageTag.setAttribute(
+        'content',
+        String(article.image)
+      );
+    }
+
+    var ogUrlTag =
+      document.getElementById('ogUrl');
+
+    if (ogUrlTag) {
+      ogUrlTag.setAttribute(
+        'content',
+        canonicalUrl
+      );
+    }
+
+    var twTitleTag =
+      document.getElementById('twitterTitle');
+
+    if (twTitleTag) {
+      twTitleTag.setAttribute(
+        'content',
+        String(article.ogTitle || seoTitle)
+      );
+    }
+
+    var twDescTag =
+      document.getElementById('twitterDescription');
+
+    if (twDescTag) {
+      twDescTag.setAttribute(
+        'content',
+        String(article.ogDescription || finalDesc)
+      );
+    }
+
+    var twImageTag =
+      document.getElementById('twitterImage');
+
+    if (twImageTag && article.image) {
+      twImageTag.setAttribute(
+        'content',
+        String(article.image)
+      );
+    }
+
+  } catch (seoError) {
+    /*
+     * SEO/meta errors must NEVER turn a valid
+     * published article into Article Not Found.
+     */
+    console.warn(
+      'Optional SEO metadata error:',
+      seoError
+    );
+  }
+
+  /* -----------------------------------------
+     6. FINAL SUCCESS STATE
+     ----------------------------------------- */
+
+  setRobotsMeta('index, follow');
+
+  var skeleton =
+    document.getElementById('articleSkeleton');
+
+  var articleContent =
+    document.getElementById('articleContent');
+
+  var articleError =
+    document.getElementById('articleError');
+
+  if (skeleton) {
+    skeleton.style.display = 'none';
+  }
+
+  if (articleError) {
+    articleError.style.display = 'none';
+  }
+
+  if (articleContent) {
+    articleContent.style.display = 'block';
+  }
+}
+
+
+    
+
+}
 
   function setRobotsMeta(content) {
     var tag = document.querySelector('meta[name="robots"]');
