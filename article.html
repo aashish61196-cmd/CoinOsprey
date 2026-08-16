@@ -3278,7 +3278,52 @@ var PAGE_LANGUAGE =
 
       try {
 
+              try {
         renderArticle(article);
+      } catch (renderError) {
+        console.error(
+          'CoinOsprey: renderArticle failed:',
+          renderError
+        );
+
+        var titleEl = document.getElementById('articleTitle');
+        var bodyEl = document.getElementById('articleBody');
+        var articleContent = document.getElementById('articleContent');
+        var articleError = document.getElementById('articleError');
+        var articleSkeleton = document.getElementById('articleSkeleton');
+
+        if (titleEl) {
+          titleEl.textContent =
+            String(article.title || article.seoTitle || 'CoinOsprey');
+        }
+
+        if (bodyEl) {
+          var rawContent =
+            article.content != null
+              ? String(article.content)
+              : String(article.description || '');
+
+          try {
+            bodyEl.innerHTML = renderMarkdown(rawContent);
+          } catch (e) {
+            bodyEl.textContent = rawContent;
+          }
+        }
+
+        if (articleSkeleton) {
+          articleSkeleton.style.display = 'none';
+        }
+
+        if (articleError) {
+          articleError.style.display = 'none';
+        }
+
+        if (articleContent) {
+          articleContent.style.display = 'block';
+        }
+
+        setRobotsMeta('index, follow');
+      }
 
         console.log(
           'CoinOsprey: Article rendered successfully:',
