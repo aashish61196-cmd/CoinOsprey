@@ -2701,9 +2701,8 @@ var PAGE_LANGUAGE =
   function stripEmbeddedDocument(raw) {
     if (!raw) return raw;
     var cleaned = String(raw);
-    // Remove any embedded <style>...</style> blocks — these leak global
-    // CSS/theme variables into the page and break its own layout.
-    cleaned = cleaned.replace(/<style[\s\S]*?<\/style>/gi, '');
+    // NOTE: <style> blocks are intentionally KEPT — articles embed their
+    // own custom CSS for cards/badges/gradients as part of their design.
     // Remove stray <meta> and <title> tags that shouldn't be inside a
     // rendered article body.
     cleaned = cleaned.replace(/<meta[^>]*>/gi, '');
