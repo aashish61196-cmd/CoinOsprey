@@ -3195,7 +3195,8 @@ var PAGE_LANGUAGE =
     'sitemap': '/sitemap.html'
   };
 
-    function loadArticle() {
+    
+          function loadArticle() {
     var slug = getSlugFromUrl();
 
     if (!slug) {
@@ -3221,6 +3222,12 @@ var PAGE_LANGUAGE =
       return;
     }
 
+    /*
+     * -----------------------------------------
+     * DIRECT ARTICLE API
+     * -----------------------------------------
+     */
+
     var directUrl =
       API_BASE +
       '/articles/' +
@@ -3233,9 +3240,6 @@ var PAGE_LANGUAGE =
       slug
     );
 
-    /*
-     * DIRECT API
-     */
     fetch(directUrl, {
       method: 'GET',
       headers: {
@@ -3247,7 +3251,8 @@ var PAGE_LANGUAGE =
 
       if (!res.ok) {
         throw new Error(
-          'Direct API HTTP ' + res.status
+          'Direct article API failed: ' +
+          res.status
         );
       }
 
@@ -3260,52 +3265,61 @@ var PAGE_LANGUAGE =
 
       if (!article) {
         throw new Error(
-          'Direct API returned no article'
+          'Direct API returned invalid article'
         );
       }
 
       /*
        * IMPORTANT:
-       * Article exists.
-       * Rendering errors must NOT become
-       * Article Not Found.
+       * API article मिल चुका है.
+       * Rendering error को Article Not Found
+       * नहीं बनने देना है.
        */
+
       try {
 
         renderArticle(article);
 
         console.log(
-          'CoinOsprey: Article rendered:',
+          'CoinOsprey: Article rendered successfully:',
           article.slug || slug
         );
 
       } catch (renderError) {
 
         console.error(
-          'CoinOsprey: Article render error:',
+          'CoinOsprey: Article rendering error:',
           renderError
         );
 
         /*
-         * Emergency fallback renderer.
-         * The article is known to exist, so
-         * never call showError() here.
+         * Emergency rendering fallback
          */
 
         var titleEl =
-          document.getElementById('articleTitle');
+          document.getElementById(
+            'articleTitle'
+          );
 
         var bodyEl =
-          document.getElementById('articleBody');
+          document.getElementById(
+            'articleBody'
+          );
 
         var articleContent =
-          document.getElementById('articleContent');
+          document.getElementById(
+            'articleContent'
+          );
 
         var articleError =
-          document.getElementById('articleError');
+          document.getElementById(
+            'articleError'
+          );
 
-        var skeleton =
-          document.getElementById('articleSkeleton');
+        var articleSkeleton =
+          document.getElementById(
+            'articleSkeleton'
+          );
 
         if (titleEl) {
           titleEl.textContent =
@@ -3318,7 +3332,7 @@ var PAGE_LANGUAGE =
 
         if (bodyEl) {
 
-          var content =
+          var rawContent =
             article.content != null
               ? String(article.content)
               : String(
@@ -3328,26 +3342,28 @@ var PAGE_LANGUAGE =
           try {
 
             bodyEl.innerHTML =
-              renderMarkdown(content);
+              renderMarkdown(rawContent);
 
-          } catch (bodyError) {
+          } catch (markdownError) {
 
             console.warn(
-              'CoinOsprey: Markdown fallback:',
-              bodyError
+              'CoinOsprey: Markdown rendering failed:',
+              markdownError
             );
 
             bodyEl.textContent =
-              content;
+              rawContent;
           }
         }
 
-        if (skeleton) {
-          skeleton.style.display = 'none';
+        if (articleSkeleton) {
+          articleSkeleton.style.display =
+            'none';
         }
 
         if (articleError) {
-          articleError.style.display = 'none';
+          articleError.style.display =
+            'none';
         }
 
         if (articleContent) {
@@ -3363,32 +3379,44 @@ var PAGE_LANGUAGE =
           ) +
           ' — CoinOsprey';
 
-        setRobotsMeta(
-          'index, follow'
-        );
+        try {
+          setRobotsMeta(
+            'index, follow'
+          );
+        } catch (e) {
+          console.warn(
+            'CoinOsprey: robots meta update failed:',
+            e
+          );
+        }
       }
 
       /*
        * IMPORTANT:
-       * Stop here.
-       * Do NOT run fallback API after a valid
-       * article has already been received.
+       * Direct API से valid article मिल गया.
+       * अब fallback API पर नहीं जाना है.
        */
-      return {
-        success: true,
-        article: article
-      };
+
+      return true;
     })
+
+    /*
+     * -----------------------------------------
+     * ONLY DIRECT API FAILURE COMES HERE
+     * -----------------------------------------
+     */
+
     .catch(function (directError) {
 
       console.warn(
-        'CoinOsprey: Direct API failed:',
+        'CoinOsprey: Direct article API failed:',
         directError
       );
 
       /*
-       * FALLBACK API
-       * Only used when direct API genuinely fails.
+       * -----------------------------------------
+       * FALLBACK ARTICLE LIST API
+       * -----------------------------------------
        */
 
       return fetch(
@@ -3407,7 +3435,7 @@ var PAGE_LANGUAGE =
 
         if (!res.ok) {
           throw new Error(
-            'Article list API HTTP ' +
+            'Article list API failed: ' +
             res.status
           );
         }
@@ -3428,17 +3456,23 @@ var PAGE_LANGUAGE =
         }
 
         /*
-         * Article exists in fallback list.
+         * Article fallback API में भी मिल गया.
+         * Rendering error को Not Found नहीं बनाना है.
          */
 
         try {
 
           renderArticle(article);
 
+          console.log(
+            'CoinOsprey: Fallback article rendered:',
+            article.slug || slug
+          );
+
         } catch (renderError) {
 
           console.error(
-            'CoinOsprey: Fallback render error:',
+            'CoinOsprey: Fallback rendering error:',
             renderError
           );
 
@@ -3462,7 +3496,7 @@ var PAGE_LANGUAGE =
               'articleError'
             );
 
-          var skeleton =
+          var articleSkeleton =
             document.getElementById(
               'articleSkeleton'
             );
@@ -3478,7 +3512,7 @@ var PAGE_LANGUAGE =
 
           if (bodyEl) {
 
-            var content =
+            var rawContent =
               article.content != null
                 ? String(article.content)
                 : String(
@@ -3488,21 +3522,23 @@ var PAGE_LANGUAGE =
             try {
 
               bodyEl.innerHTML =
-                renderMarkdown(content);
+                renderMarkdown(rawContent);
 
             } catch (e) {
 
               bodyEl.textContent =
-                content;
+                rawContent;
             }
           }
 
-          if (skeleton) {
-            skeleton.style.display = 'none';
+          if (articleSkeleton) {
+            articleSkeleton.style.display =
+              'none';
           }
 
           if (articleError) {
-            articleError.style.display = 'none';
+            articleError.style.display =
+              'none';
           }
 
           if (articleContent) {
@@ -3518,28 +3554,38 @@ var PAGE_LANGUAGE =
             ) +
             ' — CoinOsprey';
 
-          setRobotsMeta(
-            'index, follow'
-          );
+          try {
+            setRobotsMeta(
+              'index, follow'
+            );
+          } catch (e) {
+            console.warn(
+              'CoinOsprey: robots meta update failed:',
+              e
+            );
+          }
         }
 
-        console.log(
-          'CoinOsprey: Fallback article rendered:',
-          article.slug || slug
-        );
-
-        return {
-          success: true,
-          article: article
-        };
+        return true;
       });
     })
-    .catch(function (error) {
 
-      /*
-       * Article Not Found is shown ONLY when
-       * BOTH API methods failed to find the article.
-       */
+    /*
+     * -----------------------------------------
+     * FINAL ERROR
+     * -----------------------------------------
+     *
+     * यह केवल तब चलेगा जब:
+     *
+     * 1. Direct API fail हो
+     * 2. Fallback API भी fail हो
+     * 3. Fallback में slug न मिले
+     *
+     * Valid article की rendering error यहाँ
+     * नहीं आएगी क्योंकि उसे ऊपर catch किया गया है.
+     */
+
+    .catch(function (error) {
 
       console.error(
         'CoinOsprey: Article genuinely unavailable:',
@@ -3551,8 +3597,13 @@ var PAGE_LANGUAGE =
   }
 
   loadArticle();
-})();
+  })();
+        
 
+
+        
+                    
+       
   
 
 
