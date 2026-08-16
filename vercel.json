@@ -38,7 +38,7 @@
     },
     {
       "source": "/hi/:section/:slug",
-      "destination": "/hi/article?slug=:slug&section=:section&language=hi"
+      "destination": "/hi/article.html?slug=:slug&section=:section&language=hi"
     }
   ]
 }
