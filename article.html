@@ -3281,8 +3281,7 @@ var PAGE_LANGUAGE =
     })
     .then(function (data) {
 
-      var article =
-        normalizeArticle(data);
+      var article = data;
 
       if (!article) {
         throw new Error(
