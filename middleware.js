@@ -238,7 +238,7 @@ export default async function middleware(request) {
         // serving "Article Not Found" forever, even after the article
         // is confirmed live in the database and the API is returning
         // it correctly.
-        'cache-control': 'no-store, must-revalidate'
+       'cache-control': 'public, s-maxage=60, stale-while-revalidate=600'
       }
     });
   } catch (err) {
