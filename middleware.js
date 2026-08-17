@@ -226,6 +226,8 @@ export default async function middleware(request) {
     html = setMetaContent(html, 'twitterDescription', ogDescription);
     if (image) html = setMetaContent(html, 'twitterImage', image);
 
+    html = injectArticleBody(html, article);
+
     return new Response(html, {
       status: 200,
       headers: {
