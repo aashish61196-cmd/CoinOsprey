@@ -166,7 +166,6 @@ function injectArticleBody(html, article) {
 }
 
 export default async function middleware(request) {
-export default async function middleware(request) {
   // Server-render for EVERYONE (bots and real users alike) — this way
   // we're not dependent on maintaining a User-Agent allowlist that will
   // always be one step behind new AI crawlers/tools. Real users' own JS
