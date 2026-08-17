@@ -166,13 +166,12 @@ function injectArticleBody(html, article) {
 }
 
 export default async function middleware(request) {
-  var ua = request.headers.get('user-agent') || '';
-
-  // Real users: do nothing, let the normal vercel.json rewrite handle it.
-  if (!BOT_UA_REGEX.test(ua)) {
-    return;
-  }
-
+export default async function middleware(request) {
+  // Server-render for EVERYONE (bots and real users alike) — this way
+  // we're not dependent on maintaining a User-Agent allowlist that will
+  // always be one step behind new AI crawlers/tools. Real users' own JS
+  // still runs after page load and simply re-populates the same data,
+  // so nothing changes for them except a faster first paint.
   var url = new URL(request.url);
   var parts = url.pathname.split('/').filter(Boolean); // [lang, section, slug]
   var lang = parts[0] === 'hi' ? 'hi' : 'en';
