@@ -116,7 +116,17 @@ export default async function middleware(request) {
 
     return new Response(html, {
       status: 200,
-      headers: { 'content-type': 'text/html; charset=utf-8' }
+      headers: {
+        'content-type': 'text/html; charset=utf-8',
+        // IMPORTANT: never let a bot-served article page (or a
+        // once-404'd lookup) get stuck in Vercel's CDN/edge cache.
+        // Without this, a single early 404 (e.g. published a few
+        // seconds before the DB write settled) gets cached and keeps
+        // serving "Article Not Found" forever, even after the article
+        // is confirmed live in the database and the API is returning
+        // it correctly.
+        'cache-control': 'no-store, must-revalidate'
+      }
     });
   } catch (err) {
     // Any failure: don't break the request, just fall through to normal
