@@ -53,6 +53,118 @@ function setLinkHref(html, id, value) {
   return html.replace(re, '$1' + escapeAttr(value) + '$2');
 }
 
+function stripEmbeddedDocumentBot(raw) {
+  if (!raw) return raw;
+  var cleaned = String(raw);
+  cleaned = cleaned.replace(/<meta[^>]*>/gi, '');
+  cleaned = cleaned.replace(/<title[\s\S]*?<\/title>/gi, '');
+  cleaned = cleaned.replace(/<!DOCTYPE[^>]*>/gi, '');
+  cleaned = cleaned.replace(/<\/?html[^>]*>/gi, '');
+  cleaned = cleaned.replace(/<\/?head[^>]*>/gi, '');
+  cleaned = cleaned.replace(/<\/?body[^>]*>/gi, '');
+  return cleaned.trim();
+}
+
+function bodyToHtmlBot(content) {
+  if (!content) return '';
+  var cleaned = stripEmbeddedDocumentBot(content);
+  // Our articles are authored as ready-to-publish HTML (Master Prompt),
+  // so if block tags are already present, use as-is.
+  if (/<\/?(div|p|br|table|h[1-6]|strong|em|b|i)[\s>]/i.test(cleaned)) {
+    return cleaned;
+  }
+  var lines = cleaned.split(/\n+/).map(function (l) { return l.trim(); }).filter(Boolean);
+  return lines.map(function (l) { return '<p>' + escapeHtml(l) + '</p>'; }).join('');
+}
+
+function renderFaqsHtmlBot(faqs) {
+  var items = faqs;
+  if (typeof faqs === 'string') {
+    try { items = JSON.parse(faqs); } catch (e) { return ''; }
+  }
+  if (!Array.isArray(items) || !items.length) return '';
+  var rows = '';
+  items.forEach(function (item) {
+    var q = item.question || item.q || item.Question || item.ques || item.title;
+    var a = item.answer || item.a || item.Answer || item.ans || item.description;
+    if (!q || !a) return;
+    rows += '<div class="faq-item">' +
+              '<div class="faq-question">' + escapeHtml(q) + '</div>' +
+              '<div class="faq-answer">' + escapeHtml(a) + '</div>' +
+            '</div>';
+  });
+  if (!rows) return '';
+  return '<div class="article-faq" id="articleFaqBlock"><h2>Frequently Asked Questions</h2>' + rows + '</div>';
+}
+
+function formatDateBot(dateStr) {
+  if (!dateStr) return '';
+  var d = new Date(dateStr);
+  if (isNaN(d.getTime())) return '';
+  try {
+    return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+  } catch (e) {
+    return d.toISOString().slice(0, 10);
+  }
+}
+
+function setInnerText(html, id, value) {
+  var re = new RegExp('(id="' + id + '"[^>]*>)([\\s\\S]*?)(</)');
+  return html.replace(re, '$1' + value + '$3');
+}
+
+function injectArticleBody(html, article) {
+  var title = escapeHtml(String(article.title || article.seoTitle || 'CoinOsprey').trim());
+  var category = escapeHtml(String(article.category || article.type || 'Crypto'));
+  var author = escapeHtml(String(article.author || 'CoinOsprey Team'));
+  var date = escapeHtml(formatDateBot(article.publishedAt || article.createdAt));
+  var viewsNumber = Number(article.views);
+  if (!Number.isFinite(viewsNumber)) viewsNumber = 0;
+  var views = viewsNumber.toLocaleString() + ' views';
+
+  html = setInnerText(html, 'articleTitle', title);
+  html = setInnerText(html, 'articleCategory', category);
+  html = setInnerText(html, 'articleAuthor', author);
+  html = setInnerText(html, 'articleDate', date);
+  html = setInnerText(html, 'articleViews', views);
+
+  if (article.image) {
+    var imgAlt = escapeAttr(String(article.imageAlt || title));
+    var imgSrc = escapeAttr(String(article.image));
+    html = html.replace(
+      /<img class="article-hero-image" id="articleImage"[^>]*>/,
+      '<img class="article-hero-image" id="articleImage" src="' + imgSrc + '" alt="' + imgAlt + '">'
+    );
+  }
+
+  var content = article.content != null
+    ? String(article.content)
+    : (article.description != null ? String(article.description) : '');
+  var bodyHtml = bodyToHtmlBot(content);
+
+  var faqsData = article.faqs || article.faq || article.FAQs || article.faqList || null;
+  if (faqsData) {
+    var faqHtml = renderFaqsHtmlBot(faqsData);
+    if (faqHtml) bodyHtml += faqHtml;
+  }
+
+  html = html.replace(
+    /<div class="article-body" id="articleBody"><\/div>/,
+    '<div class="article-body" id="articleBody">' + bodyHtml + '</div>'
+  );
+
+  html = html.replace(
+    /<div class="article-skeleton" id="articleSkeleton">/,
+    '<div class="article-skeleton" id="articleSkeleton" style="display:none;">'
+  );
+  html = html.replace(
+    /<article class="article-content" id="articleContent">/,
+    '<article class="article-content" id="articleContent" style="display:block;">'
+  );
+
+  return html;
+}
+
 export default async function middleware(request) {
   var ua = request.headers.get('user-agent') || '';
 
