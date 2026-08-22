@@ -4302,21 +4302,45 @@ async function fetchAndRender() {
      * Reuse that promise.
      */
 
-    const data = window.__coArticlesFetch
-      ? await window.__coArticlesFetch
-      : await fetch(ENDPOINT, {
-          cache: 'no-store'
-        }).then(function (r) {
+    let data = null;
 
-          if (!r.ok) {
-            throw new Error(
-              'Request failed: ' + r.status
-            );
-          }
+/*
+ * First use the request already started in <head>.
+ */
+if (window.__coArticlesFetch && !window.__coArticlesFetchFailed) {
 
-          return r.json();
+  data = await window.__coArticlesFetch;
+}
 
-        });
+/*
+ * IMPORTANT:
+ * If the early request failed or returned no usable data,
+ * perform a real retry.
+ */
+if (!data) {
+
+  console.log(
+    '[CoinOsprey] Retrying homepage API request...'
+  );
+
+  const retryResponse = await fetch(ENDPOINT, {
+    method: 'GET',
+    cache: 'no-store',
+    credentials: 'same-origin',
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  if (!retryResponse.ok) {
+
+    throw new Error(
+      'Request failed: ' + retryResponse.status
+    );
+  }
+
+  data = await retryResponse.json();
+}
 
     if (!data) {
       throw new Error(
