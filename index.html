@@ -2442,10 +2442,12 @@ flex-direction: column;
     will-change:opacity, transform;
     transition:opacity 700ms var(--ease), transform 700ms var(--ease);
   }
-  [data-animate="fade-up"]{ transform:translate3d(0, 32px, 0); }
-  [data-animate="fade-left"]{ transform:translate3d(-40px, 0, 0); }
-  [data-animate="fade-right"]{ transform:translate3d(40px, 0, 0); }
-  [data-animate="scale-in"]{ transform:scale3d(0.92, 0.92, 1); }
+  [data-animate="fade-up"],
+[data-animate="fade-left"],
+[data-animate="fade-right"],
+[data-animate="scale-in"]{
+  transform:none;
+}
   [data-animate="image-reveal"]{ transform:none; opacity:1; }
 
   [data-animate].in-view{
