@@ -4251,31 +4251,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
 const CACHE_KEY = 'coinosprey_home_articles_v2';
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
-function readHomepageCache() {
-  try {
 
-    const raw = localStorage.getItem(CACHE_KEY);
-
-    if (!raw) return null;
-
-    const cached = JSON.parse(raw);
-
-    if (!cached || !Array.isArray(cached.articles)) {
-      return null;
-    }
-
-    return cached;
-
-  } catch (err) {
-
-    console.warn(
-      '[CoinOsprey] Homepage cache read failed:',
-      err
-    );
-
-    return null;
-  }
-}
 
 function writeHomepageCache(articles) {
   try {
