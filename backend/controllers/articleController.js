@@ -22,15 +22,10 @@ exports.getPublished = async (req, res) => {
 
     if (language === 'hi') {
 
-      // Hindi edition = only explicitly Hindi articles
       filter.language = 'hi';
 
     } else {
 
-      // English edition =
-      // 1. language = en
-      // 2. old articles where language does not exist
-      // 3. old articles where language is null
       filter.$or = [
         { language: 'en' },
         { language: { $exists: false } },
@@ -39,12 +34,46 @@ exports.getPublished = async (req, res) => {
 
     }
 
+    /*
+     * HOMEPAGE PERFORMANCE FIX
+     *
+     * Homepage does NOT need full article content.
+     * Only send fields required to build homepage cards.
+     *
+     * lean() removes Mongoose document overhead.
+     * limit() prevents an unnecessarily huge homepage response.
+     */
+
     const articles = await Article
       .find(filter)
+      .select(
+        'title language slug description author category tag section type image imageAlt project publishedAt createdAt views metaDescription'
+      )
       .sort({
         publishedAt: -1,
         createdAt: -1
-      });
+      })
+      .limit(100)
+      .lean();
+
+    /*
+     * Allow Vercel/CDN to reuse this response.
+     *
+     * max-age=0:
+     * Browser can revalidate.
+     *
+     * s-maxage=60:
+     * Vercel CDN can keep response for 60 seconds.
+     *
+     * stale-while-revalidate:
+     * User can receive cached data while Vercel refreshes
+     * the API in the background.
+     */
+
+    res.set(
+      'Cache-Control',
+      'public, max-age=0, s-maxage=60, stale-while-revalidate=300'
+    );
 
     res.json(articles);
 
@@ -61,6 +90,7 @@ exports.getPublished = async (req, res) => {
 
   }
 };
+        
 
 
 /* =========================================================
