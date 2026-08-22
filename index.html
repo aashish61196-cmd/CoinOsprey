@@ -4226,65 +4226,182 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
     renderTicker(articles);
   }
 
-  // ---------------- boot: cache-first, then revalidate in background ----------------
-  const CACHE_KEY = null;
-const CACHE_TTL_MS = 0;
+// ---------------- INSTANT HOMEPAGE CACHE ----------------
 
-  
+const CACHE_KEY = 'coinosprey_home_articles_v2';
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
-  
+function readHomepageCache() {
+  try {
 
-  function showFetchError(message) {
-    console.error('[CoinOsprey] Homepage data fetch failed:', message);
-    document.querySelectorAll(
-      '.featured-news__title, .news-item__headline, .prediction-item__title, .academy-item__title, .research-item__title'
-    ).forEach(function (el) {
-      if (/^Loading/.test(el.textContent.trim())) {
-        el.textContent = 'Content temporarily unavailable';
-      }
-    });
-    var desc = document.querySelector('.featured-news__desc');
-    if (desc && /^Loading/.test(desc.textContent.trim())) {
-      desc.textContent = 'We could not load the latest updates. Please check back shortly.';
+    const raw = localStorage.getItem(CACHE_KEY);
+
+    if (!raw) return null;
+
+    const cached = JSON.parse(raw);
+
+    if (!cached || !Array.isArray(cached.articles)) {
+      return null;
+    }
+
+    return cached;
+
+  } catch (err) {
+
+    console.warn(
+      '[CoinOsprey] Homepage cache read failed:',
+      err
+    );
+
+    return null;
+  }
+}
+
+function writeHomepageCache(articles) {
+  try {
+
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({
+        savedAt: Date.now(),
+        articles: articles
+      })
+    );
+
+  } catch (err) {
+
+    console.warn(
+      '[CoinOsprey] Homepage cache write failed:',
+      err
+    );
+  }
+}
+
+function renderCachedHomepage() {
+
+  const cached = readHomepageCache();
+
+  if (!cached || !cached.articles.length) {
+    return false;
+  }
+
+  /*
+   * Render cached content immediately.
+   * Do NOT wait for the API.
+   */
+
+  renderAll(cached.articles);
+
+  return true;
+}
+
+async function fetchAndRender() {
+
+  let articles;
+
+  try {
+
+    /*
+     * Network request already starts in <head>.
+     * Reuse that promise.
+     */
+
+    const data = window.__coArticlesFetch
+      ? await window.__coArticlesFetch
+      : await fetch(ENDPOINT, {
+          cache: 'no-store'
+        }).then(function (r) {
+
+          if (!r.ok) {
+            throw new Error(
+              'Request failed: ' + r.status
+            );
+          }
+
+          return r.json();
+
+        });
+
+    if (!data) {
+      throw new Error(
+        'Homepage API returned no data'
+      );
+    }
+
+    articles = Array.isArray(data)
+      ? data
+      : (data.articles || []);
+
+    if (!articles.length) {
+      throw new Error(
+        'No published articles returned'
+      );
+    }
+
+    /*
+     * Save fresh data for the NEXT page load.
+     */
+
+    writeHomepageCache(articles);
+
+    /*
+     * Update page with fresh content.
+     */
+
+    renderAll(articles);
+
+  } catch (err) {
+
+    console.error(
+      '[CoinOsprey] Homepage API failed:',
+      err.message
+    );
+
+    /*
+     * If live API fails, keep the cached homepage.
+     * Only show error when there is no cached content.
+     */
+
+    const cached = readHomepageCache();
+
+    if (!cached || !cached.articles.length) {
+      showFetchError(err.message);
     }
   }
-
-  async function fetchAndRender() {
-    let articles;
-    try {
-      // Reuse the fetch already kicked off in <head> instead of starting a
-      // brand-new request — saves the 1-2s delay caused by waiting for the
-      // whole DOM to parse before the network request even begins.
-      const data = window.__coArticlesFetch
-        ? await window.__coArticlesFetch
-        : await fetch(ENDPOINT, { cache: 'no-store' }).then(function (r) {
-            if (!r.ok) throw new Error('Request failed: ' + r.status);
-            return r.json();
-          });
-      if (!data) throw new Error('Early fetch failed');
-      articles = Array.isArray(data) ? data : (data.articles || []);
-    } catch (err) {
-  console.error('[CoinOsprey] Live homepage data fetch failed:', err.message);
-
-  showFetchError(err.message);
-  return;
-}
-    if (!articles.length) {
-  showFetchError('No published articles were returned by the API.');
-  return;
 }
 
-renderAll(articles);
-  }
+function loadAllSections() {
 
-  function loadAllSections() {
-    // Always fetch live data first. Cache is only used as an offline/error
-    // fallback inside fetchAndRender(), so users never see stale content
-    // flash before the real content loads.
-    fetchAndRender();
-  }
+  /*
+   * STEP 1:
+   * Show cached content immediately.
+   */
 
-  loadAllSections();
+  const hadCache = renderCachedHomepage();
+
+  /*
+   * STEP 2:
+   * Fetch fresh content in the background.
+   *
+   * User does NOT wait for this.
+   */
+
+  fetchAndRender();
+
+  /*
+   * If there is cache, the page is already populated.
+   * The network request silently refreshes it.
+   */
+
+  if (hadCache) {
+    document.documentElement.classList.add(
+      'homepage-cache-ready'
+    );
+  }
+}
+
+loadAllSections();
+          
 })();
 </script>
 
