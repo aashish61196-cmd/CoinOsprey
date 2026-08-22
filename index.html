@@ -4282,28 +4282,80 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
 
   // ---------------- render everything given an articles array ----------------
   function renderAll(articles) {
-    if (!articles || !articles.length) return;
 
-    const bySection = {
-      news: articles.filter(a => a.section === 'news'),
-      predictions: articles.filter(a => a.section === 'price-prediction'),
-      blogs: articles.filter(a => a.section === 'blog'),
-      academy: articles.filter(a => a.section === 'academy'),
-      research: articles.filter(a => a.section === 'research')
-    };
-
-    renderFeaturedNews(articles);
-    renderLatestNews(bySection.news);
-    renderSimpleList('price-predictions', bySection.predictions, predictionItemTemplate, 4);
-    renderSimpleList('blogs', bySection.blogs, listItemTemplate, 4);
-    renderSimpleList('academy', bySection.academy, academyItemTemplate, 4);
-    renderSimpleList('research', bySection.research, researchItemTemplate, 4);
-
-    // driven by the full unfiltered list (latest across every section)
-    renderBreakingBar(articles);
-    renderTicker(articles);
+  if (!articles || !articles.length) {
+    return;
   }
 
+  /*
+   * Mark homepage as data-ready BEFORE rendering.
+   * This removes empty-state skeletons immediately.
+   */
+
+  document.documentElement.classList.add(
+    'homepage-data-ready'
+  );
+
+  const bySection = {
+    news: articles.filter(
+      a => a.section === 'news'
+    ),
+
+    predictions: articles.filter(
+      a => a.section === 'price-prediction'
+    ),
+
+    blogs: articles.filter(
+      a => a.section === 'blog'
+    ),
+
+    academy: articles.filter(
+      a => a.section === 'academy'
+    ),
+
+    research: articles.filter(
+      a => a.section === 'research'
+    )
+  };
+
+  renderFeaturedNews(articles);
+
+  renderLatestNews(
+    bySection.news
+  );
+
+  renderSimpleList(
+    'price-predictions',
+    bySection.predictions,
+    predictionItemTemplate,
+    4
+  );
+
+  renderSimpleList(
+    'blogs',
+    bySection.blogs,
+    listItemTemplate,
+    4
+  );
+
+  renderSimpleList(
+    'academy',
+    bySection.academy,
+    academyItemTemplate,
+    4
+  );
+
+  renderSimpleList(
+    'research',
+    bySection.research,
+    researchItemTemplate,
+    4
+  );
+
+  renderBreakingBar(articles);
+
+  renderTicker(articles);
+}
 // ---------------- INSTANT HOMEPAGE CACHE ----------------
 
 const CACHE_KEY = 'coinosprey_home_articles_v2';
