@@ -4434,13 +4434,12 @@ if (!data) {
 
   const retryResponse = await fetch(ENDPOINT, {
     method: 'GET',
-    cache: 'no-store',
+    cache: 'force-cache',
     credentials: 'same-origin',
     headers: {
       'Accept': 'application/json'
     }
   });
-
   if (!retryResponse.ok) {
 
     throw new Error(
