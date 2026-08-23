@@ -10,7 +10,7 @@
 
   window.__coArticlesFetch = fetch('/api/articles', {
     method: 'GET',
-    cache: 'no-store',
+    cache: 'force-cache',
     credentials: 'same-origin',
     headers: {
       'Accept': 'application/json'
