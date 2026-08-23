@@ -71,9 +71,9 @@ exports.getPublished = async (req, res) => {
      */
 
     res.set(
-      'Cache-Control',
-      'public, max-age=0, s-maxage=60, stale-while-revalidate=300'
-    );
+  'Cache-Control',
+  'public, max-age=60, s-maxage=300, stale-while-revalidate=1800'
+);
 
     res.json(articles);
 
