@@ -47,8 +47,8 @@ exports.getPublished = async (req, res) => {
     const articles = await Article
       .find(filter)
       .select(
-        'title language slug description author category tag section type image imageAlt project publishedAt createdAt views metaDescription'
-      )
+  'title language slug author category tag section type image imageAlt project publishedAt createdAt views metaDescription'
+)
       .sort({
         publishedAt: -1,
         createdAt: -1
