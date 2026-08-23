@@ -2991,6 +2991,27 @@ html.homepage-data-ready .block-list:empty {
     gap:10px;
   }
 }
+  /* =========================================================
+   HOMEPAGE ZERO-FLASH LOADING FIX
+   Never show giant empty skeleton containers.
+   ========================================================= */
+
+.featured-news__container:empty {
+  display: none !important;
+}
+
+.content-block .block-list:empty {
+  display: none !important;
+}
+
+html:not(.homepage-data-ready) .content-block:has(.block-list:empty) {
+  min-height: 0 !important;
+}
+
+html.homepage-data-ready .featured-news__container,
+html.homepage-data-ready .block-list {
+  display: block;
+}
 </style>
 
 </head>
