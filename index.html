@@ -2737,18 +2737,15 @@ flex-direction: column;
 }
 
 /* Lower section skeleton */
+
 .block-list:empty {
-  min-height: 150px;
-  border-radius: 12px;
-  background:
-    linear-gradient(
-      90deg,
-      #e9ebf1 25%,
-      #f5f6f8 37%,
-      #e9ebf1 63%
-    );
-  background-size: 400% 100%;
-  animation: co-home-skeleton 1.35s ease-in-out infinite;
+  min-height: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  animation: none;
+  overflow: hidden;
 }
 
 /* Hide loading skeleton immediately after real data arrives */
