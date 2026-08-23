@@ -44,3 +44,17 @@ articleSchema.index(
 );
 
 module.exports = mongoose.model('Article', articleSchema);
+
+// Homepage query performance index
+articleSchema.index({
+  status: 1,
+  language: 1,
+  publishedAt: -1,
+  createdAt: -1
+});
+
+articleSchema.index({
+  status: 1,
+  publishedAt: -1,
+  createdAt: -1
+});
