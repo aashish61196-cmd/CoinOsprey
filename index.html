@@ -4382,6 +4382,23 @@ function writeHomepageCache(articles) {
   }
 }
 
+function readHomepageCache() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !parsed.articles || !parsed.articles.length) return null;
+    if (Date.now() - parsed.savedAt > CACHE_TTL_MS) return null;
+    return parsed;
+  } catch (err) {
+    return null;
+  }
+}
+
+function showFetchError(message) {
+  console.error('[CoinOsprey] Homepage failed to load:', message);
+}
+
 function renderCachedHomepage() {
 
   const cached = readHomepageCache();
