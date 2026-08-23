@@ -45,16 +45,16 @@ exports.getPublished = async (req, res) => {
      */
 
     const articles = await Article
-      .find(filter)
-      .select(
-  'title language slug author category tag section type image imageAlt project publishedAt createdAt views metaDescription'
-)
-      .sort({
-        publishedAt: -1,
-        createdAt: -1
-      })
-      .limit(100)
-      .lean();
+  .find(filter)
+  .select(
+    'title language slug author category tag section type image imageAlt project publishedAt createdAt views metaDescription'
+  )
+  .sort({
+    publishedAt: -1,
+    createdAt: -1
+  })
+  .limit(40)
+  .lean();
 
     /*
      * Allow Vercel/CDN to reuse this response.
