@@ -3596,32 +3596,30 @@ async function load() {
   var currentSection = params.get('section') || 'news';
   var currentCategory = params.get('category') || '';
 
-  // ---- pull the matching links straight from the NEWS/PRICE PREDICTIONS/etc mega-dropdown ----
-  // Prefer the explicit chip-source column (guarantees Latest News / Breaking News
-  // are included alongside all the category links, e.g. Bitcoin, Ethereum, etc).
-  var sourceCol = document.querySelector('.co-nav__dropdown-col[data-chip-source="' + currentSection + '"]');
-  var navLinks = sourceCol
-    ? sourceCol.querySelectorAll('.co-nav__dropdown-link')
-    : document.querySelectorAll('.co-nav__dropdown-link[href*="section=' + currentSection + '"]');
-  var items = Array.prototype.map.call(navLinks, function (a) {
-    return { label: a.textContent.trim(), href: a.getAttribute('href') };
+  // ---- category chips per section (edit these lists directly to add/remove stickers) ----
+  var categoriesBySection = {
+    'news': ['Bitcoin', 'Ethereum', 'Altcoins', 'DeFi', 'NFTs', 'Web3', 'Regulation', 'Exchanges'],
+    'price-prediction': ['Bitcoin', 'Ethereum', 'Solana', 'BNB', 'Dogecoin', 'Altcoins'],
+    'blog': ['Opinion', 'Interviews', 'Guest Posts'],
+    'academy': ['Beginner', 'Intermediate', 'Technical Analysis', 'Fundamental Analysis', 'Tokenomics', 'Glossary'],
+    'research': ['Market Analysis', 'Bitcoin Analysis', 'Technical Analysis', 'ETF Analysis', 'Institutional Analysis']
+  };
+
+  function slugify(label) {
+    return label.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+
+  var categoryLabels = categoriesBySection[currentSection] || [];
+  var items = categoryLabels.map(function (label) {
+    return {
+      label: label,
+      href: 'articles-list.html?section=' + currentSection + '&category=' + slugify(label)
+    };
   });
 
-  // ---- collect remaining categories from the other mega-menu columns ----
-  // These always go inside the "More" panel, regardless of overflow.
-  // (Blogs is excluded — its "extra" column only has 2 minor links and
-  // doesn't need a More panel per product decision.)
+  // ---- overflow beyond what fits in one row also goes into the "More" panel ----
   var extraItems = [];
-  if (currentSection !== 'blog' && sourceCol && sourceCol.parentElement) {
-    var otherCols = sourceCol.parentElement.querySelectorAll('.co-nav__dropdown-col');
-    Array.prototype.forEach.call(otherCols, function (col) {
-      if (col === sourceCol) return;
-      var links = col.querySelectorAll('.co-nav__dropdown-link');
-      Array.prototype.forEach.call(links, function (a) {
-        extraItems.push({ label: a.textContent.trim(), href: a.getAttribute('href') });
-      });
-    });
-  }
+  
 
   // Always add an "All <Section>" chip at the front
   var sectionLabels = {
