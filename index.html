@@ -4335,44 +4335,26 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
     )
   };
 
-  renderFeaturedNews(articles);
+  const sections = [
+    function () { renderFeaturedNews(articles); },
+    function () { renderLatestNews(bySection.news); },
+    function () { renderSimpleList('price-predictions', bySection.predictions, predictionItemTemplate, 4); },
+    function () { renderSimpleList('blogs', bySection.blogs, listItemTemplate, 4); },
+    function () { renderSimpleList('academy', bySection.academy, academyItemTemplate, 4); },
+    function () { renderSimpleList('research', bySection.research, researchItemTemplate, 4); },
+    function () { renderBreakingBar(articles); },
+    function () { renderTicker(articles); }
+  ];
 
-  renderLatestNews(
-    bySection.news
-  );
-
-  renderSimpleList(
-    'price-predictions',
-    bySection.predictions,
-    predictionItemTemplate,
-    4
-  );
-
-  renderSimpleList(
-    'blogs',
-    bySection.blogs,
-    listItemTemplate,
-    4
-  );
-
-  renderSimpleList(
-    'academy',
-    bySection.academy,
-    academyItemTemplate,
-    4
-  );
-
-  renderSimpleList(
-    'research',
-    bySection.research,
-    researchItemTemplate,
-    4
-  );
-
-  renderBreakingBar(articles);
-
-  renderTicker(articles);
+  sections.forEach(function (renderSection) {
+    try {
+      renderSection();
+    } catch (err) {
+      console.error('[CoinOsprey] Section render failed:', err.message);
+    }
+  });
 }
+  
 // ---------------- INSTANT HOMEPAGE CACHE ----------------
 
 const CACHE_KEY = 'coinosprey_home_articles_v2';
