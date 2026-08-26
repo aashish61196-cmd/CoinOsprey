@@ -1,0 +1,3476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authors | CoinOsprey</title>
+<meta name="description" content="Meet the CoinOsprey contributors covering cryptocurrency news, blockchain developments, market research and digital asset industry updates.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="theme-color" content="#0b1730">
+<meta property="og:site_name" content="CoinOsprey">
+<link rel="canonical" href="https://www.coinosprey.com/authors.html">
+<meta property="og:url" content="https://www.coinosprey.com/authors.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Authors | CoinOsprey">
+<meta property="og:description" content="Meet the CoinOsprey contributors covering cryptocurrency news, blockchain developments, market research and digital asset industry updates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coinosprey.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Authors", "item": "https://www.coinosprey.com/authors.html" }
+  ]
+}
+</script>
+
+<style>
+  /* ==========================================================================
+     PART 5 — MASTER DESIGN SYSTEM
+     One canonical set of custom properties feeding every section (header,
+     featured news, content blocks, disclaimer, footer) so Parts 1-4 combine
+     without color/spacing drift. Section-specific stylesheets below keep
+     their original selector names; only the variable *values* are now
+     centralized here.
+     ========================================================================== */
+  :root{
+    /* ---------- Brand color scale (source of truth) ---------- */
+    --co-navy-900:#0b1730;
+    --co-navy-800:#0e1c3a;
+    --co-navy-700:#132449;
+    --co-navy-600:#1a2e58;
+    --co-amber-500:#f5a623;
+    --co-amber-600:#e2960f;
+    --co-red-600:#e0293e;
+    --co-red-700:#c31f32;
+    --co-white:#ffffff;
+    --co-gray-050:#f4f5f8;
+    --co-gray-100:#e9ebf1;
+    --co-gray-300:#c7cbd8;
+    --co-gray-500:#8892a6;
+    --co-gray-700:#4b5468;
+    --co-teal-500:#1fb6a8;
+    --co-violet-500:#7c5cff;
+
+    /* ---------- Typography system ---------- */
+    --co-font-display:'Space Grotesk', sans-serif;
+    --co-font-body:'Inter', sans-serif;
+    --co-font-mono:'IBM Plex Mono', monospace;
+    --font-heading:var(--co-font-display);
+    --font-body:var(--co-font-body);
+
+    --fs-xs:11px;   --fs-sm:12.5px; --fs-base:14px; --fs-md:15px;
+    --fs-lg:19px;   --fs-xl:24px;   --fs-2xl:32px;  --fs-3xl:40px;
+
+    /* ---------- Header-specific layout tokens ---------- */
+    --co-header-h-topbar:35px;
+    --co-header-h-logo:10px;
+    --co-header-h-nav:16px;
+    --co-header-h-ticker:16px;
+
+    /* ---------- Spacing system (4px base scale) ---------- */
+    --space-1:4px;  --space-2:8px;  --space-3:12px; --space-4:16px;
+    --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+    --space-12:48px;--space-16:64px;
+    --gap-lg:18px;  --gap-md:14px;
+
+    /* ---------- Radius system ---------- */
+    --co-radius-sm:4px;
+    --co-radius-md:8px;
+    --co-radius-lg:14px;
+    --radius-sm:6px;
+    --radius-md:10px;
+    --radius-lg:18px;
+
+    /* ---------- Shadow system ---------- */
+    --shadow-sm:0 1px 3px rgba(11,23,48,0.06);
+    --shadow-md:0 6px 18px rgba(11,23,48,0.08);
+    --shadow-lg:0 18px 40px rgba(11,23,48,0.14);
+    --shadow-card:0 4px 18px rgba(12,16,36,0.08);
+    --shadow-card-hover:0 18px 40px rgba(12,16,36,0.22);
+    --shadow-glow:0 0 60px rgba(240,169,30,0.12);
+
+    /* ---------- Motion system ---------- */
+    --co-transition:200ms ease;
+    --transition-base:300ms cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-fast:300ms cubic-bezier(.4,0,.2,1);
+    --transition-med:400ms cubic-bezier(.4,0,.2,1);
+    --ease:cubic-bezier(.4,0,.2,1);
+
+    /* ---------- Layout ---------- */
+    --max-width:1469px;
+    --page-bg:#f4f6fa;
+
+    /* ---------- Aliases: keep Part 1-4 selector code untouched ---------- */
+    --c-navy-900:var(--co-navy-900);
+    --c-navy-800:var(--co-navy-800);
+    --c-navy-700:var(--co-navy-700);
+    --c-white:var(--co-white);
+    --c-gold-500:var(--co-amber-500);
+    --c-gold-600:var(--co-amber-600);
+    --c-gold-400:#f6bd3a;
+    --c-purple-500:var(--co-violet-500);
+    --c-purple-600:#5a3fc0;
+    --c-red-500:var(--co-red-600);
+    --c-bg:var(--page-bg);
+    --c-bg-section:#f3f4f6;
+    --c-text-heading:#111827;
+    --c-text-body:#4b5563;
+    --c-text-muted:#8992a3;
+
+    /* Category tag colors (Academy Highlights) */
+    --cat-blue:#2563eb;        --cat-blue-bg:#e8f0fe;
+    --cat-teal:var(--co-teal-500); --cat-teal-bg:#e3f7f4;
+    --cat-purple:var(--co-violet-500); --cat-purple-bg:#efe6fd;
+    --cat-gold-bg:#fdf1dc;
+
+    /* Section-scoped variables (namespaced to avoid cross-file drift) */
+    --fn-card-bg:#0f1428;                        /* featured-news dark card bg   */
+    --fn-border:rgba(232, 163, 61, 0.35);         /* featured-news gold card edge */
+    --p3-card-bg:#ffffff;                         /* content-block white card bg  */
+    --p3-border:#e7eaf0;                          /* content-block light edge     */
+    --p4-border:rgba(255,255,255,0.08);           /* footer subtle white edge     */
+    --p4-shadow-card:0 20px 50px rgba(4,8,25,0.4);/* card panel shadow            */
+    --p4-radius-lg:16px;                          /* card panel radius            */
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; overflow-x:clip; }
+  body{
+    margin:0;
+    font-family:var(--co-font-body);
+    background:var(--page-bg);
+    color:var(--co-navy-900);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip;
+    max-width:100vw;
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  ul{ list-style:none; margin:0; padding:0; }
+  img{ display:block; max-width:100%; }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* ==========================================================================
+     INTERACTIVITY / CURSOR AUDIT — global safety net
+     Guarantees every clickable element shows a pointer cursor and sits
+     above any decorative overlay, regardless of which part-specific
+     stylesheet below might otherwise leave it unset.
+     ========================================================================== */
+  a[href], button, .btn, [role="button"], [onclick], summary,
+  .co-chip, .co-nav__link, .co-nav__dropdown-link, .co-nav__mobile-link,
+  .co-nav__mobile-submenu-link, .co-nav-logo, .co-topbar__social-link,
+  .co-btn-premium, .co-btn-subscribe, .co-nav__hamburger,
+  .view-all, .block-list__item, .news-card, .featured-news__hero,
+  .footer-links__item, .footer-tags__item, .footer-social__link,
+  .footer-brand__logo, .back-to-top, .co-search-dropdown__result,
+  .co-search-dropdown__chip{
+    cursor:pointer;
+  }
+  /* Decorative overlays must never intercept clicks meant for the
+     element (or link) they sit on top of. */
+  .featured-news__overlay, .news-card__overlay, .co-ad-banner__glow,
+  .co-reveal-mask, .co-chips::after, .co-skeleton::before{
+    pointer-events:none;
+  }
+  /* Text fields keep the normal text-input cursor, never a pointer. */
+  input, textarea{ cursor:text; }
+
+
+
+  /* ==========================================================================
+     CSS VARIABLES
+     ========================================================================== */
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:var(--co-font-body);
+    background:var(--co-gray-050);
+    color:var(--co-navy-900);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+  ul{ list-style:none; }
+  img{ display:block; max-width:100%; }
+
+  .co-sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* ==========================================================================
+     SITE HEADER (smart sticky: only the main nav pins to the top on scroll;
+     the top info bar and breaking-news ticker scroll away with the page and
+     reappear once the user scrolls back to the very top)
+     ========================================================================== */
+  .co-header{
+    position:relative;
+    width:100%;
+  }
+
+  /* ==========================================================================
+     TOP INFO BAR
+     ========================================================================== */
+  .co-topbar{
+    display:none;
+  }
+  .co-topbar__inner{
+    max-width:1440px;
+    margin:0 auto;
+    padding:8px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .co-topbar__left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    min-width:0;
+    flex:1;
+  }
+  .co-topbar__item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+    color:var(--co-gray-300);
+  }
+  .co-topbar__icon{
+    width:13px; height:13px;
+    flex-shrink:0;
+    opacity:.85;
+  }
+  .co-topbar__time{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--co-red-600);
+    color:var(--co-white);
+    font-family:var(--co-font-mono);
+    font-weight:500;
+    padding:3px 10px;
+    border-radius:var(--co-radius-sm);
+    letter-spacing:.2px;
+  }
+  .co-topbar__breaking{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:0;
+    overflow:hidden;
+  }
+  .co-topbar__breaking-tag{
+    background:var(--co-red-600);
+    color:var(--co-white);
+    font-weight:700;
+    letter-spacing:.4px;
+    padding:3px 8px;
+    border-radius:var(--co-radius-sm);
+    flex-shrink:0;
+    font-size:11px;
+  }
+  .co-topbar__breaking-text{
+    color:var(--co-gray-100);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .co-topbar__right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-shrink:0;
+  }
+  .co-topbar__follow{
+    color:var(--co-gray-300);
+    white-space:nowrap;
+  }
+  .co-topbar__social{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .co-topbar__social-link{
+    width:20px; height:20px;
+    flex-shrink:0;
+    display:flex;
+    border-radius:6px;
+    overflow:hidden;
+    transition:transform var(--co-transition), box-shadow var(--co-transition);
+  }
+  .co-topbar__social-link:hover,
+  .co-topbar__social-link:focus-visible{
+    transform:translateY(-2px) scale(1.1);
+    box-shadow:0 4px 10px rgba(0,0,0,0.35);
+  }
+  .co-topbar__social-link:focus-visible{
+    outline:2px solid var(--co-amber-500);
+    outline-offset:2px;
+  }
+  .co-topbar__social-link svg{ width:100%; height:100%; display:block; }
+
+  /* ==========================================================================
+     LOGO SECTION
+     ========================================================================== */
+  .co-header__logo-row{
+    background:var(--co-white);
+    border-bottom:1px solid var(--co-gray-100);
+  }
+  .co-logo-section{
+    max-width:1440px;
+    margin:0 auto;
+    padding:2px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:32px;
+  }
+  .co-logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-shrink:0;
+  }
+  .co-logo__mark{
+    width:28px;
+    height:28px;
+    object-fit:contain;
+    flex-shrink:0;
+  }
+  .co-logo__text{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .co-logo__name{
+    font-family:var(--co-font-display);
+    font-weight:900;
+    font-size:28px;
+    color:#f5a623;
+    letter-spacing:-.3px;
+    line-height:1;
+  }
+  .co-logo__tagline{
+    font-size:11.5px;
+    color:var(--co-gray-700);
+    letter-spacing:.3px;
+  }
+
+  .co-ad-banner{
+    flex:1;
+    max-width:760px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    background:linear-gradient(115deg, var(--co-navy-900) 0%, var(--co-navy-700) 55%, var(--co-navy-600) 100%);
+    border-radius:var(--co-radius-lg);
+    padding:16px 26px;
+    position:relative;
+    overflow:hidden;
+    min-height:78px;
+  }
+  .co-ad-banner__glow{
+    position:absolute;
+    right:150px;
+    top:50%;
+    transform:translateY(-50%);
+    width:120px;
+    height:120px;
+    background:radial-gradient(circle, rgba(245,166,35,.35) 0%, rgba(245,166,35,0) 70%);
+    pointer-events:none;
+  }
+  .co-ad-banner__coin{
+    position:absolute;
+    right:130px;
+    top:50%;
+    transform:translateY(-50%);
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ffd27a, var(--co-amber-500) 55%, var(--co-amber-600) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--co-navy-900);
+    font-family:var(--co-font-display);
+    font-weight:700;
+    font-size:26px;
+    box-shadow:0 4px 18px rgba(245,166,35,.4);
+  }
+  .co-ad-banner__spark{
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:220px;
+    height:60%;
+    opacity:.5;
+  }
+  .co-ad-banner__content{
+    position:relative;
+    z-index:1;
+    color:var(--co-white);
+  }
+  .co-ad-banner__title{
+    font-family:var(--co-font-display);
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:-.2px;
+    margin-bottom:4px;
+  }
+  .co-ad-banner__subtitle{
+    font-size:12.5px;
+    color:var(--co-gray-300);
+  }
+  .co-ad-banner__cta{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    flex-shrink:0;
+  }
+  .co-btn-premium{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+    font-weight:700;
+    font-size:13.5px;
+    padding:10px 22px;
+    border-radius:var(--co-radius-sm);
+    white-space:nowrap;
+    transition:background var(--co-transition), transform var(--co-transition);
+  }
+  .co-btn-premium:hover{
+    background:#ffb941;
+    transform:translateY(-1px);
+  }
+  .co-ad-banner__hint{
+    font-size:10.5px;
+    color:var(--co-gray-500);
+    white-space:nowrap;
+  }
+
+  /* ==========================================================================
+     NAVIGATION
+     ========================================================================== */
+  .co-nav{
+    background:var(--co-navy-900);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    transition:box-shadow var(--co-transition);
+  }
+  .co-header--scrolled .co-nav{
+    box-shadow:0 2px 14px rgba(11,23,48,0.18);
+  }
+  .co-nav__inner{
+    max-width:1440px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:nowrap;
+  }
+.co-nav__menu{
+    display:flex;
+    align-items:stretch;
+    flex-wrap:nowrap;
+    flex-shrink:0;
+  }
+  .co-nav__item{
+    position:relative;
+    flex-shrink:0;
+  }
+  .co-nav__link{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    height:var(--co-header-h-nav);
+    padding:0 18px;
+    color:var(--co-gray-100);
+    font-size:13.5px;
+    font-weight:600;
+    letter-spacing:.3px;
+    white-space:nowrap;
+    transition:background var(--co-transition), color var(--co-transition);
+  }
+  .co-nav__link:hover{
+    background:var(--co-navy-700);
+    color:var(--co-amber-500);
+  }
+  .co-nav__item--active .co-nav__link{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .co-nav__item--active .co-nav__link:hover{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .co-nav__caret{
+    width:9px; height:9px;
+    transition:transform var(--co-transition);
+  }
+  .co-nav__item.is-open .co-nav__caret{
+    transform:rotate(180deg);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__caret{
+      transform:rotate(180deg);
+    }
+  }
+  .co-nav__dropdown{
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:220px;
+    background:var(--co-white);
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(11,23,48,.08), 0 24px 48px rgba(11,23,48,.16);
+    border:1px solid var(--co-gray-100);
+    padding:10px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(4px) scale(.98);
+    transform-origin:top center;
+    transition:opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+    z-index:20;
+    overflow:hidden;
+  }
+  .co-nav__dropdown::before{
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:3px;
+    background:linear-gradient(90deg, var(--co-amber-500), var(--co-amber-600) 60%, var(--co-amber-500));
+  }
+  .co-nav__item.is-open .co-nav__dropdown{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__dropdown{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0) scale(1);
+    }
+  }
+  .co-nav__dropdown-link{
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:10px 14px 10px 16px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--co-navy-700);
+    border-radius:7px;
+    letter-spacing:.1px;
+    transition:background 180ms ease, color 180ms ease, padding-left 180ms ease;
+  }
+  .co-nav__dropdown-link::before{
+    content:'';
+    position:absolute;
+    left:4px; top:50%;
+    width:3px; height:0;
+    border-radius:2px;
+    background:var(--co-amber-500);
+    transform:translateY(-50%);
+    transition:height 180ms ease;
+  }
+  .co-nav__dropdown-link:hover{
+    background:var(--co-gray-050);
+    color:var(--co-amber-600);
+    padding-left:20px;
+  }
+  .co-nav__dropdown-link:hover::before{
+    height:60%;
+  }
+
+  /* Mega-menu variants for dropdowns with many items */
+  .co-nav__dropdown--mega{
+    padding:22px 26px;
+    min-width:280px;
+  }
+  .co-nav__dropdown--right{
+    left:auto;
+    right:0;
+  }
+  .co-nav__dropdown--center{
+    left:50%;
+    transform:translateX(-50%) translateY(4px) scale(.98);
+  }
+  .co-nav__item.is-open .co-nav__dropdown--center{
+    transform:translateX(-50%) translateY(0) scale(1);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .co-nav__item:focus-within .co-nav__dropdown--center{
+      transform:translateX(-50%) translateY(0) scale(1);
+    }
+  }
+  .co-nav__dropdown-cols{
+    display:grid;
+    gap:2px 30px;
+    align-items:start;
+  }
+  .co-nav__dropdown-cols.cols-2{ grid-template-columns:repeat(2,172px); }
+  .co-nav__dropdown-cols.cols-3{ grid-template-columns:repeat(3,172px); }
+  .co-nav__dropdown-cols.cols-4{ grid-template-columns:repeat(4,164px); }
+  .co-nav__dropdown-cols.cols-5{ grid-template-columns:repeat(5,158px); }
+  .co-nav__dropdown-col{
+    display:flex;
+    flex-direction:column;
+  }
+  .co-nav__dropdown-col + .co-nav__dropdown-col{
+    border-left:1px solid var(--co-gray-100);
+    padding-left:22px;
+  }
+  .co-nav__dropdown-heading{
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+    color:var(--co-navy-700);
+    padding:2px 16px 9px;
+    margin-bottom:6px;
+    border-bottom:1px solid var(--co-gray-100);
+    position:relative;
+  }
+  .co-nav__dropdown-heading::after{
+    content:'';
+    position:absolute;
+    left:16px; bottom:-1px;
+    width:18px; height:2px;
+    background:var(--co-amber-500);
+    border-radius:2px;
+  }
+  .co-nav__dropdown-col:first-child .co-nav__dropdown-heading{ padding-top:0; margin-top:0; }
+.co-nav__dropdown-cols .co-nav__dropdown-link{
+    padding:8px 12px 8px 14px;
+    font-size:12.5px;
+    white-space:nowrap;
+  }
+  .co-nav__dropdown-cols .co-nav__dropdown-link:hover{
+    padding-left:18px;
+  }
+
+  /* NEWS mega-menu no longer opens as a floating box — its links get
+     injected into the .co-chips bar instead (see script at bottom). */
+  .co-nav__dropdown--chips{
+    display:none !important;
+  }
+
+  .co-nav__actions{
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  /* ---------- Inline header search bar (replaces Top Stories/About/Contact) ---------- */
+  .co-nav__searchbar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:1 1 auto;
+    min-width:0;
+    max-width:360px;
+    margin:0 28px;
+    height:38px;
+    padding:0 14px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.14);
+    transition:background var(--co-transition), border-color var(--co-transition);
+  }
+  .co-nav__searchbar:focus-within{
+    background:rgba(255,255,255,0.12);
+    border-color:var(--co-amber-500);
+  }
+  .co-nav__searchbar svg{ width:16px; height:16px; color:var(--co-gray-300); flex-shrink:0; }
+  .co-nav__searchbar-input{
+    flex:1;
+    min-width:0;
+    background:none;
+    border:none;
+    outline:none;
+    color:var(--co-white);
+    font-size:13.5px;
+    font-family:var(--co-font-body);
+  }
+  .co-nav__searchbar-input::placeholder{ color:var(--co-gray-500); }
+  .co-nav__searchbar-submit{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:26px; height:26px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:rgba(255,255,255,0.10);
+    color:var(--co-gray-300);
+    transition:background var(--co-transition), color var(--co-transition);
+  }
+  .co-nav__searchbar-submit:hover,
+  .co-nav__searchbar-submit:focus-visible{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .co-nav__searchbar-submit svg{ width:14px; height:14px; }
+
+  /* ---------- Mobile panel search field ---------- */
+  .co-nav__mobile-search{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:14px 16px 6px;
+    height:42px;
+    padding:0 14px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.14);
+  }
+  .co-nav__mobile-search:focus-within{ border-color:var(--co-amber-500); }
+  .co-nav__mobile-search svg{ width:16px; height:16px; color:var(--co-gray-300); flex-shrink:0; }
+  .co-nav__mobile-search-input{
+    flex:1;
+    min-width:0;
+    background:none;
+    border:none;
+    outline:none;
+    color:var(--co-white);
+    font-size:14px;
+    font-family:var(--co-font-body);
+  }
+  .co-nav__mobile-search-input::placeholder{ color:var(--co-gray-500); }
+  .co-nav__mobile-search .co-nav__searchbar-submit{
+    background:rgba(255,255,255,0.10);
+  }
+
+  .co-btn-subscribe{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+    font-weight:700;
+    font-size:13px;
+    padding:9px 20px;
+    border-radius:var(--co-radius-sm);
+    transition:background var(--co-transition), transform var(--co-transition);
+    white-space:nowrap;
+  }
+  .co-btn-subscribe:hover{
+    background:#ffb941;
+    transform:translateY(-1px);
+  }
+
+  .co-nav__hamburger{
+    display:none;
+    width:34px; height:34px;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+  }
+  .co-nav-logo{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    margin-right: 20px;
+  }
+  .co-nav-logo__icon{
+    width:38px;
+    height:38px;
+    flex-shrink:0;
+    border-radius:9px;
+    background:radial-gradient(circle at 30% 30%, var(--co-amber-400,#f5c26b), var(--co-amber-600,#d4941f));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    color:var(--co-navy-900);
+    font-weight:800;
+  }
+  .co-nav-logo__text{
+    font-family:var(--co-font-display);
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:-.3px;
+    color:#ffffff;
+    white-space:nowrap;
+  }
+.co-nav-logo__text span{
+    color:var(--co-amber-500,#f0a91e);
+  }
+  .co-nav-logo__col{
+    display:flex;
+    flex-direction:column;
+    line-height:1.15;
+  }
+  .co-nav-logo__tagline{
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--co-gray-300);
+    margin-top:2px;
+  }
+  .co-nav__hamburger-bar{
+    width:22px; height:2px;
+    background:var(--co-white);
+    border-radius:2px;
+    transition:transform var(--co-transition), opacity var(--co-transition);
+  }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(1){
+    transform:translateY(7px) rotate(45deg);
+  }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(2){
+    opacity:0;
+  }
+  .co-nav__hamburger.is-open .co-nav__hamburger-bar:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg);
+  }
+
+  /* Mobile nav panel */
+  .co-nav__mobile-panel{
+    display:none;
+    background:var(--co-navy-800);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 280ms ease;
+  }
+  .co-nav__mobile-panel.is-open{
+    max-height:82vh;
+    overflow-y:auto;
+  }
+  .co-nav__mobile-list{
+    padding:8px 16px 16px;
+  }
+  .co-nav__mobile-item{
+    border-bottom:1px solid var(--co-navy-600);
+  }
+  .co-nav__mobile-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:13px 4px;
+    color:var(--co-gray-100);
+    font-size:14px;
+    font-weight:600;
+  }
+  .co-nav__mobile-submenu{
+    display:none;
+    padding:10px 8px 14px 12px;
+    margin:4px 0 8px;
+    background:rgba(255,255,255,0.04);
+    border-left:2px solid var(--co-amber-500);
+    border-radius:0 8px 8px 0;
+  }
+  .co-nav__mobile-submenu.is-open{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 10px;
+  }
+  .co-nav__mobile-submenu-link{
+    display:block;
+    padding:8px 8px;
+    font-size:12.5px;
+    color:var(--co-gray-300);
+    border-radius:6px;
+    transition:background var(--co-transition), color var(--co-transition);
+  }
+  .co-nav__mobile-submenu-link:hover,
+  .co-nav__mobile-submenu-link:active{
+    background:var(--co-navy-700);
+    color:var(--co-amber-500);
+  }
+  .co-nav__mobile-submenu-heading{
+    grid-column:1 / -1;
+    padding:10px 6px 3px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--co-amber-500);
+  }
+  .co-nav__mobile-submenu-heading:first-child{ padding-top:2px; }
+  .co-nav__mobile-actions{
+    display:flex;
+    gap:10px;
+    padding:14px 4px 4px;
+  }
+  .co-nav__mobile-actions .co-btn-subscribe{
+    flex:1;
+    text-align:center;
+  }
+
+  /* ==========================================================================
+     CATEGORY FILTER CHIPS (horizontal scroll)
+     ========================================================================== */
+  .co-chips{
+    background:var(--co-navy-900);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    position:relative;
+  }
+  .co-chips::after{
+    content:'';
+    position:absolute;
+    top:0; right:0; bottom:0;
+    width:36px;
+    background:linear-gradient(90deg, rgba(11,23,48,0), var(--co-navy-900) 85%);
+    pointer-events:none;
+  }
+  .co-chips__inner{
+    max-width:1440px;
+    margin:0 auto;
+    padding:12px 24px;
+    display:flex;
+    flex-wrap:nowrap;
+    gap:10px;
+    overflow-x:hidden;
+    position:relative;
+  }
+  .co-chip{
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    padding:8px 18px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+    white-space:nowrap;
+    background:rgba(255,255,255,0.06);
+    color:var(--co-gray-100);
+    border:1px solid rgba(255,255,255,0.14);
+    cursor:pointer;
+    transition:background var(--co-transition), color var(--co-transition), border-color var(--co-transition), box-shadow var(--co-transition), transform var(--co-transition);
+    user-select:none;
+  }
+  .co-chip:hover{
+    background:rgba(245,166,35,0.10);
+    border-color:var(--co-amber-500);
+    color:var(--co-amber-600);
+    box-shadow:0 4px 10px rgba(245,166,35,0.18);
+    transform:translateY(-1px);
+  }
+  .co-chip:focus-visible{
+    outline:2px solid var(--co-amber-500);
+    outline-offset:2px;
+  }
+  .co-chip.is-active{
+    background:var(--co-amber-500);
+    color:var(--co-white);
+    border-color:var(--co-amber-500);
+    box-shadow:0 4px 10px rgba(245,166,35,0.3);
+  }
+  .co-chip.is-active:hover{
+    background:var(--co-amber-600);
+    border-color:var(--co-amber-600);
+    color:var(--co-white);
+    transform:translateY(-1px);
+  }
+    .co-chip--more-wrap{ position:relative; flex:0 0 auto; }
+.co-chip--more{
+    background:rgba(255,255,255,0.06);
+    color:var(--co-gray-100);
+    border:1px solid rgba(255,255,255,0.14);
+    font-weight:700;
+  }
+.co-chip--more[aria-expanded="true"]{
+    background:var(--co-amber-500);
+    color:var(--co-white);
+    border-color:var(--co-amber-500);
+  }
+.co-chips__more-panel{
+    position:absolute;
+    top:calc(100% + 8px);
+    right:0;
+    display:none;
+    flex-direction:column;
+    gap:6px;
+    min-width:200px;
+    max-height:60vh;
+    overflow-y:auto;
+    background:var(--co-navy-800);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:12px;
+    padding:10px;
+    box-shadow:0 16px 32px rgba(4,8,20,0.45);
+    z-index:1150;
+  }
+.co-chips__more-panel.is-open{ display:flex; }
+.co-chips__more-panel .co-chip{ width:100%; text-align:left; }
+  @media (max-width:640px){
+    .co-chips__inner{ padding:10px 16px; gap:8px; }
+    .co-chip{ padding:7px 14px; font-size:12.5px; }
+  }
+
+  /* Section anchors targeted by the category chips should clear the
+     sticky nav bar rather than land underneath it. */
+  #home, #news, #price-predictions, #academy, #research{
+    scroll-margin-top:96px;
+  }
+
+  /* ==========================================================================
+     BREAKING NEWS TICKER
+     ========================================================================== */
+  .co-ticker{
+    background:var(--co-navy-900);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .co-ticker__inner{
+    max-width:1440px;
+    margin:0 auto;
+    padding:8px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:auto;
+    min-height:var(--co-header-h-ticker);
+    gap:16px;
+  }
+  .co-ticker__social{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+.co-ticker__tag{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--co-red-600);
+    color:var(--co-white);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.4px;
+    padding:6px 14px;
+    border-radius:var(--co-radius-sm);
+    flex-shrink:0;
+    clip-path:none;
+  }
+  .co-ticker__bolt{
+    width:12px; height:12px;
+  }
+  .co-ticker__viewport{
+    flex:1;
+    overflow:hidden;
+    position:relative;
+  }
+  .co-ticker__track{
+    display:flex;
+    align-items:center;
+    gap:40px;
+    white-space:nowrap;
+    width:max-content;
+    animation:co-ticker-scroll 60s linear infinite;
+  }
+  .co-ticker__viewport:hover .co-ticker__track{
+    animation-play-state:paused;
+  }
+  @keyframes co-ticker-scroll{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .co-ticker__entry{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:600;
+    color:#ffffff;
+  }
+  .co-ticker__entry-icon{
+    width:20px; height:20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    font-weight:700;
+    color:var(--co-white);
+    flex-shrink:0;
+  }
+  .co-ticker__entry-icon--btc{ background:#f7931a; }
+  .co-ticker__entry-icon--bnb{ background:var(--co-navy-900); }
+  .co-ticker__entry-icon--eth{ background:var(--co-violet-500); }
+  .co-ticker__entry-icon--sol{ background:var(--co-teal-500); }
+
+  /* ==========================================================================
+     RESPONSIVE
+     ========================================================================== */
+  @media (max-width: 1180px){
+    .co-nav__link{ padding:0 12px; font-size:13px; }
+    .co-nav__searchbar{ max-width:220px; margin:0 14px; }
+  }
+
+  @media (max-width: 1000px){
+    .co-nav__link{ padding:0 9px; font-size:12px; }
+    .co-nav__searchbar{ max-width:160px; margin:0 10px; }
+  }
+
+  @media (max-width: 1024px){
+    .co-topbar__breaking-text{ max-width:220px; }
+    .co-ad-banner{ display:none; }
+    .co-logo-section{ padding:14px 20px; }
+  }
+
+  @media (max-width: 899px){
+    .co-nav__menu,
+    .co-nav__searchbar,
+    .co-nav__actions .co-btn-subscribe{
+      display:none;
+    }
+    .co-nav__hamburger{ display:flex; }
+    .co-nav__mobile-panel{ display:block; }
+    .co-nav__inner{ height:56px; }
+    .co-topbar__follow{ display:none; }
+  }
+
+  @media (max-width: 720px){
+    .co-topbar__breaking-text{ max-width:140px; }
+    .co-topbar__item span.co-topbar__label{ display:none; }
+  }
+
+  @media (max-width: 560px){
+    .co-topbar__inner{ padding:7px 16px; gap:10px; }
+    .co-topbar__breaking{ flex:1; }
+    .co-logo-section{ padding:12px 16px; }
+    .co-logo__mark{ width:42px; height:42px; }
+    .co-logo__name{ font-size:52px;
+    color: #f6bd3a;
+  font-weight: 900; }
+    .co-logo__tagline{ font-size:10px; }
+    .co-ticker__inner{ padding:0 16px; }
+    .co-nav__inner{ padding:0 16px; }
+    .co-ticker__tag span{ display:none; }
+  }
+
+
+
+/* ==========================================================================
+   CoinOsprey — Part 2: Hero Featured News Section
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+
+.homepage-seo-intro{
+  max-width:1100px;
+  margin:0 auto 24px;
+  padding:0 4px;
+}
+
+.homepage-seo-intro h1{
+  margin:0 0 10px;
+  font-family:var(--co-font-display);
+  font-size:clamp(30px,4vw,44px);
+  line-height:1.12;
+  font-weight:800;
+  color:var(--co-navy-900);
+  letter-spacing:-.7px;
+}
+
+.homepage-seo-intro p{
+  margin:0 0 10px;
+  max-width:950px;
+  color:var(--c-text-body);
+  font-size:15px;
+  line-height:1.7;
+}
+
+.homepage-seo-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 16px;
+  margin-top:12px;
+}
+
+.homepage-seo-links a{
+  color:var(--co-navy-700);
+  font-weight:700;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.featured-news {
+  background: var(--c-bg-section);
+  padding: 22px 24px 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.featured-news__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.024fr;
+  gap: var(--gap-lg);
+}
+
+/* ==========================================================================
+   Shared: category badges
+   ========================================================================== */
+
+.badge-row {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  top: auto;
+  left: auto;
+  z-index: 3;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  color: var(--c-white);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+/* category color variants */
+.badge--bitcoin   { background: var(--c-gold-500); color: var(--c-navy-900); }
+.badge--dark      { background: var(--c-navy-800); }
+.badge--ethereum  { background: var(--c-purple-500); }
+.badge--altcoins  { background: var(--c-purple-500); }
+.badge--exchange  { background: var(--c-red-500); }
+.badge--binance   { background: var(--c-gold-500); color: var(--c-navy-900); }
+.badge--regulation{ background: var(--c-purple-600); }
+.badge--sec       { background: var(--c-navy-800); }
+
+/* glow animation triggered on card hover */
+.news-card:hover .badge,
+.featured-news__hero:hover .badge {
+  box-shadow: 0 0 0 3px rgba(232, 163, 61, 0.25), 0 0 16px rgba(232, 163, 61, 0.55);
+}
+
+/* ==========================================================================
+   Featured (hero) card — left, large
+   ========================================================================== */
+
+.featured-news__hero {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: auto;
+  background: var(--fn-card-bg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid transparent;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  opacity: 1;
+transform: none;
+animation: none;
+display: flex;
+flex-direction: column;
+}
+
+.featured-news__hero:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--fn-border);
+}
+
+.featured-news__media {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  background: var(--fn-card-bg);
+}
+
+/* .co-skeleton (loading-state class added by JS) sets position:relative and
+   would otherwise break the full-bleed overlay layout — reassert absolute
+   with higher specificity */
+.featured-news__media.co-skeleton {
+  position: relative;
+  width: 100%;
+}
+
+.featured-news__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: blur(16px);
+  transform: scale(1);
+  transition: filter 500ms ease;
+}
+.featured-news__img.is-loaded {
+  filter: blur(0);
+}
+
+.featured-news__hero:hover .featured-news__img {
+  transform: scale(1);
+}
+
+/* transparent black gradient, present only behind the text zone so the
+   thumbnail stays the primary visual focus */
+.featured-news__overlay {
+  display: none;
+}
+.featured-news__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  background: var(--fn-card-bg);
+}
+
+/* Full-card click target: sits above every other layer in the hero so
+   the whole card is clickable (matching its hover affordances), while
+   the article/heading markup underneath stays semantically correct. */
+.featured-news__hero-link {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  cursor: pointer;
+}
+
+.featured-news__title {
+  color: var(--c-white);
+  font-size: 26px;
+  line-height: 1.26;
+  font-weight: 800;
+  margin: 0 0 10px;
+  max-width: 100%;
+  text-shadow: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.featured-news__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  text-shadow: none;
+}
+
+.featured-news__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  text-shadow: none;
+}
+
+.featured-news__author-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--c-gold-500);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.featured-news__meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.featured-news__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ==========================================================================
+   Secondary cards — right, 2x2 grid
+   ========================================================================== */
+
+.featured-news__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--gap-lg);
+}
+
+.news-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--fn-card-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid transparent;
+  min-height: auto;
+  text-decoration: none;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeSlideIn 700ms ease forwards;
+}
+.news-card:nth-of-type(1) { animation-delay: 80ms; }
+.news-card:nth-of-type(2) { animation-delay: 160ms; }
+.news-card:nth-of-type(3) { animation-delay: 240ms; }
+.news-card:nth-of-type(4) { animation-delay: 320ms; }
+
+.news-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--fn-border);
+}
+
+.news-card__media {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.news-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: blur(14px);
+  transform: scale(1.1);
+  transition: filter 500ms ease, transform var(--transition-base);
+}
+
+.news-card__img.is-loaded {
+  filter: blur(0);
+}
+
+.news-card:hover .news-card__img {
+  transform: scale(1.05);
+}
+
+.news-card__overlay {
+  display: none;
+}
+
+.news-card__body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: var(--fn-card-bg);
+}
+
+.news-card__badge-row {
+  position: absolute;
+}
+
+.news-card__title {
+  color: var(--c-white);
+  font-size: 14px;
+  line-height: 1.32;
+  font-weight: 700;
+  margin: 0 0 8px;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11.5px;
+  text-align: left;
+}
+
+.news-card__views {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* read-more arrow reveal on hover (subtle affordance) */
+.news-card__arrow,
+.featured-news__arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--c-gold-400);
+  font-weight: 700;
+  font-size: 13px;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.news-card:hover .news-card__arrow,
+.featured-news__hero:hover .featured-news__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.news-card__arrow-icon,
+.featured-news__arrow-icon {
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+
+.news-card:hover .news-card__arrow-icon,
+.featured-news__hero:hover .featured-news__arrow-icon {
+  transform: translateX(4px);
+}
+
+/* icon svg sizing */
+.icon { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+/* ==========================================================================
+   Page-load fade-in keyframes
+   ========================================================================== */
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured-news__hero,
+  .news-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .featured-news__img,
+  .news-card__img {
+    filter: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Responsive breakpoints
+   ========================================================================== */
+
+/* Tablet: hero on top, 2-column grid below */
+@media (max-width: 1024px) {
+  .featured-news__container {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-news__hero {
+    min-height: 300px;
+  }
+
+  .featured-news__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  
+}
+
+/* Mobile: everything stacked in a single column */
+@media (max-width: 640px) {
+  .featured-news { padding: 16px 16px 4px; }
+
+  .featured-news__hero { min-height: 260px; }
+  .featured-news__content { padding: 18px 18px; }
+  .featured-news__title { font-size: 19px; max-width: 100%; margin: 0 0 6px; -webkit-line-clamp: 3; }
+  .featured-news__desc {
+  color: #fffff0 !important;
+  font-size: 14px;
+  line-height: 1.45;
+  max-width: 100%;
+  margin: 0 0 14px;
+  text-shadow: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+  .featured-news__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .news-card__body { padding: 12px 14px; }
+  .news-card__title { font-size: 15px; margin: 0 0 6px; -webkit-line-clamp: 2; }
+  .news-card__footer { font-size: 11.5px; }
+}
+
+
+
+  /* ============================
+     CSS VARIABLES
+  ============================ */
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    background:var(--c-bg);
+    color:var(--c-text-body);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;margin:0;padding:0;}
+  img{max-width:100%;display:block;}
+
+  .visually-hidden{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
+
+  /* ============================
+     LAYOUT WRAPPER
+  ============================ */
+  .content-sections{
+    max-width:1472px;
+    margin:0 auto;
+    padding:28px 32px 8px;
+  }
+
+.content-grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:24px;
+    align-items: stretch;
+  }
+  .content-block{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .block-list{
+    flex: 1;
+  }
+
+  /* ============================
+     SHARED SECTION STYLES
+  ============================ */
+  .content-block{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 600ms var(--ease), transform 600ms var(--ease);
+  }
+  .content-block.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .block-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+
+  .block-title{
+    font-family:var(--font-heading);
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--c-text-heading);
+    margin:0;
+    position:relative;
+    padding-bottom:2px;
+  }
+
+  .block-title::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-8px;
+    width:28px; height:3px;
+    background:var(--c-gold-500);
+    border-radius:2px;
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform 500ms var(--ease);
+  }
+  .content-block.is-visible .block-title::after{
+    transform:scaleX(1);
+  }
+
+  .view-all{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--c-gold-600);
+    white-space:nowrap;
+  }
+  .view-all__arrow{
+    display:inline-block;
+    transition:transform var(--transition-fast);
+  }
+  .view-all:hover .view-all__arrow{
+    transform:translateX(4px);
+  }
+  .view-all:hover{
+    color:var(--c-navy-900);
+  }
+
+  .block-list{
+    background:var(--p3-card-bg);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--p3-border);
+    overflow:hidden;
+  }
+
+  .block-list__item{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    min-height:96px;
+    padding:16px 18px;
+    border-bottom:1px solid var(--p3-border);
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity 450ms var(--ease),
+               transform 450ms var(--ease),
+               background var(--transition-fast);
+  }
+  .block-list__item:last-child{
+    border-bottom:none;
+  }
+  .content-block.is-visible .block-list__item{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ============================
+   1. LATEST NEWS
+============================ */
+
+.news-thumb{
+    width:56px;
+    height:56px;
+    border-radius:8px;
+    overflow:hidden;
+    flex:0 0 56px;
+    background:var(--c-navy-800);
+}
+
+.news-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform var(--transition-med);
+}
+
+.block-list__item:hover .news-thumb img{
+    transform:scale(1.08);
+}
+
+.news-item__body{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.news-item__category{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--c-gold-600);
+    margin-bottom:4px;
+    display:block;
+}
+
+.news-item__headline{
+    font-family:var(--font-heading);
+    font-size:14px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--c-text-heading);
+    margin:0 0 6px;
+    transition:color var(--transition-fast);
+}
+
+.block-list__item:hover .news-item__headline{
+    color:var(--c-gold-600);
+}
+
+.news-item__meta{
+    font-size:11.5px;
+    color:var(--c-text-muted);
+}
+  /* ============================
+     2. FEATURED PRICE PREDICTIONS
+  ============================ */
+  .coin-icon{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    flex:0 0 56px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:700;
+    color:#fff;
+  }
+  .coin-icon--btc{background:#f7931a;}
+  .coin-icon--eth{background:#3c3c3d;}
+  .coin-icon--sol{background:#14171f;}
+  .coin-icon--xrp{background:#0b0b0b;}
+
+  .prediction-item__body{min-width:0; flex:1;}
+  .prediction-item__coin{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--c-text-muted);
+    margin-bottom:4px;
+    display:block;
+  }
+  .prediction-item__title{
+    font-family:var(--font-heading);
+    font-size:14px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--c-text-heading);
+    margin:0 0 6px;
+    transition:color var(--transition-fast);
+  }
+  .block-list__item:hover .prediction-item__title{
+    color:var(--c-gold-600);
+  }
+  .prediction-item__date{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:11.5px;
+    color:var(--c-text-muted);
+  }
+
+  /* ============================
+     3. ACADEMY HIGHLIGHTS
+  ============================ */
+  .academy-icon{
+    width:56px;
+    height:56px;
+    border-radius:12px;
+    flex:0 0 56px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+  }
+  .academy-icon--blockchain{background:var(--cat-blue-bg); color:var(--cat-blue);}
+  .academy-icon--trading{background:var(--cat-teal-bg); color:var(--cat-teal);}
+  .academy-icon--tokenomics{background:var(--cat-purple-bg); color:var(--cat-purple);}
+  .academy-icon--wallets{background:var(--cat-gold-bg); color:var(--c-gold-600);}
+
+  .academy-item__body{min-width:0; flex:1;}
+  .academy-item__category{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--c-text-muted);
+    margin-bottom:4px;
+    display:block;
+  }
+  .academy-item__title{
+    font-family:var(--font-heading);
+    font-size:14px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--c-text-heading);
+    margin:0 0 6px;
+    transition:color var(--transition-fast);
+  }
+  .block-list__item:hover .academy-item__title{
+    color:var(--c-gold-600);
+  }
+  .academy-item__meta{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11.5px;
+  }
+  .academy-item__time{color:var(--c-text-muted);}
+  .academy-item__level{
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:20px;
+    font-size:10px;
+    letter-spacing:.02em;
+  }
+  .academy-item__level--beginner{background:#e6f7ec; color:#1a9e51;}
+  .academy-item__level--intermediate{background:#fff1e0; color:#d97706;}
+
+  /* ============================
+     4. RESEARCH & ANALYSIS
+  ============================ */
+  .research-thumb{
+    width:56px;
+    height:56px;
+    border-radius:8px;
+    overflow:hidden;
+    flex:0 0 56px;
+    background:linear-gradient(135deg,var(--c-navy-800),var(--c-navy-700));
+    position:relative;
+  }
+  .research-thumb img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform var(--transition-med);
+  }
+  .block-list__item:hover .research-thumb img{
+    transform:scale(1.08);
+  }
+
+  .research-item__body{min-width:0; flex:1;}
+  .research-item__title{
+    font-family:var(--font-heading);
+    font-size:14px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--c-text-heading);
+    margin:0 0 6px;
+    transition:color var(--transition-fast);
+  }
+  .block-list__item:hover .research-item__title{
+    color:var(--c-gold-600);
+  }
+  .research-item__author{
+    font-size:11.5px;
+    color:var(--c-text-muted);
+  }
+  .research-item__author strong{
+    color:var(--c-text-body);
+    font-weight:600;
+  }
+
+  /* premium glow border on hover for research (per spec: gold border glow) */
+  .block-list--research .block-list__item:hover{
+    box-shadow: inset 0 0 0 1px rgba(240,169,30,0.35);
+    background:#fffdf7;
+  }
+
+  /* card lift + gold border glow applied to whole block-list on hover of container */
+  .block-list{
+    transition:box-shadow var(--transition-med), transform var(--transition-med), border-color var(--transition-med);
+  }
+  .block-list:hover{
+    box-shadow:var(--shadow-lg);
+    transform:translateY(-3px);
+    border-color:rgba(240,169,30,0.4);
+  }
+
+  /* ============================
+     RESPONSIVE
+  ============================ */
+  @media (max-width:1024px){
+    .content-grid{
+      grid-template-columns:repeat(2, 1fr);
+      row-gap:32px;
+    }
+  }
+
+  @media (max-width:640px){
+    .content-sections{padding:20px 16px 8px;}
+    .content-grid{
+      grid-template-columns:1fr;
+      row-gap:28px;
+    }
+    .block-list__item{padding:12px 14px; min-height:76px; gap:12px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{
+      animation-duration:0.01ms !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+
+
+
+  /* ============================
+     CSS VARIABLES
+  ============================ */
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    background:#f4f6fa;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;margin:0;padding:0;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;}
+
+  .visually-hidden{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
+
+  /* ============================
+     SHARED FADE-UP ANIMATION
+  ============================ */
+
+  }
+  [data-animate].is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ============================
+     DISCLAIMER SECTION
+  ============================ */
+  .disclaimer{
+    max-width:1472px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  .disclaimer__inner{
+    padding:0 0 32px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    margin-bottom:36px;
+  }
+
+  .disclaimer__heading{
+    font-family:var(--font-heading);
+    font-size:17px;
+    font-weight:700;
+    color:var(--c-white);
+    margin:0 0 12px;
+  }
+
+  .disclaimer__text{
+    font-size:12.5px;
+    color:rgba(255,255,255,0.55);
+    line-height:1.6;
+    margin:0 0 12px;
+  }
+  .disclaimer__text:last-child{
+    margin-bottom:0;
+  }
+
+  /* ============================
+     FOOTER
+  ============================ */
+  .site-footer{
+    margin-top:40px;
+    background:var(--c-navy-900);
+    color:rgba(255,255,255,0.68);
+    padding-top:48px;
+  }
+.footer__grid{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:0 32px 28px;
+    display:grid;
+    grid-template-columns:1.6fr 1fr 1fr 1fr 1fr 1fr;
+    gap:24px;
+    align-items:start;
+  }
+
+  .footer-col__heading{
+    font-family:var(--font-heading);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--c-white);
+    margin:0 0 16px;
+  }
+
+  /* --- Brand column --- */
+  .footer-brand__logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+
+  .footer-brand__logo-icon{
+    width:34px;
+    height:34px;
+    border-radius:8px;
+    background:radial-gradient(circle at 30% 30%, var(--c-gold-400), var(--c-gold-600));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    color:var(--c-navy-900);
+    font-weight:800;
+    transition:box-shadow var(--transition-med), transform var(--transition-med);
+  }
+  .footer-brand:hover .footer-brand__logo-icon{
+    box-shadow:0 0 18px rgba(240,169,30,0.55);
+    transform:scale(1.05);
+  }
+
+  .footer-brand__logo-text{
+    font-family:var(--font-heading);
+    font-size:19px;
+    font-weight:800;
+    color:var(--c-white);
+    letter-spacing:.01em;
+  }
+  .footer-brand__logo-text span{
+    color:var(--c-gold-500);
+  }
+
+  .footer-brand__desc{
+    font-size:13px;
+    line-height:1.6;
+    color:rgba(255,255,255,0.62);
+    margin:0 0 18px;
+    max-width:260px;
+  }
+
+  .footer-social{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:20px;
+  }
+
+  .footer-social__link{
+    width:28px;
+    height:28px;
+    flex:0 0 28px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    color:#ffffff;
+    transition:transform var(--transition-fast), background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  }
+  .footer-social__link svg{
+    width:12px;
+    height:12px;
+    fill:currentColor;
+    display:block;
+  }
+  .footer-social__link--x{ background:#000000; }
+  .footer-social__link--linkedin{ background:#0A66C2; }
+  .footer-social__link--youtube{ background:#FF0000; }
+  .footer-social__link:hover{
+    background:var(--c-gold-500);
+    color:var(--c-navy-900);
+    transform:scale(1.12) rotate(8deg);
+  }
+
+  .footer-copyright{
+    font-size:12px;
+    color:rgba(255,255,255,0.45);
+  }
+
+  /* --- Link columns --- */
+  .footer-links{
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+  }
+
+  .footer-links__item{
+    position:relative;
+    display:inline-block;
+    width:fit-content;
+    font-size:13px;
+    color:rgba(255,255,255,0.62);
+    transition:color var(--transition-fast);
+  }
+
+  .footer-links__item::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-3px;
+    width:0%;
+    height:1px;
+    background:var(--c-gold-500);
+    transition:width var(--transition-fast);
+  }
+
+  .footer-links__item:hover{
+    color:var(--c-white);
+  }
+  .footer-links__item:hover::after{
+    width:100%;
+  }
+
+  /* --- Popular topics: pill tags instead of plain links --- */
+  .footer-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .footer-tags__item{
+    font-size:11.5px;
+    padding:6px 12px;
+    border-radius:20px;
+    border:1px solid var(--p4-border);
+    color:rgba(255,255,255,0.62);
+    transition:background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    white-space:nowrap;
+  }
+  .footer-tags__item:hover{
+    background:rgba(240,169,30,0.12);
+    border-color:rgba(240,169,30,0.5);
+    color:var(--c-gold-400);
+    transform:translateY(-2px);
+  }
+
+  /* ============================
+     BOTTOM BAR
+  ============================ */
+  .footer-bottom{
+    border-top:1px solid var(--p4-border);
+  }
+
+  .footer-bottom__inner{
+    max-width:1472px;
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  .footer-bottom__text{
+    font-size:12px;
+    color:rgba(255,255,255,0.45);
+  }
+
+  .footer-bottom__disclaimer{
+    font-size:12px;
+    color:rgba(255,255,255,0.45);
+    font-style:italic;
+  }
+
+  /* ============================
+     RESPONSIVE
+  ============================ */
+  @media (max-width:1024px){
+    .footer__grid{
+      grid-template-columns:repeat(3, 1fr);
+      row-gap:22px;
+    }
+    .footer-brand{
+      grid-column:1 / -1;
+    }
+    .footer-brand__desc{max-width:420px;}
+  }
+@media (max-width:640px){
+    .footer__grid{
+      grid-template-columns:repeat(3, 1fr);
+      padding:0 20px 20px;
+      gap:16px 12px;
+      row-gap:24px;
+    }
+    .footer-brand{grid-column:1 / -1;}
+    .footer-links__item, .footer-tags__item{
+      font-size:12px;
+    }
+
+    .footer-bottom__inner{
+      flex-direction:column;
+      text-align:center;
+      padding:16px 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{
+      animation-duration:0.01ms !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+
+  /* ==========================================================================
+     PART 5 — GLOBAL UTILITIES, COMPONENTS & SCROLL ANIMATION LIBRARY
+     ========================================================================== */
+
+  /* ---------- Button system ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:11px 22px;
+    border-radius:var(--co-radius-sm);
+    font-weight:700;
+    font-size:13.5px;
+    border:none;
+    cursor:pointer;
+    transition:background var(--co-transition), transform var(--co-transition), box-shadow var(--co-transition);
+  }
+  .btn--primary{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .btn--primary:hover{
+    background:#ffb941;
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(245,166,35,.35);
+  }
+  .btn--outline{
+    background:transparent;
+    color:var(--co-white);
+    border:1px solid rgba(255,255,255,0.28);
+  }
+  .btn--outline:hover{
+    background:rgba(255,255,255,0.08);
+    border-color:var(--co-amber-500);
+  }
+  /* Shimmer sweep, reusable on any .btn--shimmer */
+  .btn--shimmer{ position:relative; overflow:hidden; }
+  .btn--shimmer::after{
+    content:"";
+    position:absolute; top:0; left:-60%;
+    width:40%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform:skewX(-20deg);
+    animation:co-shimmer 3.4s ease-in-out infinite;
+  }
+  @keyframes co-shimmer{
+    0%{ left:-60%; } 45%{ left:130%; } 100%{ left:130%; }
+  }
+
+  /* ---------- Card system ---------- */
+  .card{
+    background:var(--co-white);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--p3-border);
+    transition:box-shadow var(--transition-med), transform var(--transition-med), border-color var(--transition-med);
+  }
+  .card:hover{
+    box-shadow:var(--shadow-lg);
+    transform:translateY(-4px);
+    border-color:rgba(245,166,35,0.4);
+  }
+  /* Gold glow ring, applied on hover across news/research/prediction cards */
+  .card--glow:hover{
+    box-shadow:var(--shadow-lg), 0 0 0 1px rgba(245,166,35,0.45);
+  }
+
+  /* ---------- Utility classes ---------- */
+  .u-container{ max-width:var(--max-width); margin:0 auto; padding-left:34px; padding-right:34px; }
+  .u-flex{ display:flex; }
+  .u-flex-center{ display:flex; align-items:center; justify-content:center; }
+  .u-hidden{ display:none !important; }
+  .u-mt-1{margin-top:var(--space-1);} .u-mt-2{margin-top:var(--space-2);}
+  .u-mt-4{margin-top:var(--space-4);} .u-mt-8{margin-top:var(--space-8);}
+  .u-mb-1{margin-bottom:var(--space-1);} .u-mb-2{margin-bottom:var(--space-2);}
+  .u-mb-4{margin-bottom:var(--space-4);} .u-mb-8{margin-bottom:var(--space-8);}
+  .u-text-center{ text-align:center; }
+
+  @media (min-width:1920px){
+    .u-container{ max-width:1760px; }
+  }
+
+  /* ==========================================================================
+     SCROLL-TRIGGERED ANIMATION LIBRARY
+     Applied once via IntersectionObserver (see script). Elements start in a
+     hidden state defined by [data-animate], then transition to [.in-view].
+     GPU-accelerated: only opacity + transform are animated.
+     ========================================================================== */
+  [data-animate]{
+    opacity:0;
+    will-change:opacity, transform;
+    transition:opacity 700ms var(--ease), transform 700ms var(--ease);
+  }
+  [data-animate="fade-up"],
+[data-animate="fade-left"],
+[data-animate="fade-right"],
+[data-animate="scale-in"]{
+  transform:none;
+}
+  [data-animate="image-reveal"]{ transform:none; opacity:1; }
+
+  [data-animate].in-view{
+    opacity:1;
+    transform:translate3d(0,0,0) scale3d(1,1,1);
+  }
+
+  /* Image reveal: a clip-path wipe instead of opacity, used on hero/thumb media */
+  [data-animate="image-reveal"] .co-reveal-mask{
+    position:absolute; inset:0;
+    background:var(--co-navy-900);
+    transform-origin:right;
+    transform:scaleX(1);
+    transition:transform 800ms var(--ease);
+    z-index:2;
+  }
+  [data-animate="image-reveal"].in-view .co-reveal-mask{
+    transform:scaleX(0);
+  }
+
+  /* Stagger children: direct children animate with incrementing delay,
+     delay value is set inline by JS via --stagger-index */
+  [data-stagger] > *{
+    opacity:0;
+    transform:translate3d(0, 18px, 0);
+    transition:opacity 500ms var(--ease), transform 500ms var(--ease);
+    transition-delay:calc(var(--stagger-index, 0) * 70ms);
+  }
+  [data-stagger].in-view > *{
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+
+  /* Counter animation target */
+  [data-counter]{ font-variant-numeric:tabular-nums; }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-animate], [data-stagger] > *, [data-animate="image-reveal"] .co-reveal-mask{
+      transition-duration:1ms !important;
+      animation-duration:1ms !important;
+    }
+  }
+
+  /* ==========================================================================
+     PAGE LOAD ANIMATION
+     ========================================================================== */
+  .page-loader{
+    position:fixed; inset:0;
+    z-index:9999;
+    background:var(--co-navy-900);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:opacity 500ms var(--ease), visibility 500ms var(--ease);
+  }
+  .page-loader.is-hidden{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+  .page-loader__mark{
+    width:56px; height:56px;
+    border-radius:50%;
+    border:3px solid rgba(245,166,35,0.2);
+    border-top-color:var(--co-amber-500);
+    animation:co-spin 800ms linear infinite;
+  }
+  @keyframes co-spin{ to{ transform:rotate(360deg); } }
+
+  /* ==========================================================================
+     SCROLL PROGRESS BAR
+     ========================================================================== */
+  .scroll-progress{
+    position:fixed;
+    top:0; left:0;
+    width:0%;
+    height:3px;
+    background:linear-gradient(90deg, var(--co-amber-500), #ffd27a);
+    z-index:1200;
+    transition:width 80ms linear;
+  }
+
+  /* ==========================================================================
+     BACK TO TOP BUTTON
+     ========================================================================== */
+  .back-to-top{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    width:46px; height:46px;
+    border-radius:50%;
+    background:var(--co-navy-900);
+    color:var(--co-amber-500);
+    border:1px solid rgba(245,166,35,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 26px rgba(11,23,48,0.3);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(12px);
+    transition:opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast), background var(--transition-fast);
+    z-index:900;
+  }
+  .back-to-top.is-visible{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+  .back-to-top:hover{
+    background:var(--co-amber-500);
+    color:var(--co-navy-900);
+  }
+  .back-to-top svg{ width:18px; height:18px; }
+
+  /* ==========================================================================
+     HEADER SEARCH DROPDOWN
+     Lightweight suggestions dropdown anchored directly under the header
+     search bar (desktop) / mobile panel search field. Replaces the old
+     centered full-screen search popup.
+     ========================================================================== */
+  .co-nav__searchbar,
+  .co-nav__mobile-search{
+    position:relative;
+  }
+  .co-search-dropdown{
+    position:absolute;
+    left:0; right:0;
+    top:calc(100% + 8px);
+    background:var(--co-navy-800);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:var(--co-radius-md);
+    box-shadow:0 16px 32px rgba(4,8,20,0.45);
+    padding:10px;
+    max-height:360px;
+    overflow-y:auto;
+    z-index:1100;
+    opacity:0;
+    transform:translateY(-4px);
+    pointer-events:none;
+    transition:opacity 160ms ease, transform 160ms ease;
+  }
+  .co-search-dropdown.is-open{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .co-search-dropdown__section + .co-search-dropdown__section{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .co-search-dropdown__title{
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--co-gray-500);
+    padding:4px 8px 6px;
+  }
+  .co-search-dropdown__chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding:0 4px;
+  }
+  .co-search-dropdown__chip{
+    font-size:12px;
+    font-weight:600;
+    color:var(--co-gray-300);
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:20px;
+    padding:6px 12px;
+    transition:background var(--co-transition), color var(--co-transition), border-color var(--co-transition);
+  }
+  .co-search-dropdown__chip:hover{
+    background:rgba(245,166,35,0.14);
+    color:var(--co-amber-500);
+    border-color:var(--co-amber-500);
+  }
+  .co-search-dropdown__result{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    padding:8px;
+    border-radius:var(--co-radius-sm);
+    text-align:left;
+    transition:background var(--co-transition);
+  }
+  .co-search-dropdown__result:hover,
+  .co-search-dropdown__result.is-active{
+    background:rgba(255,255,255,0.08);
+  }
+  .co-search-dropdown__result-icon{
+    width:28px; height:28px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    font-size:13px;
+  }
+  .co-search-dropdown__result-text{ min-width:0; flex:1; }
+  .co-search-dropdown__result-title{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--co-white);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .co-search-dropdown__result-title mark{
+    background:none;
+    color:var(--co-amber-500);
+  }
+  .co-search-dropdown__result-cat{
+    display:block;
+    font-size:11px;
+    color:var(--co-gray-500);
+    margin-top:1px;
+  }
+  .co-search-dropdown__empty{
+    padding:28px 16px;
+    text-align:center;
+  }
+  .co-search-dropdown__empty-icon{
+    width:36px; height:36px;
+    margin:0 auto 10px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.06);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--co-gray-500);
+  }
+  .co-search-dropdown__empty-icon svg{ width:18px; height:18px; }
+  .co-search-dropdown__empty-title{
+    font-size:13px;
+    font-weight:700;
+    color:var(--co-white);
+    margin-bottom:4px;
+  }
+  .co-search-dropdown__empty-text{
+    font-size:12px;
+    color:var(--co-gray-500);
+    line-height:1.5;
+  }
+
+  @media (max-width:640px){
+    .co-search-dropdown{ max-height:50vh; }
+  }
+
+  /* ==========================================================================
+     SKELETON LOADER (used behind lazy images before they load)
+     ========================================================================== */
+/* =========================================================
+   HOMEPAGE LIVE DATA
+   Do not show hard-coded loading placeholders on first paint
+   ========================================================= */
+
+/* =========================================================
+   COINOSPREY HOMEPAGE LOADING STATE
+   Never show an empty homepage while API is loading.
+   ========================================================= */
+
+.featured-news-loading {
+  display: none !important;
+}
+
+/* Featured hero skeleton */
+.featured-news__container:empty {
+  min-height: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  animation: none;
+  overflow: hidden;
+}
+
+.featured-news__container:empty::before {
+  content: none;
+}
+
+/* Lower section skeleton */
+
+.block-list:empty {
+  min-height: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  animation: none;
+  overflow: hidden;
+}
+
+/* Hide loading skeleton immediately after real data arrives */
+html.homepage-data-ready .featured-news__container:empty,
+html.homepage-data-ready .block-list:empty {
+  display: none;
+}
+
+@keyframes co-home-skeleton {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Existing image skeleton support */
+.co-skeleton{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(
+      90deg,
+      #e9ebf1 25%,
+      #f4f5f8 37%,
+      #e9ebf1 63%
+    );
+  background-size:400% 100%;
+  animation:co-home-skeleton 1.35s ease-in-out infinite;
+}
+  @keyframes co-skeleton-sweep{
+    0%{ background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+  }
+  .co-skeleton.is-loaded{
+    animation:none;
+    background:none;
+  }
+
+
+  /* ==========================================================================
+     PART 5 — FINAL NORMALIZATION LAYER
+     Placed last on purpose: single-class selectors here override the
+     equally-specific single-class rules shipped inside each individual
+     part, bringing every section onto one consistent 1440px rail.
+     ========================================================================== */
+  .co-topbar__inner, .co-logo-section, .co-nav__inner,
+  .featured-news__container, .content-sections, .disclaimer,
+  .footer__grid, .footer-bottom__inner{
+    max-width:var(--max-width);
+  }
+
+  /* Keep the sticky nav above the scroll-progress bar and the header
+     search dropdown correctly layered without touching each part's own
+     z-index scale. */
+  .co-nav{ z-index:1000; }
+  .scroll-progress{ z-index:1200; }
+  .co-search-dropdown{ z-index:1300; }
+
+  /* ==========================================================================
+     FINAL HARD OVERRIDE — guarantees mobile hamburger vs desktop menu
+     switch works regardless of any earlier conflicting/duplicate rules.
+     ========================================================================== */
+  @media (max-width: 899px){
+    .co-nav__menu{ display:none !important; }
+    .co-nav__searchbar{ display:none !important; }
+    .co-nav__actions .co-btn-subscribe{ display:none !important; }
+    .co-nav__hamburger{ display:flex !important; }
+    .co-nav__mobile-panel{ display:block !important; }
+  }
+  @media (min-width: 900px){
+    .co-nav__menu{ display:flex !important; }
+    .co-nav__searchbar{ display:flex !important; }
+    .co-nav__hamburger{ display:none !important; }
+    .co-nav__mobile-panel{ display:none !important; }
+  }
+/* ==========================================================================
+     ABSOLUTE FINAL FIX — forces horizontal nav row, no matter what
+     ========================================================================== */
+  @media (min-width: 900px){
+    .co-nav__inner{
+      display:flex !important;
+      flex-direction:row !important;
+      flex-wrap:nowrap !important;
+      align-items:center !important;
+    }
+    .co-nav__menu{
+      display:flex !important;
+      flex-direction:row !important;
+      flex-wrap:nowrap !important;
+      align-items:stretch !important;
+    }
+    .co-nav__item{
+      display:flex !important;
+      flex-direction:row !important;
+      position:relative !important;
+    }
+    .co-nav__link{
+      display:flex !important;
+      flex-direction:row !important;
+      align-items:center !important;
+      white-space:nowrap !important;
+    }
+    .co-nav__searchbar{
+      display:flex !important;
+      flex-direction:row !important;
+    }
+  }
+
+.co-nav-logo__tagline{
+    display:block !important;
+    font-size:8px;
+    font-weight:600;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    color:var(--co-gray-300);
+    margin-top:2px;
+    white-space:nowrap;
+  }
+
+  /* FINAL FORCE — breaking news ticker text must always be white */
+  .co-ticker__entry,
+  .co-ticker__entry *,
+  .co-ticker__track,
+  .co-ticker__track *,
+  .co-ticker__viewport,
+  .co-ticker__inner{
+    color:#ffffff !important;
+  }
+
+
+
+  .co-footer-pro{
+  background:var(--co-navy-900,#0a0e17);
+  background-image:radial-gradient(ellipse 900px 400px at 90% 0%, rgba(240,169,30,0.08), transparent 60%);
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding:56px 0 0;
+  color:var(--hf-co-gray-300,#9aa4b5);
+  font-size:14px;
+}
+.co-footer-pro__inner{ max-width:1320px; margin:0 auto; padding:0 24px; }
+.co-footer-pro__grid{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;
+  gap:32px;
+  padding-bottom:40px;
+}
+.co-footer-pro__logo{ display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.co-footer-pro__logo-text{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:#fff; }
+.co-footer-pro__logo-text span{ color:var(--hf-co-amber-500,#f0a91e); }
+.co-footer-pro__desc{ line-height:1.6; margin-bottom:20px; max-width:320px; }
+.co-footer-pro__features{ list-style:none; margin:0 0 22px; padding:0; display:flex; flex-direction:column; gap:12px; }
+.co-footer-pro__features li{ display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--hf-co-gray-200,#c3cad8); }
+.co-footer-pro__feature-icon{
+  width:30px; height:30px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(240,169,30,0.4); border-radius:50%; color:var(--hf-co-amber-500,#f0a91e);
+}
+.co-footer-pro__follow-label{ display:block; font-weight:700; color:#fff; margin-bottom:10px; font-size:13.5px; }
+.co-footer-pro__social{ display:flex; gap:10px; }
+.co-footer-pro__social a{
+  width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,0.06); color:#fff; transition:background .15s, color .15s, transform .15s;
+}
+.co-footer-pro__social a:hover{ background:var(--hf-co-amber-500,#f0a91e); color:var(--co-navy-900,#0a0e17); transform:translateY(-2px); }
+
+.co-footer-pro__col h4{
+  color:#fff; font-size:13px; letter-spacing:.06em; text-transform:uppercase; font-weight:700;
+  margin-bottom:10px; padding-bottom:10px; position:relative;
+}
+.co-footer-pro__col h4::after{
+  content:''; position:absolute; left:0; bottom:0; width:26px; height:2px; background:var(--hf-co-amber-500,#f0a91e);
+}
+.co-footer-pro__col ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; }
+.co-footer-pro__col a{ color:var(--hf-co-gray-300,#9aa4b5); text-decoration:none; transition:color .15s, padding-left .15s; font-size:13.5px; }
+.co-footer-pro__col a::before{ content:'›'; margin-right:6px; color:var(--hf-co-amber-500,#f0a91e); }
+.co-footer-pro__col a:hover{ color:#fff; padding-left:2px; }
+
+.co-footer-pro__newsletter{
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:14px;
+  padding:22px 26px; margin-bottom:36px;
+}
+.co-footer-pro__newsletter-icon{
+  width:48px; height:48px; flex-shrink:0; border-radius:50%; border:1px solid rgba(240,169,30,0.4);
+  display:flex; align-items:center; justify-content:center; color:var(--hf-co-amber-500,#f0a91e);
+}
+.co-footer-pro__newsletter-text{ display:flex; flex-direction:column; gap:4px; flex:1 1 260px; min-width:200px; }
+.co-footer-pro__newsletter-text strong{ color:#fff; font-size:16px; }
+.co-footer-pro__newsletter-text span{ font-size:13px; line-height:1.5; }
+.co-footer-pro__newsletter-form{ display:flex; gap:10px; flex:1 1 380px; min-width:260px; }
+.co-footer-pro__newsletter-form input{
+  flex:1; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.14); border-radius:9px;
+  padding:12px 16px; color:#fff; font-size:13.5px;
+}
+.co-footer-pro__newsletter-form input::placeholder{ color:var(--hf-co-gray-500,#6b7690); }
+.co-footer-pro__newsletter-form input:focus{ outline:none; border-color:var(--hf-co-amber-500,#f0a91e); }
+.co-footer-pro__newsletter-form button{
+  background:linear-gradient(135deg,#f0a91e,#ff8a1e); color:#0a0e17; border:none; border-radius:9px;
+  padding:0 22px; font-weight:700; font-size:13.5px; white-space:nowrap; cursor:pointer; transition:transform .15s;
+}
+.co-footer-pro__newsletter-form button:hover{ transform:translateY(-1px); }
+
+.co-footer-pro__bottom{
+  border-top:1px solid rgba(255,255,255,0.08); padding:18px 0; display:flex; align-items:center;
+  justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--hf-co-gray-500,#6b7690);
+}
+.co-footer-pro__bottom span{ color:var(--hf-co-amber-500,#f0a91e); font-weight:600; }
+.co-footer-pro__disclaimer{ display:flex; align-items:center; gap:6px; font-style:italic; color:var(--hf-co-gray-500,#6b7690); }
+
+@media (max-width:1080px){
+  .co-footer-pro__grid{ grid-template-columns:1fr 1fr; }
+  .co-footer-pro__brand{ grid-column:1 / -1; }
+}
+@media (max-width:640px){
+  .co-footer-pro__grid{ grid-template-columns:1fr; gap:28px; }
+  .co-footer-pro__newsletter{ flex-direction:column; align-items:flex-start; }
+  .co-footer-pro__newsletter-form{ width:100%; flex:none; flex-direction:column; }
+  .co-footer-pro__newsletter-form input{ flex:none; width:100%; }
+  .co-footer-pro__bottom{ flex-direction:column; align-items:flex-start; }
+}
+
+</style>
+
+<style>
+.co-topbar__breaking{ display:none; }
+.authors-main{ background:var(--page-bg); min-height:60vh; }
+.authors-breadcrumb{
+  max-width:var(--max-width); margin:0 auto; padding:18px 24px 0;
+  font-size:13px; color:var(--c-text-muted);
+}
+.authors-breadcrumb a{ color:var(--c-text-muted); text-decoration:none; }
+.authors-breadcrumb a:hover{ color:var(--co-amber-600); text-decoration:underline; }
+.authors-hero{ max-width:var(--max-width); margin:0 auto; padding:28px 24px 8px; }
+.authors-hero h1{ font-family:var(--co-font-display); font-weight:700; font-size:var(--fs-2xl); color:var(--c-text-heading); margin:0 0 8px; }
+.authors-hero p{ color:var(--c-text-muted); font-size:14.5px; max-width:640px; margin:0; }
+
+.authors-grid{
+  max-width:var(--max-width); margin:0 auto; padding:24px 24px 48px;
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;
+}
+@media (max-width:900px){ .authors-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px){ .authors-grid{ grid-template-columns:1fr; } }
+
+.author-card{
+  background:var(--p3-card-bg); border:1px solid var(--p3-border); border-radius:var(--radius-lg);
+  padding:24px; text-align:center; box-shadow:var(--shadow-card); text-decoration:none; color:inherit;
+  transition:transform .18s ease, box-shadow .18s ease;
+  display:flex; flex-direction:column; align-items:center;
+}
+.author-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
+.author-card__avatar{
+  width:76px; height:76px; border-radius:50%; overflow:hidden; margin-bottom:14px;
+  background:var(--co-navy-800); display:flex; align-items:center; justify-content:center;
+  border:2px solid rgba(240,169,30,0.4);
+}
+.author-card__avatar img{ width:100%; height:100%; object-fit:cover; }
+.author-card__avatar span{ font-family:var(--co-font-display); font-weight:700; font-size:24px; color:var(--co-amber-500); }
+.author-card__name{ font-family:var(--co-font-display); font-weight:700; font-size:16px; color:var(--c-text-heading); margin:0 0 4px; }
+.author-card__role{ color:var(--co-amber-600); font-size:12.5px; font-weight:600; margin:0 0 10px; }
+.author-card__bio{ color:var(--c-text-muted); font-size:13px; line-height:1.55; margin:0 0 14px; }
+.author-card__count{ font-size:12px; color:var(--c-text-muted); margin-bottom:14px; }
+.author-card__btn{
+  margin-top:auto; display:inline-block; padding:9px 20px; border-radius:8px; font-size:13px; font-weight:700;
+  background:var(--co-amber-500); color:var(--co-navy-900);
+}
+
+.authors-empty, .authors-error{ text-align:center; padding:60px 24px; color:var(--c-text-muted); grid-column:1/-1; }
+.authors-skeleton{
+  background:linear-gradient(90deg, #eceff4 25%, #f6f7fa 37%, #eceff4 63%);
+  background-size:400% 100%; animation:coAuthorsShimmer 1.4s ease infinite; border-radius:var(--radius-lg); height:230px;
+}
+@keyframes coAuthorsShimmer{ 0%{background-position:100% 50%;} 100%{background-position:0 50%;} }
+</style>
+</head>
+<body>
+
+<header class="co-header" id="coHeader">
+
+  <!-- ============================ TOP INFO BAR ============================ -->
+  <div class="co-topbar">
+    <div class="co-topbar__inner">
+      <div class="co-topbar__left">
+        <span class="co-topbar__item" id="topbarDate">
+          <svg class="co-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+          <span class="co-topbar__label">Tuesday, 23 September 2025</span>
+        </span>
+        <span class="co-topbar__time" id="topbarTime">
+          <svg class="co-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+          <span id="topbarTimeText">3:12:17 PM</span>
+        </span>
+        <span class="co-topbar__breaking">
+          <span class="co-topbar__breaking-tag">BREAKING:</span>
+          <span class="co-topbar__breaking-text">Loading latest updates...</span>
+        </span>
+      </div>
+      <div class="co-topbar__right">
+        <span class="co-topbar__follow">Follow Us</span>
+        <nav class="co-topbar__social" aria-label="Social media links">
+          <a class="co-topbar__social-link" href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="6" fill="#000000"/>
+              <path fill="#ffffff" d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/>
+            </svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://www.linkedin.com/in/coinosprey?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+              <path fill="#ffffff" d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/>
+            </svg>
+          </a>
+          <a class="co-topbar__social-link" href="https://youtube.com/@coinosprey?si=kwk40LF-tt-3f6jp" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="1" y="4" width="22" height="16" rx="5" fill="#FF0000"/>
+              <path fill="#ffffff" d="M10 8.5v7l6-3.5-6-3.5Z"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ NAVIGATION ============================ -->
+  <div class="co-nav">
+    <div class="co-nav__inner">
+      <a href="/" class="co-nav-logo" aria-label="CoinOsprey — go to homepage">
+        <svg width="38" height="38" viewBox="0 0 54 40" style="flex-shrink:0;" aria-label="CoinOsprey logo"><polygon points="27,0 2,38 27,28" fill="#C9A24B"/><polygon points="27,0 52,38 27,28" fill="#E8CD8A"/></svg>
+        <span class="co-nav-logo__col">
+          <span class="co-nav-logo__text" style="font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.3px;">Coin<span style="color:var(--co-amber-500,#f0a91e);">Osprey</span></span>
+          <span class="co-nav-logo__tagline">Sharp Eyes on Crypto Markets</span>
+        </span>
+      </a>
+      <nav class="co-nav__menu" aria-label="Primary navigation">
+
+              
+        
+              <div class="co-nav__item">
+          <a class="co-nav__link" href="articles-list.html?section=news">NEWS</a>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="articles-list.html?section=price-prediction">PRICE PREDICTIONS</a>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="articles-list.html?section=blog">BLOGS</a>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="articles-list.html?section=academy">ACADEMY</a>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="articles-list.html?section=research">RESEARCH</a>
+        </div>
+        <div class="co-nav__item">
+          <a class="co-nav__link" href="tools.html">TOOLS</a>
+        </div>
+      </nav>
+          
+           
+              
+
+      <form class="co-nav__searchbar" role="search" action="/articles-list.html" method="get">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" id="headerSearchInput" class="co-nav__searchbar-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="headerSearchDropdown" aria-autocomplete="list">
+        <button type="submit" class="co-nav__searchbar-submit" id="headerSearchSubmit" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        </button>
+        <div class="co-language-switcher"
+     role="group"
+     aria-label="Language selector">
+
+  <a class="co-language-switcher__link is-active"
+     href="/"
+     lang="en"
+     aria-current="page">
+    EN
+  </a>
+
+  <span class="co-language-switcher__divider" aria-hidden="true">|</span>
+
+<a class="co-language-switcher__link"
+     href="/hi/"
+     lang="hi"
+     aria-current="false">
+    हिंदी
+  </a>
+
+</div>
+      </form>
+
+      <div class="co-nav__actions">
+        <button class="co-nav__hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobilePanel">
+          <span class="co-nav__hamburger-bar"></span>
+          <span class="co-nav__hamburger-bar"></span>
+          <span class="co-nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE NAV PANEL -->
+    <div class="co-nav__mobile-panel" id="mobilePanel">
+      <form class="co-nav__mobile-search" role="search" action="#" onsubmit="return false;" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" id="mobileSearchInput" class="co-nav__mobile-search-input" placeholder="Search news, coins, guides..." aria-label="Search CoinOsprey" role="combobox" aria-expanded="false" aria-controls="mobileSearchDropdown" aria-autocomplete="list">
+        <button type="submit" class="co-nav__searchbar-submit" id="mobileSearchSubmit" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        </button>
+        <div class="co-search-dropdown" id="mobileSearchDropdown"></div>
+      </form>
+<ul class="co-nav__mobile-list">
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="articles-list.html?section=news">NEWS</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="articles-list.html?section=price-prediction">PRICE PREDICTIONS</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="articles-list.html?section=blog">BLOGS</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="articles-list.html?section=academy">ACADEMY</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="articles-list.html?section=research">RESEARCH</a>
+        </li>
+        <li class="co-nav__mobile-item">
+          <a class="co-nav__mobile-link" href="tools.html">TOOLS</a>
+        </li>
+      </ul>
+
+<div class="co-nav__mobile-language">
+
+  <span class="co-nav__mobile-language-label">
+    Language
+  </span>
+
+  <div class="co-language-switcher co-language-switcher--mobile"
+       role="group"
+       aria-label="Language selector">
+
+    <a class="co-language-switcher__link is-active"
+       href="/"
+       lang="en">
+      EN
+    </a>
+
+    <span class="co-language-switcher__divider" aria-hidden="true">|</span>
+
+    <a class="co-language-switcher__link"
+       href="/hi/"
+       lang="hi">
+      हिंदी
+    </a>
+
+  </div>
+
+</div>
+
+<div class="co-nav__mobile-actions">
+        <a class="co-btn-subscribe" href="#">Subscribe</a>
+      </div>
+    </div>
+</div>
+
+</header>
+
+
+<main class="authors-main">
+  <nav class="authors-breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a> / <span>Authors</span>
+  </nav>
+
+  <section class="authors-hero">
+    <h1>CoinOsprey Authors</h1>
+    <p>Meet the contributors behind CoinOsprey's crypto news, blockchain coverage, market research and educational content.</p>
+  </section>
+
+  <section class="authors-grid" id="authorsGrid">
+    <div class="authors-skeleton"></div>
+    <div class="authors-skeleton"></div>
+    <div class="authors-skeleton"></div>
+  </section>
+</main>
+
+<footer class="co-footer-pro">
+  <div class="co-footer-pro__inner">
+    <div class="co-footer-pro__grid">
+
+      <!-- Brand column -->
+      <div class="co-footer-pro__brand">
+        <a href="index.html" class="co-footer-pro__logo" aria-label="CoinOsprey — go to homepage">
+          <svg width="36" height="36" viewBox="0 0 54 40" aria-hidden="true"><polygon points="27,0 2,38 27,28" fill="#E8CD8A"/><polygon points="27,0 52,38 27,28" fill="#f0a91e"/></svg>
+          <span class="co-footer-pro__logo-text">Coin<span>Osprey</span></span>
+        </a>
+        <p class="co-footer-pro__desc">Your trusted source for crypto news, price predictions, research, education and market insights.</p>
+
+        <ul class="co-footer-pro__features">
+          <li><span class="co-footer-pro__feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg></span>Real-time Crypto News</li>
+          <li><span class="co-footer-pro__feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></span>Accurate Price Predictions</li>
+          <li><span class="co-footer-pro__feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>In-depth Research &amp; Analysis</li>
+          <li><span class="co-footer-pro__feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Powerful Crypto Tools</li>
+        </ul>
+
+        <div class="co-footer-pro__follow">
+          <span class="co-footer-pro__follow-label">Follow Us</span>
+          <div class="co-footer-pro__social">
+            <a href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7l-5.5-7.2L4.4 22H1.3l8.2-9.3L1 2h7.2l5 6.6L18.9 2Zm-1.2 18h1.7L7.4 4H5.6l12.1 16Z"/></svg></a>
+            <a href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2 3.77-2 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21H9z"/></svg></a>
+            <a href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.6-.46-5.3a2.9 2.9 0 0 0-2.05-2C18.7 4.2 12 4.2 12 4.2s-6.7 0-8.49.5a2.9 2.9 0 0 0-2.05 2C1 8.4 1 12 1 12s0 3.6.46 5.3a2.9 2.9 0 0 0 2.05 2c1.79.5 8.49.5 8.49.5s6.7 0 8.49-.5a2.9 2.9 0 0 0 2.05-2C23 15.6 23 12 23 12ZM9.7 15.5v-7l6.1 3.5-6.1 3.5Z"/></svg></a>
+            <a href="https://t.me/CoinOsprey" target="_blank" rel="noopener" aria-label="Telegram"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 3 2 10.9l6 2.1 2.1 6.7 3.6-4.1 5.2 3.9L22 3ZM8.9 13.6l9.5-7.8-8.1 8.9-.3 3-1.1-4.1Z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Link columns -->
+      <div class="co-footer-pro__col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="articles-list.html?section=news">Latest News</a></li>
+          <li><a href="articles-list.html?section=price-prediction">Price Predictions</a></li>
+          <li><a href="articles-list.html?section=research&category=market-analysis">Market Analysis</a></li>
+          <li><a href="articles-list.html?section=academy">Academy</a></li>
+          <li><a href="tools.html">Crypto Tools</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="rankings.html">Rankings</a></li>
+        </ul>
+      </div>
+
+      <div class="co-footer-pro__col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="articles-list.html?section=research&category=market-analysis">Market Reports</a></li>
+          <li><a href="articles-list.html?section=research">Research Insights</a></li>
+          <li><a href="articles-list.html?section=research&category=bitcoin-analysis">Token Analysis</a></li>
+          <li><a href="articles-list.html?section=research&category=institutional-analysis">On-chain Data</a></li>
+          <li><a href="articles-list.html?section=research&category=technical-analysis">Technical Analysis</a></li>
+          <li><a href="articles-list.html?section=research&category=etf-analysis">Industry Updates</a></li>
+        </ul>
+      </div>
+
+      <div class="co-footer-pro__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About CoinOsprey</a></li>
+          <li><a href="mission.html">Our Mission</a></li>
+          <li><a href="authors.html">Authors</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </div>
+
+      <div class="co-footer-pro__col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-conditions.html">Terms &amp; Conditions</a></li>
+          <li><a href="editorial-policy.html">Editorial Policy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="cookie-policy.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="co-footer-pro__newsletter">
+      <div class="co-footer-pro__newsletter-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+      </div>
+      <div class="co-footer-pro__newsletter-text">
+        <strong>Stay Ahead in Crypto</strong>
+        <span>Get the latest crypto news, market updates and research insights straight to your inbox.</span>
+      </div>
+      <form class="co-footer-pro__newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="Enter your email address" aria-label="Email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="co-footer-pro__bottom">
+      <p>&copy; 2026 <span>CoinOsprey</span>. All Rights Reserved.</p>
+      <p class="co-footer-pro__disclaimer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 6v6c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V6l-9-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+        Not Financial Advice. Do Your Own Research.
+      </p>
+    </div>
+  </div>
+</footer>
+    
+    
+
+    
+
+    
+  
+
+<!-- ============================
+     BACK TO TOP BUTTON
+============================= -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5"></path>
+    <path d="M5 12l7-7 7 7"></path>
+  </svg>
+</button>
+
+
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Live date & time ---------- */
+  var dateEl = document.querySelector('#topbarDate .co-topbar__label');
+  var timeEl = document.getElementById('topbarTimeText');
+
+  function pad(n){ return n < 10 ? '0' + n : n; }
+
+  function renderClock(){
+    var now = new Date();
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12;
+    if (h12 === 0) h12 = 12;
+    timeEl.textContent = h12 + ':' + pad(m) + ':' + pad(s) + ' ' + ampm;
+  }
+  renderClock();
+
+
+  var header = document.getElementById('coHeader');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 40) header.classList.add('co-header--scrolled');
+    else header.classList.remove('co-header--scrolled');
+  }, { passive: true });
+
+  var hamburger = document.getElementById('hamburgerBtn');
+  var mobilePanel = document.getElementById('mobilePanel');
+  if (hamburger && mobilePanel) {
+    hamburger.addEventListener('click', function(){
+      var isOpen = mobilePanel.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+
+  var backToTop = document.getElementById('backToTop');
+  function toggleBackToTop(){
+    if (!backToTop) return;
+    if (window.scrollY > 500) backToTop.classList.add('is-visible');
+    else backToTop.classList.remove('is-visible');
+  }
+  window.addEventListener('scroll', toggleBackToTop, { passive:true });
+  if (backToTop) backToTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+})();
+</script>
+
+<script src="author-data.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function escapeHtml(str) {
+    return (str == null ? '' : String(str)).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function slugify(str) {
+    return (str || '').toString().trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  function initialsFromName(name) {
+    var parts = (name || '').trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return '?';
+    var first = parts[0].charAt(0);
+    var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+    return (first + last).toUpperCase();
+  }
+
+  function cardTemplate(slug, name, entry, count) {
+    var avatar = entry && entry.image
+      ? '<img src="' + escapeHtml(entry.image) + '" alt="' + escapeHtml(name) + ' — CoinOsprey Author" loading="lazy">'
+      : '<span>' + escapeHtml(initialsFromName(name)) + '</span>';
+    var role = entry && entry.role ? '<p class="author-card__role">' + escapeHtml(entry.role) + '</p>' : '';
+    var bio = entry && entry.bio
+      ? '<p class="author-card__bio">' + escapeHtml(entry.bio.length > 110 ? entry.bio.slice(0, 107) + '…' : entry.bio) + '</p>'
+      : '';
+    var countLabel = count === 1 ? '1 Article' : count + ' Articles';
+    return '' +
+      '<a class="author-card" href="author.html?slug=' + encodeURIComponent(slug) + '">' +
+      '  <div class="author-card__avatar">' + avatar + '</div>' +
+      '  <h3 class="author-card__name">' + escapeHtml(name) + '</h3>' +
+      role + bio +
+      '  <span class="author-card__count">' + countLabel + '</span>' +
+      '  <span class="author-card__btn">View Profile</span>' +
+      '</a>';
+  }
+
+  function titleCaseFromSlug(slug) {
+    return (slug || '').split('-').filter(Boolean)
+      .map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+  }
+
+  fetch('/api/articles', { method: 'GET', credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
+    .then(function (r) {
+      if (!r.ok) throw new Error('Request failed: ' + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      var articles = Array.isArray(data) ? data : (data.articles || []);
+      var registry = window.CO_AUTHOR_REGISTRY || {};
+      var counts = {}; // slug -> { name, count }
+
+      articles.forEach(function (a) {
+        var name = a.author || window.CO_UNKNOWN_AUTHOR_FALLBACK;
+        if (!name || name === window.CO_UNKNOWN_AUTHOR_FALLBACK) return; // skip generic editorial fallback in the directory
+        var slug = slugify(name);
+        if (!counts[slug]) counts[slug] = { name: name, count: 0 };
+        counts[slug].count++;
+      });
+
+      // Include registered authors even if they have 0 matched articles yet,
+      // so their profile is discoverable as soon as it's set up.
+      Object.keys(registry).forEach(function (slug) {
+        if (!counts[slug]) counts[slug] = { name: registry[slug].name || titleCaseFromSlug(slug), count: 0 };
+      });
+
+      var slugs = Object.keys(counts).sort(function (a, b) { return counts[b].count - counts[a].count; });
+      var grid = document.getElementById('authorsGrid');
+
+      if (!slugs.length) {
+        grid.innerHTML = '<div class="authors-empty">No author profiles are available yet.</div>';
+        return;
+      }
+
+      grid.innerHTML = slugs.map(function (slug) {
+        var entry = registry[slug] || null;
+        var name = (entry && entry.name) || counts[slug].name;
+        return cardTemplate(slug, name, entry, counts[slug].count);
+      }).join('');
+    })
+    .catch(function (err) {
+      console.error('[CoinOsprey] Authors directory failed:', err.message);
+      document.getElementById('authorsGrid').innerHTML =
+        '<div class="authors-error"><strong>Authors could not be loaded right now.</strong><br>Please try again shortly.</div>';
+    });
+})();
+</script>
+
+</body>
+</html>
