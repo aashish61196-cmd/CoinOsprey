@@ -2506,8 +2506,8 @@ var track = document.getElementById('tickerTrack');
   function renderStats(coins){
     var totalCap = coins.reduce(function(s,c){ return s + c.marketCap; }, 0) * 1.42; // scaled to represent full market beyond the tracked list
     var totalVol = coins.reduce(function(s,c){ return s + c.volume24h; }, 0) * 1.35;
-    var btc = coins.filter(function(c){ return c.id === 'btc'; })[0];
-    var eth = coins.filter(function(c){ return c.id === 'eth'; })[0];
+    var btc = coins.filter(function(c){ return c.symbol === 'BTC'; })[0];
+    var eth = coins.filter(function(c){ return c.symbol === 'ETH'; })[0];
     var btcDom = btc ? (btc.marketCap / totalCap * 100) : 0;
     var ethDom = eth ? (eth.marketCap / totalCap * 100) : 0;
 
