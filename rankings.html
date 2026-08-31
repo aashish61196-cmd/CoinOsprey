@@ -2494,6 +2494,8 @@ var track = document.getElementById('tickerTrack');
   function sortCoins(coins){
     var key = state.sortKey, dir = state.sortDir;
     if (state.tab === 'volume') { key = 'volume24h'; dir = 'desc'; }
+    if (state.tab === 'gainers') { key = 'change24h'; dir = 'desc'; }
+    if (state.tab === 'losers') { key = 'change24h'; dir = 'asc'; }
     var sorted = coins.slice().sort(function(a,b){
       return dir === 'asc' ? a[key]-b[key] : b[key]-a[key];
     });
