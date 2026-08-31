@@ -9,7 +9,7 @@ const axios = require('axios');
 // of visitors doesn't burn through the CoinMarketCap rate limit.
 // ---------------------------------------------------------------------------
 
-const CMC_LISTINGS_URL = 'https://pro-api.coinmarketcap.com/v3/cryptocurrency/listings/latest';
+const CMC_LISTINGS_URL = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
 const REQUEST_TIMEOUT_MS = 8000;
 const CACHE_TTL_MS = 3 * 60 * 1000; // 3 minutes
 
