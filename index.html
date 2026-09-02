@@ -4349,12 +4349,9 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   const COIN_PRESETS = { btc: 'coin-icon--btc', eth: 'coin-icon--eth', sol: 'coin-icon--sol', xrp: 'coin-icon--xrp' };
   function predictionItemTemplate(a) {
     const label = a.project || a.category || 'Coin';
-    const key = label.toLowerCase();
-    const presetClass = COIN_PRESETS[key];
-    const iconStyle = presetClass ? '' : `style="background:${colorFromString(label)}"`;
     return `
       <li><a class="block-list__item" href="${href(a)}">
-        <div class="coin-icon ${presetClass || ''}" ${iconStyle} aria-hidden="true">${escapeHtml(label.charAt(0).toUpperCase())}</div>
+        <div class="prediction-thumb"><img src="${img(a)}" alt="${escapeHtml(a.imageAlt || a.title || '')}"></div>
         <div class="prediction-item__body">
           <span class="prediction-item__coin">${escapeHtml(label)}</span>
           <h3 class="prediction-item__title">${escapeHtml(a.title || '')}</h3>
