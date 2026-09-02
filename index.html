@@ -4364,7 +4364,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
     const label = a.category || 'Academy';
     return `
       <li><a class="block-list__item" href="${href(a)}">
-        <div class="academy-icon" style="background:${colorFromString(label)}22;color:${colorFromString(label)}" aria-hidden="true">${escapeHtml(label.charAt(0).toUpperCase())}</div>
+        <div class="academy-thumb"><img src="${img(a)}" alt="${escapeHtml(a.imageAlt || a.title || '')}"></div>
         <div class="academy-item__body">
           <span class="academy-item__category">${escapeHtml(label)}</span>
           <h3 class="academy-item__title">${escapeHtml(a.title || '')}</h3>
