@@ -1875,6 +1875,23 @@ flex-direction: column;
   .coin-icon--sol{background:#14171f;}
   .coin-icon--xrp{background:#0b0b0b;}
 
+  .prediction-thumb{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    overflow:hidden;
+    flex:0 0 56px;
+    background:linear-gradient(135deg,var(--c-navy-800),var(--c-navy-700));
+    position:relative;
+  }
+  .prediction-thumb img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform var(--transition-med);
+  }
+  .block-list__item:hover .prediction-thumb img{
+    transform:scale(1.08);
+  }
+
   .prediction-item__body{min-width:0; flex:1;}
   .prediction-item__coin{
     font-size:10px;
