@@ -2362,61 +2362,202 @@
 ============================= -->
 
     
-    <footer class="site-footer">
-  <div class="footer__grid">
-    <div class="footer-col footer-brand">
-      <a href="/" class="footer-brand__logo" aria-label="CoinOsprey home">
-        <svg width="34" height="34" viewBox="0 0 54 40" style="flex-shrink:0;" aria-label="CoinOsprey logo"><polygon points="27,0 2,38 27,28" fill="#C9A24B"/><polygon points="27,0 52,38 27,28" fill="#E8CD8A"/></svg>
-        <span class="footer-brand__logo-text" style="font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.3px;">Coin<span style="color:var(--c-gold-500);">Osprey</span></span>
-      </a>
-      <p class="footer-brand__desc">Your trusted source for crypto news, price predictions, education and market insights.</p>
-      <ul class="footer-social" aria-label="Social media links">
-        <li><a href="https://x.com/CoinOsprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--x" aria-label="X (Twitter)">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.1 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/></svg>
-        </a></li>
-        <li><a href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--linkedin" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.4H3.6V20h3.3V8.4ZM5.3 3.6a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-6.1c0-1.5-.5-2.5-1.8-2.5-1 0-1.6.7-1.9 1.3-.1.2-.1.6-.1.9V20H10s.1-10.6 0-11.6h3.3v1.6c.4-.7 1.2-1.7 3-1.7 2.2 0 3.9 1.4 3.9 4.5V20Z"/></svg>
-        </a></li>
-        <li><a href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" class="footer-social__link footer-social__link--youtube" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2c-.3-.9-1-1.6-1.9-1.9C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.7.4c-.9.3-1.6 1-1.9 1.9C1 8.5 1 12 1 12s0 3.5.4 5.2c.3.9 1 1.6 1.9 1.9 1.8.4 8.7.4 8.7.4s6.9 0 8.7-.4c.9-.3 1.6-1 1.9-1.9.4-1.7.4-5.2.4-5.2ZM9.8 15.5v-7l6 3.5-6 3.5Z"/></svg>
-        </a></li>
-      </ul>
-      <p class="footer-copyright">&copy; 2026 CoinOsprey. All Rights Reserved.</p>
-    </div>
-    
-    
-<nav class="footer-col" aria-labelledby="footer-resources">
-  <h3 class="footer-col__heading" id="footer-resources">About &amp; Contact</h3>
-  <ul class="footer-links">
-    <li><a href="about.html" class="footer-links__item">About CoinOsprey</a></li>
-    <li><a href="mission.html" class="footer-links__item">Our Mission</a></li>
-    <li><a href="authors.html" class="footer-links__item">Authors</a></li>
-    
-    <li><a href="contact.html" class="footer-links__item">Contact Us</a></li>
-    <li><a href="support.html" class="footer-links__item">Support</a></li>
-    <li><a href="sitemap.html" class="footer-links__item">Sitemap</a></li>
-    <li><a href="rss.xml" class="footer-links__item">RSS Feed</a></li>
-  </ul>
-</nav>
-    <nav class="footer-col" aria-labelledby="footer-legal">
-      <h3 class="footer-col__heading" id="footer-legal">Legal</h3>
-      <ul class="footer-links">
-        <li><a href="#" class="footer-links__item">Privacy Policy</a></li>
-        <li><a href="#" class="footer-links__item">Terms &amp; Conditions</a></li>
-        <li><a href="#" class="footer-links__item">Editorial Policy</a></li>
-        <li><a href="#" class="footer-links__item">Disclaimer</a></li>
-        <li><a href="#" class="footer-links__item">Cookie Policy</a></li>
-      </ul>
-    </nav>
+    <style>
+  .co-footer-pro{
+  background:var(--co-navy-900,#0a0e17);
+  background-image:radial-gradient(ellipse 900px 400px at 90% 0%, rgba(240,169,30,0.08), transparent 60%);
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding:56px 0 0;
+  color:var(--hf-co-gray-300,#9aa4b5);
+  font-size:14px;
+}
+.co-footer-pro__inner{ max-width:1320px; margin:0 auto; padding:0 24px; }
+.co-footer-pro__grid{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;
+  gap:32px;
+  padding-bottom:40px;
+}
+.co-footer-pro__logo{ display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.co-footer-pro__logo-text{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:#fff; }
+.co-footer-pro__logo-text span{ color:var(--hf-co-amber-500,#f0a91e); }
+.co-footer-pro__desc{ line-height:1.6; margin-bottom:20px; max-width:320px; }
+.co-footer-pro__features{ list-style:none; margin:0 0 22px; padding:0; display:flex; flex-direction:column; gap:12px; }
+.co-footer-pro__features li{ display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--hf-co-gray-200,#c3cad8); }
+.co-footer-pro__feature-icon{
+  width:30px; height:30px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(240,169,30,0.4); border-radius:50%; color:var(--hf-co-amber-500,#f0a91e);
+}
+.co-footer-pro__follow-label{ display:block; font-weight:700; color:#fff; margin-bottom:10px; font-size:13.5px; }
+.co-footer-pro__social{ display:flex; gap:10px; }
+.co-footer-pro__social a{
+  width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,0.06); color:#fff; transition:background .15s, color .15s, transform .15s;
+}
+.co-footer-pro__social a:hover{ background:var(--hf-co-amber-500,#f0a91e); color:var(--co-navy-900,#0a0e17); transform:translateY(-2px); }
 
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-bottom__inner">
-      <p class="footer-bottom__text">&copy; 2026 CoinOsprey. All Rights Reserved.</p>
-      <p class="footer-bottom__disclaimer">Not Financial Advice. Do Your Own Research.</p>
+.co-footer-pro__col h4{
+  color:#fff; font-size:13px; letter-spacing:.06em; text-transform:uppercase; font-weight:700;
+  margin-bottom:10px; padding-bottom:10px; position:relative;
+}
+.co-footer-pro__col h4::after{
+  content:''; position:absolute; left:0; bottom:0; width:26px; height:2px; background:var(--hf-co-amber-500,#f0a91e);
+}
+.co-footer-pro__col ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; }
+.co-footer-pro__col a{ color:var(--hf-co-gray-300,#9aa4b5); text-decoration:none; transition:color .15s, padding-left .15s; font-size:13.5px; }
+.co-footer-pro__col a::before{ content:'›'; margin-right:6px; color:var(--hf-co-amber-500,#f0a91e); }
+.co-footer-pro__col a:hover{ color:#fff; padding-left:2px; }
+
+.co-footer-pro__newsletter{
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:14px;
+  padding:22px 26px; margin-bottom:36px;
+}
+.co-footer-pro__newsletter-icon{
+  width:48px; height:48px; flex-shrink:0; border-radius:50%; border:1px solid rgba(240,169,30,0.4);
+  display:flex; align-items:center; justify-content:center; color:var(--hf-co-amber-500,#f0a91e);
+}
+.co-footer-pro__newsletter-text{ display:flex; flex-direction:column; gap:4px; flex:1 1 260px; min-width:200px; }
+.co-footer-pro__newsletter-text strong{ color:#fff; font-size:16px; }
+.co-footer-pro__newsletter-text span{ font-size:13px; line-height:1.5; }
+.co-footer-pro__newsletter-form{ display:flex; gap:10px; flex:1 1 380px; min-width:260px; }
+.co-footer-pro__newsletter-form input{
+  flex:1; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.14); border-radius:9px;
+  padding:12px 16px; color:#fff; font-size:13.5px;
+}
+.co-footer-pro__newsletter-form input::placeholder{ color:var(--hf-co-gray-500,#6b7690); }
+.co-footer-pro__newsletter-form input:focus{ outline:none; border-color:var(--hf-co-amber-500,#f0a91e); }
+.co-footer-pro__newsletter-form button{
+  background:linear-gradient(135deg,#f0a91e,#ff8a1e); color:#0a0e17; border:none; border-radius:9px;
+  padding:0 22px; font-weight:700; font-size:13.5px; white-space:nowrap; cursor:pointer; transition:transform .15s;
+}
+.co-footer-pro__newsletter-form button:hover{ transform:translateY(-1px); }
+
+.co-footer-pro__bottom{
+  border-top:1px solid rgba(255,255,255,0.08); padding:18px 0; display:flex; align-items:center;
+  justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--hf-co-gray-500,#6b7690);
+}
+.co-footer-pro__bottom span{ color:var(--hf-co-amber-500,#f0a91e); font-weight:600; }
+.co-footer-pro__disclaimer{ display:flex; align-items:center; gap:6px; font-style:italic; color:var(--hf-co-gray-500,#6b7690); }
+
+@media (max-width:1080px){
+  .co-footer-pro__grid{ grid-template-columns:1fr 1fr; }
+  .co-footer-pro__brand{ grid-column:1 / -1; }
+}
+@media (max-width:640px){
+  .co-footer-pro__grid{ grid-template-columns:1fr; gap:28px; }
+  .co-footer-pro__newsletter{ flex-direction:column; align-items:flex-start; }
+  .co-footer-pro__newsletter-form{ width:100%; flex:none; flex-direction:column; }
+  .co-footer-pro__newsletter-form input{ flex:none; width:100%; }
+  .co-footer-pro__bottom{ flex-direction:column; align-items:flex-start; }
+}
+</style>
+
+<footer class="co-footer-pro">
+  <div class="co-footer-pro__inner">
+    <div class="co-footer-pro__grid">
+
+      <div class="co-footer-pro__brand">
+        <a href="/" class="co-footer-pro__logo" aria-label="CoinOsprey — go to homepage">
+          <svg width="36" height="36" viewBox="0 0 54 40" aria-hidden="true"><polygon points="27,0 2,38 27,28" fill="#E8CD8A"/><polygon points="27,0 52,38 27,28" fill="#f0a91e"/></svg>
+          <span class="co-footer-pro__logo-text">Coin<span>Osprey</span></span>
+        </a>
+        <p class="co-footer-pro__desc">Your trusted source for crypto news, price predictions, research, education and market insights.</p>
+
+        <ul class="co-footer-pro__features">
+          <li><span class="co-footer-pro__feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg></span>Real-time Crypto News</li>
+          <li><span class="co-footer-pro__feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></span>Accurate Price Predictions</li>
+          <li><span class="co-footer-pro__feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>In-depth Research &amp; Analysis</li>
+          <li><span class="co-footer-pro__feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Powerful Crypto Tools</li>
+        </ul>
+
+        <div class="co-footer-pro__follow">
+          <span class="co-footer-pro__follow-label">Follow Us</span>
+          <div class="co-footer-pro__social">
+            <a href="https://x.com/CoinOsprey" target="_blank" rel="noopener" aria-label="X (Twitter)"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7l-5.5-7.2L4.4 22H1.3l8.2-9.3L1 2h7.2l5 6.6L18.9 2Zm-1.2 18h1.7L7.4 4H5.6l12.1 16Z"/></svg></a>
+            <a href="https://www.linkedin.com/in/coinosprey" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2 3.77-2 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21H9z"/></svg></a>
+            <a href="https://youtube.com/@coinosprey" target="_blank" rel="noopener" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.6-.46-5.3a2.9 2.9 0 0 0-2.05-2C18.7 4.2 12 4.2 12 4.2s-6.7 0-8.49.5a2.9 2.9 0 0 0-2.05 2C1 8.4 1 12 1 12s0 3.6.46 5.3a2.9 2.9 0 0 0 2.05 2c1.79.5 8.49.5 8.49.5s6.7 0 8.49-.5a2.9 2.9 0 0 0 2.05-2C23 15.6 23 12 23 12ZM9.7 15.5v-7l6.1 3.5-6.1 3.5Z"/></svg></a>
+            <a href="https://t.me/CoinOsprey" target="_blank" rel="noopener" aria-label="Telegram"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 3 2 10.9l6 2.1 2.1 6.7 3.6-4.1 5.2 3.9L22 3ZM8.9 13.6l9.5-7.8-8.1 8.9-.3 3-1.1-4.1Z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="co-footer-pro__col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="articles-list.html?section=news">Latest News</a></li>
+          <li><a href="articles-list.html?section=price-prediction">Price Predictions</a></li>
+          <li><a href="articles-list.html?section=research&category=market-analysis">Market Analysis</a></li>
+          <li><a href="articles-list.html?section=academy">Academy</a></li>
+          <li><a href="tools.html">Crypto Tools</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="rankings.html">Rankings</a></li>
+        </ul>
+      </div>
+
+      <div class="co-footer-pro__col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="articles-list.html?section=research&category=market-analysis">Market Reports</a></li>
+          <li><a href="articles-list.html?section=research">Research Insights</a></li>
+          <li><a href="articles-list.html?section=research&category=bitcoin-analysis">Token Analysis</a></li>
+          <li><a href="articles-list.html?section=research&category=institutional-analysis">On-chain Data</a></li>
+          <li><a href="articles-list.html?section=research&category=technical-analysis">Technical Analysis</a></li>
+          <li><a href="articles-list.html?section=research&category=etf-analysis">Industry Updates</a></li>
+        </ul>
+      </div>
+
+      <div class="co-footer-pro__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About CoinOsprey</a></li>
+          <li><a href="mission.html">Our Mission</a></li>
+          <li><a href="authors.html">Authors</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </div>
+
+      <div class="co-footer-pro__col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-conditions.html">Terms &amp; Conditions</a></li>
+          <li><a href="editorial-policy.html">Editorial Policy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="cookie-policy.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="co-footer-pro__newsletter">
+      <div class="co-footer-pro__newsletter-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+      </div>
+      <div class="co-footer-pro__newsletter-text">
+        <strong>Stay Ahead in Crypto</strong>
+        <span>Get the latest crypto news, market updates and research insights straight to your inbox.</span>
+      </div>
+      <form class="co-footer-pro__newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="Enter your email address" aria-label="Email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="co-footer-pro__bottom">
+      <p>&copy; 2026 <span>CoinOsprey</span>. All Rights Reserved.</p>
+      <p class="co-footer-pro__disclaimer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 6v6c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V6l-9-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+        Not Financial Advice. Do Your Own Research.
+      </p>
     </div>
   </div>
-    </footer>
+</footer>
+    
+    
+
 
 <!-- ============================
      BACK TO TOP BUTTON
