@@ -4661,13 +4661,8 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
     var lang =
       link.getAttribute('data-language');
 
-    link.href =
-      '/' +
-      lang +
-      '/' +
-      encodeURIComponent(section) +
-      '/' +
-      encodeURIComponent(slug);
+link.href =
+      (lang === 'hi') ? '/hi/' : '/';
 
     if (
       (lang === 'hi' && isHindi) ||
