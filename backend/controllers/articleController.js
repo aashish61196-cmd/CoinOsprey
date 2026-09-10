@@ -159,7 +159,7 @@ exports.getBySlug = async (req, res) => {
     // the /hi/ edition but the admin form's Language dropdown was left
     // on its default "English" value. In that case we should still
     // serve the article instead of incorrectly reporting "Not Found".
-    if (!article) {
+    if (!article && language !== 'hi') {
       article = await Article.findOne({
         slug: req.params.slug,
         status: 'published'
