@@ -3910,12 +3910,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
       link.getAttribute('data-language');
 
     link.href =
-      '/' +
-      lang +
-      '/' +
-      encodeURIComponent(section) +
-      '/' +
-      encodeURIComponent(slug);
+      (lang === 'hi') ? '/hi/' : '/';
 
     if (
       (lang === 'hi' && isHindi) ||
