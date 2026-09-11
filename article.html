@@ -2803,6 +2803,13 @@ var PAGE_LANGUAGE =
     return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
+  function removeArticleNotFound() {
+    var articleError = document.getElementById('articleError');
+    if (articleError && articleError.parentNode) {
+      articleError.parentNode.removeChild(articleError);
+    }
+  }
+
   function populateArticle(article) {
   if (!article || typeof article !== 'object') {
     throw new Error('Invalid article data');
