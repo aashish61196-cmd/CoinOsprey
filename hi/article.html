@@ -2911,7 +2911,12 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
   function showError() {
     document.getElementById('articleSkeleton').style.display = 'none';
     document.getElementById('articleContent').style.display = 'none';
-    document.getElementById('articleError').style.display = 'block';
+    var errorEl = document.getElementById('articleError');
+    errorEl.innerHTML =
+      '<h1>Article Not Found</h1>' +
+      '<p>This article may have been moved, unpublished, or the link is incorrect.</p>' +
+      '<a href="/">Back to Homepage</a>';
+    errorEl.style.display = 'block';
 
     document.title = 'Article Not Found — CoinOsprey';
     var titleTag = document.getElementById('pageTitle');
