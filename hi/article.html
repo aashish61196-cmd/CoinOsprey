@@ -2895,6 +2895,11 @@ var faqsData = article.faqs || article.faq || article.FAQs || article.faqList ||
 
     document.getElementById('articleSkeleton').style.display = 'none';
     document.getElementById('articleContent').style.display = 'block';
+
+    var articleErrorEl = document.getElementById('articleError');
+    if (articleErrorEl && articleErrorEl.parentNode) {
+      articleErrorEl.parentNode.removeChild(articleErrorEl);
+    }
   }
 
   function setRobotsMeta(content) {
