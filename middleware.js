@@ -162,6 +162,15 @@ function injectArticleBody(html, article) {
     '<article class="article-content" id="articleContent" style="display:block;">'
   );
 
+  // CRITICAL: a real, published article was found and injected above.
+  // Strip the "Article Not Found" block's contents entirely (not just
+  // hide it with CSS) so search engines and AI crawlers never see that
+  // text anywhere in the HTML for a valid article page.
+  html = html.replace(
+    /<div class="article-error" id="articleError">[\s\S]*?<\/div>/,
+    '<div class="article-error" id="articleError" style="display:none;" aria-hidden="true"></div>'
+  );
+
   return html;
 }
 
