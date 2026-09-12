@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const ctrl = require('../controllers/articleController');
+const ctrl = require('./backend/controllers/articleController');
 const { protect, adminOnly } = require('../middleware/auth');
 
 router.get('/', ctrl.getPublished);
