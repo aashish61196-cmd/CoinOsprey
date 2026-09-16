@@ -52,20 +52,12 @@
       "destination": "/admin.html"
     },
 {
-  "source": "/en/:section/:slug",
-  "destination": "/article.html?slug=:slug&section=:section&language=en"
-},
-{
-  "source": "/hi/:section/:slug",
-  "destination": "/hi/article.html?slug=:slug&section=:section&language=hi"
-}
-    {
       "source": "/en/:section/:slug",
-      "destination": "/article?slug=:slug&section=:section&language=en"
+      "destination": "/article.html?slug=:slug&section=:section&language=en"
     },
     {
       "source": "/hi/:section/:slug",
-      "destination": "/hi/article?slug=:slug&section=:section&language=hi"
+      "destination": "/hi/article.html?slug=:slug&section=:section&language=hi"
     }
   ]
 }
