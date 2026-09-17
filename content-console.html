@@ -3877,7 +3877,7 @@ async function loadAdSupportData(){
   if (!adCategoriesCache.length) {
     jobs.push(apiFetch('/api/admin/categories').then(c => { adCategoriesCache = c || []; }).catch(() => { adCategoriesCache = []; }));
   }
-  if (!advertisersCache.length) jobs.push(loadAdvertisers());
+jobs.push(loadAdvertisers());
   if (!placementsCache.length) jobs.push(loadPlacements());
   if (!creativesCache.length) jobs.push(loadCreatives());
   if (!articlesCache.length) jobs.push(loadArticles());
