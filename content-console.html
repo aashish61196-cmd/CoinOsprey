@@ -3883,19 +3883,18 @@ jobs.push(loadAdvertisers());
   if (!articlesCache.length) jobs.push(loadArticles());
   await Promise.all(jobs);
 
-  if (!adSupportDataLoaded) {
-    const advOptions = '<option value="">All Advertisers</option>' +
-      advertisersCache.map(a => `<option value="${a._id}">${escapeHtml(a.companyName)}</option>`).join('');
-    document.getElementById('adFilterAdvertiser').innerHTML = advOptions;
+  document.getElementById('adFilterAdvertiser').innerHTML = '<option value="">All Advertisers</option>' +
+    advertisersCache.map(a => `<option value="${a._id}">${escapeHtml(a.companyName)}</option>`).join('');
 
+  document.getElementById('adAdvertiser').innerHTML = '<option value="">Select advertiser…</option>' +
+    advertisersCache.map(a => `<option value="${a._id}">${escapeHtml(a.companyName)}</option>`).join('');
+
+  if (!adSupportDataLoaded) {
     document.getElementById('adFilterPlacement').innerHTML = '<option value="">All Placements</option>' +
       placementsCache.map(p => `<option value="${p._id}">${escapeHtml(p.name)}</option>`).join('');
 
     document.getElementById('adFilterType').innerHTML = '<option value="">All Types</option>' +
       (adMetaCache.types || []).map(t => `<option value="${t}">${escapeHtml(AD_TYPE_LABELS[t] || t)}</option>`).join('');
-
-    document.getElementById('adAdvertiser').innerHTML = '<option value="">Select advertiser…</option>' +
-      advertisersCache.map(a => `<option value="${a._id}">${escapeHtml(a.companyName)}</option>`).join('');
 
     document.getElementById('adType').innerHTML =
       (adMetaCache.types || []).map(t => `<option value="${t}">${escapeHtml(AD_TYPE_LABELS[t] || t)}</option>`).join('');
