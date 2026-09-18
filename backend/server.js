@@ -21,6 +21,7 @@ const campaignRoutes = require('./routes/campaigns');
 const advertisementRoutes = require('./routes/advertisements');
 const advertisingInventoryRoutes = require('./routes/advertisingInventory');
 const adSettingsRoutes = require('./routes/adSettings');
+const diagnoseRoutes = require('./routes/diagnose');
 const AdPlacement = require('./models/AdPlacement');
 
 const app = express();
