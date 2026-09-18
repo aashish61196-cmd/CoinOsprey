@@ -550,14 +550,25 @@ function selectDeliveryCreative(creatives, placement) {
 
 // Only the fields the delivery layer/renderer actually needs — never the
 // full AdCreative document (no uploadedBy, no library-assignment arrays).
+function serializeCreativeAsset(asset) {
+  if (!asset || !asset.fileUrl) return null;
+  return {
+    fileUrl: asset.fileUrl,
+    width: asset.width,
+    height: asset.height,
+    mimeType: asset.mimeType,
+    fileSizeBytes: asset.fileSizeBytes
+  };
+}
+
 function serializeCreativeForDelivery(creative) {
   if (!creative) return null;
   return {
     id: creative._id,
     name: creative.name,
     altText: creative.altText || '',
-    desktop: creative.desktop && creative.desktop.fileUrl ? { ...creative.desktop } : null,
-    mobile: creative.mobile && creative.mobile.fileUrl ? { ...creative.mobile } : null
+    desktop: serializeCreativeAsset(creative.desktop),
+    mobile: serializeCreativeAsset(creative.mobile)
   };
 }
 
