@@ -43,6 +43,13 @@ const {
   selectPaidAdvertisement,
   buildDeliveryResult
 } = require('../utils/advertisementRotationLogic');
+// Reuses campaignController's schedule self-heal (scheduled->active->expired
+// on read) so the public delivery path sees clock-accurate campaign status
+// even if no admin has opened the Campaigns console recently. Without this,
+// a campaign can sit at "scheduled"/"approved" in the DB past its startDate
+// and get silently filtered out below, while the console shows "Active" the
+// moment someone views it (because that view triggers the same self-heal).
+const { syncCampaignSchedules } = require('../controllers/campaignController');
 
 const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
 
