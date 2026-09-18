@@ -103,6 +103,7 @@ app.use('/api/advertisements', advertisementRoutes);
 // under /api/placements or /api/advertisements) since it spans both.
 app.use('/api/advertising/inventory', advertisingInventoryRoutes);
 app.use('/api/advertising/settings', adSettingsRoutes);
+app.use('/api/diagnose', diagnoseRoutes);
 
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send(
