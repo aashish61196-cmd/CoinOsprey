@@ -1,4 +1,4 @@
-// backend/routes/diagnose.js
+    // backend/routes/diagnose.js
 //
 // TEMPORARY browser-accessible version of scripts/diagnoseAdDelivery.js
 // Admin/editor login required (uses same cookie session as admin panel).
@@ -37,8 +37,15 @@ const {
 } = require('../utils/advertisementLogic');
 
 async function diagAuth(req, res, next) {
-  const key = req.query.key;
-  if (key && process.env.DIAGNOSTIC_KEY && key === process.env.DIAGNOSTIC_KEY) {
+  const key = req.query.key ? String(req.query.key).trim() : '';
+  const expected = process.env.DIAGNOSTIC_KEY ? String(process.env.DIAGNOSTIC_KEY).trim() : '';
+
+  // TEMP DEBUG: remove once the key mismatch is resolved
+  console.log('[diagAuth] got key:', JSON.stringify(key), 'len:', key.length);
+  console.log('[diagAuth] expected key:', JSON.stringify(expected), 'len:', expected.length);
+  console.log('[diagAuth] DIAGNOSTIC_KEY is set:', !!process.env.DIAGNOSTIC_KEY);
+
+  if (key && expected && key === expected) {
     return next();
   }
   return protect(req, res, (err) => {
