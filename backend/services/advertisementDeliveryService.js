@@ -180,6 +180,18 @@ async function resolveEligibility(params = {}) {
       return { placementDoc, ...emptyResult({ placement: serializedPlacement }) };
     }
 
+// ---- campaign schedule self-heal ----
+    // Must run before the query below: it's the only thing that keeps a
+    // Campaign's managed status (scheduled/active/expired) in sync with
+    // the clock on this read path. Best-effort — a sync failure must not
+    // block delivery, it just means eligibility checks below fall back to
+    // whatever status is currently persisted.
+    try {
+      await syncCampaignSchedules();
+    } catch (err) {
+      logDeliveryError('campaign schedule sync failed', err);
+    }
+
     // ---- DB-level pre-filter ----
     // Pushes status/approval/schedule/placement match, plus the simple
     // language/device "field equals or is unset" checks, into the query
