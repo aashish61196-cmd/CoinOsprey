@@ -48,8 +48,8 @@
       "destination": "/api/index?path=$1"
     },
       {
-      "source": "/admin",
-      "destination": "/content-console.html"
+       "source": "/admin",
+      "destination": "/content-console"
     },
 {
       "source": "/en/:section/:slug",
