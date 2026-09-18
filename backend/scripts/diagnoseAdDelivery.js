@@ -1,5 +1,4 @@
-cd backend
-node scripts/diagnoseAdDelivery.js "CoinOsprey" --device=mobile
+
 // backend/scripts/diagnoseAdDelivery.js
 //
 // Standalone diagnostic script. Connects to the SAME MongoDB the app uses
