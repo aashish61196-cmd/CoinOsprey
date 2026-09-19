@@ -19,7 +19,10 @@ const MAX_FILE_SIZE_BYTES = 3 * 1024 * 1024; // 3MB per creative asset
 const MAX_SVG_SIZE_BYTES = 300 * 1024; // SVGs are markup, not pixels — keep them small
 const MIN_DIMENSION = 1;
 const MAX_DIMENSION = 4000; // guards against decompression-bomb style images
-
+// Size range for placements with a pixel size (e.g. 970x250)
+const ASPECT_TOLERANCE = 0.05; // same shape, +/- 5%
+const MIN_SCALE = 0.75;
+const MAX_SCALE = 2;
 const ALLOWED_MIME_TO_EXT = {
   'image/jpeg': 'jpg',
   'image/png': 'png',
