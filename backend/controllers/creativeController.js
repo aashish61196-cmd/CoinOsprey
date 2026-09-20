@@ -257,6 +257,34 @@ exports.replace = async (req, res) => {
   }
 };
 
+// DELETE /api/creatives/:id/mobile
+// Clears the optional mobile-specific asset only — the desktop asset (and
+// the creative document itself) is untouched. After this, delivery simply
+// falls back to the desktop asset everywhere, same as a creative that
+// never had a mobile file uploaded (schema default for `mobile` is `{}`).
+exports.removeMobile = async (req, res) => {
+  try {
+    if (!isValidId(req.params.id)) return res.status(400).json({ message: 'Invalid creative id' });
+    const creative = await AdCreative.findById(req.params.id);
+    if (!creative) return res.status(404).json({ message: 'Creative not found' });
+
+    creative.mobile = {};
+    await creative.save();
+
+    await writeAudit({
+      entityId: creative._id,
+      action: 'creative_replace',
+      performedBy: req.user._id,
+      changes: { mobileRemoved: true },
+      notes: 'Mobile creative asset removed'
+    });
+
+    res.json(creative);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // PATCH /api/creatives/:id/assign  { advertisementId?, campaignId? }
 // Handles both "Assign to advertisement" and "Assign to campaign". This is
 // also how "Reuse" works: calling this again with a different
