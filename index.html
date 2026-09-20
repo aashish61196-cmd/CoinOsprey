@@ -4267,9 +4267,9 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
   function stripHtml(str) {
     if (str == null) return '';
     const text = String(str)
-      .replace(/<style[\s\S]*?<\/style>/gi, ' ')   // remove <style>...</style> AND its CSS content
-      .replace(/<script[\s\S]*?<\/script>/gi, ' ') // remove <script>...</script> AND its JS content
-      .replace(/<[^>]*>/g, ' ')                    // strip remaining tags
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')     // remove style blocks and their CSS content
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')   // remove script blocks and their JS content
+      .replace(/<[^>]*>/g, ' ')                      // strip remaining tags
       .replace(/&nbsp;/gi, ' ')
       .replace(/\s+/g, ' ')
       .trim();
