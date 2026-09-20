@@ -4573,6 +4573,11 @@ async function checkSession() {
   }
 }
 
+function toggleSidebar(){
+  const sb = document.getElementById('sidebar');
+  if (sb) sb.classList.toggle('collapsed');
+}
+
 function doLogout(silent) {
   authToken = null;
   currentUser = null;
