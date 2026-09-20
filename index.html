@@ -4393,7 +4393,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
         <div class="prediction-item__body">
           <span class="prediction-item__coin">${escapeHtml(label)}</span>
           <h3 class="prediction-item__title">${escapeHtml(a.title || '')}</h3>
-          ${a.description ? `<p class="prediction-item__desc">${escapeHtml(a.description)}</p>` : ''}
+          ${stripHtml(a.description) ? `<p class="prediction-item__desc">${escapeHtml(stripHtml(a.description))}</p>` : ''}
           <span class="prediction-item__date">🕒 ${fmtDate(a.publishedAt || a.createdAt)}</span>
         </div>
       </a></li>`;
@@ -4407,7 +4407,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
         <div class="academy-item__body">
           <span class="academy-item__category">${escapeHtml(label)}</span>
           <h3 class="academy-item__title">${escapeHtml(a.title || '')}</h3>
-          ${a.description ? `<p class="academy-item__desc">${escapeHtml(a.description)}</p>` : ''}
+          ${stripHtml(a.description) ? `<p class="academy-item__desc">${escapeHtml(stripHtml(a.description))}</p>` : ''}
           <div class="academy-item__meta">
             <span class="academy-item__time">${fmtDate(a.publishedAt || a.createdAt)}</span>
           </div>
@@ -4421,7 +4421,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
         <div class="research-thumb"><img src="${img(a)}" alt="${escapeHtml(a.imageAlt || a.title || '')}"></div>
         <div class="research-item__body">
           <h3 class="research-item__title">${escapeHtml(a.title || '')}</h3>
-          ${a.description ? `<p class="research-item__desc">${escapeHtml(a.description)}</p>` : ''}
+          ${stripHtml(a.description) ? `<p class="research-item__desc">${escapeHtml(stripHtml(a.description))}</p>` : ''}
           <span class="research-item__author">By <strong>${escapeHtml(a.author || 'CoinOsprey Research')}</strong></span>
         </div>
       </a></li>`;
