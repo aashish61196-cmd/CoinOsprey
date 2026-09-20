@@ -29,6 +29,7 @@ router.get('/:id', protect, requirePermission('advertising.view'), ctrl.getOne);
 router.post('/', protect, requirePermission('advertising.create'), creativeFiles, ctrl.create);
 router.put('/:id', protect, requirePermission('advertising.edit'), ctrl.update);
 router.post('/:id/replace', protect, requirePermission('advertising.edit'), creativeFiles, ctrl.replace);
+router.delete('/:id/mobile', protect, requirePermission('advertising.edit'), ctrl.removeMobile);
 router.patch('/:id/assign', protect, requirePermission('advertising.edit'), ctrl.assign);
 router.patch('/:id/unassign', protect, requirePermission('advertising.edit'), ctrl.unassign);
 router.delete('/:id', protect, requirePermission('advertising.delete'), ctrl.remove);
