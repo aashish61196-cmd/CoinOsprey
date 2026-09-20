@@ -3600,7 +3600,9 @@ function openCreativeModal(id){
     document.getElementById('crStatus').value = c.status || 'active';
     document.getElementById('crDesktopPreview').src = (c.desktop && c.desktop.fileUrl) || 'https://placehold.co/64x40/1a1f26/F3F5F7?text=Desktop';
     document.getElementById('crMobilePreview').src = (c.mobile && c.mobile.fileUrl) || 'https://placehold.co/64x40/1a1f26/F3F5F7?text=Mobile';
+    document.getElementById('crMobileRemoveBtn').style.display = (c.mobile && c.mobile.fileUrl) ? '' : 'none';
   } else {
+    document.getElementById('crMobileRemoveBtn').style.display = 'none';
     document.getElementById('creativeModalTitle').textContent = 'Upload Creative';
     document.getElementById('crName').value = '';
     document.getElementById('crAltText').value = '';
