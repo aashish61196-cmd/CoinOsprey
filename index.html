@@ -1097,13 +1097,13 @@
     overflow:hidden;
     position:relative;
   }
-  .co-ticker__track{
+.co-ticker__track{
     display:flex;
     align-items:center;
     gap:40px;
     white-space:nowrap;
     width:max-content;
-    animation:co-ticker-scroll 30s linear infinite;
+    animation:co-ticker-scroll var(--ticker-duration, 30s) linear infinite;
   }
   .co-ticker__viewport:hover .co-ticker__track{
     animation-play-state:paused;
