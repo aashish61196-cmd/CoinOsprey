@@ -4381,6 +4381,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
         <div class="prediction-item__body">
           <span class="prediction-item__coin">${escapeHtml(label)}</span>
           <h3 class="prediction-item__title">${escapeHtml(a.title || '')}</h3>
+          ${a.description ? `<p class="prediction-item__desc">${escapeHtml(a.description)}</p>` : ''}
           <span class="prediction-item__date">🕒 ${fmtDate(a.publishedAt || a.createdAt)}</span>
         </div>
       </a></li>`;
