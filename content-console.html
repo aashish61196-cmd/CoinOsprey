@@ -3619,6 +3619,20 @@ function closeCreativeModal(){ document.getElementById('creativeModal').classLis
 
 function editCreative(id){ openCreativeModal(id); }
 
+async function removeMobileCreative(){
+  const id = document.getElementById('crId').value;
+  if(!id) return;
+  if(!confirm('Remove the mobile image for this creative? It will fall back to the desktop asset on mobile.')) return;
+  try {
+    await apiFetch('/api/creatives/' + id + '/mobile', { method: 'DELETE' });
+    showToast('Mobile image removed ✓');
+    await loadCreatives();
+    openCreativeModal(id);
+  } catch(err){
+    showToast(err.message || 'Failed to remove mobile image', true);
+  }
+}
+
 async function saveCreative(){
   const errEl = document.getElementById('crFormError');
   errEl.textContent = '';
