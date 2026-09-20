@@ -4483,6 +4483,17 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
     const items = articles.slice(0, 6).map(tickerEntryTemplate).join('');
     // duplicated once, matching the site's existing seamless-loop pattern
     track.innerHTML = items + items;
+
+    // Keep scroll SPEED constant (px/second) regardless of how much text
+    // is in the ticker, instead of a fixed 30s duration that made short
+    // content race by and long content crawl. ~60px/second feels like a
+    // normal, even ticker pace.
+    requestAnimationFrame(function () {
+      const singleSetWidth = track.scrollWidth / 2; // content is duplicated once
+      const PIXELS_PER_SECOND = 60;
+      const duration = Math.max(singleSetWidth / PIXELS_PER_SECOND, 8); // never too fast
+      track.style.setProperty('--ticker-duration', duration + 's');
+    });
   }
 
   // ---------------- render everything given an articles array ----------------
