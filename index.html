@@ -4366,6 +4366,7 @@ function initHeaderSearch(inputId, dropdownId, submitId) {
         <div class="news-item__body">
           <span class="news-item__category">${escapeHtml(a.category || a.type || '')}</span>
           <h3 class="news-item__headline">${escapeHtml(a.title || '')}</h3>
+          ${a.description ? `<p class="news-item__desc">${escapeHtml(a.description)}</p>` : ''}
           <span class="news-item__meta">${fmtDate(a.publishedAt || a.createdAt)}</span>
         </div>
       </a></li>`;
