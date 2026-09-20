@@ -2037,6 +2037,7 @@
             <img class="imgpreview" id="crMobilePreview" src="https://placehold.co/64x40/1a1f26/F3F5F7?text=Mobile" onerror="this.src='https://placehold.co/64x40/1a1f26/F3F5F7?text=?'">
             <input type="file" id="crMobileFile" accept="image/jpeg,image/png,image/webp,image/svg+xml" style="display:none" onchange="handleCreativeFilePreview(this,'crMobilePreview')">
             <button type="button" class="btn btn-sm" onclick="document.getElementById('crMobileFile').click()">📁 Choose Mobile File</button>
+            <button type="button" class="btn btn-sm btn-danger" id="crMobileRemoveBtn" style="display:none;" onclick="removeMobileCreative()">🗑 Remove Mobile</button>
             <span class="hint" id="crMobileFileName">No file selected</span>
           </div>
           <span class="hint">Falls back to the desktop asset when left blank · e.g. 320×100</span>
