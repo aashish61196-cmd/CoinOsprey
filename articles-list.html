@@ -3583,8 +3583,16 @@ const ARTICLE_URL_PREFIX =
     const items = articles.slice(0, 6).map(tickerEntryTemplate).join('');
     // duplicated once, matching the site's existing seamless-loop pattern
     track.innerHTML = items + items;
-  }
 
+    // Keep scroll SPEED constant (px/second) regardless of how much text
+    // is in the ticker, matching the same fix applied on the homepage.
+    requestAnimationFrame(function () {
+      const singleSetWidth = track.scrollWidth / 2;
+      const PIXELS_PER_SECOND = 60;
+      const duration = Math.max(singleSetWidth / PIXELS_PER_SECOND, 8);
+      track.style.setProperty('--ticker-duration', duration + 's');
+    });
+  }
   // ---------------- render everything given an articles array ----------------
   function renderAll(articles) {
     if (!articles || !articles.length) return;
