@@ -320,6 +320,11 @@
     .user-card{flex-direction:row;justify-content:flex-start;text-align:left;padding:10px 12px;}
     .user-card .avatar{width:38px;height:38px;font-size:14px;}
     .navgroup{max-height:260px;overflow-y:auto;}
+    .sidebar-toggle{display:flex;}
+    .sidebar.collapsed .user-card,
+    .sidebar.collapsed .navsearch,
+    .sidebar.collapsed .navgroup,
+    .sidebar.collapsed .sidebar-footer{display:none;}
 
     /* Topbar: stack + shrink so it doesn't overflow small screens */
     .topbar{padding:10px 14px;flex-wrap:wrap;gap:8px;}
