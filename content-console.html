@@ -4642,7 +4642,7 @@ function filterNavBySection(sec, btnEl, noNavigate){
   requestAnimationFrame(function(){ navgroup.scrollTop = 0; });
 
   const defaultPage = NAVSEC_DEFAULT_PAGE[sec];
-  if (defaultPage) go(defaultPage);
+  if (defaultPage && !noNavigate) go(defaultPage);
 }
 
 function initNavDefaultFilter(){
