@@ -4630,6 +4630,15 @@ function filterNavBySection(sec, btnEl){
   requestAnimationFrame(function(){ navgroup.scrollTop = 0; });
 }
 
+function initNavDefaultFilter(){
+  const defaultBtn = document.querySelector('.navquicktab[data-navsec="overview"]');
+  if (defaultBtn) filterNavBySection('overview', defaultBtn);
+}
+document.addEventListener('DOMContentLoaded', initNavDefaultFilter);
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  initNavDefaultFilter();
+}
+
 function doLogout(silent) {
   authToken = null;
   currentUser = null;
