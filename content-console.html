@@ -4646,8 +4646,11 @@ function filterNavBySection(sec, btnEl, noNavigate){
 }
 
 function initNavDefaultFilter(){
-  const defaultBtn = document.querySelector('.navquicktab[data-navsec="overview"]');
-  if (defaultBtn) filterNavBySection('overview', defaultBtn);
+  const startEl = document.querySelector('.navitem[data-page="' + resolveStartPage() + '"]');
+  const sec = (startEl && startEl.getAttribute('data-navsec')) || 'overview';
+  const defaultBtn = document.querySelector('.navquicktab[data-navsec="' + sec + '"]');
+  if (!defaultBtn || defaultBtn.classList.contains('active')) return;
+  filterNavBySection(sec, defaultBtn, true); // true = page mat badlo, sirf menu filter karo
 }
 document.addEventListener('DOMContentLoaded', initNavDefaultFilter);
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
