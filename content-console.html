@@ -6072,7 +6072,7 @@ descEditor.addEventListener('paste', function(e){
   e.preventDefault();
   document.execCommand('insertHTML', false, markdownToHtml(text));
 });
-if(!history.state) history.replaceState({ cop: 'home' }, '', '#home'); // starting point for the Back/Forward stack
+{ const _sp = resolveStartPage(); history.replaceState({ cop: _sp }, '', '#' + _sp); } // starting point (refresh par wahi page)
 checkSession(); // shows login screen, or auto-enters app if a valid token is already saved
 </script>
 
