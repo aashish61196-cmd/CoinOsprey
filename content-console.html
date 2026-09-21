@@ -4606,6 +4606,15 @@ function toggleSidebar(){
   if (sb) sb.classList.toggle('collapsed');
 }
 
+function jumpToNavSection(id){
+  const sb = document.getElementById('sidebar');
+  if (sb && sb.classList.contains('collapsed')) sb.classList.remove('collapsed');
+  requestAnimationFrame(function(){
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+}
+
 function doLogout(silent) {
   authToken = null;
   currentUser = null;
