@@ -4609,7 +4609,16 @@ function toggleSidebar(){
 
 const NAVSEC_DEFAULT_PAGE = { overview: 'home', content: 'news', growth: 'events', advertising: 'addashboard' };
 
-function filterNavBySection(sec, btnEl){
+// Refresh par wahi page kholne ke liye: URL ke #hash se valid page nikalta hai
+function resolveStartPage(){
+  let p = (location.hash || '').replace('#', '');
+  if (p === 'adform') p = 'advertisements'; // form page bina context ke nahi khulta
+  const pageEl = document.getElementById('page-' + p);
+  const navEl = document.querySelector('.navitem[data-page="' + p + '"]');
+  return (pageEl && navEl) ? p : 'home';
+}
+
+function filterNavBySection(sec, btnEl, noNavigate){
   const sb = document.getElementById('sidebar');
   if (sb && sb.classList.contains('collapsed')) sb.classList.remove('collapsed');
 
