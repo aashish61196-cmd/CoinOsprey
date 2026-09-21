@@ -499,11 +499,11 @@
 
  <input class="navsearch" placeholder="Search modules…" oninput="filterNav(this.value)">
 
-    <div class="navquicktabs">
-      <button type="button" class="navquicktab" onclick="jumpToNavSection('navsec-overview')">Overview</button>
-      <button type="button" class="navquicktab" onclick="jumpToNavSection('navsec-content')">Content</button>
-      <button type="button" class="navquicktab" onclick="jumpToNavSection('navsec-growth')">Growth</button>
-      <button type="button" class="navquicktab" onclick="jumpToNavSection('navsec-advertising')">Advertising</button>
+    <div class="navquicktabs" id="navquicktabs">
+      <button type="button" class="navquicktab" data-navsec="overview" onclick="filterNavBySection('overview', this)">Overview</button>
+      <button type="button" class="navquicktab" data-navsec="content" onclick="filterNavBySection('content', this)">Content</button>
+      <button type="button" class="navquicktab" data-navsec="growth" onclick="filterNavBySection('growth', this)">Growth</button>
+      <button type="button" class="navquicktab" data-navsec="advertising" onclick="filterNavBySection('advertising', this)">Advertising</button>
     </div>
 <div class="navgroup" id="navgroup">
       <div class="navlabel" id="navsec-overview" data-navsec="overview">Overview</div>
