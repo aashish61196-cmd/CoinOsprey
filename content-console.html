@@ -4605,13 +4605,28 @@ function toggleSidebar(){
   if (sb) sb.classList.toggle('collapsed');
 }
 
-function jumpToNavSection(id){
+function filterNavBySection(sec, btnEl){
   const sb = document.getElementById('sidebar');
   if (sb && sb.classList.contains('collapsed')) sb.classList.remove('collapsed');
-  requestAnimationFrame(function(){
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+
+  const isAlreadyActive = btnEl.classList.contains('active');
+  document.querySelectorAll('.navquicktab').forEach(b => b.classList.remove('active'));
+
+  const navgroup = document.getElementById('navgroup');
+  const items = navgroup.querySelectorAll('[data-navsec]');
+
+  if (isAlreadyActive) {
+    // tapping the active tab again clears the filter — show everything
+    items.forEach(el => { el.style.display = ''; });
+    return;
+  }
+
+  btnEl.classList.add('active');
+  items.forEach(el => {
+    el.style.display = (el.getAttribute('data-navsec') === sec) ? '' : 'none';
   });
+
+  requestAnimationFrame(function(){ navgroup.scrollTop = 0; });
 }
 
 function doLogout(silent) {
