@@ -4689,7 +4689,25 @@ function enterApp() {
   document.querySelectorAll('.navitem[data-permission]').forEach(el => {
     el.style.display = hasPerm(el.dataset.permission) ? '' : 'none';
   });
+
+  // permission loop ne section filter tod diya tha -> active tab ka filter dobara lagao
+  const activeTab = document.querySelector('.navquicktab.active');
+  if (activeTab) {
+    const sec = activeTab.getAttribute('data-navsec');
+    document.querySelectorAll('#navgroup [data-navsec]').forEach(el => {
+      const denied = el.dataset.permission && !hasPerm(el.dataset.permission);
+      el.style.display = (denied || el.getAttribute('data-navsec') !== sec) ? 'none' : '';
+    });
+  }
+
   loadArticles();
+
+  // Refresh par wahi page kholo (URL ke #hash se), default home nahi
+  let startPage = resolveStartPage();
+  const sEl = document.querySelector('.navitem[data-page="' + startPage + '"]');
+  if (sEl && sEl.dataset.permission && !hasPerm(sEl.dataset.permission)) startPage = 'home';
+  go(startPage, false);
+  history.replaceState({ cop: startPage }, '', '#' + startPage);
 }
 
 /* ---------------- NAV ---------------- */
