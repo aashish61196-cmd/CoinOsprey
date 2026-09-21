@@ -4606,6 +4606,8 @@ function toggleSidebar(){
   if (sb) sb.classList.toggle('collapsed');
 }
 
+const NAVSEC_DEFAULT_PAGE = { overview: 'home', content: 'news', growth: 'events', advertising: 'addashboard' };
+
 function filterNavBySection(sec, btnEl){
   const sb = document.getElementById('sidebar');
   if (sb && sb.classList.contains('collapsed')) sb.classList.remove('collapsed');
@@ -4628,6 +4630,9 @@ function filterNavBySection(sec, btnEl){
   });
 
   requestAnimationFrame(function(){ navgroup.scrollTop = 0; });
+
+  const defaultPage = NAVSEC_DEFAULT_PAGE[sec];
+  if (defaultPage) go(defaultPage);
 }
 
 function initNavDefaultFilter(){
